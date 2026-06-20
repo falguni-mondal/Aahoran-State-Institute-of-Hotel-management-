@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+:root{
+  --background: #f8f9fa;
+  --primary-base: #0B1B3D;
+  --primary-light: #1A365D;
+  --text-main: #1F2937;
+  --text-muted: #64748B;
+  --text-light: #f8f9fa;
+}
+
+html, body{
+  width: 100%;
+  height: 100%;
+  background-color: var(--background);
+  color: var(--text-main);
+  font-family: "Inter", sans-serif;
+}
+
+.head-txt{
+  font-family: "Cormorant Garamond", serif;
+}
