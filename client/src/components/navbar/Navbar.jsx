@@ -77,7 +77,7 @@ export default function Navbar() {
       <ul className="hidden lg:flex items-center space-x-8">
         {navLinks.map((link, index) => (
           <li key={index} className="nav-link-item relative group cursor-pointer flex items-center">
-            <span className="font-sans text-[11px] uppercase tracking-[0.1em] font-semibold text-[var(--text-light)] group-hover:text-[var(--text-light)]/70 transition-colors duration-300">
+            <span className="font-sans text-[11px] uppercase tracking-[0.1em] font-semibold text-[var(--text-light)]/80 group-hover:text-[var(--text-light)]/100 transition-colors duration-300">
               {link.name}
             </span>
             
