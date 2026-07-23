@@ -216,10 +216,10 @@ export default function About() {
       ref={sectionRef} 
       className="w-full bg-[#F7F5F0] text-[var(--primary-base)] py-24 md:py-32 xl:py-40 2xl:py-48 relative z-10"
     >
-      <div className="max-w-7xl xl:max-w-screen-xl 2xl:max-w-[100rem] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 xl:gap-32 2xl:gap-40 relative">
+      <div className="max-w-7xl xl:max-w-screen-xl 2xl:max-w-[100rem] mx-auto grid grid-cols-1 lg:grid-cols-12 lg:gap-24 xl:gap-32 2xl:gap-40 relative">
         
         {/* Left Column Wrapper */}
-        <div className="col-span-1 lg:col-span-5 relative min-w-0 pl-5 md:pl-12 lg:pl-16 xl:pl-24 2xl:pl-32">
+        <div className="col-span-1 lg:col-span-5 relative min-w-0 px-5 md:pl-12 lg:pl-16 xl:pl-24 2xl:pl-32">
           
           <div className="lg:sticky lg:top-[37vh] flex flex-col justify-center items-start w-full">
             <span className="font-sans font-bold text-xs xl:text-sm 2xl:text-base uppercase tracking-[0.2em] text-[var(--text-muted)] mb-6 xl:mb-8 block opacity-80">
@@ -238,7 +238,7 @@ export default function About() {
         </div>
 
         {/* Right Column: The Scrolling Narrative */}
-        <div className="col-span-1 lg:col-span-7 flex flex-col items-start min-w-0 pr-5 md:pr-12 lg:pr-16 xl:pr-24 2xl:pr-32">
+        <div className="col-span-1 lg:col-span-7 flex flex-col items-start min-w-0 px-5 md:pr-12 lg:pr-16 xl:pr-24 2xl:pr-32">
           
           <ScrubText 
             text="The State Institute of Hotel Management (SIHM), Durgapur is an initiation of the State of West Bengal to attract young, enthusiastic boys and girls to acquire soft, hard and managerial skills to become competent in the Hospitality industry of the country."
