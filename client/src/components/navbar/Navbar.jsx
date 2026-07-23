@@ -18,21 +18,20 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Entrance Animations
+  // Entrance Animations (Tightened for fluid staggered entrance)
   useGSAP(() => {
-    const tl = gsap.timeline();
+    // Shared easing for synchronization with Hero
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
     tl.fromTo(
       '.nav-logo',
       { y: -20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }
-    );
-
-    tl.fromTo(
+      { y: 0, opacity: 1, duration: 1.5 }
+    ).fromTo(
       '.nav-link-item',
-      { y: -20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.05, ease: 'power3.out' },
-      '-=0.6'
+      { y: -15, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.2, stagger: 0.05 },
+      "<0.2" // Overlaps with the logo animation immediately
     );
   }, { scope: navContainerRef });
 
@@ -50,8 +49,8 @@ export default function Navbar() {
   return (
     <nav
       ref={navContainerRef}
-      className={`w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-between transition-all duration-500 ${
-        isScrolled ? 'py-2' : 'py-8'
+      className={`w-full px-5 md:px-12 flex items-center justify-between transition-all duration-500 ${
+        isScrolled ? 'py-3' : 'py-6'
       }`}
     >
       {/* Dynamic Background Panel for Scrolled State */}
@@ -65,12 +64,7 @@ export default function Navbar() {
 
       {/* 1. Logo Section */}
       <div className="nav-logo flex flex-col cursor-pointer group">
-        <span className="head-txt text-3xl leading-none text-[var(--text-light)] tracking-tight group-hover:opacity-80 transition-opacity">
-          aahoran
-        </span>
-        <span className="micro-text text-[var(--text-light)]/70 mt-1">
-          SIHM Durgapur
-        </span>
+        <img className='w-[100px] lg:w-[130px]' src="/logo_white.svg" alt="SIHM Logo" />
       </div>
 
       {/* 2. Desktop Navigation Links */}
@@ -81,7 +75,6 @@ export default function Navbar() {
               {link.name}
             </span>
             
-            {/* Dropdown Chevron SVG */}
             {link.hasDropdown && (
               <svg 
                 className="w-3 h-3 ml-1.5 text-[var(--text-light)]/50 group-hover:text-[var(--text-light)]/90 transition-colors" 
@@ -93,20 +86,18 @@ export default function Navbar() {
               </svg>
             )}
 
-            {/* Premium "NEW" Badge */}
             {link.badge && (
               <span className="absolute -top-3 -right-6 bg-[var(--text-light)] text-[var(--primary-base)] text-[8px] font-bold px-1.5 py-0.5 rounded-sm">
                 {link.badge}
               </span>
             )}
 
-            {/* Animated Underline */}
             <span className="absolute -bottom-1.5 left-0 w-0 h-[1px] bg-[var(--text-light)] transition-all duration-300 group-hover:w-full"></span>
           </li>
         ))}
       </ul>
 
-      {/* 3. Mobile Menu Toggle (Visible only on smaller screens) */}
+      {/* 3. Mobile Menu Toggle */}
       <div className="nav-link-item lg:hidden flex flex-col justify-center gap-1.5 cursor-pointer p-2">
         <span className="w-6 h-[1px] bg-[var(--text-light)] block"></span>
         <span className="w-6 h-[1px] bg-[var(--text-light)] block"></span>
