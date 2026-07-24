@@ -4,6 +4,10 @@ import { useGSAP } from "@gsap/react";
 import Hero from "../components/home/hero/Hero";
 import AdmissionModal from "../components/home/AdmissionModal";
 import About from "../components/home/About";
+import Pillars from "../components/home/Pillars";
+import Academics from "../components/home/Academics";
+import PrincipalMessage from "../components/home/PrincipalMessage";
+import Facilities from "../components/home/Facilities";
 
 gsap.registerPlugin(useGSAP);
 
@@ -106,6 +110,15 @@ const Home = () => {
       />
 
       <About />
+
+      <Pillars />
+
+      <Academics />
+
+      <PrincipalMessage />
+
+      <Facilities />
+
     </div>
   );
 };

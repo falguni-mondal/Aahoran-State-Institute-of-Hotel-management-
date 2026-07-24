@@ -16,7 +16,7 @@ const ScrubText = ({ text, className }) => {
     const chars = containerRef.current.querySelectorAll('.scrub-char');
     if (!chars.length) return;
 
-    // 1. Dynamically group characters into lines based on their vertical position
+    // Dynamically group characters into lines based on their vertical position
     const lines = [];
     let currentLine = [];
     let lastTop = chars[0].offsetTop;
@@ -31,7 +31,7 @@ const ScrubText = ({ text, className }) => {
     });
     lines.push(currentLine); 
 
-    // 2. Create the scrub timeline
+    // Create the scrub timeline
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -41,7 +41,7 @@ const ScrubText = ({ text, className }) => {
       }
     });
 
-    // 3. Animate each line with a stagger delay between lines for the diagonal wave
+    // Animate each line with a stagger delay between lines for the diagonal wave
     lines.forEach((lineChars, lineIndex) => {
       tl.to(
         lineChars,
@@ -120,7 +120,7 @@ export default function About() {
   useGSAP(() => {
     let mm = gsap.matchMedia();
 
-    // 1. HORIZONTAL / DESKTOP
+    // HORIZONTAL / DESKTOP
     mm.add("(orientation: landscape)", () => {
       gsap.fromTo(
         ".about-title-line",
@@ -140,7 +140,7 @@ export default function About() {
       );
     });
 
-    // 2. VERTICAL / MOBILE
+    // VERTICAL / MOBILE
     mm.add("(orientation: portrait)", () => {
       gsap.fromTo(
         ".about-title-line",
@@ -160,7 +160,7 @@ export default function About() {
       );
     });
 
-    // 3. UNIVERSAL ANIMATIONS
+    // UNIVERSAL ANIMATIONS
     gsap.fromTo(
       blockquoteRef.current,
       { y: 40, opacity: 0 },
@@ -222,7 +222,7 @@ export default function About() {
         <div className="col-span-1 lg:col-span-5 relative min-w-0 px-5 md:pl-12 lg:pl-16 xl:pl-24 2xl:pl-32">
           
           <div className="lg:sticky lg:top-[37vh] flex flex-col justify-center items-start w-full">
-            <span className="font-sans font-bold text-xs xl:text-sm 2xl:text-base uppercase tracking-[0.2em] text-[var(--text-muted)] mb-6 xl:mb-8 block opacity-80">
+            <span className="font-semibold text-xs 2xl:text-sm uppercase tracking-[0.2em] text-[var(--text-muted)] mb-6 xl:mb-8 block opacity-80">
               Established in West Bengal
             </span>
             
@@ -262,7 +262,7 @@ export default function About() {
           {/* Cinematic Image Container - Full Width, Auto Height */}
           <div 
             ref={imageWrapperRef}
-            className="w-full relative overflow-hidden rounded-sm mb-12 xl:mb-16 shadow-2xl"
+            className="w-full relative overflow-hidden rounded-sm mb-12 xl:mb-16"
           >
             <div className="image-curtain absolute inset-0 bg-[#F7F5F0] z-10 origin-bottom"></div>
             
