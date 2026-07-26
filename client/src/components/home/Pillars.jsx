@@ -199,9 +199,9 @@ const PillarCard = ({ pillar }) => {
           <button 
             ref={btnRef}
             // Opacity 0 initially so it doesn't show before GSAP commands it to
-            className="opacity-0 group/btn relative overflow-hidden flex items-center gap-3 border border-[var(--text-light)]/30 hover:border-[var(--text-light)] px-6 py-3 rounded-sm cursor-pointer outline-none transition-colors duration-500"
+            className="opacity-0 group/btn relative overflow-hidden flex items-center gap-3 border border-[var(--text-light)]/30 hover:border-[var(--accent)] px-6 py-3 rounded-sm cursor-pointer outline-none transition-colors duration-500"
           >
-            <div className="absolute inset-0 w-full h-full bg-[var(--text-light)] translate-y-[101%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <div className="absolute inset-0 w-full h-full bg-[var(--accent)] translate-y-[101%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
             <span className="relative z-10 text-[var(--text-light)] group-hover/btn:text-[var(--primary-base)] transition-colors duration-500 font-sans text-[10px] xl:text-[11px] font-bold uppercase tracking-[0.15em]">
               Explore More
             </span>

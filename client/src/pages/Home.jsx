@@ -8,6 +8,8 @@ import Pillars from "../components/home/Pillars";
 import Academics from "../components/home/Academics";
 import PrincipalMessage from "../components/home/PrincipalMessage";
 import Facilities from "../components/home/Facilities";
+import Partners from "../components/home/Partners";
+import Placements from "../components/home/Placements";
 
 gsap.registerPlugin(useGSAP);
 
@@ -119,6 +121,9 @@ const Home = () => {
 
       <Facilities />
 
+      <Placements />
+
+      <Partners />
     </div>
   );
 };
