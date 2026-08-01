@@ -1,6 +1,7 @@
 import React from 'react';
 import PageRouter from './routes/PageRouter';
 import Navbar from './components/navbar/Navbar';
+import Footer from './components/footer/Footer';
 
 const App = () => {
   return (
@@ -12,6 +13,8 @@ const App = () => {
       <main className='w-full'>
         <PageRouter/>
       </main>
+
+      <Footer />
     </div>
   );
 }

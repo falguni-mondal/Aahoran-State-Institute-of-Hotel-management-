@@ -7,61 +7,37 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /* =========================================
    DATA
-   NOTE: yearlyRate is placeholder data — swap in
-   real AY-wise placement percentages when available.
 ========================================= */
-const yearlyRate = [
-  { year: "2021", value: 82 },
-  { year: "2022", value: 87 },
-  { year: "2023", value: 90 },
-  { year: "2024", value: 93 },
-  { year: "2025", value: 96 },
+const statsData = [
+  { value: 96, suffix: "%", label: "Placement Rate", note: "Batch of 2025" },
+  { value: 9.5, suffix: "L", prefix: "₹", decimals: 1, label: "Highest Package", note: "Per annum, CTC" },
+  { value: 4.2, suffix: "L", prefix: "₹", decimals: 1, label: "Average Package", note: "Per annum, CTC" },
+  { value: 180, suffix: "+", label: "Hiring Partners", note: "Across India & Abroad" },
 ];
 
-// Mirrors the 01–04 department ordering already established in Academics.jsx
-const departmentOutcomes = [
-  {
-    id: "01",
-    dept: "Food & Beverage",
-    role: "Guest Relations Associate — Taj Hotels",
-    package: "₹4.8L – 6.2L PA",
-    note: "Placed within the first campus drive, most take up restaurant and banquet operations roles in flagship 5-star properties.",
-  },
-  {
-    id: "02",
-    dept: "Food Production",
-    role: "Commis Chef — ITC Hotels",
-    package: "₹4.2L – 5.5L PA",
-    note: "Kitchen brigades across luxury chains recruit directly from our culinary batches every year.",
-  },
-  {
-    id: "03",
-    dept: "Front Office",
-    role: "Guest Experience Executive — Marriott International",
-    package: "₹4.5L – 6.0L PA",
-    note: "Front office graduates are typically fast-tracked into guest relations and duty management within 2–3 years.",
-  },
-  {
-    id: "04",
-    dept: "Housekeeping",
-    role: "Executive Housekeeper (Trainee) — Oberoi Group",
-    package: "₹4.0L – 5.2L PA",
-    note: "Consistently placed with the country's most decorated housekeeping departments.",
-  },
+// Recruiter names only — no logo assets required, styled as a departure-board style ticker
+const recruitersRow1 = [
+  "Taj Hotels", "The Oberoi Group", "ITC Hotels", "Marriott International",
+  "Hyatt Hotels", "Radisson Group", "Leela Palaces", "Lemon Tree Hotels",
+];
+const recruitersRow2 = [
+  "Novotel", "Hilton Worldwide", "Accor Group", "IHCL SeleQtions",
+  "Park Hyatt", "JW Marriott", "Sheraton Grand", "The Claridges",
 ];
 
 /* =========================================
-   HERO NUMBER (sticky, count-up on entry)
+   STAT COUNTER SUB-COMPONENT
 ========================================= */
-const HeroStat = () => {
+const StatCounter = ({ stat, index }) => {
   const numRef = useRef(null);
   const wrapRef = useRef(null);
-  const latest = yearlyRate[yearlyRate.length - 1].value;
 
   useGSAP(() => {
     const proxy = { val: 0 };
+    const decimals = stat.decimals || 0;
+
     gsap.to(proxy, {
-      val: latest,
+      val: stat.value,
       duration: 2,
       ease: "power2.out",
       scrollTrigger: {
@@ -70,174 +46,80 @@ const HeroStat = () => {
         toggleActions: "play none none reverse",
       },
       onUpdate: () => {
-        if (numRef.current) numRef.current.textContent = `${Math.round(proxy.val)}%`;
+        if (numRef.current) {
+          numRef.current.textContent = `${stat.prefix || ""}${proxy.val.toFixed(decimals)}${stat.suffix || ""}`;
+        }
       },
     });
   }, { scope: wrapRef });
 
   return (
-    <div ref={wrapRef} className="flex flex-col items-start">
-      <span className="font-sans font-semibold text-xs 2xl:text-sm uppercase tracking-[0.2em] text-[var(--accent)] mb-6 block">
-        Career Outcomes
+    <div
+      ref={wrapRef}
+      className="placement-stat flex-1 flex flex-col items-start px-8 py-10 md:py-0 md:px-10 xl:px-12 border-b md:border-b-0 md:border-l first:border-l-0 border-[var(--text-light)]/15"
+    >
+      <span className="font-sans font-semibold text-[10px] xl:text-[11px] uppercase tracking-[0.2em] text-[var(--accent)] mb-4 block">
+        {String(index + 1).padStart(2, "0")}
       </span>
-      <h2 className="head-txt text-6xl md:text-7xl lg:text-[6rem] xl:text-[7rem] 2xl:text-[8rem] leading-none tracking-tight text-[var(--text-light)] mb-4">
-        <span ref={numRef}>0%</span>
-      </h2>
-      <p className="font-sans text-base md:text-lg text-[var(--text-light)]/70 max-w-xs leading-relaxed">
-        of the graduating batch placed before convocation, Academic Year 2025–26.
-      </p>
+      <div className="head-txt text-5xl md:text-6xl xl:text-7xl 2xl:text-[5rem] leading-none tracking-tight text-[var(--text-light)] mb-3">
+        <span ref={numRef}>{stat.prefix || ""}0{stat.suffix || ""}</span>
+      </div>
+      <span className="font-sans text-sm md:text-base text-[var(--text-light)]/70 mb-1">
+        {stat.label}
+      </span>
+      <span className="font-sans text-[11px] uppercase tracking-[0.15em] text-[var(--text-light)]/40">
+        {stat.note}
+      </span>
     </div>
   );
 };
 
 /* =========================================
-   GROWTH LINE CHART (scroll-scrubbed draw-on)
+   RECRUITER TICKER ROW
 ========================================= */
-const GrowthChart = () => {
-  const chartRef = useRef(null);
-  const pathRef = useRef(null);
-  const dotsRef = useRef([]);
-
-  // Layout math for a simple 5-point line, 0-100 scale mapped to a 600x220 viewbox
-  const W = 600;
-  const H = 220;
-  const PAD = 24;
-  const min = 75;
-  const max = 100;
-
-  const points = yearlyRate.map((d, i) => {
-    const x = PAD + (i / (yearlyRate.length - 1)) * (W - PAD * 2);
-    const y = H - PAD - ((d.value - min) / (max - min)) * (H - PAD * 2);
-    return { ...d, x, y };
-  });
-
-  const pathD = points
-    .map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`))
-    .join(" ");
+const TickerRow = ({ items, reverse, speed = 40 }) => {
+  const trackRef = useRef(null);
 
   useGSAP(() => {
-    const path = pathRef.current;
-    const length = path.getTotalLength();
+    const track = trackRef.current;
+    const totalWidth = track.scrollWidth / 2;
 
-    gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
-    gsap.set(dotsRef.current, { scale: 0, transformOrigin: "center" });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: chartRef.current,
-        start: "top 80%",
-        end: "bottom 60%",
-        scrub: 1,
-      },
+    const tween = gsap.to(track, {
+      x: reverse ? totalWidth : -totalWidth,
+      duration: speed,
+      ease: "none",
+      repeat: -1,
     });
 
-    tl.to(path, { strokeDashoffset: 0, ease: "none" }, 0);
-    tl.to(dotsRef.current, { scale: 1, stagger: 0.2, ease: "power2.out" }, 0);
-  }, { scope: chartRef });
+    if (reverse) {
+      gsap.set(track, { x: -totalWidth });
+      tween.vars.x = 0;
+      tween.invalidate().restart();
+    }
+
+    const handleEnter = () => gsap.to(tween, { timeScale: 0, duration: 0.4 });
+    const handleLeave = () => gsap.to(tween, { timeScale: 1, duration: 0.4 });
+
+    track.parentElement.addEventListener("mouseenter", handleEnter);
+    track.parentElement.addEventListener("mouseleave", handleLeave);
+
+    return () => {
+      track.parentElement.removeEventListener("mouseenter", handleEnter);
+      track.parentElement.removeEventListener("mouseleave", handleLeave);
+    };
+  }, { scope: trackRef, dependencies: [items, reverse, speed] });
 
   return (
-    <div ref={chartRef} className="w-full">
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto overflow-visible">
-        {/* baseline */}
-        <line
-          x1={PAD}
-          y1={H - PAD}
-          x2={W - PAD}
-          y2={H - PAD}
-          stroke="var(--text-light)"
-          strokeOpacity="0.15"
-          strokeWidth="1"
-        />
-        <path
-          ref={pathRef}
-          d={pathD}
-          fill="none"
-          stroke="var(--accent)"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        {points.map((p, i) => (
-          <circle
-            key={p.year}
-            ref={(el) => (dotsRef.current[i] = el)}
-            cx={p.x}
-            cy={p.y}
-            r="5"
-            fill="var(--primary-base)"
-            stroke="var(--accent)"
-            strokeWidth="2"
-          />
-        ))}
-      </svg>
-      {/* year labels */}
-      <div className="w-full flex justify-between mt-3 px-[24px]">
-        {yearlyRate.map((d) => (
-          <span
-            key={d.year}
-            className="font-sans text-[10px] md:text-xs uppercase tracking-[0.15em] text-[var(--text-light)]/40"
-          >
-            {d.year}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-/* =========================================
-   DEPARTMENT OUTCOME ROW
-========================================= */
-const OutcomeRow = ({ item }) => {
-  const rowRef = useRef(null);
-
-  useGSAP(() => {
-    gsap.to(
-      rowRef.current.querySelectorAll(".outcome-word"),
-      {
-        y: "0%",
-        duration: 0.6,
-        stagger: 0.01,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: rowRef.current,
-          start: "top 88%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
-  }, { scope: rowRef });
-
-  return (
-    <div
-      ref={rowRef}
-      className="flex flex-col md:flex-row md:items-start gap-2 md:gap-8 xl:gap-12 py-8 border-b border-[var(--text-light)]/10"
-    >
-      <div className="flex items-baseline gap-4 md:w-1/3 shrink-0">
-        <span className="font-sans font-medium text-xs xl:text-sm text-[var(--accent)]">
-          {item.id}
-        </span>
-        <h3 className="head-txt text-2xl md:text-3xl xl:text-4xl leading-tight text-[var(--text-light)]">
-          {item.dept}
-        </h3>
-      </div>
-
-      <div className="flex flex-col items-start md:w-2/3">
-        <span className="font-sans font-semibold text-sm md:text-base text-[var(--text-light)] mb-1">
-          {item.role}
-        </span>
-        <span className="font-sans text-xs md:text-sm uppercase tracking-[0.15em] text-[var(--accent)] mb-4 block">
-          {item.package}
-        </span>
-        <p className="font-sans text-sm md:text-base text-[var(--text-light)]/60 leading-relaxed max-w-xl">
-          {item.note.split(" ").map((word, wIdx) => (
-            <span key={wIdx} className="inline-flex overflow-hidden mr-[0.25em] align-top py-0.5">
-              <span className="outcome-word translate-y-[100%] block will-change-transform">
-                {word}
-              </span>
+    <div className="w-full overflow-hidden py-3 md:py-4">
+      <div ref={trackRef} className="flex items-center w-max whitespace-nowrap will-change-transform">
+        {[...items, ...items].map((name, idx) => (
+          <div key={idx} className="flex items-center">
+            <span className="head-txt italic font-light text-2xl md:text-3xl xl:text-4xl text-[var(--primary-base)]/80 px-6 md:px-10">
+              {name}
             </span>
-          ))}
-        </p>
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]/60"></span>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -248,9 +130,47 @@ const OutcomeRow = ({ item }) => {
 ========================================= */
 export default function Placements() {
   const sectionRef = useRef(null);
+  const headerRef = useRef(null);
   const quoteRef = useRef(null);
 
   useGSAP(() => {
+    // Header curtain reveal — consistent with Facilities / Partners headers
+    gsap.fromTo(
+      headerRef.current.querySelectorAll(".placement-word"),
+      { y: "120%", rotateZ: 2 },
+      {
+        y: "0%",
+        rotateZ: 0,
+        duration: 1.2,
+        stagger: 0.1,
+        ease: "expo.out",
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: "top 82%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+
+    // Stat block fade-up
+    gsap.fromTo(
+      ".placement-stat",
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.12,
+        ease: "expo.out",
+        scrollTrigger: {
+          trigger: ".placement-stat",
+          start: "top 88%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+
+    // Quote fade-up
     gsap.fromTo(
       quoteRef.current,
       { y: 30, opacity: 0 },
@@ -261,7 +181,7 @@ export default function Placements() {
         ease: "expo.out",
         scrollTrigger: {
           trigger: quoteRef.current,
-          start: "top 88%",
+          start: "top 90%",
           toggleActions: "play none none reverse",
         },
       }
@@ -271,52 +191,70 @@ export default function Placements() {
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-[var(--primary-base)] text-[var(--text-light)] relative z-10 py-24 md:py-32 xl:py-40 2xl:py-48"
+      className="w-full bg-[var(--primary-base)] text-[var(--text-light)] relative z-10 py-24 md:py-32 xl:py-40 2xl:py-48 overflow-hidden"
     >
+      {/* ambient decoration, matches PrincipalMessage's restrained backdrop */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-[var(--accent)]/5 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-[var(--accent)]/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl xl:max-w-screen-xl 2xl:max-w-[100rem] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 xl:gap-28 2xl:gap-32 px-5 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-
-        {/* LEFT: sticky hero number */}
-        <div className="col-span-1 lg:col-span-5 relative min-w-0">
-          <div className="lg:sticky lg:top-[30vh]">
-            <HeroStat />
-          </div>
-        </div>
-
-        {/* RIGHT: chart, department outcomes, quote */}
-        <div className="col-span-1 lg:col-span-7 flex flex-col items-start min-w-0">
-
-          <div className="w-full mb-16 xl:mb-20">
-            <span className="font-sans font-semibold text-[10px] xl:text-[11px] uppercase tracking-[0.2em] text-[var(--text-light)]/40 mb-6 block">
-              Placement Rate, Year on Year
-            </span>
-            <GrowthChart />
-          </div>
-
-          <div className="w-full border-t border-[var(--text-light)]/10 mb-12 xl:mb-16">
-            {departmentOutcomes.map((item) => (
-              <OutcomeRow key={item.id} item={item} />
-            ))}
-          </div>
-
-          <div
-            ref={quoteRef}
-            className="w-full max-w-2xl border-l-2 border-[var(--accent)] pl-6 md:pl-8 py-2"
-          >
-            <p className="head-txt text-2xl md:text-3xl xl:text-[2.25rem] leading-snug italic text-[var(--text-light)]/90 mb-6">
-              "SIHM Durgapur gave me the discipline and the exposure to walk straight into a 5-star kitchen — and lead one within three years."
-            </p>
-            <div className="flex items-center gap-4">
-              <div className="w-8 h-[1px] bg-[var(--accent)]"></div>
-              <p className="font-sans font-semibold text-[10px] xl:text-[11px] uppercase tracking-[0.2em] text-[var(--text-light)]/60">
-                Alumnus, Batch of 2021 — Sous Chef, Taj Hotels
-              </p>
+      {/* Section Header */}
+      <div className="relative z-10 w-full px-5 md:px-12 lg:px-16 xl:px-24 2xl:px-32 mb-16 md:mb-20 xl:mb-24">
+        <div ref={headerRef} className="flex flex-col items-start max-w-4xl">
+          <span className="font-sans font-bold text-xs xl:text-sm uppercase tracking-[0.2em] text-[var(--accent)] mb-5 block">
+            Career Outcomes
+          </span>
+          <h2 className="head-txt text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem] leading-[1.05] tracking-tight">
+            <div className="overflow-hidden pb-2">
+              <span className="placement-word block origin-bottom-left">Where Our</span>
             </div>
-          </div>
+            <div className="overflow-hidden pb-2">
+              <span className="placement-word block origin-bottom-left italic font-light text-[var(--accent)]">
+                Graduates Go.
+              </span>
+            </div>
+          </h2>
+        </div>
+      </div>
 
+      {/* Stats Ledger */}
+      <div className="relative z-10 w-full px-5 md:px-12 lg:px-16 xl:px-24 2xl:px-32 mb-16 md:mb-24 xl:mb-28">
+        <div className="w-full flex flex-col md:flex-row border-t border-[var(--text-light)]/15">
+          {statsData.map((stat, idx) => (
+            <StatCounter key={stat.label} stat={stat} index={idx} />
+          ))}
+        </div>
+      </div>
+
+      {/* Recruiter Departure-Board Ticker */}
+      <div className="relative z-10 w-full mb-16 md:mb-24 xl:mb-28">
+        <div className="w-full px-5 md:px-12 lg:px-16 xl:px-24 2xl:px-32 mb-6">
+          <span className="font-sans font-semibold text-[10px] xl:text-[11px] uppercase tracking-[0.2em] text-[var(--text-light)]/40 block">
+            Our Graduates Are Serving At
+          </span>
+        </div>
+        <div className="w-full bg-[var(--text-light)] rounded-sm">
+          <TickerRow items={recruitersRow1} speed={38} />
+          <div className="w-full h-px bg-[var(--primary-base)]/10"></div>
+          <TickerRow items={recruitersRow2} reverse speed={44} />
+        </div>
+      </div>
+
+      {/* Student Success Quote */}
+      <div className="relative z-10 w-full px-5 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+        <div
+          ref={quoteRef}
+          className="max-w-4xl border-l-2 border-[var(--accent)] pl-6 md:pl-8 py-2"
+        >
+          <p className="head-txt text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] leading-snug italic text-[var(--text-light)]/90 mb-6">
+            "SIHM Durgapur gave me the discipline and the exposure to walk straight into a 5-star kitchen — and lead one within three years."
+          </p>
+          <div className="flex items-center gap-4">
+            <div className="w-8 h-[1px] bg-[var(--accent)]"></div>
+            <p className="font-sans font-semibold text-[10px] xl:text-[11px] uppercase tracking-[0.2em] text-[var(--text-light)]/60">
+              Alumnus, Batch of 2021 — Sous Chef, Taj Hotels
+            </p>
+          </div>
         </div>
       </div>
     </section>

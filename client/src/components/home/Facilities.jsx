@@ -174,7 +174,7 @@ export default function Facilities() {
   return (
     <section 
       ref={sectionRef} 
-      className="w-full bg-[var(--background)] py-20 md:py-28 lg:py-32 relative z-10"
+      className="w-full bg-[var(--background)] py-24 md:py-32 xl:py-40 2xl:py-48 relative z-10"
     >
       {/* Section Header */}
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px] mb-10 md:mb-16">

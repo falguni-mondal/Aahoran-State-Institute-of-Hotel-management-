@@ -115,7 +115,7 @@ export default function Partners() {
   return (
     <section 
       ref={sectionRef} 
-      className="w-full relative bg-[var(--background)] py-20 md:py-28 lg:py-32 overflow-hidden"
+      className="w-full relative bg-[var(--background)] py-24 md:py-32 xl:py-40 2xl:py-48 overflow-hidden"
     >
       
       {/* SECTION HEADER */}

@@ -10,6 +10,10 @@ import PrincipalMessage from "../components/home/PrincipalMessage";
 import Facilities from "../components/home/Facilities";
 import Partners from "../components/home/Partners";
 import Placements from "../components/home/Placements";
+import Placements2 from "../components/home/Placements2";
+import Placements3 from "../components/home/Placements3";
+import Placements4 from "../components/home/Placements4";
+import Markers from "../components/home/Markers";
 
 gsap.registerPlugin(useGSAP);
 
@@ -121,7 +125,12 @@ const Home = () => {
 
       <Facilities />
 
+      {/* <Markers /> */}
+{/* 
       <Placements />
+      <Placements2 />
+      <Placements3 /> */}
+      <Placements4 />
 
       <Partners />
     </div>
