@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -14,40 +15,39 @@ const navLinks = [
     name: 'About SIHM', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Our Profile', url: '#' },
-      { name: 'Faculties', url: '#' },
-      { name: 'Institute Rules & Regulations', url: '#' },
-      { name: 'Computer Lab', url: '#' },
-      { name: 'NCHMCT', url: '#' },
-      { name: 'JNU', url: '#' },
-      { name: 'THIMS', url: '#' },
+      { name: 'About Us', path: '/about' },
+      { name: 'Rules & Regulations', path: '#' },
+      { name: 'Computer Lab', path: '#' },
+      { name: 'NCHMCT', path: '#' },
+      { name: 'JNU', path: '#' },
+      { name: 'THIMS', path: '#' },
     ]
   },
   { 
     name: 'Department', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Food and Beverage', url: '#' },
-      { name: 'Food Production', url: '#' },
-      { name: 'Front Office', url: '#' },
-      { name: 'House Keeping', url: '#' },
+      { name: 'Food and Beverage', path: '#' },
+      { name: 'Food Production', path: '#' },
+      { name: 'Front Office', path: '#' },
+      { name: 'House Keeping', path: '#' },
     ]
   },
   { 
     name: 'Academic', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Short Term Courses', url: '#' },
-      { name: 'Full Term Courses', url: '#' },
-      { name: 'Hunar Se Rozgar Tak', url: '#' },
-      { name: 'Syllabus', url: '#', badge: 'NEW' },
+      { name: 'Short Term Courses', path: '#' },
+      { name: 'Full Term Courses', path: '#' },
+      { name: 'Hunar Se Rozgar Tak', path: '#' },
+      { name: 'Syllabus', path: '#', badge: 'NEW' },
       { 
         name: 'Study Material', 
-        url: '#', 
+        path: '#', 
         hasDropdown: true,
         subLinks: [
-          { name: 'SEM II', url: '#' },
-          { name: 'SEM IV', url: '#' }
+          { name: 'SEM II', path: '#' },
+          { name: 'SEM IV', path: '#' }
         ]
       },
     ]
@@ -56,20 +56,20 @@ const navLinks = [
     name: 'Students', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Campus facilities', url: '#' },
-      { name: 'Placement', url: '#' },
-      { name: 'Anti Ragging', url: '#' },
-      { name: 'Alumni', url: '#' },
+      { name: 'Campus facilities', path: '#' },
+      { name: 'Placement', path: '#' },
+      { name: 'Anti Ragging', path: '#' },
+      { name: 'Alumni', path: '#' },
       { 
         name: 'Scholarship', 
-        url: '#', 
+        path: '#', 
         hasDropdown: true,
         subLinks: [
-          { name: 'NSP', url: '#' },
-          { name: 'OASIS', url: '#' },
-          { name: 'AIKYASHREE', url: '#' },
-          { name: 'WBSCC', url: '#' },
-          { name: 'MNSSBY', url: '#' },
+          { name: 'NSP', path: '#' },
+          { name: 'OASIS', path: '#' },
+          { name: 'AIKYASHREE', path: '#' },
+          { name: 'WBSCC', path: '#' },
+          { name: 'MNSSBY', path: '#' },
         ]
       },
     ]
@@ -80,10 +80,10 @@ const navLinks = [
     name: 'Gallery', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Our Campus', url: '#' },
-      { name: 'Inaugural Programme', url: '#' },
-      { name: 'Freshers Welcome', url: '#' },
-      { name: 'Programme and Events', url: '#' },
+      { name: 'Our Campus', path: '#' },
+      { name: 'Inaugural Programme', path: '#' },
+      { name: 'Freshers Welcome', path: '#' },
+      { name: 'Programme and Events', path: '#' },
     ]
   },
   { name: 'Contact', hasDropdown: false },
@@ -144,11 +144,13 @@ export default function Navbar() {
 
         {/* 1. Logo Section */}
         <div className="nav-logo flex flex-col cursor-pointer group shrink-0 relative z-50">
-          <img 
-            className='w-[90px] md:w-[100px] lg:w-[115px] xl:w-[130px] 2xl:w-[150px] transition-all duration-500' 
-            src="/logo_white.svg" 
-            alt="SIHM Logo" 
-          />
+          <Link to="/">
+            <img 
+              className='w-[90px] md:w-[100px] lg:w-[115px] xl:w-[130px] 2xl:w-[150px] transition-all duration-500' 
+              src="/logo_white.svg" 
+              alt="SIHM Logo" 
+            />
+          </Link>
         </div>
 
         {/* 2. Desktop Navigation & CTAs */}
@@ -184,15 +186,13 @@ export default function Navbar() {
                   <span className="absolute -bottom-0 left-0 w-0 h-[1px] bg-[var(--text-light)] transition-all duration-300 group-hover:w-full"></span>
                 </div>
 
-                {/* 
-                  First Level Minimalist Floating Dropdown 
-                */}
+                {/* First Level Minimalist Floating Dropdown */}
                 {link.hasDropdown && (
                   <div className="absolute top-[100%] left-0 pt-6 opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] z-50 w-max hidden lg:block">
                     <div className="bg-[var(--primary-base)]/95 backdrop-blur-md border border-[var(--text-light)]/10 shadow-2xl rounded-sm p-3 xl:p-4 flex flex-col gap-1.5 min-w-[220px]">
                       {link.subLinks.map((sub, subIdx) => (
                         <div key={subIdx} className="group/nested relative">
-                          <a href={sub.url} className="flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--text-light)]/5 transition-colors duration-300">
+                          <Link to={sub.path} className="flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--text-light)]/5 transition-colors duration-300">
                             <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--text-light)]/80 group-hover/nested:text-[var(--accent)] transition-colors duration-300">
                               {sub.name}
                             </span>
@@ -210,20 +210,18 @@ export default function Navbar() {
                                 </svg>
                               )}
                             </div>
-                          </a>
+                          </Link>
 
-                          {/* 
-                            Second Level Nested Floating Dropdown 
-                          */}
+                          {/* Second Level Nested Floating Dropdown */}
                           {sub.hasDropdown && (
                             <div className="absolute top-0 left-[100%] pl-2 opacity-0 -translate-x-2 pointer-events-none group-hover/nested:opacity-100 group-hover/nested:translate-x-0 group-hover/nested:pointer-events-auto transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] z-50 w-max">
                               <div className="bg-[var(--primary-base)]/95 backdrop-blur-md border border-[var(--text-light)]/10 shadow-2xl rounded-sm p-3 xl:p-4 flex flex-col gap-1.5 min-w-[180px]">
                                 {sub.subLinks.map((nestedSub, nestedIdx) => (
-                                  <a key={nestedIdx} href={nestedSub.url} className="group/deep flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--text-light)]/5 transition-colors duration-300">
+                                  <Link key={nestedIdx} to={nestedSub.path} className="group/deep flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--text-light)]/5 transition-colors duration-300">
                                     <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--text-light)]/80 group-hover/deep:text-[var(--accent)] transition-colors duration-300">
                                       {nestedSub.name}
                                     </span>
-                                  </a>
+                                  </Link>
                                 ))}
                               </div>
                             </div>
@@ -289,7 +287,7 @@ export default function Navbar() {
       </nav>
 
       {/* RENDER THE FULL-SCREEN MOBILE MENU */}
-      <Navmenu isOpen={isMobileMenuOpen} />
+      <Navmenu isOpen={isMobileMenuOpen} closeMenu={() => setIsMobileMenuOpen(false)} />
     </div>
   );
 }

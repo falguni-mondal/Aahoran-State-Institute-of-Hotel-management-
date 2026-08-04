@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -10,40 +11,40 @@ const navLinks = [
     name: 'About SIHM', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Our Profile', url: '#' },
-      { name: 'Faculties', url: '#' },
-      { name: 'Institute Rules & Regulations', url: '#' },
-      { name: 'Computer Lab', url: '#' },
-      { name: 'NCHMCT', url: '#' },
-      { name: 'JNU', url: '#' },
-      { name: 'THIMS', url: '#' },
+      { name: 'About Us', path: '/about' },
+      { name: 'Faculties', path: '#' },
+      { name: 'Institute Rules & Regulations', path: '#' },
+      { name: 'Computer Lab', path: '#' },
+      { name: 'NCHMCT', path: '#' },
+      { name: 'JNU', path: '#' },
+      { name: 'THIMS', path: '#' },
     ]
   },
   { 
     name: 'Department', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Food and Beverage', url: '#' },
-      { name: 'Food Production', url: '#' },
-      { name: 'Front Office', url: '#' },
-      { name: 'House Keeping', url: '#' },
+      { name: 'Food and Beverage', path: '#' },
+      { name: 'Food Production', path: '#' },
+      { name: 'Front Office', path: '#' },
+      { name: 'House Keeping', path: '#' },
     ]
   },
   { 
     name: 'Academic', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Short Term Courses', url: '#' },
-      { name: 'Full Term Courses', url: '#' },
-      { name: 'Hunar Se Rozgar Tak', url: '#' },
-      { name: 'Syllabus', url: '#', badge: 'NEW' },
+      { name: 'Short Term Courses', path: '#' },
+      { name: 'Full Term Courses', path: '#' },
+      { name: 'Hunar Se Rozgar Tak', path: '#' },
+      { name: 'Syllabus', path: '#', badge: 'NEW' },
       { 
         name: 'Study Material', 
-        url: '#', 
+        path: '#', 
         hasDropdown: true,
         subLinks: [
-          { name: 'SEM II', url: '#' },
-          { name: 'SEM IV', url: '#' }
+          { name: 'SEM II', path: '#' },
+          { name: 'SEM IV', path: '#' }
         ]
       },
     ]
@@ -52,44 +53,44 @@ const navLinks = [
     name: 'Students', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Campus facilities', url: '#' },
-      { name: 'Placement', url: '#' },
-      { name: 'Anti Ragging', url: '#' },
-      { name: 'Alumni', url: '#' },
+      { name: 'Campus facilities', path: '#' },
+      { name: 'Placement', path: '#' },
+      { name: 'Anti Ragging', path: '#' },
+      { name: 'Alumni', path: '#' },
       { 
         name: 'Scholarship', 
-        url: '#', 
+        path: '#', 
         hasDropdown: true,
         subLinks: [
-          { name: 'NSP', url: '#' },
-          { name: 'OASIS', url: '#' },
-          { name: 'AIKYASHREE', url: '#' },
-          { name: 'WBSCC', url: '#' },
-          { name: 'MNSSBY', url: '#' },
+          { name: 'NSP', path: '#' },
+          { name: 'OASIS', path: '#' },
+          { name: 'AIKYASHREE', path: '#' },
+          { name: 'WBSCC', path: '#' },
+          { name: 'MNSSBY', path: '#' },
         ]
       },
     ]
   },
-  { name: 'Notice Board', hasDropdown: false, url: '#' },
-  { name: 'Results', hasDropdown: false, url: '#', badge: 'NEW' },
+  { name: 'Notice Board', hasDropdown: false, path: '#' },
+  { name: 'Results', hasDropdown: false, path: '#', badge: 'NEW' },
   { 
     name: 'Gallery', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Our Campus', url: '#' },
-      { name: 'Inaugural Programme', url: '#' },
-      { name: 'Freshers Welcome', url: '#' },
-      { name: 'Programme and Events', url: '#' },
+      { name: 'Our Campus', path: '#' },
+      { name: 'Inaugural Programme', path: '#' },
+      { name: 'Freshers Welcome', path: '#' },
+      { name: 'Programme and Events', path: '#' },
     ]
   },
-  { name: 'Contact', hasDropdown: false, url: '#' },
+  { name: 'Contact', hasDropdown: false, path: '#' },
 ];
 
 /* =========================================
    ACCORDION ITEM COMPONENT
    Handles the GSAP height expansion and CSS nested grids
 ========================================= */
-const AccordionItem = ({ link, isOpen, onClick }) => {
+const AccordionItem = ({ link, isOpen, onClick, closeMenu }) => {
   const contentRef = useRef(null);
   const accordionTl = useRef(null);
   const [activeNested, setActiveNested] = useState(null);
@@ -168,9 +169,9 @@ const AccordionItem = ({ link, isOpen, onClick }) => {
                       <ul className="flex flex-col gap-3 pl-4 border-l border-[var(--text-light)]/10 ml-1.5 mt-2">
                         {sub.subLinks.map((nestedSub, nIdx) => (
                           <li key={nIdx}>
-                            <a href={nestedSub.url} className="font-sans text-[13px] md:text-sm text-[var(--text-light)]/60 hover:text-[var(--accent)] transition-colors block py-1">
+                            <Link to={nestedSub.path} onClick={closeMenu} className="font-sans text-[13px] md:text-sm text-[var(--text-light)]/60 hover:text-[var(--accent)] transition-colors block py-1">
                               {nestedSub.name}
-                            </a>
+                            </Link>
                           </li>
                         ))}
                       </ul>
@@ -179,7 +180,7 @@ const AccordionItem = ({ link, isOpen, onClick }) => {
                 </>
               ) : (
                 /* Standard Sub-link */
-                <a href={sub.url} className="flex items-center w-fit group py-2 outline-none">
+                <Link to={sub.path} onClick={closeMenu} className="flex items-center w-fit group py-2 outline-none">
                   <span className="font-sans text-sm md:text-base font-medium text-[var(--text-light)]/80 group-hover:text-[var(--accent)] transition-colors duration-300">
                     {sub.name}
                   </span>
@@ -189,7 +190,7 @@ const AccordionItem = ({ link, isOpen, onClick }) => {
                       {sub.badge}
                     </span>
                   )}
-                </a>
+                </Link>
               )}
 
             </li>
@@ -203,7 +204,7 @@ const AccordionItem = ({ link, isOpen, onClick }) => {
 /* =========================================
    MAIN NAVMENU COMPONENT
 ========================================= */
-export default function Navmenu({ isOpen }) {
+export default function Navmenu({ isOpen, closeMenu }) {
   const menuRef = useRef(null);
   const mainTl = useRef(null);
   const [activeIndex, setActiveIndex] = useState(null);
@@ -267,11 +268,13 @@ export default function Navmenu({ isOpen }) {
                   link={link} 
                   isOpen={activeIndex === index}
                   onClick={() => handleAccordionClick(index)}
+                  closeMenu={closeMenu}
                 />
               ) : (
                 /* Top Level Links (No Dropdown) */
-                <a 
-                  href={link.url}
+                <Link 
+                  to={link.path}
+                  onClick={closeMenu}
                   className="w-full flex items-center justify-between py-5 md:py-6 border-b border-[var(--text-light)]/10 outline-none group"
                 >
                   <span className="head-txt text-3xl md:text-4xl lg:text-5xl tracking-tight text-[var(--text-light)] group-hover:text-[var(--accent)] transition-colors duration-300">
@@ -282,7 +285,7 @@ export default function Navmenu({ isOpen }) {
                       {link.badge}
                     </span>
                   )}
-                </a>
+                </Link>
               )}
             </div>
           ))}
