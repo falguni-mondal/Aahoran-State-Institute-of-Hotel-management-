@@ -7,6 +7,7 @@ import AboutFaculty from '../components/about/AboutFaculty';
 import AboutRecognition from '../components/about/AboutRecognition';
 import AboutCampusLife from '../components/about/AboutCampuslife';
 import AboutRules from '../components/about/AboutRules';
+import AboutTechTeaser from '../components/about/AboutTechTeaser';
 
 export default function About() {
   return (
@@ -18,6 +19,7 @@ export default function About() {
       <AboutFaculty />
       <AboutRecognition />
       <AboutCampusLife />
+      <AboutTechTeaser />
       <AboutRules />
     </main>
   );

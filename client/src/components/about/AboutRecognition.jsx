@@ -81,33 +81,13 @@ export default function AboutRecognition() {
   return (
     <section ref={sectionRef} className="relative w-full bg-[var(--primary-base)] text-[var(--text-light)]">
       
-      {/* =========================================
-         MOBILE IMAGE OVERLAY (Sticky Background)
-         Uses absolute inset with a sticky inner container 
-         so it doesn't bleed outside the section!
-      ========================================= */}
-      <div className="lg:hidden absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
-        <div className="sticky top-0 w-full h-[100dvh]">
-          {recognitionData.map((item, idx) => (
-            <div key={`mob-${idx}`} className={`award-img-${idx} absolute inset-0 w-full h-full opacity-0`}>
-              <img 
-                src={item.img} 
-                alt={item.title}
-                className="w-full h-full object-cover opacity-15 mix-blend-overlay"
-              />
-              <div className="absolute inset-0 bg-[var(--primary-base)]/60 backdrop-blur-[2px]"></div>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Main Content Grid */}
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px] flex flex-col lg:flex-row relative z-10">
         
         {/* =========================================
            LEFT COLUMN: Sticky Header & Image Area
         ========================================= */}
-        <div className="lg:w-5/12 flex flex-col lg:sticky lg:top-14 lg:h-screen pt-24 pb-12 lg:py-0 lg:justify-center">
+        <div className="lg:w-5/12 flex flex-col lg:sticky lg:top-14 lg:h-screen pt-24 pb-4 lg:py-0 lg:justify-center">
           
           <div className="flex flex-col">
             <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.25em] text-[var(--accent)] mb-4 block">
@@ -119,7 +99,7 @@ export default function AboutRecognition() {
           </div>
           
           {/* DESKTOP IMAGE REVEAL CONTAINER */}
-          <div className="hidden lg:block relative w-full max-w-md aspect-[16/9] rounded-sm overflow-hidden bg-[var(--background)]/5">
+          <div className="hidden lg:block relative w-full max-w-md aspect-[16/9] rounded-sm overflow-hidden bg-[var(--background)]/5 border border-[var(--text-light)]/10">
             {recognitionData.map((item, idx) => (
               <img 
                 key={`desk-${idx}`} 
@@ -137,9 +117,14 @@ export default function AboutRecognition() {
         {/* =========================================
            RIGHT COLUMN: Scrolling Awards List
         ========================================= */}
-        {/* py-[30vh] ensures the first and last items can physically reach the center of the screen */}
-        <div className="lg:w-7/12 flex flex-col pb-32 lg:py-[30vh]">
-          <div className="flex flex-col border-t border-[var(--text-light)]/15">
+        <div className="lg:w-7/12 flex flex-col lg:py-[30vh] relative">
+          
+          {/* 
+            pb-[40vh] is added purely for mobile UX. 
+            It creates empty scroll space so the final list item can scroll to the center 
+            of the screen without being hidden behind the sticky bottom card! 
+          */}
+          <div className="flex flex-col border-t border-[var(--text-light)]/15 pb-[2vh] lg:pb-0">
             
             {recognitionData.map((item, index) => (
               <div 
@@ -172,8 +157,27 @@ export default function AboutRecognition() {
 
               </div>
             ))}
-
           </div>
+
+          {/* =========================================
+             MOBILE BOTTOM IMAGE CARD (Sticky)
+             This card sits at the very end of the column and sticks to the bottom
+             of the viewport while you scroll through the list.
+          ========================================= */}
+          <div className="lg:hidden sticky bottom-6 md:bottom-10 w-full flex justify-center pointer-events-none z-20 mt-8">
+            <div className="relative w-full max-w-[90%] sm:max-w-sm aspect-[16/9] rounded-xl overflow-hidden shadow-2xl border border-[var(--text-light)]/20 bg-[var(--background)]/5 backdrop-blur-md">
+              {recognitionData.map((item, idx) => (
+                <img 
+                  key={`mob-card-${idx}`} 
+                  src={item.img} 
+                  alt={item.title}
+                  className={`award-img-${idx} absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform origin-center`}
+                />
+              ))}
+              <div className="absolute inset-0 shadow-[inset_0_0_30px_rgba(0,0,0,0.3)] pointer-events-none"></div>
+            </div>
+          </div>
+
         </div>
 
       </div>
