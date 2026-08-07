@@ -11,7 +11,14 @@ export default function SmoothScroll({ children }) {
   const lenisRef = useRef(null);
   const location = useLocation();
 
-  // 1. Synchronize Lenis with GSAP Ticker
+  // 1. Prevent browser from interfering with scroll position on back/forward navigation
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  // 2. Synchronize Lenis with GSAP Ticker
   useEffect(() => {
     function update(time) {
       // time is in seconds from GSAP, Lenis needs milliseconds
@@ -30,15 +37,25 @@ export default function SmoothScroll({ children }) {
     };
   }, []);
 
-  // 2. Handle Route Changes (Scroll Reset & Animation Recalculation)
+  // 3. Handle Route Changes (The Bulletproof SPA Reset)
   useEffect(() => {
     if (lenisRef.current?.lenis) {
-      // Instantly jump back to the top of the page on route change
+      
+      // A. Instantly jump back to the top of the page on route change
       lenisRef.current.lenis.scrollTo(0, { immediate: true });
       
-      // Force ScrollTrigger to recalculate all trigger positions 
-      // based on the new page layout
-      ScrollTrigger.refresh();
+      // B. Tell GSAP to forget where it was scrolled to on the previous page
+      ScrollTrigger.clearScrollMemory("manual");
+
+      const scrollTimeout = setTimeout(() => {
+        // C. FORCE Lenis to recalculate the exact pixel height of the NEW DOM
+        lenisRef.current.lenis.resize();
+        
+        // D. Force GSAP to apply pinned sections and trigger math based on the new height
+        ScrollTrigger.refresh();
+      }, 150);
+
+      return () => clearTimeout(scrollTimeout);
     }
   }, [location.pathname]);
 

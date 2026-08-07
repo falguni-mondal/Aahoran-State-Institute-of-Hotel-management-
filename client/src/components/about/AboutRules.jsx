@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -22,8 +23,8 @@ function RulesCTA({ text, href }) {
   });
 
   return (
-    <a 
-      href={href}
+    <Link 
+      to={href}
       ref={btnRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -43,7 +44,7 @@ function RulesCTA({ text, href }) {
           <path d="M9 18l6-6-6-6" />
         </svg>
       </div>
-    </a>
+    </Link>
   );
 }
 
@@ -63,6 +64,12 @@ export default function AboutRules() {
         const wrapper = document.createElement('div');
         wrapper.style.overflow = 'hidden';
         wrapper.style.display = 'block';
+        
+        wrapper.style.paddingTop = '0.1em';
+        wrapper.style.paddingBottom = '0.125em';
+        wrapper.style.marginTop = '-0.1em';
+        wrapper.style.marginBottom = '-0.1em';
+        
         line.parentNode.insertBefore(wrapper, line);
         wrapper.appendChild(line);
       });
@@ -145,7 +152,7 @@ export default function AboutRules() {
             
             {/* Component-based GSAP CTA Button */}
             <div className="rules-cta w-fit will-change-transform">
-              <RulesCTA text="Read Guidelines" href="/rules" />
+              <RulesCTA text="Read Guidelines" href="/about/rules" />
             </div>
           </div>
 

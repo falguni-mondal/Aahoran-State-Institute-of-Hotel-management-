@@ -87,8 +87,7 @@ export default function AboutFaculty() {
       const facultyGridTl = gsap.timeline({
         scrollTrigger: {
           trigger: '.faculty-grid',
-          start: isDesktop ? "top 85%" : "top 95%",
-          toggleActions: "play none none reverse",
+          start: isDesktop ? "top 90%" : "top 95%",
         }
       });
 
