@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
+import { Link } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -217,8 +218,8 @@ export default function AboutTechTeaser() {
           className="magnetic-area relative w-48 h-48 md:w-56 md:h-56 flex items-center justify-center cursor-pointer rounded-full"
         >
           {/* The actual visible button that moves inside the area */}
-          <a 
-            href="/computer-lab" 
+          <Link
+            to="/about/computer-lab" 
             ref={magneticElementRef}
             className="group relative flex flex-col items-center justify-center w-36 h-36 md:w-44 md:h-44 rounded-full border border-[var(--text-light)]/20 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-[var(--accent)] bg-[var(--background)]/5 hover:bg-[var(--background)]/10 backdrop-blur-md will-change-transform"
           >
@@ -254,7 +255,7 @@ export default function AboutTechTeaser() {
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </div>
-          </a>
+          </Link>
         </div>
 
       </div>
