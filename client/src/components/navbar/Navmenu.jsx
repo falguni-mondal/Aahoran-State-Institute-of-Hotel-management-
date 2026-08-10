@@ -33,17 +33,17 @@ const navLinks = [
     name: 'Academic', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Short Term Courses', path: '#' },
-      { name: 'Full Term Courses', path: '#' },
-      { name: 'Hunar Se Rozgar Tak', path: '#' },
-      { name: 'Syllabus', path: '#', badge: 'NEW' },
+      { name: 'Short Term Courses', path: '/short-term-courses' },
+      { name: 'Full Term Courses', path: '/full-term-courses' },
+      { name: 'Hunar Se Rozgar Tak', path: '/hunar-se-rozgar' },
+      { name: 'Syllabus', path: '/syllabus', badge: 'NEW' },
       { 
         name: 'Study Material', 
-        path: '#', 
+        path: '/study-material', 
         hasDropdown: true,
         subLinks: [
-          { name: 'SEM II', path: '#' },
-          { name: 'SEM IV', path: '#' }
+          { name: 'SEM II', path: '/study-material/sem-ii' },
+          { name: 'SEM IV', path: '/study-material/sem-iv' }
         ]
       },
     ]
@@ -52,8 +52,8 @@ const navLinks = [
     name: 'Students', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Campus facilities', path: '#' },
-      { name: 'Placement', path: '#' },
+      { name: 'Campus facilities', path: '/campus-facilities' },
+      { name: 'Placement', path: '/placement' },
       { name: 'Anti Ragging', path: '#' },
       { name: 'Alumni', path: '#' },
       { 

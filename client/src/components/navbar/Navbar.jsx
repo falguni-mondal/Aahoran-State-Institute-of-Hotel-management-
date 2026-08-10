@@ -37,13 +37,13 @@ const navLinks = [
     name: 'Academic', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Short Term Courses', path: '#' },
-      { name: 'Full Term Courses', path: '#' },
-      { name: 'Hunar Se Rozgar Tak', path: '#' },
-      { name: 'Syllabus', path: '#', badge: 'NEW' },
+      { name: 'Short Term Courses', path: '/short-term-courses' },
+      { name: 'Full Term Courses', path: '/full-term-courses' },
+      { name: 'Hunar Se Rozgar Tak', path: '/hunar-se-rozgar' },
+      { name: 'Syllabus', path: '/syllabus', badge: 'NEW' },
       { 
         name: 'Study Material', 
-        path: '#', 
+        path: '/study-material', 
         hasDropdown: true,
         subLinks: [
           { name: 'SEM II', path: '#' },
@@ -96,7 +96,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Dynamic Theme Logic
-  const lightHeroRoutes = ['/about/rules']; 
+  const lightHeroRoutes = ['/about/rules', '/hunar-se-rozgar']; 
   const isLightHero = lightHeroRoutes.includes(location.pathname);
   const useDarkText = isLightHero && !isScrolled && !isMobileMenuOpen;
 

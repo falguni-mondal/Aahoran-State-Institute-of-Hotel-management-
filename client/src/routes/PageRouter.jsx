@@ -8,6 +8,9 @@ import FoodAndBeverage from "../pages/FoodAndBeverage";
 import FoodProduction from "../pages/FoodProduction";
 import FrontOffice from "../pages/FrontOffice";
 import HouseKeeping from "../pages/HouseKeeping";
+import ShortTermCourses from "../pages/ShortTermCourses";
+import FullTermCourses from "../pages/FullTermCourses";
+import HunarSeRozgar from "../pages/HunarSeRozgar";
 
 const PageRouter = () => {
   return (
@@ -25,6 +28,10 @@ const PageRouter = () => {
       <Route path="/food-production" element={<FoodProduction />} />
       <Route path="/front-office" element={<FrontOffice />} />
       <Route path="/house-keeping" element={<HouseKeeping />} />
+
+      <Route path="/short-term-courses" element={<ShortTermCourses />} />
+      <Route path="/full-term-courses" element={<FullTermCourses />} />
+      <Route path="/hunar-se-rozgar" element={<HunarSeRozgar />} />
     </Routes>
   );
 };
