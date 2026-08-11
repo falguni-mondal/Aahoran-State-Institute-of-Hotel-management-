@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import HSRTHero from '../components/hunar-se-rozgar/HSRTHero';
-import HSRTRules from '../components/hunar-se-rozgar/HSRTRules';
-import HSRTGallery from '../components/hunar-se-rozgar/HSRTGallery';
+import StudyMaterialHero from '../components/study-material/StudyMaterialHero';
+import StudyMaterialList from '../components/study-material/StudyMaterialList';
 
-export default function HunarSeRozgar() {
+export default function StudyMaterial() {
   
   // Forces scroll reset on mount for smooth Lenis/GSAP integration
   useEffect(() => {
@@ -14,13 +13,10 @@ export default function HunarSeRozgar() {
     <main className="w-full bg-[var(--background)] min-h-screen selection:bg-[var(--accent)] selection:text-[var(--primary-base)]">
       
       {/* Cinematic Editorial Hero */}
-      <HSRTHero />
+      <StudyMaterialHero />
 
-      {/* Light Theme Scrolling Manifesto */}
-      <HSRTRules />
-
-      {/* Parallax Art Gallery */}
-      <HSRTGallery />
+      {/* Interactive Interactive Tabbed Archive List */}
+      <StudyMaterialList />
       
     </main>
   );

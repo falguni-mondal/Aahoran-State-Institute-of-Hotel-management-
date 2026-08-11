@@ -83,7 +83,7 @@ export default function RulesHero() {
       ========================================= */}
       <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
         <span className="rules-hero-fade text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-medium opacity-50">
-          Scroll to read
+          Scroll to explore
         </span>
         
         <div className="scroll-line-container w-[1px] h-12 md:h-16 bg-[var(--primary-base)]/20 relative overflow-hidden">

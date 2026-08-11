@@ -40,11 +40,11 @@ const navLinks = [
       { 
         name: 'Study Material', 
         path: '/study-material', 
-        hasDropdown: true,
-        subLinks: [
-          { name: 'SEM II', path: '/study-material/sem-ii' },
-          { name: 'SEM IV', path: '/study-material/sem-iv' }
-        ]
+        // hasDropdown: true,
+        // subLinks: [
+        //   { name: 'SEM II', path: '/study-material/sem-ii' },
+        //   { name: 'SEM IV', path: '/study-material/sem-iv' }
+        // ]
       },
     ]
   },

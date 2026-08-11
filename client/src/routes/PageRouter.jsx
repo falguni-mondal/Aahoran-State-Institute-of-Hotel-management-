@@ -11,6 +11,8 @@ import HouseKeeping from "../pages/HouseKeeping";
 import ShortTermCourses from "../pages/ShortTermCourses";
 import FullTermCourses from "../pages/FullTermCourses";
 import HunarSeRozgar from "../pages/HunarSeRozgar";
+import Syllabus from "../pages/Syllabus";
+import StudyMaterial from "../pages/StudyMaterial";
 
 const PageRouter = () => {
   return (
@@ -32,6 +34,8 @@ const PageRouter = () => {
       <Route path="/short-term-courses" element={<ShortTermCourses />} />
       <Route path="/full-term-courses" element={<FullTermCourses />} />
       <Route path="/hunar-se-rozgar" element={<HunarSeRozgar />} />
+      <Route path="/syllabus" element={<Syllabus />} />
+      <Route path="/study-material" element={<StudyMaterial />} />
     </Routes>
   );
 };

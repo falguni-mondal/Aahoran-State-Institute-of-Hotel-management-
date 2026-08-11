@@ -5,11 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export default function HSRTHero() {
+export default function SyllabusHero() {
   const sectionRef = useRef(null);
-  
-  // Dynamically fetches the current year for the metadata
-  const currentYear = new Date().getFullYear();
 
   useGSAP(() => {
     let mm = gsap.matchMedia();
@@ -44,22 +41,22 @@ export default function HSRTHero() {
         
         <div className="flex justify-between items-start w-full shrink-0">
           <span className="hero-sub block text-[9px] md:text-[10px] lg:text-xs font-semibold uppercase tracking-[0.25em] text-[var(--accent)]">
-            Skill Certification
+            Academic Archives
           </span>
           <span className="hero-sub block text-[9px] md:text-[10px] lg:text-xs font-medium uppercase tracking-[0.2em] text-[var(--primary-base)]/60 text-right max-w-[200px] md:max-w-xs">
-            Academic Year {currentYear}
+            Document Repository
           </span>
         </div>
 
         <div className="flex flex-col w-full my-auto lg:mt-auto lg:mb-0 pb-12 lg:pb-0">
           <div className="overflow-hidden w-full flex justify-center md:justify-start">
             <h1 className="hero-title-word head-txt text-[16vw] md:text-[16vw] lg:text-[14vw] xl:text-[12rem] 2xl:text-[14rem] tracking-tighter leading-[0.85] text-[var(--primary-base)] text-center md:text-left">
-              HUNAR SE
+              YOUR COURSE
             </h1>
           </div>
           <div className="overflow-hidden w-full flex justify-center md:justify-end">
             <h1 className="hero-title-word head-txt text-[16vw] md:text-[16vw] lg:text-[14vw] xl:text-[12rem] 2xl:text-[14rem] tracking-tighter leading-[0.85] text-[var(--accent)] italic pr-0 md:pr-12 lg:pr-24 text-center md:text-right">
-              ROZGAR TAK.
+              SYLLABUS.
             </h1>
           </div>
         </div>

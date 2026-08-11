@@ -1,77 +1,87 @@
 import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import SplitType from 'split-type';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function STHero() {
   const sectionRef = useRef(null);
+  
+  // Dynamically fetches the current year for the metadata
+  const currentYear = new Date().getFullYear();
 
   useGSAP(() => {
-    // Cinematic slow pull-focus on background
-    gsap.fromTo('.st-hero-bg', 
-      { scale: 1.15 }, 
-      { scale: 1, duration: 2.5, ease: 'expo.out' }
-    );
+    let mm = gsap.matchMedia();
 
-    // Staggered text reveal
-    const heading = document.querySelector('.st-heading');
-    let splitHeading;
-
-    if (heading) {
-      splitHeading = new SplitType(heading, { types: 'words, chars', charClass: 'split-char' });
+    mm.add("(min-width: 320px)", () => {
+      const heroTl = gsap.timeline({ defaults: { ease: 'expo.out' } });
       
-      splitHeading.chars.forEach((char) => {
-        const wrapper = document.createElement('div');
-        wrapper.style.overflow = 'hidden';
-        wrapper.style.display = 'inline-block';
-        wrapper.style.padding = '0.1em 0';
-        wrapper.style.margin = '-0.1em 0';
-        char.parentNode.insertBefore(wrapper, char);
-        wrapper.appendChild(char);
-      });
-
-      gsap.fromTo(splitHeading.chars,
-        { yPercent: 100 },
-        { yPercent: 0, duration: 1.2, stagger: 0.02, ease: 'expo.out', delay: 0.2 }
+      heroTl.fromTo('.hero-title-word', 
+        { yPercent: 120, skewY: 3 }, 
+        { yPercent: 0, skewY: 0, duration: 1.6, stagger: 0.15 }, 
+        "+=0.2" // Slight delay on mount
+      )
+      .fromTo('.hero-sub',
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 1, stagger: 0.1 },
+        "-=1.2"
+      )
+      .fromTo('.scroll-line-container',
+        { scaleY: 0 },
+        { scaleY: 1, duration: 1.2, transformOrigin: "top" },
+        "-=0.8"
       );
-    }
+    });
 
-    gsap.fromTo('.st-hero-sub',
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.8 }
-    );
-
-    return () => { if (splitHeading) splitHeading.revert(); };
+    return () => mm.revert();
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative w-full h-[100svh] min-h-[600px] bg-[var(--primary-base)] flex items-center justify-center overflow-hidden">
+    <section ref={sectionRef} className="hero-section relative w-full h-[100dvh] min-h-[600px] flex flex-col justify-end overflow-hidden pb-12 md:pb-16 lg:pb-24 bg-[var(--background)] text-[var(--primary-base)]">
       
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-        <img 
-          src="/st-hero.webp" 
-          alt="The Art of Hospitality" 
-          className="st-hero-bg absolute inset-0 w-full h-full object-cover will-change-transform"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--primary-base)] via-[var(--primary-base)]/60 to-transparent mix-blend-multiply opacity-90"></div>
+      {/* Hero Content - Full Screen Flex Layout */}
+      <div className="relative z-10 w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px] flex flex-col h-full pt-32 lg:pt-40">
+        
+        {/* Top Framing Context */}
+        <div className="flex justify-between items-start w-full shrink-0">
+          <span className="hero-sub block text-[9px] md:text-[10px] lg:text-xs font-semibold uppercase tracking-[0.25em] text-[var(--accent)]">
+            Overview of Courses
+          </span>
+          <span className="hero-sub block text-[9px] md:text-[10px] lg:text-xs font-medium uppercase tracking-[0.2em] text-[var(--primary-base)]/60 text-right max-w-[200px] md:max-w-xs">
+            Academic Year {currentYear}
+          </span>
+        </div>
+
+        {/* Massive Asymmetric Title (Centered on Mobile) */}
+        <div className="flex flex-col w-full my-auto lg:mt-auto lg:mb-0 pb-12 lg:pb-0">
+          <div className="overflow-hidden w-full flex justify-center md:justify-start">
+            <h1 className="hero-title-word head-txt text-[16vw] md:text-[16vw] lg:text-[14vw] xl:text-[12rem] 2xl:text-[14rem] tracking-tighter leading-[0.85] text-[var(--primary-base)] text-center md:text-left">
+              SHORT TERM
+            </h1>
+          </div>
+          <div className="overflow-hidden w-full flex justify-center md:justify-end">
+            <h1 className="hero-title-word head-txt text-[16vw] md:text-[16vw] lg:text-[14vw] xl:text-[12rem] 2xl:text-[14rem] tracking-tighter leading-[0.85] text-[var(--accent)] italic pr-0 md:pr-12 lg:pr-24 text-center md:text-right">
+              COURSES.
+            </h1>
+          </div>
+        </div>
+
       </div>
 
-      <div className="relative z-10 flex flex-col items-center text-center px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 w-full">
-        <span className="st-hero-sub text-[10px] md:text-xs lg:text-sm font-semibold uppercase tracking-[0.3em] text-[var(--accent)] mb-4 md:mb-6 lg:mb-8 block">
-          Overview of Courses
+      {/* Delicate Scroll Indicator - Anchored Bottom Left */}
+      <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 lg:-translate-x-0 lg:left-12 xl:left-16 2xl:left-24 flex flex-col items-center gap-4 z-10">
+        <span className="hero-sub text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-medium opacity-50">
+          Scroll to explore
         </span>
-        <h1 className="st-heading head-txt text-5xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] leading-[0.9] tracking-tighter text-[var(--text-light)] uppercase max-w-[90vw]">
-          Short Term <br /> Courses.
-        </h1>
-      </div>
-
-      <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10 opacity-60">
-        <span className="text-[8px] md:text-[9px] uppercase tracking-[0.2em] text-[var(--text-light)] font-medium">Discover</span>
-        <div className="w-[1px] h-10 md:h-16 bg-[var(--text-light)]/20 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1/2 bg-[var(--text-light)] animate-[scrollDown_2s_ease-in-out_infinite]"></div>
+        
+        <div className="scroll-line-container w-[1px] h-12 md:h-16 bg-[var(--primary-base)]/20 relative overflow-hidden">
+          {/* Infinite scrolling inner line */}
+          <div className="absolute top-0 left-0 w-full h-1/2 bg-[var(--primary-base)] animate-[scrollDown_2s_ease-in-out_infinite]"></div>
         </div>
       </div>
-
+      
+      {/* Inline styles for the specific scroll animation */}
       <style>{`
         @keyframes scrollDown {
           0% { transform: translateY(-100%); }
@@ -79,6 +89,7 @@ export default function STHero() {
           100% { transform: translateY(200%); }
         }
       `}</style>
+      
     </section>
   );
 }

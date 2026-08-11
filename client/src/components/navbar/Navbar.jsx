@@ -44,11 +44,11 @@ const navLinks = [
       { 
         name: 'Study Material', 
         path: '/study-material', 
-        hasDropdown: true,
-        subLinks: [
-          { name: 'SEM II', path: '#' },
-          { name: 'SEM IV', path: '#' }
-        ]
+        // hasDropdown: true,
+        // subLinks: [
+        //   { name: 'SEM II', path: '#' },
+        //   { name: 'SEM IV', path: '#' }
+        // ]
       },
     ]
   },
@@ -96,7 +96,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Dynamic Theme Logic
-  const lightHeroRoutes = ['/about/rules', '/hunar-se-rozgar']; 
+  const lightHeroRoutes = ['/about/rules', '/short-term-courses', '/full-term-courses', '/hunar-se-rozgar', '/syllabus', '/study-material']; 
   const isLightHero = lightHeroRoutes.includes(location.pathname);
   const useDarkText = isLightHero && !isScrolled && !isMobileMenuOpen;
 
