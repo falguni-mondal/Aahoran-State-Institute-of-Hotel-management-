@@ -56,10 +56,10 @@ const navLinks = [
     name: 'Students', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Campus facilities', path: '#' },
-      { name: 'Placement', path: '#' },
-      { name: 'Anti Ragging', path: '#' },
-      { name: 'Alumni', path: '#' },
+      { name: 'Campus facilities', path: '/campus-facilities' },
+      { name: 'Placement', path: '/placement' },
+      { name: 'Anti Ragging', path: '/anti-ragging' },
+      { name: 'Alumni', path: '/alumni' },
       { 
         name: 'Scholarship', 
         path: '#', 
@@ -96,7 +96,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Dynamic Theme Logic
-  const lightHeroRoutes = ['/about/rules', '/short-term-courses', '/full-term-courses', '/hunar-se-rozgar', '/syllabus', '/study-material']; 
+  const lightHeroRoutes = ['/about/rules', '/short-term-courses', '/full-term-courses', '/hunar-se-rozgar', '/syllabus', '/study-material', '/anti-ragging']; 
   const isLightHero = lightHeroRoutes.includes(location.pathname);
   const useDarkText = isLightHero && !isScrolled && !isMobileMenuOpen;
 

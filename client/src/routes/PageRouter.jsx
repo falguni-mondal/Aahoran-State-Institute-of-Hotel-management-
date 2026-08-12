@@ -13,6 +13,8 @@ import FullTermCourses from "../pages/FullTermCourses";
 import HunarSeRozgar from "../pages/HunarSeRozgar";
 import Syllabus from "../pages/Syllabus";
 import StudyMaterial from "../pages/StudyMaterial";
+import CampusFacilities from "../pages/CampusFacilities";
+import AntiRagging from "../pages/AntiRagging";
 
 const PageRouter = () => {
   return (
@@ -26,16 +28,26 @@ const PageRouter = () => {
         <Route path="computer-lab" element={<ComputerLab />} />
       </Route>
 
+
+      {/* DEPARTMENT ROUTES */}
       <Route path="/food-and-beverage" element={<FoodAndBeverage />} />
       <Route path="/food-production" element={<FoodProduction />} />
       <Route path="/front-office" element={<FrontOffice />} />
       <Route path="/house-keeping" element={<HouseKeeping />} />
 
+
+      {/* ACADEMIC ROUTES */}
       <Route path="/short-term-courses" element={<ShortTermCourses />} />
       <Route path="/full-term-courses" element={<FullTermCourses />} />
       <Route path="/hunar-se-rozgar" element={<HunarSeRozgar />} />
       <Route path="/syllabus" element={<Syllabus />} />
       <Route path="/study-material" element={<StudyMaterial />} />
+
+
+      {/* STUDENT ROUTES */}
+      <Route path="/campus-facilities" element={<CampusFacilities />} />
+      <Route path="/anti-ragging" element={<AntiRagging />} />
+
     </Routes>
   );
 };
