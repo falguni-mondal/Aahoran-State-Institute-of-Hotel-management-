@@ -5,7 +5,7 @@ import AboutIdentity from '../components/about/AboutIdentity';
 import AboutFacilities from '../components/about/AboutFacilities';
 import AboutFaculty from '../components/about/AboutFaculty';
 import AboutRecognition from '../components/about/AboutRecognition';
-import AboutCampusLife from '../components/about/AboutCampuslife';
+import AboutCampusLife from '../components/about/AboutCampusLife';
 import AboutRules from '../components/about/AboutRules';
 import AboutTechTeaser from '../components/about/AboutTechTeaser';
 

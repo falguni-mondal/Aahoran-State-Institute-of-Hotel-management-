@@ -55,17 +55,16 @@ const navLinks = [
       { name: 'Campus facilities', path: '/campus-facilities' },
       { name: 'Placement', path: '/placement' },
       { name: 'Anti Ragging', path: '#' },
-      { name: 'Alumni', path: '#' },
       { 
         name: 'Scholarship', 
         path: '#', 
         hasDropdown: true,
         subLinks: [
-          { name: 'NSP', path: '#' },
-          { name: 'OASIS', path: '#' },
-          { name: 'AIKYASHREE', path: '#' },
-          { name: 'WBSCC', path: '#' },
-          { name: 'MNSSBY', path: '#' },
+          { name: 'NSP', path: 'https://scholarships.gov.in/', isExternal: true },
+          { name: 'OASIS', path: 'https://oasis.wb.gov.in/', isExternal: true },
+          { name: 'AIKYASHREE', path: 'https://wbmdfcscholarship.in/', isExternal: true },
+          { name: 'WBSCC', path: 'https://wbscc.wb.gov.in/', isExternal: true },
+          { name: 'MNSSBY', path: 'https://www.7nishchay-yuvaupmission.bihar.gov.in/', isExternal: true },
         ]
       },
     ]

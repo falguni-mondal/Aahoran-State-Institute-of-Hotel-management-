@@ -15,6 +15,7 @@ import Syllabus from "../pages/Syllabus";
 import StudyMaterial from "../pages/StudyMaterial";
 import CampusFacilities from "../pages/CampusFacilities";
 import AntiRagging from "../pages/AntiRagging";
+import Placement from "../pages/Placement";
 
 const PageRouter = () => {
   return (
@@ -47,6 +48,7 @@ const PageRouter = () => {
       {/* STUDENT ROUTES */}
       <Route path="/campus-facilities" element={<CampusFacilities />} />
       <Route path="/anti-ragging" element={<AntiRagging />} />
+      <Route path="/placement" element={<Placement />} />
 
     </Routes>
   );

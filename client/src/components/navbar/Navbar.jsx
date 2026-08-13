@@ -59,17 +59,16 @@ const navLinks = [
       { name: 'Campus facilities', path: '/campus-facilities' },
       { name: 'Placement', path: '/placement' },
       { name: 'Anti Ragging', path: '/anti-ragging' },
-      { name: 'Alumni', path: '/alumni' },
       { 
         name: 'Scholarship', 
         path: '#', 
         hasDropdown: true,
         subLinks: [
-          { name: 'NSP', path: '#' },
-          { name: 'OASIS', path: '#' },
-          { name: 'AIKYASHREE', path: '#' },
-          { name: 'WBSCC', path: '#' },
-          { name: 'MNSSBY', path: '#' },
+          { name: 'NSP', path: 'https://scholarships.gov.in/', isExternal: true },
+          { name: 'OASIS', path: 'https://oasis.wb.gov.in/', isExternal: true },
+          { name: 'AIKYASHREE', path: 'https://wbmdfcscholarship.in/', isExternal: true },
+          { name: 'WBSCC', path: 'https://wbscc.wb.gov.in/', isExternal: true },
+          { name: 'MNSSBY', path: 'https://www.7nishchay-yuvaupmission.bihar.gov.in/', isExternal: true },
         ]
       },
     ]
@@ -96,7 +95,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Dynamic Theme Logic
-  const lightHeroRoutes = ['/about/rules', '/short-term-courses', '/full-term-courses', '/hunar-se-rozgar', '/syllabus', '/study-material', '/anti-ragging']; 
+  const lightHeroRoutes = ['/about/rules', '/short-term-courses', '/full-term-courses', '/hunar-se-rozgar', '/syllabus', '/study-material', '/anti-ragging', '/placement']; 
   const isLightHero = lightHeroRoutes.includes(location.pathname);
   const useDarkText = isLightHero && !isScrolled && !isMobileMenuOpen;
 
@@ -130,7 +129,7 @@ export default function Navbar() {
   }, { scope: navContainerRef });
 
   return (
-    <div className="w-full relative z-50">
+    <div className="w-full relative z-50 border-b border-[var(--text-main)]/10">
       <nav
         ref={navContainerRef}
         className={`relative w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 flex items-center justify-between transition-all duration-500 ${
