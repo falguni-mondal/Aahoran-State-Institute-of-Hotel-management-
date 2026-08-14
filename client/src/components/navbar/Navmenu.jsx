@@ -54,7 +54,7 @@ const navLinks = [
     subLinks: [
       { name: 'Campus facilities', path: '/campus-facilities' },
       { name: 'Placement', path: '/placement' },
-      { name: 'Anti Ragging', path: '#' },
+      { name: 'Anti Ragging', path: '/anti-ragging' },
       { 
         name: 'Scholarship', 
         path: '#', 
@@ -69,19 +69,19 @@ const navLinks = [
       },
     ]
   },
-  { name: 'Notice Board', hasDropdown: false, path: '#' },
-  { name: 'Results', hasDropdown: false, path: '#', badge: 'NEW' },
+  { name: 'Notice Board', hasDropdown: false, path: '/notice-board' },
+  { name: 'Results', hasDropdown: false, path: '/results', badge: 'NEW' },
   { 
     name: 'Gallery', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Our Campus', path: '#' },
-      { name: 'Inaugural Programme', path: '#' },
-      { name: 'Freshers Welcome', path: '#' },
-      { name: 'Programme and Events', path: '#' },
+      { name: 'Our Campus', path: '/our-campus' },
+      { name: 'Inaugural Programme', path: '/inaugural-programme' },
+      { name: 'Freshers Welcome', path: '/freshers-welcome' },
+      { name: 'Programme and Events', path: '/programme-and-events' },
     ]
   },
-  { name: 'Contact', hasDropdown: false, path: '#' },
+  { name: 'Contact', hasDropdown: false, path: '/contact' },
 ];
 
 const AccordionItem = ({ link, isOpen, onClick, closeMenu }) => {
@@ -217,7 +217,17 @@ export default function Navmenu({ isOpen, closeMenu }) {
   }, [isOpen]);
 
   useGSAP(() => {
-    mainTl.current = gsap.timeline({ paused: true })
+    // Start entirely hidden so it doesn't flash on mount
+    gsap.set(menuRef.current, { autoAlpha: 0, yPercent: -100 });
+
+    mainTl.current = gsap.timeline({ 
+      paused: true,
+      onReverseComplete: () => {
+        // Hides it completely after reverse animation finishes
+        gsap.set(menuRef.current, { autoAlpha: 0 });
+      }
+    })
+      .set(menuRef.current, { autoAlpha: 1 }) // Instantly visible before sliding down
       .fromTo(menuRef.current,
         { yPercent: -100, borderRadius: "0 0 30% 30%" },
         { yPercent: 0, borderRadius: "0% 0% 0% 0%", duration: 0.8, ease: 'expo.inOut' }
@@ -225,7 +235,7 @@ export default function Navmenu({ isOpen, closeMenu }) {
       .fromTo('.mobile-nav-item',
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: 'power3.out' },
-        "-=0.4"
+        "-=0.6" // Overlaps tighter with the menu drop for a snappier feel
       );
   }, { scope: menuRef });
 
@@ -245,8 +255,11 @@ export default function Navmenu({ isOpen, closeMenu }) {
   return (
     <div 
       ref={menuRef}
-      className="fixed inset-0 w-full h-[100dvh] bg-[var(--primary-base)] z-40 overflow-y-auto invisible"
-      style={{ visibility: isOpen ? 'visible' : 'hidden' }}
+      data-lenis-prevent="true" // Forces Lenis to allow scrolling inside this container
+      onWheel={(e) => e.stopPropagation()} // Prevents scroll events from bubbling to a locked body
+      onTouchMove={(e) => e.stopPropagation()}
+      // Replaced inline styles and invisible utility with GSAP autoAlpha
+      className="fixed inset-0 w-full h-[100dvh] bg-[var(--primary-base)] z-40 overflow-y-auto invisible opacity-0"
     >
       <div className="w-full px-5 md:px-8 lg:px-12 pt-28 pb-20 mx-auto max-w-[800px] flex flex-col min-h-full">
         

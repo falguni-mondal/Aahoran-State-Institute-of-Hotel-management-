@@ -16,6 +16,8 @@ import StudyMaterial from "../pages/StudyMaterial";
 import CampusFacilities from "../pages/CampusFacilities";
 import AntiRagging from "../pages/AntiRagging";
 import Placement from "../pages/Placement";
+import NoticeBoard from "../pages/NoticeBoard";
+import Results from "../pages/Results";
 
 const PageRouter = () => {
   return (
@@ -50,6 +52,10 @@ const PageRouter = () => {
       <Route path="/anti-ragging" element={<AntiRagging />} />
       <Route path="/placement" element={<Placement />} />
 
+
+      {/* NOTICE BOARD */}
+      <Route path="/notice-board" element={<NoticeBoard />} />
+      <Route path="/results" element={<Results />} />
     </Routes>
   );
 };

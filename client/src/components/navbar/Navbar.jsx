@@ -73,19 +73,19 @@ const navLinks = [
       },
     ]
   },
-  { name: 'Notice Board', hasDropdown: false, path: '#' },
-  { name: 'Results', hasDropdown: false, path: '#', badge: 'NEW' },
+  { name: 'Notice Board', hasDropdown: false, path: '/notice-board' },
+  { name: 'Results', hasDropdown: false, path: '/results', badge: 'NEW' },
   { 
     name: 'Gallery', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Our Campus', path: '#' },
-      { name: 'Inaugural Programme', path: '#' },
-      { name: 'Freshers Welcome', path: '#' },
-      { name: 'Programme and Events', path: '#' },
+      { name: 'Our Campus', path: '/our-campus' },
+      { name: 'Inaugural Programme', path: '/inaugural-programme' },
+      { name: 'Freshers Welcome', path: '/freshers-welcome' },
+      { name: 'Programme and Events', path: '/programme-and-events' },
     ]
   },
-  { name: 'Contact', hasDropdown: false, path: '#' },
+  { name: 'Contact', hasDropdown: false, path: '/contact' },
 ];
 
 export default function Navbar() {
@@ -161,67 +161,82 @@ export default function Navbar() {
             {navLinks.map((link, index) => (
               <li key={index} className="nav-link-item relative group cursor-pointer flex items-center h-full py-2">
                 
-                {/* Main Link Trigger */}
-                <div className="flex items-center">
-                  <span className={`font-sans text-[9px] lg:text-[10px] xl:text-[11px] 2xl:text-[12px] uppercase tracking-[0.1em] font-semibold transition-colors duration-300 ${
-                    useDarkText 
-                      ? 'text-[var(--primary-base)]/80 group-hover:text-[var(--primary-base)]' 
-                      : 'text-[var(--text-light)]/80 group-hover:text-[var(--text-light)]'
-                  }`}>
-                    {link.name}
-                  </span>
-                  
-                  {link.hasDropdown && (
-                    <svg 
-                      className={`w-2.5 h-2.5 xl:w-3 xl:h-3 ml-1.5 transition-all duration-300 group-hover:rotate-180 ${
-                        useDarkText
-                          ? 'text-[var(--primary-base)]/50 group-hover:text-[var(--primary-base)]/90'
-                          : 'text-[var(--text-light)]/50 group-hover:text-[var(--text-light)]/90'
-                      }`} 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  )}
+                {/* Main Link Trigger - Conditionally renders Link or div based on path */}
+                {(() => {
+                  const TriggerContent = (
+                    <>
+                      <span className={`font-sans text-[9px] lg:text-[10px] xl:text-[11px] 2xl:text-[12px] uppercase tracking-[0.1em] font-semibold transition-colors duration-300 ${
+                        useDarkText 
+                          ? 'text-[var(--primary-base)]/80 group-hover:text-[var(--primary-base)]' 
+                          : 'text-[var(--text-light)]/80 group-hover:text-[var(--text-light)]'
+                      }`}>
+                        {link.name}
+                      </span>
+                      
+                      {link.hasDropdown && (
+                        <svg 
+                          className={`w-2.5 h-2.5 xl:w-3 xl:h-3 ml-1.5 transition-all duration-300 group-hover:rotate-180 ${
+                            useDarkText
+                              ? 'text-[var(--primary-base)]/50 group-hover:text-[var(--primary-base)]/90'
+                              : 'text-[var(--text-light)]/50 group-hover:text-[var(--text-light)]/90'
+                          }`} 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                      )}
 
-                  {link.badge && (
-                    <span className="absolute -top-1.5 xl:-top-2 -right-5 xl:-right-6 bg-[var(--accent)] text-[var(--primary-base)] text-[7px] xl:text-[8px] font-bold px-1 xl:px-1.5 py-0.5 rounded-sm">
-                      {link.badge}
-                    </span>
-                  )}
+                      {link.badge && (
+                        <span className="absolute -top-1.5 xl:-top-2 -right-5 xl:-right-6 bg-[var(--accent)] text-[var(--primary-base)] text-[7px] xl:text-[8px] font-bold px-1 xl:px-1.5 py-0.5 rounded-sm">
+                          {link.badge}
+                        </span>
+                      )}
 
-                  <span className={`absolute -bottom-0 left-0 w-0 h-[1px] transition-all duration-300 group-hover:w-full ${
-                    useDarkText ? 'bg-[var(--primary-base)]' : 'bg-[var(--text-light)]'
-                  }`}></span>
-                </div>
+                      <span className={`absolute -bottom-0 left-0 w-0 h-[1px] transition-all duration-300 group-hover:w-full ${
+                        useDarkText ? 'bg-[var(--primary-base)]' : 'bg-[var(--text-light)]'
+                      }`}></span>
+                    </>
+                  );
+
+                  return link.hasDropdown ? (
+                    <div className="flex items-center">{TriggerContent}</div>
+                  ) : (
+                    <Link to={link.path || '#'} className="flex items-center">{TriggerContent}</Link>
+                  );
+                })()}
 
                 {/* Dropdowns */}
                 {link.hasDropdown && (
-                  <div className="absolute top-[100%] left-0 pt-6 opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] z-50 w-max hidden lg:block">
+                  <div className="absolute top-[100%] left-0 pt-6 invisible opacity-0 [clip-path:inset(0_0_100%_0)] pointer-events-none group-hover:visible group-hover:opacity-100 group-hover:[clip-path:inset(0_0_0_0)] group-hover:pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-50 w-max hidden lg:block">
                     <div className="bg-[var(--primary-base)]/95 backdrop-blur-md border border-[var(--text-light)]/10 shadow-2xl rounded-sm p-3 xl:p-4 flex flex-col gap-1.5 min-w-[220px]">
                       {link.subLinks.map((sub, subIdx) => {
                         
-                        // Internal component to prevent repeating HTML structure
+                        // Internal component updated for the "appear from nowhere" overflow hidden effect
                         const SubLinkContent = () => (
-                          <>
-                            <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--text-light)]/80 group-hover/nested:text-[var(--accent)] transition-colors duration-300">
-                              {sub.name}
-                            </span>
-                            <div className="flex items-center">
-                              {sub.badge && (
-                                <span className="ml-3 bg-[var(--accent)] text-[var(--primary-base)] text-[8px] font-bold uppercase tracking-wider px-1.5 py-[1px] rounded-sm">
-                                  {sub.badge}
-                                </span>
-                              )}
-                              {sub.hasDropdown && (
-                                <svg className="w-3 h-3 ml-3 text-[var(--text-light)]/30 group-hover/nested:text-[var(--accent)] transition-all duration-300 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                              )}
+                          <div className="overflow-hidden w-full">
+                            <div 
+                              className="flex items-center justify-between w-full translate-y-[120%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                              style={{ transitionDelay: `${subIdx * 40}ms` }}
+                            >
+                              <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--text-light)]/80 group-hover/nested:text-[var(--accent)] transition-colors duration-300">
+                                {sub.name}
+                              </span>
+                              <div className="flex items-center">
+                                {sub.badge && (
+                                  <span className="ml-3 bg-[var(--accent)] text-[var(--primary-base)] text-[8px] font-bold uppercase tracking-wider px-1.5 py-[1px] rounded-sm">
+                                    {sub.badge}
+                                  </span>
+                                )}
+                                {sub.hasDropdown && (
+                                  <svg className="w-3 h-3 ml-3 text-[var(--text-light)]/30 group-hover/nested:text-[var(--accent)] transition-all duration-300 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                  </svg>
+                                )}
+                              </div>
                             </div>
-                          </>
+                          </div>
                         );
 
                         return (
@@ -237,22 +252,36 @@ export default function Navbar() {
                               </Link>
                             )}
 
-                            {/* Deep Nested Dropdowns */}
+                            {/* Deep Nested Dropdowns (Curtain expands to the right) */}
                             {sub.hasDropdown && sub.subLinks && (
-                              <div className="absolute top-0 left-[100%] pl-2 opacity-0 -translate-x-2 pointer-events-none group-hover/nested:opacity-100 group-hover/nested:translate-x-0 group-hover/nested:pointer-events-auto transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] z-50 w-max">
+                              <div className="absolute top-0 left-[100%] pl-2 invisible opacity-0 [clip-path:inset(0_100%_0_0)] pointer-events-none group-hover/nested:visible group-hover/nested:opacity-100 group-hover/nested:[clip-path:inset(0_0_0_0)] group-hover/nested:pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-50 w-max">
                                 <div className="bg-[var(--primary-base)]/95 backdrop-blur-md border border-[var(--text-light)]/10 shadow-2xl rounded-sm p-3 xl:p-4 flex flex-col gap-1.5 min-w-[180px]">
                                   {sub.subLinks.map((nestedSub, nestedIdx) => (
                                     nestedSub.isExternal ? (
                                       <a key={nestedIdx} href={nestedSub.path || '#'} target="_blank" rel="noopener noreferrer" className="group/deep flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--text-light)]/5 transition-colors duration-300">
-                                        <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--text-light)]/80 group-hover/deep:text-[var(--accent)] transition-colors duration-300">
-                                          {nestedSub.name}
-                                        </span>
+                                        <div className="overflow-hidden w-full">
+                                          <div 
+                                            className="flex items-center justify-between w-full translate-y-[120%] group-hover/nested:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                                            style={{ transitionDelay: `${nestedIdx * 40}ms` }}
+                                          >
+                                            <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--text-light)]/80 group-hover/deep:text-[var(--accent)] transition-colors duration-300">
+                                              {nestedSub.name}
+                                            </span>
+                                          </div>
+                                        </div>
                                       </a>
                                     ) : (
                                       <Link key={nestedIdx} to={nestedSub.path || '#'} className="group/deep flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--text-light)]/5 transition-colors duration-300">
-                                        <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--text-light)]/80 group-hover/deep:text-[var(--accent)] transition-colors duration-300">
-                                          {nestedSub.name}
-                                        </span>
+                                        <div className="overflow-hidden w-full">
+                                          <div 
+                                            className="flex items-center justify-between w-full translate-y-[120%] group-hover/nested:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                                            style={{ transitionDelay: `${nestedIdx * 40}ms` }}
+                                          >
+                                            <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--text-light)]/80 group-hover/deep:text-[var(--accent)] transition-colors duration-300">
+                                              {nestedSub.name}
+                                            </span>
+                                          </div>
+                                        </div>
                                       </Link>
                                     )
                                   ))}

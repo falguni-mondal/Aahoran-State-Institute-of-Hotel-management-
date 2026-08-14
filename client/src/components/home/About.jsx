@@ -60,7 +60,7 @@ const ScrubText = ({ text, className }) => {
       {text.split(" ").map((word, wIdx) => (
         <span key={wIdx} className="inline-block mr-[0.25em] mb-1">
           {word.split("").map((char, cIdx) => (
-            <span key={cIdx} className="scrub-char opacity-30 transition-none inline-block">
+            <span key={cIdx} className="scrub-char opacity-20 transition-none inline-block">
               {char}
             </span>
           ))}
