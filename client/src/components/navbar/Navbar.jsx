@@ -95,7 +95,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Dynamic Theme Logic
-  const lightHeroRoutes = ['/about/rules', '/short-term-courses', '/full-term-courses', '/hunar-se-rozgar', '/syllabus', '/study-material', '/anti-ragging', '/placement']; 
+  const lightHeroRoutes = ['/about/rules', '/short-term-courses', '/full-term-courses', '/hunar-se-rozgar', '/syllabus', '/study-material', '/anti-ragging', '/placement', '/contact']; 
   const isLightHero = lightHeroRoutes.includes(location.pathname);
   const useDarkText = isLightHero && !isScrolled && !isMobileMenuOpen;
 

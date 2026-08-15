@@ -18,6 +18,11 @@ import AntiRagging from "../pages/AntiRagging";
 import Placement from "../pages/Placement";
 import NoticeBoard from "../pages/NoticeBoard";
 import Results from "../pages/Results";
+import OurCampus from "../pages/OurCampus";
+import InauguralProgramme from "../pages/InauguralProgramme";
+import FreshersWelcome from "../pages/FreshersWelcome";
+import ProgrammeEvents from "../pages/ProgrammeEvents";
+import Contact from "../pages/Contact";
 
 const PageRouter = () => {
   return (
@@ -55,7 +60,22 @@ const PageRouter = () => {
 
       {/* NOTICE BOARD */}
       <Route path="/notice-board" element={<NoticeBoard />} />
+
+
+      {/* RESULTS */}
       <Route path="/results" element={<Results />} />
+
+
+      {/* GALLERY */}
+      <Route path="/our-campus" element={<OurCampus />} />
+      <Route path="/inaugural-programme" element={<InauguralProgramme />} />
+      <Route path="/freshers-welcome" element={<FreshersWelcome />} />
+      <Route path="/programme-and-events" element={<ProgrammeEvents />} />
+
+
+
+      <Route path="/contact" element={<Contact />} />
+
     </Routes>
   );
 };
