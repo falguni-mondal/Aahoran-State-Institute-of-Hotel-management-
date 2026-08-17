@@ -127,6 +127,7 @@ export default function PlacementRoster() {
 
   return (
     <section 
+      id="alumni"
       ref={containerRef} 
       className="relative w-full py-20 md:py-32 lg:py-40 bg-[var(--background)] text-[var(--primary-base)] border-b border-[var(--primary-base)]/10"
     >

@@ -44,11 +44,6 @@ const navLinks = [
       { 
         name: 'Study Material', 
         path: '/study-material', 
-        // hasDropdown: true,
-        // subLinks: [
-        //   { name: 'SEM II', path: '#' },
-        //   { name: 'SEM IV', path: '#' }
-        // ]
       },
     ]
   },
@@ -161,7 +156,7 @@ export default function Navbar() {
             {navLinks.map((link, index) => (
               <li key={index} className="nav-link-item relative group cursor-pointer flex items-center h-full py-2">
                 
-                {/* Main Link Trigger - Conditionally renders Link or div based on path */}
+                {/* Main Link Trigger */}
                 {(() => {
                   const TriggerContent = (
                     <>
@@ -209,11 +204,15 @@ export default function Navbar() {
 
                 {/* Dropdowns */}
                 {link.hasDropdown && (
-                  <div className="absolute top-[100%] left-0 pt-6 invisible opacity-0 [clip-path:inset(0_0_100%_0)] pointer-events-none group-hover:visible group-hover:opacity-100 group-hover:[clip-path:inset(0_0_0_0)] group-hover:pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-50 w-max hidden lg:block">
+                  /* 
+                    FIX APPLIED HERE:
+                    Removed clip-path. Substituted with translate-y-4 shifting to translate-y-0.
+                    This allows nested children extending to the right to be fully visible!
+                  */
+                  <div className="absolute top-[100%] left-0 pt-6 invisible opacity-0 translate-y-4 pointer-events-none group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-50 w-max hidden lg:block">
                     <div className="bg-[var(--primary-base)]/95 backdrop-blur-md border border-[var(--text-light)]/10 shadow-2xl rounded-sm p-3 xl:p-4 flex flex-col gap-1.5 min-w-[220px]">
                       {link.subLinks.map((sub, subIdx) => {
                         
-                        // Internal component updated for the "appear from nowhere" overflow hidden effect
                         const SubLinkContent = () => (
                           <div className="overflow-hidden w-full">
                             <div 
@@ -241,6 +240,7 @@ export default function Navbar() {
 
                         return (
                           <div key={subIdx} className="group/nested relative">
+                            
                             {/* External vs Internal Link Safeguard */}
                             {sub.isExternal ? (
                               <a href={sub.path || '#'} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--text-light)]/5 transition-colors duration-300">

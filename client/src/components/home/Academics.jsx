@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -12,6 +13,7 @@ const academicsData = [
     kicker: "Service & Management",
     desc: "Master the art of fine dining, restaurant management, and mixology. Learn to anticipate guest needs and deliver flawless service in high-end hospitality environments.",
     img: "/fnb-bg.webp",
+    link: "/food-and-beverage",
   },
   {
     id: "02",
@@ -19,6 +21,7 @@ const academicsData = [
     kicker: "Culinary Arts & Kitchen Operations",
     desc: "An intensive immersion into global culinary arts. From fundamental knife skills to advanced gastronomy, train to lead in the world's most demanding kitchens.",
     img: "/fp-bg.webp",
+    link: "/food-production",
   },
   {
     id: "03",
@@ -26,6 +29,7 @@ const academicsData = [
     kicker: "Guest Relations & Revenue",
     desc: "Become the face of luxury hospitality. Master guest experience management, reservation systems, and the critical operational flow of the hotel lobby.",
     img: "/fo-bg.webp",
+    link: "/front-office",
   },
   {
     id: "04",
@@ -33,6 +37,7 @@ const academicsData = [
     kicker: "Accommodation Operations",
     desc: "The backbone of any 5-star property. Acquire the meticulous skills required for room detailing, inventory management, and maintaining immaculate physical environments.",
     img: "/hk-bg.webp",
+    link: "/housekeeping",
   },
 ];
 
@@ -185,7 +190,7 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
               </div>
 
               {/* Ghost Button */}
-              <button className="dept-btn relative overflow-hidden flex items-center gap-3 border border-[var(--primary-base)]/30 hover:border-[var(--accent)] px-6 py-2.5 2xl:px-8 2xl:py-3.5 rounded-sm cursor-pointer outline-none group/btn transition-colors duration-500">
+              <Link to={dept.link} className="dept-btn relative overflow-hidden flex items-center gap-3 border border-[var(--primary-base)]/30 hover:border-[var(--accent)] px-6 py-2.5 2xl:px-8 2xl:py-3.5 rounded-sm cursor-pointer outline-none group/btn transition-colors duration-500">
                 <div className="absolute inset-0 w-full h-full bg-[var(--accent)] translate-y-[101%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
                 <span className="relative z-10 text-[var(--primary-base)] group-hover/btn:text-white transition-colors duration-500 font-sans text-[10px] xl:text-[11px] 2xl:text-xs font-bold uppercase tracking-[0.15em]">
                   View Course
@@ -198,7 +203,7 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </button>
+              </Link>
 
             </div>
           </div>

@@ -130,7 +130,7 @@ const Home = () => {
       <Placements />
       <Placements2 />
       <Placements3 /> */}
-      <Placements4 />
+      {/* <Placements4 /> */}
 
       <Partners />
     </div>

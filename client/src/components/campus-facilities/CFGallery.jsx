@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export default function CFGallery ({ title, images, index }) {
+export default function CFGallery ({ id, title, images, index }) {
   const sectionRef = useRef(null);
 
   useGSAP(() => {
@@ -68,6 +68,7 @@ export default function CFGallery ({ title, images, index }) {
 
   return (
     <section 
+      id={id}
       ref={sectionRef} 
       className={`relative w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-20 lg:py-32 xl:py-40 bg-[var(--background)] ${
         index !== 0 ? 'border-t border-[var(--primary-base)]/10' : ''

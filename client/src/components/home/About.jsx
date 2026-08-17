@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "react-router-dom";
 
 // Register ScrollTrigger
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -88,7 +89,8 @@ function AboutCTA({ text }) {
   });
 
   return (
-    <button 
+    <Link 
+      to="/about"
       ref={btnRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -105,7 +107,7 @@ function AboutCTA({ text }) {
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
       </div>
-    </button>
+    </Link>
   );
 }
 

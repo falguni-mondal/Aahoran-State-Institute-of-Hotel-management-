@@ -19,11 +19,6 @@ const inauguralImages = [
 ];
 
 export default function InauguralProgramme() {
-  
-  // Hard reset scroll to top on mount for GSAP/Lenis accuracy
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <main className="w-full bg-[var(--background)] min-h-screen selection:bg-[var(--accent)] selection:text-[var(--primary-base)]">

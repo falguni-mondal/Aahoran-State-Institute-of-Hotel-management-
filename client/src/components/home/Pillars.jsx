@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -12,6 +13,7 @@ const pillarsData = [
     kicker: "Ministry of Tourism, Govt. of India",
     desc: "National Council for Hotel Management & Catering Technology is an autonomous body centrally regulating academics for B.Sc. Hospitality & Hotel Administration.",
     img: "/nchmct-bg.webp",
+    link: "https://nchm.gov.in/",
   },
   {
     id: "02",
@@ -19,6 +21,7 @@ const pillarsData = [
     kicker: "Industry-Trained Experts",
     desc: "SIHM Durgapur houses a well-groomed, highly educated team of faculties dedicated to the profession, bringing years of direct exposure and experience from 5-star luxury hotels.",
     img: "/faculty-bg.webp",
+    link: "/about#faculty",
   },
   {
     id: "03",
@@ -26,6 +29,7 @@ const pillarsData = [
     kicker: "A Global Professional Network",
     desc: "We expect to find SIHM’s Alumni Association a valuable resource and support tool throughout our professional life and beyond, enjoying the benefits of a global community.",
     img: "/alumni-bg.webp",
+    link: "/placement#alumni",
   },
 ];
 
@@ -196,7 +200,8 @@ const PillarCard = ({ pillar }) => {
           </div>
 
           {/* Ghost Button CTA */}
-          <button 
+          <Link
+            to={pillar.link} 
             ref={btnRef}
             // Opacity 0 initially so it doesn't show before GSAP commands it to
             className="opacity-0 group/btn relative overflow-hidden flex items-center gap-3 border border-[var(--text-light)]/30 hover:border-[var(--accent)] px-6 py-3 rounded-sm cursor-pointer outline-none transition-colors duration-500"
@@ -213,7 +218,7 @@ const PillarCard = ({ pillar }) => {
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </button>
+          </Link>
           
         </div>
       </div>

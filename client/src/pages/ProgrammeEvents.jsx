@@ -3,11 +3,6 @@ import GalleryHero from '../components/gallery/GalleryHero';
 import EventsShowcase from '../components/gallery/EventsShowcase';
 
 export default function ProgrammeEvents() {
-  
-  // Hard reset scroll to top on mount for GSAP/Lenis accuracy
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <main className="w-full bg-[var(--background)] min-h-screen selection:bg-[var(--accent)] selection:text-[var(--primary-base)]">

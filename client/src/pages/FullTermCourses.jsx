@@ -4,11 +4,6 @@ import FTSnapshot from '../components/full-term/FTSnapshot'; // Your renamed sna
 import FTCourseList from '../components/full-term/FTCourseList';
 
 export default function FullTermCourses() {
-  
-  // Forces scroll reset on mount for smooth Lenis/GSAP integration
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <main className="w-full bg-[var(--background)] min-h-screen selection:bg-[var(--accent)] selection:text-[var(--primary-base)]">

@@ -135,7 +135,7 @@ export default function AboutFaculty() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--primary-base)] pt-12 pb-32 md:pt-16 md:pb-40 lg:pt-20 lg:pb-48">
+    <section id="faculty" ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--primary-base)] pt-12 pb-32 md:pt-16 md:pb-40 lg:pt-20 lg:pb-48">
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-16 md:mb-24">
