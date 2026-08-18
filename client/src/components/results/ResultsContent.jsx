@@ -4,12 +4,12 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLenis } from 'lenis/react';
-import NBDownloadButton from '../notice-board/NBDownloadButton'; // Reusing our bulletproof button
+import NBDownloadButton from '../notice-board/NBDownloadButton'; 
 
 gsap.registerPlugin(ScrollTrigger);
 
 /* =========================================
-   RESULTS DATA (Extracted from Screenshots)
+   RESULTS DATA
 ========================================= */
 const sessions = [
   { id: 'all', label: 'All Sessions' },
@@ -84,11 +84,9 @@ const resultsData = [
 ];
 
 export default function ResultsContent() {
-  const containerRef = useRef(null);
   const listRef = useRef(null);
-  const isFirstRender = useRef(true); 
-  
   const lenis = useLenis();
+  
   const [searchParams, setSearchParams] = useSearchParams();
   const activeSession = searchParams.get('session') || sessions[0].id;
   const [hoveredResultId, setHoveredResultId] = useState(null);
@@ -117,38 +115,43 @@ export default function ResultsContent() {
       gsap.set(listRef.current, { minHeight: currentHeight });
     }
 
-    // 2. SCROLL FIX WITH LENIS
-    if (lenis && containerRef.current) {
-      lenis.scrollTo(containerRef.current, { offset: -100, duration: 1.2 });
+    // 2. SMOOTH SCROLL TO ID
+    if (lenis) {
+      lenis.scrollTo('#results-board-top', { 
+        offset: -100, 
+        duration: 1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+      });
     }
 
-    // 3. ANIMATE OUT
+    // 3. ANIMATE OUT & SET ROUTER STATE
     if (currentItems.length > 0) {
       gsap.to(currentItems, {
-        y: 30,
+        y: 20,
         opacity: 0,
         stagger: 0.02,
-        duration: 0.4,
+        duration: 0.3,
         ease: 'power2.in',
-        onComplete: () => setSearchParams({ session: newSessionId })
+        onComplete: () => {
+          setSearchParams(
+            { session: newSessionId },
+            { replace: true, state: { noScroll: true } }
+          );
+        }
       });
     } else {
-      setSearchParams({ session: newSessionId });
+      setSearchParams(
+        { session: newSessionId },
+        { replace: true, state: { noScroll: true } }
+      );
     }
   };
 
   useGSAP(() => {
-    ScrollTrigger.refresh();
-
-    if (!isFirstRender.current && lenis && containerRef.current) {
-      lenis.scrollTo(containerRef.current, { offset: -100, duration: 1.2 });
-    }
-    isFirstRender.current = false;
-
     const newItems = listRef.current.querySelectorAll('.result-row');
 
     if (newItems.length > 0) {
-      gsap.set(newItems, { y: -30, opacity: 0 });
+      gsap.set(newItems, { y: -20, opacity: 0 });
 
       gsap.to(newItems, {
         y: 0,
@@ -170,7 +173,7 @@ export default function ResultsContent() {
   }, { dependencies: [displayResults], scope: listRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] relative z-20">
+    <section id="results-board-top" className="w-full bg-[var(--background)] relative z-20">
       <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-16 md:py-24 lg:py-32 flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
         
         {/* ==========================================
@@ -246,7 +249,7 @@ export default function ResultsContent() {
                         {result.type}
                       </span>
                       {result.isNew && (
-                        <span className="px-2 py-1 border border-green-600/40 bg-green-600/10 text-green-700 text-[8px] font-bold uppercase tracking-[0.2em] rounded-sm">
+                        <span className="px-2 py-1 border border-[var(--accent)] text-[var(--accent)] text-[8px] font-bold uppercase tracking-[0.2em] rounded-full">
                           New Result
                         </span>
                       )}

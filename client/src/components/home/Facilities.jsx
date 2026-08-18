@@ -23,10 +23,10 @@ const facilitiesData = [
   },
   {
     id: "03",
-    title: "Canteen",
-    img: "/canteen.webp",
+    title: "Activities",
+    img: "/activities.webp",
     gridClass: "col-span-1 md:col-span-1 lg:col-span-4",
-    link: "/campus-facilities#canteen"
+    link: "/campus-facilities#activities"
   },
   {
     id: "04",
@@ -182,7 +182,7 @@ export default function Facilities() {
               <span className="facility-word block will-change-transform">Experience our</span>
             </div>
             <div className="overflow-hidden pb-3">
-              <span className="facility-word block will-change-transform italic font-light text-[var(--accent)]">Facilities.</span>
+              <span className="facility-word block will-change-transform italic font-light text-[var(--accent)]">Facilities</span>
             </div>
           </h2>
         </div>

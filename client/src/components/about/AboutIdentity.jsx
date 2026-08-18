@@ -119,7 +119,7 @@ export default function AboutIdentity() {
               Our Identity
             </span>
             <h2 className="head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[var(--text-light)] leading-[0.95] tracking-tighter">
-              Forging the future of Hospitality.
+              Forging the future of Hospitality
             </h2>
           </div>
           

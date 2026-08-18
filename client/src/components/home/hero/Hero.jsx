@@ -33,7 +33,7 @@ function HeroCTA({ text }) {
       <div className="flex items-center justify-center px-10 relative overflow-hidden">
         <div className="relative overflow-hidden h-[1em] leading-none flex items-center justify-center">
           <span className="cta-text-main block">{text}</span>
-          <span className="cta-text-hover absolute block translate-y-[110%]">{text}</span>
+          <span className="cta-text-hover text-(--accent) absolute block translate-y-[110%]">{text}</span>
         </div>
       </div>
       

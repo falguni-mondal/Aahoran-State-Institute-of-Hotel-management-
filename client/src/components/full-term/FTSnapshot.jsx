@@ -41,7 +41,7 @@ export default function FTSnapshot() {
             Programme Overview
           </span>
           <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[var(--primary-base)] tracking-tighter leading-[1.05]">
-            The Bachelor of Science Programme in Hospitality and Hotel Administration.
+            B.Sc. in Hospitality & Hotel Administration
           </h2>
         </div>
 
@@ -67,14 +67,36 @@ export default function FTSnapshot() {
             <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]/50">
               Accreditation
             </span>
-            <div className="mt-8 xl:mt-0 flex flex-col gap-4">
-              <p className="text-xl md:text-2xl lg:text-3xl font-light text-[var(--primary-base)] leading-[1.4] tracking-tight">
-                By the National Council for Hotel Management and Catering Technology, Noida
-              </p>
-              <div className="w-12 h-[1px] bg-[var(--primary-base)]/20 my-2"></div>
-              <p className="text-xl md:text-2xl lg:text-3xl font-light text-[var(--primary-base)] leading-[1.4] tracking-tight">
-                and The Jawaharlal Nehru University
-              </p>
+            
+            <div className="mt-8 xl:mt-0 flex flex-col gap-5 md:gap-6">
+              
+              {/* NCHMCT Accreditation */}
+              <div className="flex flex-row items-center gap-4 md:gap-6">
+                <img 
+                  src="/nchmct.png" 
+                  alt="NCHMCT Logo" 
+                  className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain shrink-0"
+                />
+                <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-[var(--primary-base)] leading-[1.3] tracking-tight">
+                  National Council for Hotel Management and Catering Technology, Noida
+                </p>
+              </div>
+
+              {/* The dividing line dynamically aligns with the typography, skipping the width of the logo + gap */}
+              <div className="w-12 h-[1px] bg-[var(--primary-base)]/20 ml-[3.5rem] md:ml-[5rem] lg:ml-[5.5rem]"></div>
+
+              {/* JNU Accreditation */}
+              <div className="flex flex-row items-center gap-4 md:gap-6">
+                <img 
+                  src="/jnu.svg" 
+                  alt="JNU Logo" 
+                  className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain shrink-0"
+                />
+                <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-[var(--primary-base)] leading-[1.3] tracking-tight">
+                  Jawaharlal Nehru University, New Delhi
+                </p>
+              </div>
+
             </div>
           </div>
 

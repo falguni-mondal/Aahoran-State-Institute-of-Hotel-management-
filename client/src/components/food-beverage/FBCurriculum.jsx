@@ -114,7 +114,7 @@ export default function FBCurriculum() {
             </span>
             
             <h2 className="split-heading head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-tighter mb-8 md:mb-12">
-              About The <br/> Course.
+              About The <br/> Course
             </h2>
             
             <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--primary-base)]/80 text-justify md:text-left">
@@ -142,7 +142,7 @@ export default function FBCurriculum() {
             </span>
             
             <h2 className="split-heading head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-tighter mb-12 md:mb-16">
-              Course Details.
+              Course Details
             </h2>
             
             <div className="text-reveal grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 relative">

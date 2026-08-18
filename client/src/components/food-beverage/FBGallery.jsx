@@ -40,7 +40,7 @@ export default function FBGallery() {
             Visual Tasting
           </span>
           <h2 className="head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[var(--primary-base)] tracking-tighter">
-            Gallery.
+            Gallery
           </h2>
         </div>
 

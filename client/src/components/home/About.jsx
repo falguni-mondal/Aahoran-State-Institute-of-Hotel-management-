@@ -233,7 +233,7 @@ export default function About() {
                 <span className="about-title-line block origin-bottom-left">A Legacy of</span>
               </div>
               <div className="overflow-hidden pb-4">
-                <span className="about-title-line block origin-bottom-left italic font-light text-[var(--accent)]">Hospitality.</span>
+                <span className="about-title-line block origin-bottom-left italic font-light text-[var(--accent)]">Hospitality</span>
               </div>
             </h2>
           </div>
@@ -252,7 +252,7 @@ export default function About() {
             className="border-l-2 border-[var(--accent)] pl-6 md:pl-8 py-2 my-10 xl:my-16 2xl:my-20"
           >
             <p className="head-txt text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] 2xl:text-5xl leading-snug italic text-[var(--primary-base)]/90">
-              "It is the first institute that has been gifted the name AAHORAN by our Hon'ble Chief Minister which means Collection."
+              "It is the first institute that has been gifted the name AAHORAN by our Hon'ble Chief Minister of West Bengal which means Collection."
             </p>
           </blockquote>
 

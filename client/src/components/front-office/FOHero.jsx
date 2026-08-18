@@ -61,7 +61,7 @@ export default function FOHero() {
           The Face of Hospitality
         </span>
         <h1 className="fo-heading head-txt text-5xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] leading-[0.9] tracking-tighter text-[var(--text-light)] uppercase max-w-[90vw]">
-          Front <br /> Office.
+          Front <br /> Office
         </h1>
       </div>
 

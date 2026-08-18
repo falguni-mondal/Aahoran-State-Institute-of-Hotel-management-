@@ -132,7 +132,7 @@ export default function Partners() {
               <span className="partner-word block origin-bottom-left will-change-transform">Placement</span>
             </span>{" "}
             <span className="inline-flex overflow-hidden align-top pb-2">
-              <span className="partner-word block origin-bottom-left will-change-transform italic font-light text-[var(--accent)]">Partners.</span>
+              <span className="partner-word block origin-bottom-left will-change-transform italic font-light text-[var(--accent)]">Partners</span>
             </span>
           </h2>
         </div>

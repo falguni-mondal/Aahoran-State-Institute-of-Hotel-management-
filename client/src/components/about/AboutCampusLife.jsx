@@ -124,7 +124,7 @@ export default function AboutCampusLife() {
             Life at SIHM Durgapur
           </span>
           <h2 className="campus-header-anim head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tighter max-w-4xl">
-            Where passion meets practical excellence.
+            Where passion meets practical excellence
           </h2>
         </div>
 

@@ -229,7 +229,7 @@ export default function Academics() {
             Academic Verticals
           </span>
           <h2 className="head-txt text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem] text-[var(--primary-base)] leading-none tracking-tight">
-            Our <span className="italic font-light">Departments.</span>
+            Our <span className="italic font-light">Departments</span>
           </h2>
         </div>
       </div>

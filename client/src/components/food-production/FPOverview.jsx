@@ -46,7 +46,7 @@ export default function FPOverview() {
           {/* Right: The Narrative */}
           <div className="w-full lg:w-7/12 flex flex-col justify-end lg:pt-16 xl:pt-24">
             <h3 className="stat-text text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light tracking-tight mb-8 md:mb-12 leading-[1.2]">
-              It is said that we eat with our eyes, nose, mouth (tongue) and stomach, and a chef has to not only make the food edible, but he has to take care of the eye-appeal and gastronomic values of each item.
+              It is said that we eat with our eyes, ears, nose, mouth (tongue) and skin, and a chef has to not only make the food edible, but he/she has to take care of the eye-appeal and gastronomic values of each item.
             </h3>
             <p className="stat-text text-base md:text-lg lg:text-xl xl:text-2xl font-light text-[var(--primary-base)]/70 leading-[1.7] md:leading-[1.8] max-w-2xl">
               This department deals with the preparation, production and presentation of foods from different cuisines from all over the world. Knowledge of many ingredients used to prepare items from different cuisines, their nutritional values, effects of different cooking methods of each ingredient – all are discussed in details in the classes.

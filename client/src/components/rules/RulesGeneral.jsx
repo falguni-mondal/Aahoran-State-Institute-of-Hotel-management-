@@ -52,7 +52,7 @@ export default function RulesGeneral() {
             01 / Core Guidelines
           </span>
           <h2 className="head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tighter">
-            General <br className="hidden md:block"/> Regulations.
+            General <br className="hidden md:block"/> Regulations
           </h2>
         </div>
 

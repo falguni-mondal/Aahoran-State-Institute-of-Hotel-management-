@@ -46,7 +46,7 @@ const PageRouter = () => {
 
       {/* ACADEMIC ROUTES */}
       <Route path="/short-term-courses" element={<ShortTermCourses />} />
-      <Route path="/full-term-courses" element={<FullTermCourses />} />
+      <Route path="/ug-program" element={<FullTermCourses />} />
       <Route path="/hunar-se-rozgar" element={<HunarSeRozgar />} />
       <Route path="/syllabus" element={<Syllabus />} />
       <Route path="/study-material" element={<StudyMaterial />} />

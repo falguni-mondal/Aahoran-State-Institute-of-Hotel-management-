@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const coursesData = [
   {
     id: "fb-service",
-    title: "Food and Beverage Service",
+    title: "Food & Beverage Service",
     image: "/st-fb-service.webp",
     description: [
       "It has been observed, from the study of manpower requirement in the hospitality industry that there is a substantial demand for skilled manpower in the Food Service industry which may be provided by the hotel management institutes.",
@@ -164,7 +164,7 @@ export default function STCourseList() {
               </div>
 
               <h3 className="head-txt text-5xl xl:text-6xl 2xl:text-7xl font-light tracking-tighter mb-10 leading-[0.95] text-[var(--primary-base)]">
-                Diploma in <br/> {course.title}.
+                Diploma in <br/> {course.title}
               </h3>
               
               <div className="flex flex-col gap-6">

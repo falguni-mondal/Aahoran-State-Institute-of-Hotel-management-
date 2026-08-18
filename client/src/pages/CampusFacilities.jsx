@@ -22,20 +22,20 @@ const facilitiesData = [
     ],
   },
   {
-    id: "canteen",
-    title: "Canteen",
+    id: "activities",
+    title: "Activities",
     images: [
       {
-        src: "/canteen_1.jpg",
-        alt: "Students enjoying a meal together in the canteen",
+        src: "/activities_1.jpg",
+        alt: "Students participating in extracurricular activities",
       },
       {
-        src: "/canteen_2.jpg",
-        alt: "Students being served at the canteen counter",
+        src: "/activities_2.jpg",
+        alt: "Students engaged in a group discussion",
       },
       {
-        src: "/canteen_3.jpg",
-        alt: "Close up of the fresh food serving station",
+        src: "/activities_3.jpg",
+        alt: "Students participating in a sports event",
       },
     ],
   },

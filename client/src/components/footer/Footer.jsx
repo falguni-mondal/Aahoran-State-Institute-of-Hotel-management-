@@ -46,7 +46,6 @@ const statutoryLinks = [
   { name: "Anti Ragging Policy", url: "#" },
   { name: "NCHMCT", url: "#" },
   { name: "JNU", url: "#" },
-  { name: "THIMS", url: "#" },
 ];
 
 export default function Footer() {

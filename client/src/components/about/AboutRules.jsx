@@ -140,7 +140,7 @@ export default function AboutRules() {
               Administration
             </span>
             <h2 className="rules-heading head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tighter">
-              Rules & <br className="hidden md:block"/> Regulations.
+              Rules & <br className="hidden md:block"/> Regulations
             </h2>
           </div>
 

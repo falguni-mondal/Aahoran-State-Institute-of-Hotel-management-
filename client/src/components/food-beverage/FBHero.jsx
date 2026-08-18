@@ -61,7 +61,7 @@ export default function FBHero() {
           Department of Excellence
         </span>
         <h1 className="fb-heading head-txt text-5xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] leading-[0.9] tracking-tighter text-[var(--text-light)] uppercase max-w-[90vw]">
-          Food & <br /> Beverage.
+          Food & <br /> Beverage Service
         </h1>
       </div>
 

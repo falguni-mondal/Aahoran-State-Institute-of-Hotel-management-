@@ -20,7 +20,6 @@ const navLinks = [
       { name: 'Computer Lab', path: '/about/computer-lab' },
       { name: 'NCHMCT', path: 'https://nchm.gov.in/', isExternal: true },
       { name: 'JNU', path: 'https://www.jnu.ac.in/', isExternal: true },
-      { name: 'THIMS', path: 'https://thims.gov.in', isExternal: true },
     ]
   },
   { 
@@ -38,7 +37,7 @@ const navLinks = [
     hasDropdown: true,
     subLinks: [
       { name: 'Short Term Courses', path: '/short-term-courses' },
-      { name: 'Full Term Courses', path: '/full-term-courses' },
+      { name: 'Under Graduate Program', path: '/ug-program' },
       { name: 'Hunar Se Rozgar Tak', path: '/hunar-se-rozgar' },
       { name: 'Syllabus', path: '/syllabus', badge: 'NEW' },
       { 
@@ -59,6 +58,7 @@ const navLinks = [
         path: '#', 
         hasDropdown: true,
         subLinks: [
+          { name: 'SWAMI VIVEKANANDA', path: 'https://svmcm.wb.gov.in/', isExternal: true },
           { name: 'NSP', path: 'https://scholarships.gov.in/', isExternal: true },
           { name: 'OASIS', path: 'https://oasis.wb.gov.in/', isExternal: true },
           { name: 'AIKYASHREE', path: 'https://wbmdfcscholarship.in/', isExternal: true },
@@ -90,7 +90,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Dynamic Theme Logic
-  const lightHeroRoutes = ['/about/rules', '/short-term-courses', '/full-term-courses', '/hunar-se-rozgar', '/syllabus', '/study-material', '/anti-ragging', '/placement', '/contact']; 
+  const lightHeroRoutes = ['/about/rules', '/short-term-courses', '/ug-program', '/hunar-se-rozgar', '/syllabus', '/study-material', '/anti-ragging', '/placement', '/contact']; 
   const isLightHero = lightHeroRoutes.includes(location.pathname);
   const useDarkText = isLightHero && !isScrolled && !isMobileMenuOpen;
 

@@ -94,7 +94,7 @@ export default function AboutRecognition() {
               Recognition
             </span>
             <h2 className="head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tighter mb-10 lg:mb-16">
-              Awards & <br className="hidden lg:block"/> Accolades.
+              Awards & <br className="hidden lg:block"/> Accolades
             </h2>
           </div>
           

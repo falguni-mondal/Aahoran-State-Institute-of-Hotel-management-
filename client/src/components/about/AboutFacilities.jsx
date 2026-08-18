@@ -18,7 +18,7 @@ const facilitiesData = [
   "Dedicated Computer and Property Management Software (PMS) Labs.",
   "Advanced Front Office Labs, a large Auditorium, and a professional Conference Hall.",
   "State-of-the-Art Library providing comprehensive reference and study materials.",
-  "Fully Wi-Fi enabled campus with recreational facilities, separate common rooms, and gymnasiums."
+  "Fully Wi-Fi enabled campus with recreational facilities, separate common rooms, and games arena."
 ];
 
 export default function AboutFacilities() {
@@ -68,7 +68,7 @@ export default function AboutFacilities() {
                 Infrastructure
               </span>
               <h2 className="head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-6 md:mb-10 lg:mb-12 leading-[0.95] tracking-tighter">
-                World-Class <br className="hidden lg:block"/> Facilities.
+                World-Class <br className="hidden lg:block"/> Facilities
               </h2>
               
               <div className="relative w-full aspect-[4/3] overflow-hidden rounded-sm bg-[var(--primary-base)]/5 mt-4 lg:mt-0">

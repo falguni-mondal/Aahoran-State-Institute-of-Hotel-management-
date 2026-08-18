@@ -3,14 +3,13 @@ import { useSearchParams } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useLenis } from 'lenis/react'; // <-- IMPORT LENIS HOOK
+import { useLenis } from 'lenis/react'; 
 import NBDownloadButton from './NBDownloadButton';
 
-// Ensure ScrollTrigger is registered
 gsap.registerPlugin(ScrollTrigger);
 
 /* =========================================
-   MOCK DATA (To be replaced by API)
+   MOCK DATA 
 ========================================= */
 const categories = [
   { id: 'all', label: 'All Notices' },
@@ -33,26 +32,19 @@ const noticesData = [
 ];
 
 export default function NBContent() {
-  const containerRef = useRef(null);
   const listRef = useRef(null);
-  
-  // Access the global Lenis instance
   const lenis = useLenis();
   
-  // URL Search Params Integration
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get('category') || categories[0].id;
-  
   const [hoveredNoticeId, setHoveredNoticeId] = useState(null);
   
-  // Initialize Data State based on URL
   const [displayNotices, setDisplayNotices] = useState(() => {
     return activeCategory === 'all' 
       ? noticesData 
       : noticesData.filter(notice => notice.categoryId === activeCategory);
   });
 
-  // Keep state synchronized if user uses Browser Back/Forward buttons
   useEffect(() => {
     const newData = activeCategory === 'all' 
       ? noticesData 
@@ -60,46 +52,54 @@ export default function NBContent() {
     setDisplayNotices(newData);
   }, [activeCategory]);
 
-  // Core List Transition Logic
   const handleCategoryChange = (newCategoryId) => {
     if (newCategoryId === activeCategory) return;
 
     const currentItems = listRef.current.querySelectorAll('.nb-row');
 
-    // 1. HEIGHT LOCK: Freeze the container height so the page doesn't collapse during transition
+    // 1. HEIGHT LOCK
     if (listRef.current) {
       const currentHeight = listRef.current.offsetHeight;
       gsap.set(listRef.current, { minHeight: currentHeight });
     }
 
-    // 2. SCROLL FIX: Use Lenis natively to scroll to the container without fighting the browser
-    if (lenis && containerRef.current) {
-      lenis.scrollTo(containerRef.current, { offset: -100, duration: 1.2 });
+    // 2. SMOOTH SCROLL TO ID
+    if (lenis) {
+      lenis.scrollTo('#notice-board-top', { 
+        offset: -100, 
+        duration: 1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+      });
     }
 
-    // 3. Animate Out: Stagger down and fade out
+    // 3. ANIMATE OUT & SET ROUTER STATE (The Fix applied here)
     if (currentItems.length > 0) {
       gsap.to(currentItems, {
-        y: 30,
+        y: 20,
         opacity: 0,
         stagger: 0.02,
-        duration: 0.4,
+        duration: 0.3,
         ease: 'power2.in',
         onComplete: () => {
-          setSearchParams({ category: newCategoryId });
+          setSearchParams(
+            { category: newCategoryId }, 
+            { replace: true, state: { noScroll: true } }
+          );
         }
       });
     } else {
-      setSearchParams({ category: newCategoryId });
+      setSearchParams(
+        { category: newCategoryId }, 
+        { replace: true, state: { noScroll: true } }
+      );
     }
   };
 
-  // 4. Animate In: Triggered whenever displayNotices changes (via useEffect)
   useGSAP(() => {
     const newItems = listRef.current.querySelectorAll('.nb-row');
 
     if (newItems.length > 0) {
-      gsap.set(newItems, { y: -30, opacity: 0 });
+      gsap.set(newItems, { y: -20, opacity: 0 });
 
       gsap.to(newItems, {
         y: 0,
@@ -108,18 +108,12 @@ export default function NBContent() {
         duration: 0.8,
         ease: 'power3.out',
         onComplete: () => {
-          // A. HEIGHT UNLOCK: Remove the fixed height once new items are rendered
           gsap.set(listRef.current, { clearProps: "minHeight" });
-          
-          // B. RECALCULATE LENIS: Force Lenis to measure the new massive DOM height immediately
           if (lenis) lenis.resize();
-
-          // C. RECALCULATE GSAP: Update all ScrollTriggers below this section
           ScrollTrigger.refresh();
         }
       });
     } else {
-      // If empty state is shown, safely clear the lock immediately and refresh both engines
       gsap.set(listRef.current, { clearProps: "minHeight" });
       if (lenis) lenis.resize();
       ScrollTrigger.refresh();
@@ -127,7 +121,7 @@ export default function NBContent() {
   }, { dependencies: [displayNotices], scope: listRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] relative z-20">
+    <section id="notice-board-top" className="w-full bg-[var(--background)] relative z-20">
       <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-16 md:py-24 lg:py-32 flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
         
         {/* ==========================================
@@ -156,7 +150,6 @@ export default function NBContent() {
                     {cat.label}
                   </h3>
                   
-                  {/* Elegant Animated Underline */}
                   <div className={`absolute -bottom-2 left-0 h-[1px] bg-[var(--accent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     isActive ? 'w-full' : 'w-0 group-hover:w-1/4'
                   }`}></div>
@@ -186,15 +179,12 @@ export default function NBContent() {
                     isDimmed ? 'opacity-20 blur-[2px]' : 'opacity-100 blur-0'
                   }`}
                 >
-                  {/* Massive Faint Serial Number Watermark */}
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 text-[8rem] md:text-[14rem] font-bold text-[var(--primary-base)]/[0.03] select-none pointer-events-none group-hover:scale-110 group-hover:text-[var(--primary-base)]/[0.05] transition-all duration-700 ease-out origin-left -z-10">
                     {serialNumber}
                   </div>
 
-                  {/* Notice Content */}
                   <div className="relative z-10 flex flex-col md:flex-row md:items-start gap-4 md:gap-12 w-full pr-0 md:pr-8">
                     
-                    {/* Date Column */}
                     <div className="shrink-0 md:w-32 flex flex-col gap-2 md:pt-2">
                       <span className="font-mono text-xs md:text-sm tracking-wider text-[var(--primary-base)]/50">
                         {notice.date}
@@ -206,14 +196,12 @@ export default function NBContent() {
                       )}
                     </div>
 
-                    {/* Title Column */}
                     <h2 className="text-2xl md:text-3xl lg:text-4xl leading-[1.2] tracking-tight font-light text-[var(--primary-base)] group-hover:translate-x-2 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                       {notice.title}
                     </h2>
 
                   </div>
 
-                  {/* Download Action Component */}
                   <div className="relative z-10 shrink-0 md:pl-4 self-start md:self-auto">
                     <NBDownloadButton />
                   </div>

@@ -145,7 +145,7 @@ export default function AboutFaculty() {
                 Our Faculties
               </span>
               <h2 className="head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tighter mb-8 lg:mb-10">
-                Academic <br className="hidden md:block"/> Leadership.
+                Academic <br className="hidden md:block"/> Leadership
               </h2>
             </div>
             

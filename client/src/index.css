@@ -4,10 +4,11 @@
   --background: #F7F5F0;
   --primary-base: #0B1B3D;
   --primary-light: #1A365D;
-  --text-main: #1F2937;
-  --text-muted: #64748B;
+  --text-main: #363636;
+  --text-muted: #707884;
   --text-light: #f8f9fa;
-  --accent: #C5A880;
+  /* --accent: #f78742; */
+  --accent: #c49e69;
 }
 
 html, body{

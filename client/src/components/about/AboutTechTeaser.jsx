@@ -204,7 +204,7 @@ export default function AboutTechTeaser() {
         </span>
         
         <h2 className="tech-heading head-txt text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-[var(--text-light)] mb-12 md:mb-16 max-w-4xl">
-          Mastering the Digital Era of Hospitality.
+          Mastering the Digital Era of Hospitality
         </h2>
 
         {/* =========================================

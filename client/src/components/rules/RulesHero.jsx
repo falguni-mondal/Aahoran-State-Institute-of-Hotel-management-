@@ -73,7 +73,7 @@ export default function RulesHero() {
         </span>
         
         <h1 className="rules-hero-heading head-txt text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] leading-[0.85] tracking-tighter uppercase w-full">
-          Institute <br /> Regulations.
+          Institute <br /> Regulations
         </h1>
         
       </div>

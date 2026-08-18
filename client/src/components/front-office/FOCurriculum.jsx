@@ -111,7 +111,7 @@ export default function FOCurriculum() {
             </span>
             
             <h2 className="split-heading head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-tighter mb-8 md:mb-12">
-              About The <br/> Course.
+              About The <br/> Course
             </h2>
             
             <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--primary-base)]/80 text-justify md:text-left">
@@ -121,7 +121,7 @@ export default function FOCurriculum() {
         </div>
 
         {/* =======================================
-            SECTION 2: FACILITIES
+            FACILITIES
         ======================================= */}
         <div className="flex flex-col-reverse lg:flex-row items-start justify-between gap-12 lg:gap-20 xl:gap-24">
           
@@ -138,7 +138,7 @@ export default function FOCurriculum() {
             </span>
             
             <h2 className="split-heading head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-tighter mb-12 md:mb-16">
-              Facilities.
+              Facilities
             </h2>
             
             <div className="text-reveal relative">

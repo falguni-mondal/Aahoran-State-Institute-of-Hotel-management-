@@ -41,7 +41,7 @@ export default function STOverview() {
             Common Structure
           </span>
           <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl text-[var(--primary-base)] tracking-tighter">
-            Program Eligibility.
+            Program Eligibility
           </h2>
           <p className="mt-6 text-sm md:text-base font-light text-[var(--primary-base)]/60 max-w-lg">
             The following duration, intake, and qualification criteria apply universally across all five short-term diploma courses.
@@ -58,9 +58,9 @@ export default function STOverview() {
             </span>
             <div>
               <div className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tighter mb-2">
-                1.5
+                18
               </div>
-              <span className="text-lg md:text-xl font-light text-[var(--primary-base)]/70">Years</span>
+              <span className="text-lg md:text-xl font-light text-[var(--primary-base)]/70">Months</span>
             </div>
           </div>
 
@@ -80,7 +80,7 @@ export default function STOverview() {
           {/* Stat 3: Intake */}
           <div className="stat-box flex flex-col justify-between p-8 lg:p-12 border-r border-b border-[var(--primary-base)]/10 aspect-square xl:aspect-auto xl:h-[350px]">
             <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]/50">
-              Proposed Intake
+              Intake
             </span>
             <div>
               <div className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tighter mb-2">
@@ -95,20 +95,11 @@ export default function STOverview() {
             <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]/50">
               Age Limit
             </span>
-            <div className="flex flex-col gap-4">
-              <div>
-                <div className="text-4xl md:text-5xl font-light tracking-tighter">
-                  22 <span className="text-base md:text-lg font-light text-[var(--primary-base)]/70 tracking-normal">yrs</span>
-                </div>
-                <span className="text-xs md:text-sm text-[var(--primary-base)]/50 uppercase tracking-widest font-medium">Gen / OBC</span>
+            <div>
+              <div className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter mb-2">
+                None
               </div>
-              <div className="w-8 h-[1px] bg-[var(--primary-base)]/20"></div>
-              <div>
-                <div className="text-4xl md:text-5xl font-light tracking-tighter">
-                  25 <span className="text-base md:text-lg font-light text-[var(--primary-base)]/70 tracking-normal">yrs</span>
-                </div>
-                <span className="text-xs md:text-sm text-[var(--primary-base)]/50 uppercase tracking-widest font-medium">SC / ST</span>
-              </div>
+              <span className="text-lg md:text-xl font-light text-[var(--primary-base)]/70">No age bar</span>
             </div>
           </div>
 

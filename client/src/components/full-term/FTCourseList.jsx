@@ -24,7 +24,7 @@ export default function FTCourseList() {
   const containerRef = useRef(null);
 
   useGSAP(() => {
-    // 1. Image Parallax Effect
+    // Image Parallax Effect
     gsap.to('.editorial-image', {
       yPercent: 15,
       ease: 'none',
@@ -36,7 +36,7 @@ export default function FTCourseList() {
       }
     });
 
-    // 2. Top Heading Reveal (Independent Trigger)
+    // Top Heading Reveal (Independent Trigger)
     gsap.fromTo('.intro-text',
       { y: 30, opacity: 0 },
       { 
@@ -53,7 +53,7 @@ export default function FTCourseList() {
       }
     );
 
-    // 3. Bottom Details Grid Reveal (Independent Trigger)
+    // Bottom Details Grid Reveal (Independent Trigger)
     gsap.fromTo('.detail-column',
       { y: 40, opacity: 0 },
       { 
@@ -83,7 +83,7 @@ export default function FTCourseList() {
               Program Architecture
             </span>
             <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tighter leading-[1.05]">
-              The Bachelor of Science Programme in Hospitality and Hotel Administration.
+              B.Sc. in Hospitality & Hotel Administration
             </h2>
           </div>
           <div className="w-full lg:w-6/12 intro-text lg:pt-12">
@@ -119,10 +119,10 @@ export default function FTCourseList() {
               </div>
               
               <h3 className="text-2xl md:text-3xl font-light tracking-tight mb-6 leading-[1.2]">
-                {item.title}.
+                {item.title}
               </h3>
               
-              <p className="text-base md:text-lg font-light leading-[1.8] text-[var(--primary-base)]/70 text-justify md:text-left">
+              <p className="text-base md:text-lg font-light leading-[1.8] text-[var(--primary-base)]/70 text-justify">
                 {item.content}
               </p>
               
