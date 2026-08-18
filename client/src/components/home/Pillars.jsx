@@ -77,7 +77,7 @@ const PillarCard = ({ pillar }) => {
       hoverTl.current.to(image, { opacity: 0.35, scale: 1, duration: 0.4, ease: "power3.out" }, 0);
       
       // Icon rotation
-      hoverTl.current.to(icon, { rotate: 90, color: "#f07528", duration: 0.3, ease: "expo.out" }, 0);
+      hoverTl.current.to(icon, { rotate: 90, color: "#C5A880", duration: 0.3, ease: "expo.out" }, 0);
 
       // Curtain Reveal - Staggering the lines
       lines.forEach((lineChars, lineIndex) => {
@@ -108,7 +108,7 @@ const PillarCard = ({ pillar }) => {
       });
 
       scrollTl.to(image, { opacity: 0.25, scale: 1, duration: 0.4, ease: "power3.out" }, 0);
-      scrollTl.to(icon, { rotate: 90, color: "#f07528", duration: 0.3, ease: "expo.out" }, 0);
+      scrollTl.to(icon, { rotate: 90, color: "#C5A880", duration: 0.3, ease: "expo.out" }, 0);
       
       lines.forEach((lineChars, lineIndex) => {
         scrollTl.to(
@@ -163,7 +163,7 @@ const PillarCard = ({ pillar }) => {
         
         {/* Top Header */}
         <div className="w-full flex justify-between items-start mb-24 lg:mb-0">
-          <span className="font-sans font-light text-2xl xl:text-3xl text-[#f07528] transition-opacity duration-500">
+          <span className="font-sans font-light text-2xl xl:text-3xl text-[#C5A880] transition-opacity duration-500">
             {pillar.id}
           </span>
           <svg 
@@ -180,7 +180,7 @@ const PillarCard = ({ pillar }) => {
         {/* Bottom Content Area */}
         <div className="flex flex-col items-start w-full">
           
-          <span className="font-sans font-bold text-[9px] md:text-[10px] xl:text-[11px] uppercase tracking-[0.2em] text-[#f07528] mb-4 block">
+          <span className="font-sans font-bold text-[9px] md:text-[10px] xl:text-[11px] uppercase tracking-[0.2em] text-[#C5A880] mb-4 block">
             {pillar.kicker}
           </span>
           
@@ -207,11 +207,11 @@ const PillarCard = ({ pillar }) => {
             className="opacity-0 group/btn relative overflow-hidden flex items-center gap-3 border border-[var(--text-light)]/30 hover:border-[var(--accent)] px-6 py-3 rounded-sm cursor-pointer outline-none transition-colors duration-500"
           >
             <div className="absolute inset-0 w-full h-full bg-[var(--accent)] translate-y-[101%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
-            <span className="relative z-10 text-[var(--text-light)] group-hover/btn:text-[var(--text-main)] transition-colors duration-500 font-sans text-[10px] xl:text-[11px] font-bold uppercase tracking-[0.15em]">
+            <span className="relative z-10 text-[var(--text-light)] group-hover/btn:text-[var(--primary-base)] transition-colors duration-500 font-sans text-[10px] xl:text-[11px] font-bold uppercase tracking-[0.15em]">
               Explore More
             </span>
             <svg 
-              className="relative z-10 w-3.5 h-3.5 text-[var(--text-light)] group-hover/btn:text-[var(--text-main)] group-hover/btn:translate-x-1 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" 
+              className="relative z-10 w-3.5 h-3.5 text-[var(--text-light)] group-hover/btn:text-[var(--primary-base)] group-hover/btn:translate-x-1 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
