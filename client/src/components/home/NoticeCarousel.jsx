@@ -29,7 +29,7 @@ export default function NoticeCarousel() {
   return (
     <div 
       ref={containerRef} 
-      className="absolute bottom-0 left-0 w-full bg-[var(--text-main)] border-t border-[var(--text-light)]/10 py-3 z-20 flex overflow-hidden group"
+      className="absolute bottom-0 left-0 w-full bg-[#ffffff12] backdrop-blur-md border-t border-[var(--text-light)]/10 py-3 z-20 flex overflow-hidden group"
     >
       <div 
         className="ticker-content flex whitespace-nowrap group-hover:[animation-play-state:paused]"
@@ -40,9 +40,9 @@ export default function NoticeCarousel() {
         {[...Array(2)].map((_, arrayIndex) => (
           <div key={arrayIndex} className="flex items-center">
             {notices.map((notice) => (
-              <div key={notice.id} className="flex items-center px-8 border-r border-[var(--text-light)]/20 last:border-r-0">
+              <div key={notice.id} className="flex items-center px-8 border-r border-[var(--text-light)]/50 last:border-r-0">
                 {notice.tag && (
-                  <span className="bg-[var(--text-light)] text-[var(--primary-base)] text-[10px] font-bold px-2 py-0.5 rounded-sm mr-3">
+                  <span className="bg-[var(--accent)] text-[var(--text-light)] text-[10px] font-bold px-2 py-0.5 rounded-sm mr-3">
                     {notice.tag}
                   </span>
                 )}
@@ -51,7 +51,7 @@ export default function NoticeCarousel() {
                   {notice.text}
                 </span>
                 {/* Small bullet separator */}
-                <div className="w-1.5 h-1.5 rounded-full bg-[var(--text-light)]/30 ml-8"></div>
+                <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] ml-8"></div>
               </div>
             ))}
           </div>
