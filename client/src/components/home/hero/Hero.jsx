@@ -27,7 +27,7 @@ function HeroCTA({ text }) {
       ref={btnRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="bg-[var(--background)] text-[var(--primary-base)] font-semibold text-xs uppercase tracking-[0.15em] shadow-lg cursor-pointer flex items-stretch h-13"
+      className="bg-[var(--background)] text-[var(--text-main)] font-semibold text-xs uppercase tracking-[0.15em] shadow-lg cursor-pointer flex items-stretch h-13"
     >
       {/* Text Zone */}
       <div className="flex items-center justify-center px-10 relative overflow-hidden">
@@ -78,7 +78,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative w-full h-screen bg-[var(--primary-base)] text-[var(--text-light)] flex flex-col justify-center overflow-hidden"
+      className="relative w-full min-h-screen bg-[var(--primary-base)] text-[var(--text-light)] flex flex-col justify-center"
     >
       <video
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-100"
@@ -89,8 +89,8 @@ export default function Hero() {
         src="/hero.mp4"
       ></video>
 
-      <div className="absolute inset-0 bg-[var(--primary-base)]/80 z-0"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--primary-light),_transparent_60%)] opacity-70 mix-blend-screen z-0"></div>
+      <div className="absolute inset-0 bg-[#030812]/65 z-0"></div>
+      {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--primary-light),_transparent_60%)] opacity-70 mix-blend-screen z-0"></div> */}
 
       <div className="relative z-10 w-full mx-auto px-5 md:px-12 lg:px-12 flex flex-col items-start mt-12">
         

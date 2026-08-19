@@ -77,7 +77,7 @@ const Home = () => {
           onClick={() => setIsModalOpen(true)}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className="flex items-center gap-3 bg-[var(--text-light)] text-[var(--primary-base)] py-5 px-3 md:py-8 md:px-3 rounded-l-sm shadow-[0_10px_40px_rgba(0,0,0,0.1)] cursor-pointer outline-none"
+          className="flex items-center gap-3 bg-[var(--text-light)] text-[var(--text-main)] py-5 px-3 md:py-8 md:px-3 rounded-l-sm shadow-[0_10px_40px_rgba(0,0,0,0.1)] cursor-pointer outline-none"
         >
           {/* Static Icon Zone - No interactions */}
           <div className="w-5 h-5 flex items-center justify-center shrink-0">

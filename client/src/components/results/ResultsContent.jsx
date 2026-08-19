@@ -196,8 +196,8 @@ export default function ResultsContent() {
                 >
                   <h3 className={`text-4xl md:text-5xl lg:text-6xl font-light tracking-tight transition-colors duration-500 ${
                     isActive 
-                      ? 'text-[var(--primary-base)]' 
-                      : 'text-[var(--primary-base)]/30 hover:text-[var(--primary-base)]/60'
+                      ? 'text-[var(--text-main)]' 
+                      : 'text-[var(--text-main)]/30 hover:text-[var(--text-main)]/60'
                   }`}>
                     {session.label}
                   </h3>
@@ -232,7 +232,7 @@ export default function ResultsContent() {
                   }`}
                 >
                   {/* Massive Faint Serial Number Watermark */}
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 text-[8rem] md:text-[14rem] font-bold text-[var(--primary-base)]/[0.03] select-none pointer-events-none group-hover:scale-110 group-hover:text-[var(--primary-base)]/[0.05] transition-all duration-700 ease-out origin-left -z-10">
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 text-[8rem] md:text-[14rem] font-bold text-[var(--text-main)]/[0.03] select-none pointer-events-none group-hover:scale-110 group-hover:text-[var(--text-main)]/[0.05] transition-all duration-700 ease-out origin-left -z-10">
                     {serialNumber}
                   </div>
 
@@ -243,7 +243,7 @@ export default function ResultsContent() {
                     <div className="flex flex-wrap items-center gap-2">
                       <span className={`px-2.5 py-1 text-[8px] md:text-[9px] font-bold uppercase tracking-[0.2em] rounded-sm ${
                         result.type === 'Regular' 
-                          ? 'bg-[var(--primary-base)]/5 text-[var(--primary-base)] border border-[var(--primary-base)]/20'
+                          ? 'bg-[var(--primary-base)]/5 text-[var(--text-main)] border border-[var(--primary-base)]/20'
                           : 'bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/30'
                       }`}>
                         {result.type}
@@ -256,7 +256,7 @@ export default function ResultsContent() {
                     </div>
 
                     {/* Title */}
-                    <h2 className="text-xl md:text-3xl lg:text-4xl leading-[1.3] tracking-tight font-light text-[var(--primary-base)] group-hover:translate-x-2 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                    <h2 className="text-xl md:text-3xl lg:text-4xl leading-[1.3] tracking-tight font-light text-[var(--text-main)] group-hover:translate-x-2 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                       {result.title}
                     </h2>
 
@@ -269,7 +269,7 @@ export default function ResultsContent() {
                         <svg className="w-3.5 h-3.5 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                         </svg>
-                        <span className="font-sans text-[11px] md:text-xs text-[var(--primary-base)]/70 font-medium tracking-wide underline decoration-[var(--primary-base)]/20 decoration-1 underline-offset-4 group-hover/link:text-[var(--accent)] group-hover/link:decoration-[var(--accent)] transition-colors duration-300">
+                        <span className="font-sans text-[11px] md:text-xs text-[var(--text-main)]/70 font-medium tracking-wide underline decoration-[var(--primary-base)]/20 decoration-1 underline-offset-4 group-hover/link:text-[var(--accent)] group-hover/link:decoration-[var(--accent)] transition-colors duration-300">
                           {result.verificationLink}
                         </span>
                       </a>
@@ -286,8 +286,8 @@ export default function ResultsContent() {
             })
           ) : (
             <div className="py-32 text-center flex flex-col items-center justify-center">
-              <span className="text-6xl md:text-8xl text-[var(--primary-base)]/10 mb-6">∅</span>
-              <p className="font-sans text-xl md:text-2xl font-light tracking-tight text-[var(--primary-base)]/40">
+              <span className="text-6xl md:text-8xl text-[var(--text-main)]/10 mb-6">∅</span>
+              <p className="font-sans text-xl md:text-2xl font-light tracking-tight text-[var(--text-main)]/40">
                 No results published for this session yet.
               </p>
             </div>

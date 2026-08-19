@@ -84,7 +84,7 @@ export default function HSRTGallery() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--primary-base)] py-20 md:py-32 lg:py-48 overflow-hidden relative">
+    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-32 lg:py-48 overflow-hidden relative">
       <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
         
         {/* Section Header */}
@@ -92,8 +92,8 @@ export default function HSRTGallery() {
           <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)] mb-6 block">
             Visual Highlights
           </span>
-          <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tighter text-[var(--primary-base)]">
-            STC Programme.
+          <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tighter text-[var(--text-main)]">
+            STC Programme
           </h2>
           <div className="w-12 h-[1px] bg-[var(--primary-base)]/20 mt-8"></div>
         </div>

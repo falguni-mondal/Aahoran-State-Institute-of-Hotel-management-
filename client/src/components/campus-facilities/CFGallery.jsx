@@ -84,8 +84,8 @@ export default function CFGallery ({ id, title, images, index }) {
             <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)]">
               Facility 0{index + 1}
             </span>
-            <h2 className="head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-[var(--primary-base)] uppercase tracking-tighter leading-[0.85]">
-              {title}.
+            <h2 className="head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl text-[var(--text-main)] uppercase tracking-tighter leading-[0.85]">
+              {title}
             </h2>
           </div>
         </div>

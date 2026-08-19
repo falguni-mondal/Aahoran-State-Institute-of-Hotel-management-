@@ -78,7 +78,7 @@ export default function FOCurriculum() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--primary-base)] py-20 md:py-32 lg:py-40 xl:py-48 overflow-hidden relative border-t border-[var(--primary-base)]/10">
+    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-32 lg:py-40 xl:py-48 overflow-hidden relative border-t border-[var(--primary-base)]/10">
       
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
@@ -102,7 +102,7 @@ export default function FOCurriculum() {
           <div className="w-full lg:w-5/12 flex flex-col pt-8 lg:pt-0 relative z-10">
             
             {/* Fixed Position Watermark */}
-            <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--primary-base)]/5 select-none pointer-events-none tracking-tighter -z-10">
+            <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--text-main)]/5 select-none pointer-events-none tracking-tighter -z-10">
               01
             </span>
             
@@ -114,7 +114,7 @@ export default function FOCurriculum() {
               About The <br/> Course
             </h2>
             
-            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--primary-base)]/80 text-justify md:text-left">
+            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
               Students are given hands-on training on all aspects of Accommodation management. IDS/OPERA, the latest Property Management System that is followed almost all over the world has been installed to enable the students to keep pace with the changing patterns of property management. Spacious lecture halls with facilities for simulation have been created to ensure effective training.
             </p>
           </div>
@@ -129,7 +129,7 @@ export default function FOCurriculum() {
           <div className="w-full lg:w-7/12 flex flex-col pt-8 lg:pt-0 relative z-10">
             
             {/* Fixed Position Watermark */}
-            <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--primary-base)]/5 select-none pointer-events-none tracking-tighter -z-10">
+            <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--text-main)]/5 select-none pointer-events-none tracking-tighter -z-10">
               02
             </span>
             
@@ -142,7 +142,7 @@ export default function FOCurriculum() {
             </h2>
             
             <div className="text-reveal relative">
-              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--primary-base)]/80 text-justify md:text-left max-w-2xl">
+              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left max-w-2xl">
                 The department is proud of its massive computer lab with individual work stations which facilitates individual attention while the students acquire the mastery in operating the PMS.
               </p>
             </div>

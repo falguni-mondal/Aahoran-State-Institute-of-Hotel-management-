@@ -36,7 +36,7 @@ export default function FOGallery() {
           <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.25em] text-[var(--accent)] mb-4 block">
             Visual Tasting
           </span>
-          <h2 className="head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[var(--primary-base)] tracking-tighter">
+          <h2 className="head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-[var(--text-main)] tracking-tighter">
             Gallery
           </h2>
         </div>

@@ -50,7 +50,7 @@ export default function LabHorizontalScroll() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative w-full h-[100svh] bg-[var(--background)] text-[var(--primary-base)] overflow-hidden">
+    <section ref={containerRef} className="relative w-full h-[100svh] bg-[var(--background)] text-[var(--text-main)] overflow-hidden">
       
       <div className="h-full w-full flex items-center">
         
@@ -66,7 +66,7 @@ export default function LabHorizontalScroll() {
               <div className="max-w-5xl w-full flex flex-col md:flex-row items-start gap-12 md:gap-16 lg:gap-24 relative mt-16 md:mt-0">
                 
                 <div className="absolute -top-20 md:-top-20 lg:-top-32 -left-2 md:-left-10 z-0 select-none pointer-events-none">
-                  <span className="font-sans font-bold text-[120px] md:text-[180px] lg:text-[250px] leading-none tracking-tighter text-[var(--primary-base)]/5">
+                  <span className="font-sans font-bold text-[120px] md:text-[180px] lg:text-[250px] leading-none tracking-tighter text-[var(--text-main)]/5">
                     {feature.id}
                   </span>
                 </div>
@@ -81,7 +81,7 @@ export default function LabHorizontalScroll() {
                 </div>
 
                 <div className="relative z-10 md:w-2/3 md:pt-12">
-                  <p className="text-lg md:text-2xl lg:text-3xl font-light leading-[1.6] md:leading-[1.7] text-[var(--primary-base)]/80">
+                  <p className="text-lg md:text-2xl lg:text-3xl font-light leading-[1.6] md:leading-[1.7] text-[var(--text-main)]/80">
                     {feature.desc}
                   </p>
                 </div>

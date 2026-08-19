@@ -75,7 +75,7 @@ const Ticker = ({ items, reverse = false, speed = 40 }) => {
 ========================================= */
 export default function Markers() {
   return (
-    <section className="w-full bg-[var(--primary-base)] py-10 md:py-16 border-y border-[var(--text-light)]/10">
+    <section className="w-full bg-[var(--text-main)] py-10 md:py-16 border-y border-[var(--text-light)]/10">
       <div className="w-full bg-[var(--text-light)]/5 py-4">
         <Ticker items={sectorsRow1} speed={35} />
         <div className="w-full h-px bg-[var(--text-light)]/5 my-2"></div>

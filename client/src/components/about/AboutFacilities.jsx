@@ -56,7 +56,7 @@ export default function AboutFacilities() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--primary-base)] pt-20 pb-32 md:pt-28 md:pb-40 lg:pt-32 lg:pb-48 border-t border-[var(--primary-base)]/10">
+    <section ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--text-main)] pt-20 pb-32 md:pt-28 md:pb-40 lg:pt-32 lg:pb-48 border-t border-[var(--primary-base)]/10">
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
         <div className="flex flex-col lg:flex-row gap-12 md:gap-16 lg:gap-24 2xl:gap-32 relative">
@@ -92,11 +92,11 @@ export default function AboutFacilities() {
                   className="facility-item relative flex flex-col md:flex-row md:items-start gap-3 md:gap-6 lg:gap-8 py-6 md:py-8 lg:py-10 border-b border-[var(--primary-base)]/15"
                 >
                   <div className="shrink-0 flex items-center md:items-start md:pt-1.5">
-                    <span className="text-xs md:text-sm lg:text-base font-medium text-[var(--primary-base)]/30 w-6 md:w-8">
+                    <span className="text-xs md:text-sm lg:text-base font-medium text-[var(--accent)]/50 w-6 md:w-8">
                       {String(index + 1).padStart(2, '0')}
                     </span>
                   </div>
-                  <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-[var(--primary-base)]/80 leading-snug tracking-tight">
+                  <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-[var(--text-main)]/80 leading-snug tracking-tight">
                     {facility}
                   </p>
                 </div>

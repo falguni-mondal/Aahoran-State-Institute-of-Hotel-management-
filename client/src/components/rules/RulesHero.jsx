@@ -63,7 +63,7 @@ export default function RulesHero() {
   return (
     <section 
       ref={heroRef} 
-      className="relative w-full h-[100svh] min-h-[600px] bg-[var(--background)] text-[var(--primary-base)] flex flex-col justify-center items-center overflow-hidden px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 pt-20"
+      className="relative w-full h-[100svh] min-h-[600px] bg-[var(--background)] text-[var(--text-main)] flex flex-col justify-center items-center overflow-hidden px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 pt-20"
     >
       
       <div className="flex flex-col items-center text-center z-10 w-full max-w-7xl">

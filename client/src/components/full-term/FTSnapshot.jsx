@@ -32,7 +32,7 @@ export default function FTSnapshot() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--primary-base)] py-20 md:py-28 lg:py-36 overflow-hidden">
+    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-28 lg:py-36 overflow-hidden">
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
         {/* Section Header */}
@@ -40,7 +40,7 @@ export default function FTSnapshot() {
           <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.25em] text-[var(--accent)] mb-4 block">
             Programme Overview
           </span>
-          <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[var(--primary-base)] tracking-tighter leading-[1.05]">
+          <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[var(--text-main)] tracking-tighter leading-[1.05]">
             B.Sc. in Hospitality & Hotel Administration
           </h2>
         </div>
@@ -50,21 +50,21 @@ export default function FTSnapshot() {
           
           {/* Stat 1: Duration */}
           <div className="stat-box flex flex-col justify-between p-8 lg:p-12 border-r border-b border-[var(--primary-base)]/10 aspect-square xl:aspect-auto xl:h-[350px]">
-            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]/50">
+            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]/50">
               Duration
             </span>
             <div>
               <div className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tighter mb-2">
                 3
               </div>
-              <span className="text-lg md:text-xl font-light text-[var(--primary-base)]/90 block mb-1">Years</span>
-              <span className="text-sm font-light text-[var(--primary-base)]/60 block">(Six semesters) full-time regular course</span>
+              <span className="text-lg md:text-xl font-light text-[var(--text-main)]/90 block mb-1">Years</span>
+              <span className="text-sm font-light text-[var(--text-main)]/60 block">(Six semesters) full-time regular course</span>
             </div>
           </div>
 
           {/* Stat 2: Accreditation (Spans 2 columns on extra-large screens) */}
           <div className="stat-box flex flex-col justify-between p-8 lg:p-12 border-r border-b border-[var(--primary-base)]/10 xl:col-span-2 xl:h-[350px]">
-            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]/50">
+            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]/50">
               Accreditation
             </span>
             
@@ -77,7 +77,7 @@ export default function FTSnapshot() {
                   alt="NCHMCT Logo" 
                   className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain shrink-0"
                 />
-                <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-[var(--primary-base)] leading-[1.3] tracking-tight">
+                <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-[var(--text-main)] leading-[1.3] tracking-tight">
                   National Council for Hotel Management and Catering Technology, Noida
                 </p>
               </div>
@@ -92,7 +92,7 @@ export default function FTSnapshot() {
                   alt="JNU Logo" 
                   className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain shrink-0"
                 />
-                <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-[var(--primary-base)] leading-[1.3] tracking-tight">
+                <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-[var(--text-main)] leading-[1.3] tracking-tight">
                   Jawaharlal Nehru University, New Delhi
                 </p>
               </div>
@@ -102,14 +102,14 @@ export default function FTSnapshot() {
 
           {/* Stat 3: Age Limit */}
           <div className="stat-box flex flex-col justify-between p-8 lg:p-12 border-r border-b border-[var(--primary-base)]/10 aspect-square xl:aspect-auto xl:h-[350px]">
-            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]/50">
+            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]/50">
               Age Limit
             </span>
             <div>
               <div className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter mb-2">
                 None
               </div>
-              <span className="text-lg md:text-xl font-light text-[var(--primary-base)]/70">No age bar</span>
+              <span className="text-lg md:text-xl font-light text-[var(--text-main)]/70">No age bar</span>
             </div>
           </div>
 

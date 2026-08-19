@@ -78,12 +78,12 @@ export default function ARHero() {
         {/* Massive Manifesto Text */}
         <div className="flex flex-col items-center pb-2 md:pb-4">
           <div className="overflow-hidden w-full flex justify-center pb-2 md:pb-4">
-            <h1 className="hero-manifesto-text head-txt text-[18vw] md:text-[14vw] lg:text-[10rem] xl:text-[12rem] 2xl:text-[14rem] tracking-[0.05em] text-[var(--primary-base)] uppercase leading-[0.85] w-full text-center">
+            <h1 className="hero-manifesto-text head-txt text-[18vw] md:text-[14vw] lg:text-[10rem] xl:text-[12rem] 2xl:text-[14rem] tracking-[0.05em] text-[var(--text-main)] uppercase leading-[0.85] w-full text-center">
               ZERO
             </h1>
           </div>
           <div className="overflow-hidden w-full flex justify-center pb-2 md:pb-4">
-            <h1 className="hero-manifesto-text head-txt text-[18vw] md:text-[14vw] lg:text-[10rem] xl:text-[12rem] 2xl:text-[14rem] tracking-[0.05em] text-[var(--primary-base)] uppercase leading-[0.85] w-full text-center">
+            <h1 className="hero-manifesto-text head-txt text-[18vw] md:text-[14vw] lg:text-[10rem] xl:text-[12rem] 2xl:text-[14rem] tracking-[0.05em] text-[var(--text-main)] uppercase leading-[0.85] w-full text-center">
               TOLERANCE.
             </h1>
           </div>
@@ -91,7 +91,7 @@ export default function ARHero() {
 
         {/* Subtitle (Removed solid background mask and reduced top margin) */}
         <div className="hero-fade-item mt-2 md:mt-4">
-          <h2 className="text-xl md:text-3xl lg:text-4xl xl:text-5xl italic font-light tracking-tight text-[var(--primary-base)]/70">
+          <h2 className="text-xl md:text-3xl lg:text-4xl xl:text-5xl italic font-light tracking-tight text-[var(--text-main)]/70">
             Towards Ragging.
           </h2>
         </div>
@@ -103,7 +103,7 @@ export default function ARHero() {
       ========================================== */}
       {/* Removed solid background mask so it doesn't overlap on smaller screens */}
       <div className="absolute bottom-6 md:bottom-10 flex flex-col items-center gap-4 z-10">
-        <span className="hero-fade-item text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-medium text-[var(--primary-base)]/50">
+        <span className="hero-fade-item text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-medium text-[var(--text-main)]/50">
           Read Our Stance
         </span>
         

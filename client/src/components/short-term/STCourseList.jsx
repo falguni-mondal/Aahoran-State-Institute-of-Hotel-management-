@@ -128,7 +128,7 @@ export default function STCourseList() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--primary-base)] relative border-t border-[var(--primary-base)]/10 pb-32">
+    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] relative border-t border-[var(--primary-base)]/10 pb-32">
       <div className="lookbook-container w-full max-w-[1800px] mx-auto flex flex-col lg:flex-row relative">
         
         {/* ==========================================
@@ -163,13 +163,13 @@ export default function STCourseList() {
                 <div className="w-16 h-[1px] bg-[var(--primary-base)]/20"></div>
               </div>
 
-              <h3 className="head-txt text-5xl xl:text-6xl 2xl:text-7xl font-light tracking-tighter mb-10 leading-[0.95] text-[var(--primary-base)]">
+              <h3 className="head-txt text-5xl xl:text-6xl 2xl:text-7xl font-light tracking-tighter mb-10 leading-[0.95] text-[var(--text-main)]">
                 Diploma in <br/> {course.title}
               </h3>
               
               <div className="flex flex-col gap-6">
                 {course.description.map((para, pIndex) => (
-                  <p key={pIndex} className="text-lg xl:text-xl font-light leading-[1.8] text-[var(--primary-base)]/80 max-w-2xl text-justify">
+                  <p key={pIndex} className="text-lg xl:text-xl font-light leading-[1.8] text-[var(--text-main)]/80 max-w-2xl text-justify">
                     {para}
                   </p>
                 ))}
@@ -203,13 +203,13 @@ export default function STCourseList() {
                   <div className="w-12 h-[1px] bg-[var(--primary-base)]/20"></div>
                 </div>
 
-                <h3 className="head-txt text-4xl md:text-5xl font-light tracking-tighter mb-6 leading-[0.95] text-[var(--primary-base)]">
+                <h3 className="head-txt text-4xl md:text-5xl font-light tracking-tighter mb-6 leading-[0.95] text-[var(--text-main)]">
                   Diploma in <br/> {course.title}.
                 </h3>
                 
                 <div className="flex flex-col gap-5">
                   {course.description.map((para, pIndex) => (
-                    <p key={pIndex} className="text-base md:text-lg font-light leading-[1.8] text-[var(--primary-base)]/80 text-justify">
+                    <p key={pIndex} className="text-base md:text-lg font-light leading-[1.8] text-[var(--text-main)]/80 text-justify">
                       {para}
                     </p>
                   ))}

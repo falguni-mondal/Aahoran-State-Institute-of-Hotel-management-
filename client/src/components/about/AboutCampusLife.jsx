@@ -113,7 +113,7 @@ export default function AboutCampusLife() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--primary-base)] pt-24 pb-32 md:pt-32 md:pb-40 lg:pt-40 lg:pb-48 overflow-hidden">
+    <section ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--text-main)] pt-24 pb-32 md:pt-32 md:pb-40 lg:pt-40 lg:pb-48 overflow-hidden">
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
         {/* =========================================

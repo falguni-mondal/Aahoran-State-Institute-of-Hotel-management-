@@ -79,7 +79,11 @@ export default function AboutRecognition() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[var(--primary-base)] text-[var(--text-light)]">
+    <section 
+      ref={sectionRef} 
+      // THEME & DISTINCTION: Light background with a 2% tint of primary-base to subtly distinguish it without borders. Added thick padding (py-24).
+      className="relative w-full bg-[var(--primary-base)]/[0.02] text-[var(--text-main)]"
+    >
       
       {/* Main Content Grid */}
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px] flex flex-col lg:flex-row relative z-10">
@@ -87,29 +91,31 @@ export default function AboutRecognition() {
         {/* =========================================
            LEFT COLUMN: Sticky Header & Image Area
         ========================================= */}
-        <div className="lg:w-5/12 flex flex-col lg:sticky lg:top-14 lg:h-screen pt-24 pb-4 lg:py-0 lg:justify-center">
+        <div className="lg:w-5/12 flex flex-col lg:sticky lg:top-14 lg:h-screen pt-12 pb-4 lg:py-0 lg:justify-center">
           
           <div className="flex flex-col">
             <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.25em] text-[var(--accent)] mb-4 block">
               Recognition
             </span>
+            {/* Theme: Text color changed to match the light theme */}
             <h2 className="head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tighter mb-10 lg:mb-16">
               Awards & <br className="hidden lg:block"/> Accolades
             </h2>
           </div>
           
           {/* DESKTOP IMAGE REVEAL CONTAINER */}
-          <div className="hidden lg:block relative w-full max-w-md aspect-[16/9] rounded-sm overflow-hidden bg-[var(--background)]/5 border border-[var(--text-light)]/10">
+          {/* Theme: Border and shadow adjusted to look clean on a light background */}
+          <div className="hidden lg:block relative w-full max-w-md aspect-[16/9] rounded-sm overflow-hidden bg-[var(--background)] shadow-xl border border-[var(--primary-base)]/10">
             {recognitionData.map((item, idx) => (
               <img 
                 key={`desk-${idx}`} 
                 src={item.img} 
                 alt={item.title}
-                className={`award-img-${idx} absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform origin-center`}
+                className={`award-img-${idx} absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform origin-center grayscale-[15%] contrast-[1.05]`}
               />
             ))}
-            {/* Subtle inner shadow for depth */}
-            <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.2)] pointer-events-none"></div>
+            {/* Lighter inner shadow for depth */}
+            <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.1)] pointer-events-none"></div>
           </div>
 
         </div>
@@ -119,30 +125,26 @@ export default function AboutRecognition() {
         ========================================= */}
         <div className="lg:w-7/12 flex flex-col lg:py-[30vh] relative">
           
-          {/* 
-            pb-[40vh] is added purely for mobile UX. 
-            It creates empty scroll space so the final list item can scroll to the center 
-            of the screen without being hidden behind the sticky bottom card! 
-          */}
-          <div className="flex flex-col border-t border-[var(--text-light)]/15 pb-[2vh] lg:pb-0">
+          <div className="flex flex-col border-t border-[var(--primary-base)]/15 pb-[2vh] lg:pb-0 mt-12 lg:mt-0">
             
             {recognitionData.map((item, index) => (
               <div 
                 key={index} 
                 // The 'group' class allows us to target children based on the parent's '.is-active' state
-                className="award-item group border-b border-[var(--text-light)]/15 relative flex flex-col md:flex-row md:items-center justify-between gap-4 lg:gap-8 py-10 md:py-16"
+                className="award-item group border-b border-[var(--primary-base)]/15 relative flex flex-col md:flex-row md:items-center justify-between gap-4 lg:gap-8 py-10 md:py-16"
               >
                 
                 {/* Left Side (Year & Title) */}
                 <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-12 lg:gap-16">
                   
                   {/* Year */}
-                  <span className="font-mono text-sm md:text-base tracking-widest w-12 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] text-[var(--text-light)]/40 group-[.is-active]:!text-[var(--accent)] group-[.is-active]:opacity-100 group-[.is-active]:translate-x-2 md:group-[.is-active]:translate-x-3">
+                  {/* Theme: Inactive text is light primary-base, active becomes accent */}
+                  <span className="font-mono text-sm md:text-base tracking-widest w-12 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] text-[var(--text-main)]/30 group-[.is-active]:!text-[var(--accent)] group-[.is-active]:opacity-100 group-[.is-active]:translate-x-2 md:group-[.is-active]:translate-x-3">
                     {item.year}
                   </span>
                   
                   {/* Title */}
-                  <h3 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light tracking-tight transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] text-[var(--text-light)] group-[.is-active]:!text-[var(--accent)] group-[.is-active]:translate-x-2 md:group-[.is-active]:translate-x-3">
+                  <h3 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light tracking-tight transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] text-[var(--text-main)]/50 group-[.is-active]:!text-[var(--accent)] group-[.is-active]:translate-x-2 md:group-[.is-active]:translate-x-3">
                     {item.title}
                   </h3>
 
@@ -150,7 +152,7 @@ export default function AboutRecognition() {
 
                 {/* Right Side (Organization) */}
                 <div className="flex items-center md:justify-end mt-2 md:mt-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                  <p className="text-sm md:text-base font-light text-left md:text-right max-w-[200px] md:max-w-xs transition-colors duration-700 text-[var(--text-light)]/60 group-[.is-active]:!text-[var(--text-light)]/90">
+                  <p className="text-sm md:text-base font-light text-left md:text-right max-w-[200px] md:max-w-xs transition-colors duration-700 text-[var(--text-main)]/40 group-[.is-active]:!text-[var(--text-main)]/80">
                     {item.organization}
                   </p>
                 </div>
@@ -161,20 +163,19 @@ export default function AboutRecognition() {
 
           {/* =========================================
              MOBILE BOTTOM IMAGE CARD (Sticky)
-             This card sits at the very end of the column and sticks to the bottom
-             of the viewport while you scroll through the list.
           ========================================= */}
           <div className="lg:hidden sticky bottom-6 md:bottom-10 w-full flex justify-center pointer-events-none z-20 mt-8">
-            <div className="relative w-full max-w-[90%] sm:max-w-sm aspect-[16/9] rounded-xl overflow-hidden shadow-2xl border border-[var(--text-light)]/20 bg-[var(--background)]/5 backdrop-blur-md">
+            {/* Theme: Updated for light mode visibility */}
+            <div className="relative w-full max-w-[90%] sm:max-w-sm aspect-[16/9] rounded-xl overflow-hidden shadow-2xl border border-[var(--primary-base)]/10 bg-[var(--background)]">
               {recognitionData.map((item, idx) => (
                 <img 
                   key={`mob-card-${idx}`} 
                   src={item.img} 
                   alt={item.title}
-                  className={`award-img-${idx} absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform origin-center`}
+                  className={`award-img-${idx} absolute inset-0 w-full h-full object-cover opacity-0 will-change-transform origin-center grayscale-[15%] contrast-[1.05]`}
                 />
               ))}
-              <div className="absolute inset-0 shadow-[inset_0_0_30px_rgba(0,0,0,0.3)] pointer-events-none"></div>
+              <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.1)] pointer-events-none"></div>
             </div>
           </div>
 

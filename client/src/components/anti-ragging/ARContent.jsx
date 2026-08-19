@@ -111,8 +111,8 @@ export default function ARContent() {
                   </span>
                   <h3 className={`text-2xl md:text-3xl lg:text-4xl font-light tracking-tight transition-colors duration-500 ${
                     activeIndex === index 
-                      ? 'text-[var(--primary-base)]' 
-                      : 'text-[var(--primary-base)]/50 group-hover:text-[var(--primary-base)]'
+                      ? 'text-[var(--text-main)]' 
+                      : 'text-[var(--text-main)]/50 group-hover:text-[var(--text-main)]'
                   }`}>
                     {chapter.title}
                   </h3>
@@ -132,13 +132,13 @@ export default function ARContent() {
               className={`chapter-content-${index} flex flex-col mb-24 md:mb-32 lg:mb-48 last:mb-0`}
             >
               {/* Mobile Title (Hidden on Desktop) */}
-              <h3 className="lg:hidden text-2xl md:text-3xl font-light tracking-tight text-[var(--primary-base)] mb-6">
+              <h3 className="lg:hidden text-2xl md:text-3xl font-light tracking-tight text-[var(--text-main)] mb-6">
                 <span className="text-[var(--accent)] text-sm font-bold mr-3">{chapter.id}.</span>
                 {chapter.title}
               </h3>
               
               {/* Editorial Paragraph */}
-              <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-serif text-[var(--primary-base)]/80 leading-[1.7] md:leading-[1.8] lg:leading-[1.9]">
+              <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-serif text-[var(--text-main)]/80 leading-[1.7] md:leading-[1.8] lg:leading-[1.9]">
                 {chapter.text}
               </p>
             </div>

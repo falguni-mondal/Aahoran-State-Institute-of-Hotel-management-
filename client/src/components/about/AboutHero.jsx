@@ -65,16 +65,16 @@ export default function AboutHero() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="hero-section relative w-full h-[100dvh] min-h-[600px] flex flex-col justify-end overflow-hidden pb-12 md:pb-16 lg:pb-24">
+    <section ref={sectionRef} className="hero-section relative w-full h-[100dvh] min-h-[600px] overflow-clip flex flex-col justify-end pb-12 md:pb-16 lg:pb-24">
       {/* Background Image Container */}
       <div className="absolute inset-0 w-full h-full z-0">
         <img 
-          src="/about_hero.webp"
+          src="/campus.webp"
           alt="SIHM Durgapur Campus" 
           className="hero-bg-img absolute -top-[15%] left-0 w-full h-[130%] object-cover origin-center"
         />
         {/* Strict Primary Base Overlay */}
-        <div className="absolute inset-0 bg-[var(--primary-base)]/80"></div>
+        <div className="absolute inset-0 bg-[#030812]/75"></div>
       </div>
 
       {/* Hero Content - Full Screen Flex Layout */}

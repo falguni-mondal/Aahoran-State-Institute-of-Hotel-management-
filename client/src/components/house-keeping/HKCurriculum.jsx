@@ -78,7 +78,7 @@ export default function HKCurriculum() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--primary-base)] py-20 md:py-32 lg:py-40 xl:py-48 overflow-hidden relative border-t border-[var(--primary-base)]/10">
+    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-32 lg:py-40 xl:py-48 overflow-hidden relative border-t border-[var(--primary-base)]/10">
       
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
@@ -102,7 +102,7 @@ export default function HKCurriculum() {
           <div className="w-full lg:w-5/12 flex flex-col pt-8 lg:pt-0 relative z-10">
             
             {/* Fixed Position Watermark */}
-            <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--primary-base)]/5 select-none pointer-events-none tracking-tighter -z-10">
+            <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--text-main)]/5 select-none pointer-events-none tracking-tighter -z-10">
               01
             </span>
             
@@ -114,7 +114,7 @@ export default function HKCurriculum() {
               About The <br/> Course
             </h2>
             
-            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--primary-base)]/80 text-justify md:text-left">
+            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
               The students are given hands-on training in cleaning different areas with a vast range of surfaces on floors, walls and furniture and fixtures. The complex management of guest’s laundry, uniform of all members of staff and the multitude of linen and guest-room supplies are integral part of the syllabus. The students are trained in the science and aesthetics of horticultural development and flower arrangements to create a scenically attractive environment all around. Interior Decoration, with both ancient and modern concepts, is another area where student’s skills are developed by classroom training and a series of field visits.
             </p>
           </div>
@@ -129,7 +129,7 @@ export default function HKCurriculum() {
           <div className="w-full lg:w-7/12 flex flex-col pt-8 lg:pt-0 relative z-10">
             
             {/* Fixed Position Watermark */}
-            <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--primary-base)]/5 select-none pointer-events-none tracking-tighter -z-10">
+            <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--text-main)]/5 select-none pointer-events-none tracking-tighter -z-10">
               02
             </span>
             
@@ -143,13 +143,13 @@ export default function HKCurriculum() {
             
             <div className="text-reveal grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 relative">
               
-              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--primary-base)]/80 text-justify md:text-left">
+              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
                 The Institute boasts of an intricately decorated Master Suite, one spacious Twin Room, one luxurious Single Room and an ultramodern Conference Room.
               </p>
               
               <div className="hidden md:block absolute top-0 left-1/2 w-[1px] h-full bg-[var(--primary-base)]/10 -translate-x-1/2"></div>
               
-              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--primary-base)]/80 text-justify md:text-left">
+              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
                 A laundry with all modern equipment matches the best standards in the industry. These facilities are utilized to the hilt to impart knowledge and skill to become an effective housekeeper of any modern hotel.
               </p>
               

@@ -129,7 +129,7 @@ export default function PlacementRoster() {
     <section 
       id="alumni"
       ref={containerRef} 
-      className="relative w-full py-20 md:py-32 lg:py-40 bg-[var(--background)] text-[var(--primary-base)] border-b border-[var(--primary-base)]/10"
+      className="relative w-full py-20 md:py-32 lg:py-40 bg-[var(--background)] text-[var(--text-main)] border-b border-[var(--primary-base)]/10"
     >
       <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
         
@@ -143,7 +143,7 @@ export default function PlacementRoster() {
               The Executive <br/> Roster.
             </h2>
           </div>
-          <p className="text-sm md:text-base font-light text-[var(--primary-base)]/60 max-w-sm">
+          <p className="text-sm md:text-base font-light text-[var(--text-main)]/60 max-w-sm">
             A curated directory of our distinguished graduates and their current placements in the global hospitality and luxury sectors.
           </p>
         </div>
@@ -153,7 +153,7 @@ export default function PlacementRoster() {
         ========================================== */}
         <div className="flex flex-col border-t border-[var(--primary-base)]/10">
           {/* Table Headers (Hidden on mobile) */}
-          <div className="hidden lg:grid grid-cols-12 gap-8 py-6 border-b border-[var(--primary-base)]/10 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]/40">
+          <div className="hidden lg:grid grid-cols-12 gap-8 py-6 border-b border-[var(--primary-base)]/10 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]/40">
             <div className="col-span-4">Candidate & Batch</div>
             <div className="col-span-5">Appointed Role</div>
             <div className="col-span-3">Hiring Organization</div>
@@ -175,24 +175,24 @@ export default function PlacementRoster() {
 
               {/* Column 1: Name & Batch */}
               <div className="col-span-4 flex flex-col justify-center transition-transform duration-500 lg:group-hover:translate-x-4">
-                <h3 className="text-xl md:text-2xl lg:text-3xl font-light tracking-tight text-[var(--primary-base)] group-hover:text-[var(--accent)] transition-colors duration-300">
+                <h3 className="text-xl md:text-2xl lg:text-3xl font-light tracking-tight text-[var(--text-main)] group-hover:text-[var(--accent)] transition-colors duration-300">
                   {student.name}
                 </h3>
-                <span className="text-[10px] md:text-xs font-medium uppercase tracking-widest text-[var(--primary-base)]/40 mt-1 md:mt-2">
+                <span className="text-[10px] md:text-xs font-medium uppercase tracking-widest text-[var(--text-main)]/40 mt-1 md:mt-2">
                   {student.batch}
                 </span>
               </div>
 
               {/* Column 2: Role */}
               <div className="col-span-5 flex items-center mt-2 lg:mt-0">
-                <p className="text-base md:text-lg lg:text-xl font-serif text-[var(--primary-base)]/80">
+                <p className="text-base md:text-lg lg:text-xl font-serif text-[var(--text-main)]/80">
                   {student.role}
                 </p>
               </div>
 
               {/* Column 3: Company */}
               <div className="col-span-3 flex lg:justify-end items-center mt-1 lg:mt-0">
-                <span className="text-xs md:text-sm font-semibold uppercase tracking-[0.1em] text-[var(--primary-base)]">
+                <span className="text-xs md:text-sm font-semibold uppercase tracking-[0.1em] text-[var(--text-main)]">
                   {student.company}
                 </span>
               </div>

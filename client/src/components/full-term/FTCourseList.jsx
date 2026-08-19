@@ -73,7 +73,7 @@ export default function FTCourseList() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--primary-base)] py-20 md:py-28 lg:py-36 xl:py-48 border-t border-[var(--primary-base)]/10 overflow-hidden">
+    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-28 lg:py-36 xl:py-48 border-t border-[var(--primary-base)]/10 overflow-hidden">
       <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 flex flex-col">
         
         {/* Top Introduction - Added .intro-container for the ScrollTrigger */}
@@ -87,7 +87,7 @@ export default function FTCourseList() {
             </h2>
           </div>
           <div className="w-full lg:w-6/12 intro-text lg:pt-12">
-            <p className="text-lg md:text-xl lg:text-2xl font-light leading-[1.7] text-[var(--primary-base)]/80 text-justify md:text-left">
+            <p className="text-lg md:text-xl lg:text-2xl font-light leading-[1.7] text-[var(--text-main)]/80 text-justify md:text-left">
               This three-year, six-semester degree is meticulously designed to transform students into capable leaders. Offered through the National Council for Hotel Management and Catering Technology (NCHMCT) and recognized by JNU, it equips graduates with the precise skills, deep knowledge, and professional attitude required to assume supervisory roles effortlessly.
             </p>
           </div>
@@ -122,7 +122,7 @@ export default function FTCourseList() {
                 {item.title}
               </h3>
               
-              <p className="text-base md:text-lg font-light leading-[1.8] text-[var(--primary-base)]/70 text-justify">
+              <p className="text-base md:text-lg font-light leading-[1.8] text-[var(--text-main)]/70 text-justify">
                 {item.content}
               </p>
               

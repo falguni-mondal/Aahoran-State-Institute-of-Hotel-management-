@@ -79,7 +79,7 @@ export default function FBCurriculum() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--primary-base)] py-20 md:py-32 lg:py-40 xl:py-48 overflow-hidden relative border-t border-[var(--primary-base)]/10">
+    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-32 lg:py-40 xl:py-48 overflow-hidden relative border-t border-[var(--primary-base)]/10">
       
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
@@ -105,7 +105,7 @@ export default function FBCurriculum() {
           <div className="w-full lg:w-5/12 flex flex-col pt-8 lg:pt-0 relative z-10">
             
             {/* Fixed Position: Watermarked behind the text on the solid light background */}
-            <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--primary-base)]/5 select-none pointer-events-none tracking-tighter -z-10">
+            <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--text-main)]/5 select-none pointer-events-none tracking-tighter -z-10">
               01
             </span>
             
@@ -117,7 +117,7 @@ export default function FBCurriculum() {
               About The <br/> Course
             </h2>
             
-            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--primary-base)]/80 text-justify md:text-left">
+            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
               The Food & Beverage Service department trains the students in the technique and art of serving and selling food and beverage. Waiting skills, Supervisory skills and Managerial skills are taught in 1st, 2nd and 3rd year respectively. Menu and the maxims of menu-planning, matching different foods with the right wines, usage of various tools and equipment’s, layout of the restaurant, on-table arrangements for foods from various cuisines, buffets and banquet service – students acquire mastery in these skills with the inputs in both theory and practical classes.
             </p>
           </div>
@@ -133,7 +133,7 @@ export default function FBCurriculum() {
           <div className="w-full lg:w-7/12 flex flex-col pt-8 lg:pt-0 relative z-10">
             
             {/* Fixed Position: Watermarked behind the text on the solid light background */}
-            <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--primary-base)]/5 select-none pointer-events-none tracking-tighter -z-10">
+            <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--text-main)]/5 select-none pointer-events-none tracking-tighter -z-10">
               02
             </span>
             
@@ -147,13 +147,13 @@ export default function FBCurriculum() {
             
             <div className="text-reveal grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 relative">
               
-              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--primary-base)]/80 text-justify md:text-left">
+              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
                 Origin and manufacturing of various types of alcoholic beverage (beers, wines, spirits, liqueurs, cocktails, etc.) form a large part of the syllabus. The students are also imparted with the skills of serving the drinks and making the cocktails. This department also deals with the intricate techniques of Food & Beverage Control and Management so that the students develop the capacity to successfully operate and manage a food outlet and also earn a profit for the organization.
               </p>
               
               <div className="hidden md:block absolute top-0 left-1/2 w-[1px] h-full bg-[var(--primary-base)]/10 -translate-x-1/2"></div>
               
-              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--primary-base)]/80 text-justify md:text-left">
+              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
                 Cost control, budgetary implications, inventory management, purchase systems, etc. are integral components of the syllabi. The department manages a bar-cum-restaurant of more than 2000 sq. ft. which is well-equipped with a large inventory of various tools and equipment.
               </p>
               

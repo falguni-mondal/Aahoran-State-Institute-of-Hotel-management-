@@ -86,7 +86,7 @@ export default function FTHero() {
           <span className="hero-sub block text-[9px] md:text-[10px] lg:text-xs font-semibold uppercase tracking-[0.25em] text-[var(--accent)]">
             Flagship Degree Programme
           </span>
-          <span className="hero-sub block text-[9px] md:text-[10px] lg:text-xs font-medium uppercase tracking-[0.2em] text-[var(--primary-base)]/60 text-right max-w-[200px] md:max-w-xs">
+          <span className="hero-sub block text-[9px] md:text-[10px] lg:text-xs font-medium uppercase tracking-[0.2em] text-[var(--text-main)]/60 text-right max-w-[200px] md:max-w-xs">
             Academic Year {currentYear}
           </span>
         </div>
@@ -94,7 +94,7 @@ export default function FTHero() {
         {/* Massive Asymmetric Title */}
         <div className="flex flex-col w-full my-auto lg:mt-auto lg:mb-0 pb-12 lg:pb-0">
           <div className="overflow-hidden w-full flex justify-center md:justify-start">
-            <h1 className="hero-title-word head-txt text-[16vw] md:text-[16vw] lg:text-[14vw] xl:text-[12rem] 2xl:text-[14rem] tracking-tighter leading-[0.85] text-[var(--primary-base)] text-center md:text-left">
+            <h1 className="hero-title-word head-txt text-[16vw] md:text-[16vw] lg:text-[14vw] xl:text-[12rem] 2xl:text-[14rem] tracking-tighter leading-[0.85] text-[var(--text-main)] text-center md:text-left">
               UNDER GRADUATE
             </h1>
           </div>

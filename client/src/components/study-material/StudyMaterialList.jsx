@@ -71,7 +71,7 @@ export default function StudyMaterialList() {
   }, { scope: listRef, dependencies: [activeSemester] });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--primary-base)] py-20 md:py-32 overflow-hidden border-t border-[var(--primary-base)]/10">
+    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-32 overflow-hidden border-t border-[var(--primary-base)]/10">
       <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
         
         {/* ==========================================
@@ -95,7 +95,7 @@ export default function StudyMaterialList() {
                     className="group relative outline-none flex items-center"
                   >
                     <span className={`text-2xl md:text-3xl lg:text-4xl font-light tracking-tighter transition-colors duration-500 ${
-                      isActive ? 'text-[var(--primary-base)]' : 'text-[var(--primary-base)]/40 hover:text-[var(--primary-base)]/70'
+                      isActive ? 'text-[var(--text-main)]' : 'text-[var(--text-main)]/40 hover:text-[var(--text-main)]/70'
                     }`}>
                       [ {semester.title} ]
                     </span>
@@ -127,13 +127,13 @@ export default function StudyMaterialList() {
               
               {/* Left Side: Document Title & Badge */}
               <div className="flex items-center gap-4 md:gap-6 mb-4 md:mb-0 pr-8 md:pr-12">
-                <h3 className="text-lg md:text-xl lg:text-2xl font-light tracking-tight text-[var(--primary-base)]/90 group-hover:text-[var(--primary-base)] transition-colors duration-300">
+                <h3 className="text-lg md:text-xl lg:text-2xl font-light tracking-tight text-[var(--text-main)]/90 group-hover:text-[var(--text-main)] transition-colors duration-300">
                   {item.title}
                 </h3>
                 
                 {/* Premium Modern 'NEW' Badge */}
                 {item.isNew && (
-                  <span className="shrink-0 bg-[var(--accent)] text-[var(--primary-base)] text-[9px] md:text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-sm mt-1">
+                  <span className="shrink-0 bg-[var(--accent)] text-[var(--text-light)] text-[9px] md:text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-sm mt-1">
                     New
                   </span>
                 )}
@@ -141,14 +141,14 @@ export default function StudyMaterialList() {
               
               {/* Right Side: View Action Indicator */}
               <div className="flex items-center gap-4 shrink-0 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]">
+                <span className="text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]">
                   Download
                 </span>
                 
                 {/* Animated SVG Arrow */}
-                <div className="w-10 h-10 rounded-full border border-[var(--primary-base)]/20 flex items-center justify-center group-hover:bg-[var(--primary-base)] group-hover:border-transparent transition-all duration-300">
+                <div className="w-10 h-10 rounded-full border border-[var(--primary-base)]/20 flex items-center justify-center group-hover:bg-[var(--accent)] group-hover:border-transparent transition-all duration-300">
                   <svg 
-                    className="w-4 h-4 text-[var(--primary-base)] group-hover:text-[var(--background)] transform group-hover:-rotate-45 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" 
+                    className="w-4 h-4 text-[var(--text-main)] group-hover:text-[var(--background)] transform group-hover:-rotate-45 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" 
                     fill="none" stroke="currentColor" viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />

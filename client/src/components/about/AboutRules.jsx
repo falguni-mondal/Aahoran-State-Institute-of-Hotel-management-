@@ -28,7 +28,7 @@ function RulesCTA({ text, href }) {
       ref={btnRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="bg-[var(--primary-base)] text-[var(--text-light)] font-semibold text-xs md:text-sm uppercase tracking-[0.15em] shadow-lg cursor-pointer flex items-stretch h-12 md:h-14 w-fit"
+      className="bg-[var(--accent)] text-[var(--text-light)] font-semibold text-xs md:text-sm uppercase tracking-[0.15em] cursor-pointer flex items-stretch h-12 md:h-14 w-fit shadow-lg"
     >
       {/* Text Zone */}
       <div className="flex items-center justify-center px-8 md:px-10 relative overflow-hidden">
@@ -128,7 +128,7 @@ export default function AboutRules() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--primary-base)] py-20 md:py-24 lg:py-32 xl:py-40 border-t border-[var(--primary-base)]/10">
+    <section ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-24 lg:py-32 xl:py-40 border-t border-[var(--primary-base)]/10">
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
         {/* Main Flex Layout: Stacks on mobile/tablet, side-by-side on desktop */}
@@ -146,7 +146,7 @@ export default function AboutRules() {
 
           {/* Right Side: Description & CTA */}
           <div className="flex flex-col lg:w-5/12 xl:w-4/12 pb-2">
-            <p className="rules-desc text-base md:text-lg font-light text-[var(--primary-base)]/80 leading-[1.7] mb-8 md:mb-10">
+            <p className="rules-desc text-base md:text-lg font-light text-[var(--text-main)]/80 leading-[1.7] mb-8 md:mb-10">
               Discipline and professionalism are the cornerstones of the hospitality industry. Familiarize yourself with the core guidelines that shape the culture and standards at SIHM Durgapur.
             </p>
             

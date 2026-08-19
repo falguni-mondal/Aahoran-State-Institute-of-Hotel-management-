@@ -76,7 +76,7 @@ export default function HSRTRules() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--primary-base)] py-20 md:py-32 lg:py-48 relative border-t border-[var(--primary-base)]/10">
+    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-32 lg:py-48 relative border-t border-[var(--primary-base)]/10">
       <div className="rules-container w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 flex flex-col lg:flex-row relative">
         
         {/* ==========================================
@@ -91,11 +91,11 @@ export default function HSRTRules() {
             <div className="w-12 h-[1px] bg-[var(--primary-base)]/20"></div>
           </div>
           
-          <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tighter leading-[1.05] text-[var(--primary-base)] mb-8">
-            Rules & Regulations <br className="hidden lg:block"/> for Students.
+          <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tighter leading-[1.05] text-[var(--text-main)] mb-8">
+            Rules & Regulations <br className="hidden lg:block"/> for Students
           </h2>
 
-          <p className="text-base md:text-lg font-light leading-[1.8] text-[var(--primary-base)]/70 max-w-md">
+          <p className="text-base md:text-lg font-light leading-[1.8] text-[var(--text-main)]/70 max-w-md">
             The following guidelines apply to all students enrolled in the Skill Testing Certification Program to ensure a professional and disciplined academic environment.
           </p>
 
@@ -125,7 +125,7 @@ export default function HSRTRules() {
                 </div>
                 
                 {/* Rule Text */}
-                <p className="text-lg md:text-xl lg:text-2xl font-light leading-[1.6] text-[var(--primary-base)]/90 tracking-tight">
+                <p className="text-lg md:text-xl lg:text-2xl font-light leading-[1.6] text-[var(--text-main)]/90 tracking-tight">
                   {rule}
                 </p>
 

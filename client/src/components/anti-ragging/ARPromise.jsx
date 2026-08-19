@@ -72,7 +72,7 @@ export default function ARPromise() {
         </span>
         
         {/* Elegant Serif Statement */}
-        <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-light text-[var(--primary-base)] leading-tight tracking-tight mb-12 md:mb-16 flex flex-wrap justify-center gap-x-3 md:gap-x-4 lg:gap-x-5">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-light text-[var(--text-main)] leading-tight tracking-tight mb-12 md:mb-16 flex flex-wrap justify-center gap-x-3 md:gap-x-4 lg:gap-x-5">
           <span className="promise-word block">A</span>
           <span className="promise-word block">safe</span>
           <span className="promise-word block">haven</span>
@@ -82,14 +82,14 @@ export default function ARPromise() {
         </h2>
 
         {/* Detailed Reassurance Paragraph */}
-        <p className="promise-text text-base md:text-lg lg:text-xl font-light text-[var(--primary-base)]/75 leading-relaxed max-w-3xl mb-16 md:mb-24">
+        <p className="promise-text text-base md:text-lg lg:text-xl font-light text-[var(--text-main)]/75 leading-relaxed max-w-3xl mb-16 md:mb-24">
           Leaving home to pursue higher education is a monumental step. We understand the anxieties that come with it. At the State Institute of Hotel Management, Durgapur, the physical, mental, and emotional safety of our students is not just a priority—it is our absolute mandate. We maintain a strictly monitored, highly secure campus environment where ragging of any form is aggressively rooted out, ensuring our students can focus entirely on their craft and their future.
         </p>
 
         {/* Animated Signature / Stamp of Authority */}
         <div className="flex flex-col items-center">
           <svg 
-            className="w-48 md:w-64 h-auto text-[var(--primary-base)]/80 mb-4" 
+            className="w-48 md:w-64 h-auto text-[var(--text-main)]/80 mb-4" 
             viewBox="0 0 400 100" 
             fill="none" 
             xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +110,7 @@ export default function ARPromise() {
               strokeDasharray="4 4"
             />
           </svg>
-          <span className="signature-label text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]/50">
+          <span className="signature-label text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]/50">
             Office of the Principal, SIHM Durgapur
           </span>
         </div>

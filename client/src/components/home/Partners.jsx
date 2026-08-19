@@ -120,7 +120,7 @@ export default function Partners() {
       
       {/* SECTION HEADER */}
       <div className="w-full flex flex-col items-center justify-center mb-16 md:mb-24 px-5">
-        <div ref={headerRef} className="flex flex-col items-center text-center text-[var(--primary-base)]">
+        <div ref={headerRef} className="flex flex-col items-center text-center text-[var(--text-main)]">
           <span className="font-sans font-bold text-xs xl:text-sm 2xl:text-base uppercase tracking-[0.2em] mb-2 md:mb-3 block opacity-70">
             Our Network
           </span>
@@ -146,14 +146,14 @@ export default function Partners() {
         */}
         <div 
           ref={gridContainerRef}
-          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 border-t border-l border-[var(--primary-base)]/15 opacity-0"
+          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 border-t border-l border-[var(--text-main)]/15 opacity-0"
         >
           {partnersData.map((partner, index) => (
             
             // Grid Cell (Maintains the blueprint borders and aspect ratio independent of inner image size)
             <div 
               key={partner.id} 
-              className="border-r border-b border-[var(--primary-base)]/15 flex items-center justify-center aspect-[4/3] p-4"
+              className="border-r border-b border-[var(--text-main)]/15 flex items-center justify-center aspect-[4/3] p-4"
             >
               {/* 
                   The Mask Wrapper

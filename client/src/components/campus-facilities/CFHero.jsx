@@ -61,7 +61,7 @@ export default function CFHero() {
   return (
     <section 
       ref={sectionRef} 
-      className="relative w-full h-[100dvh] min-h-[600px] flex flex-col justify-center items-center overflow-hidden bg-[var(--primary-base)]"
+      className="relative w-full h-[100dvh] min-h-[600px] flex flex-col justify-center items-center overflow-hidden bg-[var(--text-main)]"
     >
       {/* ==========================================
           FULL BLEED BACKGROUND MEDIA

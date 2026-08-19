@@ -94,7 +94,7 @@ function AboutCTA({ text }) {
       ref={btnRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="bg-[var(--primary-base)] text-[var(--text-light)] font-medium text-xs uppercase tracking-[0.15em] shadow-xl cursor-pointer flex items-stretch h-13 xl:h-14 mt-4 outline-none"
+      className="bg-[var(--accent)] text-[var(--text-light)] font-medium text-xs uppercase tracking-[0.15em] shadow-xl cursor-pointer flex items-stretch h-13 xl:h-14 mt-4 outline-none"
     >
       <div className="flex items-center justify-center px-10 xl:px-12 relative overflow-hidden">
         <div className="relative overflow-hidden h-[1em] leading-none flex items-center justify-center">
@@ -216,7 +216,7 @@ export default function About() {
   return (
     <section 
       ref={sectionRef} 
-      className="w-full bg-[#F7F5F0] text-[var(--primary-base)] py-24 md:py-32 xl:py-40 2xl:py-48 relative z-10"
+      className="w-full bg-[#F7F5F0] text-[var(--text-main)] py-24 md:py-32 xl:py-40 2xl:py-48 relative z-10"
     >
       <div className="max-w-7xl xl:max-w-screen-xl 2xl:max-w-[100rem] mx-auto grid grid-cols-1 lg:grid-cols-12 lg:gap-24 xl:gap-32 2xl:gap-40 relative">
         
@@ -244,21 +244,21 @@ export default function About() {
           
           <ScrubText 
             text="The State Institute of Hotel Management (SIHM), Durgapur is an initiation of the State of West Bengal to attract young, enthusiastic boys and girls to acquire soft, hard and managerial skills to become competent in the Hospitality industry of the country."
-            className="font-sans text-base md:text-lg xl:text-xl 2xl:text-2xl leading-relaxed text-[var(--primary-base)] mb-8 xl:mb-12"
+            className="font-sans text-base md:text-lg xl:text-xl 2xl:text-2xl leading-relaxed text-[var(--text-main)] mb-8 xl:mb-12"
           />
 
           <blockquote 
             ref={blockquoteRef}
             className="border-l-2 border-[var(--accent)] pl-6 md:pl-8 py-2 my-10 xl:my-16 2xl:my-20"
           >
-            <p className="head-txt text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] 2xl:text-5xl leading-snug italic text-[var(--primary-base)]/90">
+            <p className="head-txt text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] 2xl:text-5xl leading-snug italic text-[var(--text-main)]">
               "It is the first institute that has been gifted the name AAHORAN by our Hon'ble Chief Minister of West Bengal which means Collection."
             </p>
           </blockquote>
 
           <ScrubText 
             text="SIHM Durgapur promises the best education with a modern and professional approach along with State of the Art facilities. With the advent of urbanization and industrialisation, the Hospitality Industry is rapidly growing to cater the mass involved in Accommodation, Food and Beverage, Retails, Cruise, Airline and other service sectors."
-            className="font-sans text-base md:text-lg xl:text-xl 2xl:text-2xl leading-relaxed text-[var(--primary-base)] mb-12 xl:mb-16"
+            className="font-sans text-base md:text-lg xl:text-xl 2xl:text-2xl leading-relaxed text-[var(--text-main)] mb-12 xl:mb-16"
           />
 
           {/* Cinematic Image Container - Full Width, Auto Height */}

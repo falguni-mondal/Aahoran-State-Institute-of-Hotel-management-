@@ -127,7 +127,7 @@ export default function GalleryGrid({ images }) {
       */}
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-[80px] h-[80px] bg-[var(--accent)] text-[var(--primary-base)] rounded-full flex items-center justify-center font-sans text-[10px] font-bold tracking-[0.2em] pointer-events-none z-[100] scale-0 opacity-0 mix-blend-difference"
+        className="fixed top-0 left-0 w-[80px] h-[80px] bg-[var(--accent)] text-[var(--text-light)] rounded-full flex items-center justify-center font-sans text-[10px] font-bold tracking-[0.2em] pointer-events-none z-[100] scale-0 opacity-0"
         style={{ transformOrigin: 'center center' }}
       >
         VIEW
@@ -144,7 +144,7 @@ export default function GalleryGrid({ images }) {
               // Notice we have completely removed onMouseEnter/Leave here
               className="gallery-item group relative break-inside-avoid mb-5 md:mb-8 lg:mb-12 cursor-none overflow-hidden"
             >
-              <div className="relative w-full h-full bg-[var(--primary-base)]/5 overflow-hidden rounded-sm">
+              <div className="relative w-full h-full bg-[var(--text-main)]/5 overflow-hidden rounded-sm">
                 
                 <img 
                   src={img.url} 

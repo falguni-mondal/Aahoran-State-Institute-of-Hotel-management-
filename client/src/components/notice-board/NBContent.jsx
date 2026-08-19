@@ -140,12 +140,12 @@ export default function NBContent() {
                 <button
                   key={cat.id}
                   onClick={() => handleCategoryChange(cat.id)}
-                  className="group relative text-left outline-none"
+                  className="group relative text-left outline-none cursor-pointer"
                 >
                   <h3 className={`text-3xl md:text-4xl lg:text-5xl font-light tracking-tight transition-colors duration-500 ${
                     isActive 
-                      ? 'text-[var(--primary-base)]' 
-                      : 'text-[var(--primary-base)]/30 hover:text-[var(--primary-base)]/60'
+                      ? 'text-[var(--text-main)]' 
+                      : 'text-[var(--text-main)]/30 hover:text-[var(--text-main)]/60'
                   }`}>
                     {cat.label}
                   </h3>
@@ -179,14 +179,14 @@ export default function NBContent() {
                     isDimmed ? 'opacity-20 blur-[2px]' : 'opacity-100 blur-0'
                   }`}
                 >
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 text-[8rem] md:text-[14rem] font-bold text-[var(--primary-base)]/[0.03] select-none pointer-events-none group-hover:scale-110 group-hover:text-[var(--primary-base)]/[0.05] transition-all duration-700 ease-out origin-left -z-10">
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 text-[8rem] md:text-[14rem] font-bold text-[var(--text-main)]/[0.03] select-none pointer-events-none group-hover:scale-110 group-hover:text-[var(--text-main)]/[0.05] transition-all duration-700 ease-out origin-left -z-10">
                     {serialNumber}
                   </div>
 
                   <div className="relative z-10 flex flex-col md:flex-row md:items-start gap-4 md:gap-12 w-full pr-0 md:pr-8">
                     
                     <div className="shrink-0 md:w-32 flex flex-col gap-2 md:pt-2">
-                      <span className="font-mono text-xs md:text-sm tracking-wider text-[var(--primary-base)]/50">
+                      <span className="font-mono text-xs md:text-sm tracking-wider text-[var(--primary-base)]/70">
                         {notice.date}
                       </span>
                       {notice.isNew && (
@@ -196,7 +196,7 @@ export default function NBContent() {
                       )}
                     </div>
 
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl leading-[1.2] tracking-tight font-light text-[var(--primary-base)] group-hover:translate-x-2 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl leading-[1.2] tracking-tight font-light text-[var(--text-main)] group-hover:translate-x-2 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                       {notice.title}
                     </h2>
 
@@ -211,8 +211,8 @@ export default function NBContent() {
             })
           ) : (
             <div className="py-32 text-center flex flex-col items-center justify-center">
-              <span className="text-6xl md:text-8xl text-[var(--primary-base)]/10 mb-6">∅</span>
-              <p className="font-sans text-xl md:text-2xl font-light tracking-tight text-[var(--primary-base)]/40">
+              <span className="text-6xl md:text-8xl text-[var(--text-main)]/10 mb-6">∅</span>
+              <p className="font-sans text-xl md:text-2xl font-light tracking-tight text-[var(--text-main)]/40">
                 No active records in this category.
               </p>
             </div>

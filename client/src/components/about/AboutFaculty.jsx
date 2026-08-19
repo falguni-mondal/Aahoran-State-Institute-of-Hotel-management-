@@ -135,7 +135,7 @@ export default function AboutFaculty() {
   }, { scope: sectionRef });
 
   return (
-    <section id="faculty" ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--primary-base)] pt-12 pb-32 md:pt-16 md:pb-40 lg:pt-20 lg:pb-48">
+    <section id="faculty" ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--text-main)] pt-12 pb-32 md:pt-16 md:pb-40 lg:pt-20 lg:pb-48 border-y border-[var(--primary-base)]/10">
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-16 md:mb-24">
@@ -150,10 +150,10 @@ export default function AboutFaculty() {
             </div>
             
             <div className="flex flex-col gap-6">
-              <p className="split-paragraph text-base md:text-lg lg:text-xl font-light text-[var(--primary-base)]/80 leading-[1.7]">
+              <p className="split-paragraph text-base md:text-lg lg:text-xl font-light text-[var(--text-main)]/80 leading-[1.7]">
                 The faculties are exposed in direct teaching skills, they are well versed to design the training program and will be able to transfer the knowledge to the students.
               </p>
-              <p className="split-paragraph text-base md:text-lg lg:text-xl font-light text-[var(--primary-base)]/80 leading-[1.7]">
+              <p className="split-paragraph text-base md:text-lg lg:text-xl font-light text-[var(--text-main)]/80 leading-[1.7]">
                 The faculties are also keeping updated information about the industry, its changes and modify the teaching accordingly. They are also involved in Research & Development producing journals and periodicals and be able to provide necessary guidance to the students.
               </p>
             </div>
@@ -177,11 +177,11 @@ export default function AboutFaculty() {
 
               {/* Text Content */}
               <div className="faculty-info flex flex-col will-change-transform">
-                <h3 className="font-semibold text-lg md:text-xl xl:text-2xl text-[var(--primary-base)] mb-1 tracking-tight">
+                <h3 className="font-semibold text-lg md:text-xl xl:text-2xl text-[var(--text-main)] mb-1 tracking-tight">
                   {faculty.name}
                 </h3>
-                <div className="w-4 h-[1px] bg-[var(--accent)] mt-1 mb-2"></div>
-                <span className="text-sm md:text-base font-light text-[var(--primary-base)]/60">
+                <div className="w-4 h-[1px] bg-[var(--primary-base)] mt-1 mb-2"></div>
+                <span className="text-sm md:text-base text-[var(--accent)]">
                   {faculty.role}
                 </span>
               </div>

@@ -62,7 +62,7 @@ export default function SyllabusList() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--primary-base)] py-20 md:py-32 overflow-hidden border-t border-[var(--primary-base)]/10">
+    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-32 overflow-hidden border-t border-[var(--primary-base)]/10">
       <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
         
         {syllabusData.map((category, catIndex) => (
@@ -74,7 +74,7 @@ export default function SyllabusList() {
                 <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)] mb-4 block">
                   Archive Category 0{catIndex + 1}
                 </span>
-                <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl tracking-tighter text-[var(--primary-base)] leading-none">
+                <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl tracking-tighter text-[var(--text-main)] leading-none">
                   {category.category}.
                 </h2>
               </div>
@@ -93,20 +93,20 @@ export default function SyllabusList() {
                 >
                   
                   {/* Document Title */}
-                  <h3 className="text-lg md:text-xl lg:text-2xl font-light tracking-tight text-[var(--primary-base)]/90 group-hover:text-[var(--primary-base)] transition-colors duration-300 pr-8 md:pr-12 mb-4 md:mb-0">
+                  <h3 className="text-lg md:text-xl lg:text-2xl font-light tracking-tight text-[var(--text-main)]/90 group-hover:text-[var(--text-main)] transition-colors duration-300 pr-8 md:pr-12 mb-4 md:mb-0">
                     {item.title}
                   </h3>
                   
                   {/* View Action Indicator */}
                   <div className="flex items-center gap-4 shrink-0 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]">
+                    <span className="text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]">
                       View Document
                     </span>
                     
                     {/* Animated SVG Arrow */}
-                    <div className="w-10 h-10 rounded-full border border-[var(--primary-base)]/20 flex items-center justify-center group-hover:bg-[var(--primary-base)] group-hover:border-transparent transition-all duration-300">
+                    <div className="w-10 h-10 rounded-full border border-[var(--primary-base)]/20 flex items-center justify-center group-hover:bg-[var(--accent)] group-hover:border-transparent transition-all duration-300">
                       <svg 
-                        className="w-4 h-4 text-[var(--primary-base)] group-hover:text-[var(--background)] transform group-hover:-rotate-45 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" 
+                        className="w-4 h-4 text-[var(--text-main)] group-hover:text-[var(--background)] transform group-hover:-rotate-45 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]" 
                         fill="none" stroke="currentColor" viewBox="0 0 24 24"
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />

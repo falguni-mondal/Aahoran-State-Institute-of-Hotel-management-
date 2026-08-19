@@ -46,7 +46,7 @@ export default function Contact() {
   return (
     <main 
       ref={containerRef} 
-      className="w-full min-h-screen bg-[var(--background)] text-[var(--primary-base)] selection:bg-[var(--accent)] selection:text-[var(--primary-base)] pt-32 pb-32 md:pt-40 flex flex-col justify-center overflow-hidden"
+      className="w-full min-h-screen bg-[var(--background)] text-[var(--text-main)] selection:bg-[var(--accent)] selection:text-[var(--text-main)] pt-32 pb-32 md:pt-40 flex flex-col justify-center overflow-hidden"
     >
       <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
         
@@ -56,7 +56,7 @@ export default function Contact() {
         <div className="w-full mb-16 md:mb-24 flex flex-col">
           {/* We keep overflow-hidden ONLY on the massive title, but with pb-4 to protect the tails */}
           <div className="overflow-hidden pb-4 md:pb-8">
-            <h1 className="reveal-title head-txt italic text-6xl md:text-8xl lg:text-[9rem] xl:text-[11rem] 2xl:text-[13rem] font-light tracking-tighter leading-[0.8] uppercase text-[var(--primary-base)]">
+            <h1 className="reveal-title head-txt italic text-6xl md:text-8xl lg:text-[9rem] xl:text-[11rem] 2xl:text-[13rem] font-light tracking-tighter leading-[0.8] uppercase text-[var(--text-main)]">
               Get In Touch.
             </h1>
           </div>

@@ -39,7 +39,7 @@ export default function PlacementMarquee() {
   return (
     <section 
       ref={containerRef} 
-      className="relative w-full py-12 md:py-16 lg:py-20 xl:py-24 2xl:py-28 bg-[var(--primary-base)] text-[var(--text-light)] overflow-hidden border-t border-b border-[var(--text-light)]/10"
+      className="relative w-full py-12 md:py-16 lg:py-20 xl:py-24 2xl:py-28 bg-[var(--background)] text-[var(--text-main)] overflow-hidden border-t border-b border-[var(--text-main)]/10"
     >
       
       {/* Top Label */}
@@ -50,8 +50,8 @@ export default function PlacementMarquee() {
       </div>
 
       {/* Edge Fading Gradient Wrappers for Smooth Visual Flow */}
-      <div className="absolute top-0 left-0 w-16 md:w-32 lg:w-48 h-full bg-gradient-to-r from-[var(--primary-base)] to-transparent z-10 pointer-events-none"></div>
-      <div className="absolute top-0 right-0 w-16 md:w-32 lg:w-48 h-full bg-gradient-to-l from-[var(--primary-base)] to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute top-0 left-0 w-16 md:w-32 lg:w-48 h-full bg-gradient-to-r from-[var(--background)] to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-16 md:w-32 lg:w-48 h-full bg-gradient-to-l from-[var(--background)] to-transparent z-10 pointer-events-none"></div>
 
       {/* Infinite Marquee Track */}
       <div className="flex w-full overflow-hidden select-none">
@@ -66,10 +66,10 @@ export default function PlacementMarquee() {
               className="flex items-center gap-6 md:gap-8 lg:gap-10 shrink-0 group cursor-default"
             >
               <div className="flex flex-col">
-                <span className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-light tracking-tight text-[var(--text-light)]/80 group-hover:text-[var(--accent)] transition-colors duration-500 uppercase whitespace-nowrap">
+                <span className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-light tracking-tight text-[var(--text-main)]/80 group-hover:text-[var(--accent)] transition-colors duration-500 uppercase whitespace-nowrap">
                   {partner.name}
                 </span>
-                <span className="text-[8px] md:text-[9px] lg:text-[10px] uppercase tracking-[0.2em] font-medium text-[var(--text-light)]/40 mt-1">
+                <span className="text-[8px] md:text-[9px] lg:text-[10px] uppercase tracking-[0.2em] font-medium text-[var(--text-main)]/40 mt-1">
                   {partner.category}
                 </span>
               </div>

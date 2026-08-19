@@ -61,7 +61,7 @@ export default function ResultsHero() {
   return (
     <section 
       ref={sectionRef} 
-      className="relative w-full h-[100dvh] min-h-[600px] flex flex-col justify-center items-center overflow-hidden bg-[var(--primary-base)] perspective-[1000px]"
+      className="relative w-full h-[100dvh] min-h-[600px] flex flex-col justify-center items-center overflow-hidden bg-[var(--text-mainmary-base)] perspective-[1000px]"
     >
       {/* ==========================================
           FULL BLEED BACKGROUND MEDIA

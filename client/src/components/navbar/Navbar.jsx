@@ -92,7 +92,10 @@ export default function Navbar() {
   // Dynamic Theme Logic
   const lightHeroRoutes = ['/about/rules', '/short-term-courses', '/ug-program', '/hunar-se-rozgar', '/syllabus', '/study-material', '/anti-ragging', '/placement', '/contact']; 
   const isLightHero = lightHeroRoutes.includes(location.pathname);
-  const useDarkText = isLightHero && !isScrolled && !isMobileMenuOpen;
+  
+  // LOGIC FIX: Because the navbar background becomes white on scroll (or when the mobile menu is open), 
+  // the text MUST be dark in those states, regardless of the hero background below it.
+  const useDarkText = isScrolled || isMobileMenuOpen || isLightHero;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -134,7 +137,7 @@ export default function Navbar() {
         <div 
           className={`absolute inset-0 -z-10 transition-all duration-500 ${
             isScrolled || isMobileMenuOpen
-              ? 'bg-[var(--primary-base)]/95 backdrop-blur-md border-b border-[var(--text-light)]/10 shadow-2xl' 
+              ? 'bg-[var(--background)]/95 backdrop-blur-md border-b border-[var(--primary-base)]/5 shadow-2xl shadow-[#111111]/10' 
               : 'bg-transparent border-transparent'
           }`}
         ></div>
@@ -184,7 +187,7 @@ export default function Navbar() {
                       )}
 
                       {link.badge && (
-                        <span className="absolute -top-1.5 xl:-top-2 -right-5 xl:-right-6 bg-[var(--accent)] text-[var(--primary-base)] text-[7px] xl:text-[8px] font-bold px-1 xl:px-1.5 py-0.5 rounded-sm">
+                        <span className="absolute -top-1.5 xl:-top-2 -right-5 xl:-right-6 bg-[var(--accent)] text-[var(--text-light)] text-[7px] xl:text-[8px] font-bold px-1 xl:px-1.5 py-0.5 rounded-sm">
                           {link.badge}
                         </span>
                       )}
@@ -204,13 +207,8 @@ export default function Navbar() {
 
                 {/* Dropdowns */}
                 {link.hasDropdown && (
-                  /* 
-                    FIX APPLIED HERE:
-                    Removed clip-path. Substituted with translate-y-4 shifting to translate-y-0.
-                    This allows nested children extending to the right to be fully visible!
-                  */
                   <div className="absolute top-[100%] left-0 pt-6 invisible opacity-0 translate-y-4 pointer-events-none group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-50 w-max hidden lg:block">
-                    <div className="bg-[var(--primary-base)]/95 backdrop-blur-md border border-[var(--text-light)]/10 shadow-2xl rounded-sm p-3 xl:p-4 flex flex-col gap-1.5 min-w-[220px]">
+                    <div className="bg-[var(--background)]/95 backdrop-blur-md border border-[var(--primary-base)]/10 shadow-2xl rounded-sm p-3 xl:p-4 flex flex-col gap-1.5 min-w-[220px]">
                       {link.subLinks.map((sub, subIdx) => {
                         
                         const SubLinkContent = () => (
@@ -219,17 +217,17 @@ export default function Navbar() {
                               className="flex items-center justify-between w-full translate-y-[120%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                               style={{ transitionDelay: `${subIdx * 40}ms` }}
                             >
-                              <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--text-light)]/80 group-hover/nested:text-[var(--accent)] transition-colors duration-300">
+                              <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--primary-base)]/80 group-hover/nested:text-[var(--accent)] transition-colors duration-300">
                                 {sub.name}
                               </span>
                               <div className="flex items-center">
                                 {sub.badge && (
-                                  <span className="ml-3 bg-[var(--accent)] text-[var(--primary-base)] text-[8px] font-bold uppercase tracking-wider px-1.5 py-[1px] rounded-sm">
+                                  <span className="ml-3 bg-[var(--accent)] text-[var(--text-light)] text-[8px] font-bold uppercase tracking-wider px-1.5 py-[1px] rounded-sm">
                                     {sub.badge}
                                   </span>
                                 )}
                                 {sub.hasDropdown && (
-                                  <svg className="w-3 h-3 ml-3 text-[var(--text-light)]/30 group-hover/nested:text-[var(--accent)] transition-all duration-300 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <svg className="w-3 h-3 ml-3 text-[var(--primary-base)]/30 group-hover/nested:text-[var(--accent)] transition-all duration-300 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                                   </svg>
                                 )}
@@ -241,43 +239,41 @@ export default function Navbar() {
                         return (
                           <div key={subIdx} className="group/nested relative">
                             
-                            {/* External vs Internal Link Safeguard */}
                             {sub.isExternal ? (
-                              <a href={sub.path || '#'} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--text-light)]/5 transition-colors duration-300">
+                              <a href={sub.path || '#'} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--primary-base)]/5 transition-colors duration-300">
                                 <SubLinkContent />
                               </a>
                             ) : (
-                              <Link to={sub.path || '#'} className="flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--text-light)]/5 transition-colors duration-300">
+                              <Link to={sub.path || '#'} className="flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--primary-base)]/5 transition-colors duration-300">
                                 <SubLinkContent />
                               </Link>
                             )}
 
-                            {/* Deep Nested Dropdowns (Curtain expands to the right) */}
                             {sub.hasDropdown && sub.subLinks && (
                               <div className="absolute top-0 left-[100%] pl-2 invisible opacity-0 [clip-path:inset(0_100%_0_0)] pointer-events-none group-hover/nested:visible group-hover/nested:opacity-100 group-hover/nested:[clip-path:inset(0_0_0_0)] group-hover/nested:pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-50 w-max">
-                                <div className="bg-[var(--primary-base)]/95 backdrop-blur-md border border-[var(--text-light)]/10 shadow-2xl rounded-sm p-3 xl:p-4 flex flex-col gap-1.5 min-w-[180px]">
+                                <div className="bg-[var(--background)]/95 backdrop-blur-md border border-[var(--primary-base)]/10 shadow-2xl rounded-sm p-3 xl:p-4 flex flex-col gap-1.5 min-w-[180px]">
                                   {sub.subLinks.map((nestedSub, nestedIdx) => (
                                     nestedSub.isExternal ? (
-                                      <a key={nestedIdx} href={nestedSub.path || '#'} target="_blank" rel="noopener noreferrer" className="group/deep flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--text-light)]/5 transition-colors duration-300">
+                                      <a key={nestedIdx} href={nestedSub.path || '#'} target="_blank" rel="noopener noreferrer" className="group/deep flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--primary-base)]/5 transition-colors duration-300">
                                         <div className="overflow-hidden w-full">
                                           <div 
                                             className="flex items-center justify-between w-full translate-y-[120%] group-hover/nested:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                                             style={{ transitionDelay: `${nestedIdx * 40}ms` }}
                                           >
-                                            <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--text-light)]/80 group-hover/deep:text-[var(--accent)] transition-colors duration-300">
+                                            <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--primary-base)]/80 group-hover/deep:text-[var(--accent)] transition-colors duration-300">
                                               {nestedSub.name}
                                             </span>
                                           </div>
                                         </div>
                                       </a>
                                     ) : (
-                                      <Link key={nestedIdx} to={nestedSub.path || '#'} className="group/deep flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--text-light)]/5 transition-colors duration-300">
+                                      <Link key={nestedIdx} to={nestedSub.path || '#'} className="group/deep flex items-center justify-between w-full cursor-pointer px-3 py-2 rounded-sm hover:bg-[var(--primary-base)]/5 transition-colors duration-300">
                                         <div className="overflow-hidden w-full">
                                           <div 
                                             className="flex items-center justify-between w-full translate-y-[120%] group-hover/nested:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                                             style={{ transitionDelay: `${nestedIdx * 40}ms` }}
                                           >
-                                            <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--text-light)]/80 group-hover/deep:text-[var(--accent)] transition-colors duration-300">
+                                            <span className="font-sans text-[12px] xl:text-[13px] font-medium text-[var(--primary-base)]/80 group-hover/deep:text-[var(--accent)] transition-colors duration-300">
                                               {nestedSub.name}
                                             </span>
                                           </div>
@@ -304,16 +300,16 @@ export default function Navbar() {
 
           <button className={`nav-link-item group relative overflow-hidden flex items-center gap-2 border px-5 xl:px-6 py-2 xl:py-2.5 cursor-pointer outline-none transition-colors duration-500 ${
             useDarkText 
-              ? 'border-[var(--primary-base)]/40 hover:border-[var(--primary-base)]' 
+              ? 'border-[var(--text-main)]/40 hover:border-[var(--text-light)]' 
               : 'border-[var(--text-light)]/40 hover:border-[var(--text-light)]'
           }`}>
             <div className={`absolute inset-0 w-full h-full translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              useDarkText ? 'bg-[var(--primary-base)]' : 'bg-[var(--text-light)]'
+              useDarkText ? 'bg-[var(--accent)]' : 'bg-[var(--text-light)]'
             }`}></div>
             <span className={`relative z-10 font-sans text-[9px] xl:text-[10px] 2xl:text-[11px] font-bold uppercase tracking-[0.15em] transition-colors duration-500 ${
               useDarkText 
-                ? 'text-[var(--primary-base)] group-hover:text-[var(--background)]' 
-                : 'text-[var(--text-light)] group-hover:text-[var(--primary-base)]'
+                ? 'text-[var(--text-main)] group-hover:text-[var(--text-light)]' 
+                : 'text-[var(--text-light)] group-hover:text-[var(--text-main)]'
             }`}>
               Pay Fee
             </span>

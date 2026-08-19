@@ -85,11 +85,11 @@ export default function RulesPolicies() {
               // Reset all links to inactive state
               navLinks.forEach(link => {
                 link.classList.remove('text-[var(--accent)]', 'translate-x-4');
-                link.classList.add('text-[var(--primary-base)]/30');
+                link.classList.add('text-[var(--text-main)]/30');
               });
 
               // Apply active state to the current link
-              navLinks[index].classList.remove('text-[var(--primary-base)]/30');
+              navLinks[index].classList.remove('text-[var(--text-main)]/30');
               navLinks[index].classList.add('text-[var(--accent)]', 'translate-x-4');
             }
           }
@@ -112,7 +112,7 @@ export default function RulesPolicies() {
   };
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--primary-base)] py-24 md:py-32 lg:py-48">
+    <section ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--text-main)] py-24 md:py-32 lg:py-48">
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px] flex flex-col lg:flex-row gap-16 lg:gap-24 xl:gap-32">
         
         {/* =========================================
@@ -129,7 +129,7 @@ export default function RulesPolicies() {
                 key={`nav-${policy.id}`}
                 href={`#${policy.id}`}
                 onClick={(e) => handleScroll(e, policy.id)}
-                className="nav-link text-xl xl:text-2xl font-light tracking-tight text-[var(--primary-base)]/30 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-[var(--primary-base)]"
+                className="nav-link text-xl xl:text-2xl font-light tracking-tight text-[var(--text-main)]/30 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-[var(--accent)]"
               >
                 {policy.title}
               </a>
@@ -170,12 +170,12 @@ export default function RulesPolicies() {
                     
                     {/* Boys Column */}
                     <div className="flex flex-col">
-                      <span className="font-sans font-bold text-xs uppercase tracking-[0.2em] text-[var(--primary-base)]/50 mb-8 border-b border-[var(--primary-base)]/10 pb-4">
+                      <span className="font-sans font-bold text-xs uppercase tracking-[0.2em] text-[var(--text-main)]/50 mb-8 border-b border-[var(--primary-base)]/10 pb-4">
                         For Boys
                       </span>
                       <ul className="flex flex-col gap-6">
                         {policy.boys.map((item, idx) => (
-                          <li key={`boy-${idx}`} className="flex items-start gap-4 text-base md:text-lg font-light text-[var(--primary-base)]/80 leading-relaxed">
+                          <li key={`boy-${idx}`} className="flex items-start gap-4 text-base md:text-lg font-light text-[var(--text-main)]/80 leading-relaxed">
                             <span className="text-[var(--accent)] mt-1.5 opacity-60">—</span>
                             <p>{item}</p>
                           </li>
@@ -185,12 +185,12 @@ export default function RulesPolicies() {
                     
                     {/* Girls Column */}
                     <div className="flex flex-col">
-                      <span className="font-sans font-bold text-xs uppercase tracking-[0.2em] text-[var(--primary-base)]/50 mb-8 border-b border-[var(--primary-base)]/10 pb-4">
+                      <span className="font-sans font-bold text-xs uppercase tracking-[0.2em] text-[var(--text-main)]/50 mb-8 border-b border-[var(--primary-base)]/10 pb-4">
                         For Girls
                       </span>
                       <ul className="flex flex-col gap-6">
                         {policy.girls.map((item, idx) => (
-                          <li key={`girl-${idx}`} className="flex items-start gap-4 text-base md:text-lg font-light text-[var(--primary-base)]/80 leading-relaxed">
+                          <li key={`girl-${idx}`} className="flex items-start gap-4 text-base md:text-lg font-light text-[var(--text-main)]/80 leading-relaxed">
                             <span className="text-[var(--accent)] mt-1.5 opacity-60">—</span>
                             <p>{item}</p>
                           </li>
@@ -206,7 +206,7 @@ export default function RulesPolicies() {
                       <li key={`item-${idx}`} className="flex items-start gap-4 md:gap-6">
                         {/* Custom minimal bullet point */}
                         <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] mt-2.5 shrink-0 opacity-60"></div>
-                        <p className="text-lg md:text-xl lg:text-2xl font-light text-[var(--primary-base)]/80 leading-[1.6] md:leading-[1.7]">
+                        <p className="text-lg md:text-xl lg:text-2xl font-light text-[var(--text-main)]/80 leading-[1.6] md:leading-[1.7]">
                           {item}
                         </p>
                       </li>

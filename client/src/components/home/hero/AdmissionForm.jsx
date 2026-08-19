@@ -31,12 +31,12 @@ export default function AdmissionForm({ isOpen, onClose }) {
       >
         {/* Drawer Header */}
         <div className="flex items-center justify-between px-8 py-6 border-b border-gray-200">
-          <h2 className="head-txt text-2xl text-[var(--primary-base)] uppercase tracking-tight">
+          <h2 className="head-txt text-2xl text-[var(--text-main)] uppercase tracking-tight">
             Admission Query
           </h2>
           <button 
             onClick={onClose}
-            className="p-2 text-gray-500 hover:text-[var(--primary-base)] transition-colors"
+            className="p-2 text-gray-500 hover:text-[var(--text-main)] transition-colors"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -52,7 +52,7 @@ export default function AdmissionForm({ isOpen, onClose }) {
             {/* Input Group: Name */}
             <div className="relative group">
               <input type="text" id="name" required className="w-full bg-transparent border-b border-gray-300 py-2 text-[var(--text-main)] focus:outline-none focus:border-[var(--primary-base)] transition-colors peer" placeholder=" " />
-              <label htmlFor="name" className="absolute left-0 top-2 text-gray-500 text-sm transition-all duration-300 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--primary-base)] peer-valid:-top-4 peer-valid:text-xs">
+              <label htmlFor="name" className="absolute left-0 top-2 text-gray-500 text-sm transition-all duration-300 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--text-main)] peer-valid:-top-4 peer-valid:text-xs">
                 Full Name
               </label>
             </div>
@@ -61,13 +61,13 @@ export default function AdmissionForm({ isOpen, onClose }) {
             <div className="grid grid-cols-2 gap-6">
               <div className="relative group">
                 <input type="tel" id="mobile" required className="w-full bg-transparent border-b border-gray-300 py-2 text-[var(--text-main)] focus:outline-none focus:border-[var(--primary-base)] transition-colors peer" placeholder=" " />
-                <label htmlFor="mobile" className="absolute left-0 top-2 text-gray-500 text-sm transition-all duration-300 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--primary-base)] peer-valid:-top-4 peer-valid:text-xs">
+                <label htmlFor="mobile" className="absolute left-0 top-2 text-gray-500 text-sm transition-all duration-300 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--text-main)] peer-valid:-top-4 peer-valid:text-xs">
                   Mobile No.
                 </label>
               </div>
               <div className="relative group">
                 <input type="email" id="email" required className="w-full bg-transparent border-b border-gray-300 py-2 text-[var(--text-main)] focus:outline-none focus:border-[var(--primary-base)] transition-colors peer" placeholder=" " />
-                <label htmlFor="email" className="absolute left-0 top-2 text-gray-500 text-sm transition-all duration-300 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--primary-base)] peer-valid:-top-4 peer-valid:text-xs">
+                <label htmlFor="email" className="absolute left-0 top-2 text-gray-500 text-sm transition-all duration-300 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--text-main)] peer-valid:-top-4 peer-valid:text-xs">
                   Email ID
                 </label>
               </div>
@@ -103,7 +103,7 @@ export default function AdmissionForm({ isOpen, onClose }) {
             {/* Textarea: Address */}
             <div className="relative group">
               <textarea id="address" rows="3" required className="w-full bg-transparent border-b border-gray-300 py-2 text-[var(--text-main)] focus:outline-none focus:border-[var(--primary-base)] transition-colors peer resize-none" placeholder=" "></textarea>
-              <label htmlFor="address" className="absolute left-0 top-2 text-gray-500 text-sm transition-all duration-300 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--primary-base)] peer-valid:-top-4 peer-valid:text-xs">
+              <label htmlFor="address" className="absolute left-0 top-2 text-gray-500 text-sm transition-all duration-300 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--text-main)] peer-valid:-top-4 peer-valid:text-xs">
                 Complete Address
               </label>
             </div>

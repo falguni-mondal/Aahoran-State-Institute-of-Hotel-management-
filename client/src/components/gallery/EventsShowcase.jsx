@@ -121,7 +121,7 @@ export default function EventsShowcase() {
       */}
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-[80px] h-[80px] bg-[var(--accent)] text-[var(--primary-base)] rounded-full flex items-center justify-center font-sans text-[10px] font-bold tracking-[0.2em] pointer-events-none z-[100] scale-0 opacity-0 mix-blend-difference"
+        className="fixed top-0 left-0 w-[80px] h-[80px] bg-[var(--accent)] text-[var(--text-main)] rounded-full flex items-center justify-center font-sans text-[10px] font-bold tracking-[0.2em] pointer-events-none z-[100] scale-0 opacity-0 mix-blend-difference"
         style={{ transformOrigin: 'center center' }}
       >
         VIEW
@@ -146,7 +146,7 @@ export default function EventsShowcase() {
                 <span className="font-sans text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)]">
                   Exhibition No. {serialNumber}
                 </span>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight leading-[1.1] text-[var(--primary-base)]">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight leading-[1.1] text-[var(--text-main)]">
                   {category.label}
                 </h2>
               </div>
@@ -163,7 +163,7 @@ export default function EventsShowcase() {
                       onClick={() => setSelectedImage(img)}
                       className="showcase-item group relative break-inside-avoid mb-5 md:mb-8 cursor-none overflow-hidden"
                     >
-                      <div className="relative w-full h-full bg-[var(--primary-base)]/5 overflow-hidden rounded-sm">
+                      <div className="relative w-full h-full bg-[var(--text-main)]/5 overflow-hidden rounded-sm">
                         <img 
                           src={img.url} 
                           alt={img.alt} 

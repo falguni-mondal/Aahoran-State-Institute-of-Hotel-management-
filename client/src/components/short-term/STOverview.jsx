@@ -32,7 +32,7 @@ export default function STOverview() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--primary-base)] py-20 md:py-28 lg:py-36 overflow-hidden">
+    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-28 lg:py-36 overflow-hidden">
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
         {/* Section Header */}
@@ -40,10 +40,10 @@ export default function STOverview() {
           <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.25em] text-[var(--accent)] mb-4 block">
             Common Structure
           </span>
-          <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl text-[var(--primary-base)] tracking-tighter">
+          <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl text-[var(--text-main)] tracking-tighter">
             Program Eligibility
           </h2>
-          <p className="mt-6 text-sm md:text-base font-light text-[var(--primary-base)]/60 max-w-lg">
+          <p className="mt-6 text-sm md:text-base font-light text-[var(--text-main)]/60 max-w-lg">
             The following duration, intake, and qualification criteria apply universally across all five short-term diploma courses.
           </p>
         </div>
@@ -53,53 +53,53 @@ export default function STOverview() {
           
           {/* Stat 1: Duration */}
           <div className="stat-box flex flex-col justify-between p-8 lg:p-12 border-r border-b border-[var(--primary-base)]/10 aspect-square xl:aspect-auto xl:h-[350px]">
-            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]/50">
+            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]/50">
               Duration
             </span>
             <div>
               <div className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tighter mb-2">
                 18
               </div>
-              <span className="text-lg md:text-xl font-light text-[var(--primary-base)]/70">Months</span>
+              <span className="text-lg md:text-xl font-light text-[var(--text-main)]/70">Months</span>
             </div>
           </div>
 
           {/* Stat 2: Qualification */}
           <div className="stat-box flex flex-col justify-between p-8 lg:p-12 border-r border-b border-[var(--primary-base)]/10 aspect-square xl:aspect-auto xl:h-[350px]">
-            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]/50">
+            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]/50">
               Qualification
             </span>
             <div>
               <div className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tighter mb-2">
                 12<span className="text-3xl md:text-4xl">th</span>
               </div>
-              <span className="text-lg md:text-xl font-light text-[var(--primary-base)]/70">Pass Required</span>
+              <span className="text-lg md:text-xl font-light text-[var(--text-main)]/70">Pass Required</span>
             </div>
           </div>
 
           {/* Stat 3: Intake */}
           <div className="stat-box flex flex-col justify-between p-8 lg:p-12 border-r border-b border-[var(--primary-base)]/10 aspect-square xl:aspect-auto xl:h-[350px]">
-            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]/50">
+            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]/50">
               Intake
             </span>
             <div>
               <div className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tighter mb-2">
                 40
               </div>
-              <span className="text-lg md:text-xl font-light text-[var(--primary-base)]/70">Students per batch</span>
+              <span className="text-lg md:text-xl font-light text-[var(--text-main)]/70">Students per batch</span>
             </div>
           </div>
 
           {/* Stat 4: Age Limit */}
           <div className="stat-box flex flex-col justify-between p-8 lg:p-12 border-r border-b border-[var(--primary-base)]/10 aspect-square xl:aspect-auto xl:h-[350px]">
-            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary-base)]/50">
+            <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]/50">
               Age Limit
             </span>
             <div>
               <div className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter mb-2">
                 None
               </div>
-              <span className="text-lg md:text-xl font-light text-[var(--primary-base)]/70">No age bar</span>
+              <span className="text-lg md:text-xl font-light text-[var(--text-main)]/70">No age bar</span>
             </div>
           </div>
 
