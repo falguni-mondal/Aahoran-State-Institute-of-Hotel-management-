@@ -127,7 +127,7 @@ export default function AdmissionModal({ isOpen, onClose }) {
         className="relative z-10 w-full max-w-3xl bg-[var(--text-light)] text-[var(--text-main)] rounded-sm shadow-2xl overflow-hidden flex flex-col md:flex-row"
       >
         {/* Left Side - Brand/Visual */}
-        <div className="hidden md:flex md:w-1/3 bg-[var(--text-main)] p-8 flex-col justify-between relative overflow-hidden">
+        <div className="hidden md:flex md:w-1/3 bg-[var(--primary-base)] p-8 flex-col justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--primary-light),_transparent_80%)] opacity-50 mix-blend-screen"></div>
           <div className="relative z-10">
             <h3 className="head-txt text-3xl text-[var(--text-light)] leading-tight mb-4">Start Your Journey</h3>

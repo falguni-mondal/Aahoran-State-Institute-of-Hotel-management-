@@ -78,7 +78,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative w-full min-h-screen bg-[var(--primary-base)] text-[var(--text-light)] flex flex-col justify-center"
+      className="relative w-full min-h-screen bg-[var(--background)] text-[var(--text-light)] flex flex-col justify-center"
     >
       <video
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-100"

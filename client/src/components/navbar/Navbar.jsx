@@ -136,8 +136,8 @@ export default function Navbar() {
       >
         <div 
           className={`absolute inset-0 -z-10 transition-all duration-500 ${
-            isScrolled || isMobileMenuOpen
-              ? 'bg-[var(--background)]/95 backdrop-blur-md border-b border-[var(--primary-base)]/5 shadow-2xl shadow-[#111111]/10' 
+            isScrolled
+              ? 'bg-[var(--background)]/95 backdrop-blur-md border-b border-[var(--text-main)]/5 shadow-2xl shadow-[#111111]/10' 
               : 'bg-transparent border-transparent'
           }`}
         ></div>
@@ -329,14 +329,14 @@ export default function Navbar() {
         <div className="lg:hidden flex items-center gap-4 md:gap-6 shrink-0 relative z-50">
           <button className={`nav-link-item group relative overflow-hidden flex items-center justify-center border px-4 md:px-5 py-1.5 md:py-2 cursor-pointer outline-none transition-colors duration-500 ${
             useDarkText 
-              ? 'border-[var(--primary-base)]/40 hover:border-[var(--primary-base)]' 
-              : 'border-[var(--text-light)]/40 hover:border-[var(--text-light)]'
+              ? 'border-[var(--text-main)]/60 hover:border-[var(--text-main)]' 
+              : 'border-[var(--text-light)]/60 hover:border-[var(--text-light)]'
           }`}>
             <div className="absolute inset-0 w-full h-full bg-[var(--accent)] translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
             <span className={`relative z-10 font-sans text-[9px] md:text-[10px] font-bold uppercase tracking-[0.1em] transition-colors duration-500 ${
                useDarkText 
-                ? 'text-[var(--primary-base)] group-hover:text-[var(--background)]' 
-                : 'text-[var(--text-light)] group-hover:text-[var(--primary-base)]'
+                ? 'text-[var(--text-main)] group-hover:text-[var(--background)]' 
+                : 'text-[var(--text-light)] group-hover:text-[var(--text-main)]'
             }`}>
               Pay Fee
             </span>

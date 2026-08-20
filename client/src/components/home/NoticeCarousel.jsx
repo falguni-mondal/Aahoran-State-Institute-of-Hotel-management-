@@ -29,7 +29,7 @@ export default function NoticeCarousel() {
   return (
     <div 
       ref={containerRef} 
-      className="absolute bottom-0 left-0 w-full bg-[#ffffff12] backdrop-blur-md border-t border-[var(--text-light)]/10 py-3 z-20 flex overflow-hidden group"
+      className="absolute bottom-0 left-0 w-full bg-[#ffffff1b] backdrop-blur-md border-t border-[var(--text-light)]/10 py-3 z-20 flex overflow-hidden group"
     >
       <div 
         className="ticker-content flex whitespace-nowrap group-hover:[animation-play-state:paused]"

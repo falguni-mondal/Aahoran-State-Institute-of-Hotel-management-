@@ -144,8 +144,7 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      // THEME: Switched bg to background, text to primary-base, and border to primary-base/15
-      className="w-full bg-[#f4f4f4] text-[var(--text-main)] relative z-20 overflow-hidden border-t border-[var(--primary-base)]/15 pt-20 md:pt-28 pb-8"
+      className="w-full bg-[#f2f2f4] text-[var(--text-main)] relative z-20 overflow-hidden border-t border-[var(--primary-base)]/15 pt-20 md:pt-28 pb-8"
     >
       {/* 
           The Animated SVG Watermark

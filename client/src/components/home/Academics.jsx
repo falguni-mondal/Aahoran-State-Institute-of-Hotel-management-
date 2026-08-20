@@ -37,7 +37,7 @@ const academicsData = [
     kicker: "Accommodation Operations",
     desc: "The backbone of any 5-star property. Acquire the meticulous skills required for room detailing, inventory management, and maintaining immaculate physical environments.",
     img: "/hk-bg.webp",
-    link: "/housekeeping",
+    link: "/house-keeping",
   },
 ];
 
@@ -149,7 +149,7 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
           
           {/* Heading - Fluid Typography Scale & Wrapping */}
           <h3 
-            className={`head-txt tracking-tight text-[var(--text-main)] transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+            className={`head-txt tracking-tight ${isActive ? "text-[#000000]/85" : "text-(--accent)"} transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
               ${isActive 
                 ? 'text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[5.5rem] leading-[1.05]' 
                 : 'text-2xl md:text-3xl lg:text-[1.75rem] xl:text-3xl 2xl:text-4xl leading-[1.1] whitespace-normal break-words'
@@ -190,9 +190,9 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
               </div>
 
               {/* Ghost Button */}
-              <Link to={dept.link} className="dept-btn relative overflow-hidden flex items-center gap-3 border border-[var(--text-main)]/30 hover:border-[var(--accent)] px-6 py-2.5 2xl:px-8 2xl:py-3.5 rounded-sm cursor-pointer outline-none group/btn transition-colors duration-500">
+              <Link to={dept.link} className="dept-btn relative overflow-hidden flex items-center gap-3 border bg-(--background) border-[var(--text-main)]/30 hover:border-[var(--accent)] px-6 py-2.5 2xl:px-8 2xl:py-3.5 rounded-sm cursor-pointer outline-none group/btn transition-colors duration-500">
                 <div className="absolute inset-0 w-full h-full bg-[var(--accent)] translate-y-[101%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
-                <span className="relative z-10 text-[var(--text-main)] group-hover/btn:text-white transition-colors duration-500 font-sans text-[10px] xl:text-[11px] 2xl:text-xs font-bold uppercase tracking-[0.15em]">
+                <span className="relative z-10 text-[var(--accent)] group-hover/btn:text-white transition-colors duration-500 font-sans text-[10px] xl:text-[11px] 2xl:text-xs font-bold uppercase tracking-[0.15em]">
                   View Course
                 </span>
                 <svg 

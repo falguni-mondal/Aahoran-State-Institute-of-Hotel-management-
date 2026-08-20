@@ -151,10 +151,10 @@ export default function PrincipalMessage() {
         SAFE BACKGROUND DECORATION LAYER (Inverted for light theme)
         ========================================= 
       */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      {/* <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[var(--primary-base)]/[0.02] to-transparent"></div>
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-[var(--accent)]/10 rounded-full blur-3xl"></div>
-      </div>
+      </div> */}
 
       {/* Grid Layout Container */}
       <div className="relative z-10 max-w-7xl xl:max-w-screen-xl 2xl:max-w-[100rem] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 xl:gap-28 2xl:gap-32 px-5 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
@@ -254,7 +254,7 @@ export default function PrincipalMessage() {
               {renderWords("The future belongs to those who can innovate, lead with empathy, embrace technology, and build enterprises that generate employment and meaningful experiences. Whether your aspiration is to manage world-class hotels, launch your own food venture, become a hospitality technologist, or contribute to tourism and service innovation, SIHM Durgapur provides the right foundation.")}
             </p>
             <p className="pt-4">
-              {renderWords("Your journey to serve the world with skill, dignity, and vision begins here. Welcome to a future full of possibilities.", "text-[var(--primary-base)]/90 italic font-medium")}
+              {renderWords("Your journey to serve the world with skill, dignity, and vision begins here. Welcome to a future full of possibilities.", "text-[var(--primary-base)]/90 font-medium")}
             </p>
           </div>
 
