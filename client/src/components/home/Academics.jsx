@@ -190,7 +190,7 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
               </div>
 
               {/* Ghost Button */}
-              <Link to={dept.link} className="dept-btn relative overflow-hidden flex items-center gap-3 border bg-(--background) border-[var(--text-main)]/30 hover:border-[var(--accent)] px-6 py-2.5 2xl:px-8 2xl:py-3.5 rounded-sm cursor-pointer outline-none group/btn transition-colors duration-500">
+              <Link to={dept.link} className="dept-btn relative overflow-hidden flex items-center gap-3 border bg-(--background) border-[var(--text-main)]/20 hover:border-[var(--accent)] px-6 py-2.5 2xl:px-8 2xl:py-3.5 rounded-sm cursor-pointer outline-none group/btn transition-colors duration-500">
                 <div className="absolute inset-0 w-full h-full bg-[var(--accent)] translate-y-[101%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
                 <span className="relative z-10 text-[var(--accent)] group-hover/btn:text-white transition-colors duration-500 font-sans text-[10px] xl:text-[11px] 2xl:text-xs font-bold uppercase tracking-[0.15em]">
                   View Course

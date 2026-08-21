@@ -302,7 +302,7 @@ export default function Footer() {
           {/* Copyright */}
           <div className="flex items-center shrink-0 footer-bottom-item">
             {/* THEME: Text color updated */}
-            <span className="text-xs text-[var(--text-main)]/40 tracking-wide text-center lg:text-right">
+            <span className="text-xs text-[var(--text-main)] tracking-wide text-center lg:text-right">
               &copy; {new Date().getFullYear()} SIHM Durgapur. All Rights Reserved.
             </span>
           </div>
