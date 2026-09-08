@@ -48,6 +48,12 @@ const policiesData = [
   {
     id: "fees",
     title: "Fee Structure",
+    // NEW: Image configuration for the fee structure
+    image: {
+      src: "/fee-structure.webp",
+      alt: "SIHM Durgapur Fee Structure",
+      fileName: "SIHM_Fee_Structure.webp"
+    },
     items: [
       "Fees are payable in advance. All fees are payable through online Banking facility, both digested & non digested (paid by auto-generated e-challan through Demand Draft), as available at the Institute's website www.wbsihm.in."
     ]
@@ -170,6 +176,16 @@ export default function RulesPolicies() {
                     
                     {/* Boys Column */}
                     <div className="flex flex-col">
+                      
+                      {/* BOYS UNIFORM IMAGE */}
+                      <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm mb-8 bg-[var(--primary-base)]/5 border border-[var(--primary-base)]/10">
+                         <img 
+                            src="/uniform-boy.webp" 
+                            alt="Proper Uniform for Boys" 
+                            className="w-full h-full object-cover object-center grayscale-[20%] hover:grayscale-0 transition-all duration-500"
+                         />
+                      </div>
+
                       <span className="font-sans font-bold text-xs uppercase tracking-[0.2em] text-[var(--text-main)]/50 mb-8 border-b border-[var(--primary-base)]/10 pb-4">
                         For Boys
                       </span>
@@ -185,6 +201,16 @@ export default function RulesPolicies() {
                     
                     {/* Girls Column */}
                     <div className="flex flex-col">
+
+                      {/* GIRLS UNIFORM IMAGE */}
+                      <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm mb-8 bg-[var(--primary-base)]/5 border border-[var(--primary-base)]/10">
+                         <img 
+                            src="/uniform-girl.webp" 
+                            alt="Proper Uniform for Girls" 
+                            className="w-full h-full object-cover object-center grayscale-[20%] hover:grayscale-0 transition-all duration-500"
+                         />
+                      </div>
+
                       <span className="font-sans font-bold text-xs uppercase tracking-[0.2em] text-[var(--text-main)]/50 mb-8 border-b border-[var(--primary-base)]/10 pb-4">
                         For Girls
                       </span>
@@ -201,17 +227,51 @@ export default function RulesPolicies() {
                   </div>
                 ) : (
                   /* Standard List for Attendance, Fees, Medical */
-                  <ul className="flex flex-col gap-8 md:gap-10">
-                    {policy.items.map((item, idx) => (
-                      <li key={`item-${idx}`} className="flex items-start gap-4 md:gap-6">
-                        {/* Custom minimal bullet point */}
-                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] mt-2.5 shrink-0 opacity-60"></div>
-                        <p className="text-lg md:text-xl lg:text-2xl font-light text-[var(--text-main)]/80 leading-[1.6] md:leading-[1.7]">
-                          {item}
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="flex flex-col">
+                    {/* =========================================
+                        NEW: IMAGE INJECTION LOGIC (For Fee Structure)
+                    ========================================= */}
+                    {policy.image && (
+                      <div className="mb-12 flex flex-col items-start">
+                        <div className="w-full max-w-4xl overflow-hidden rounded-sm bg-[var(--primary-base)]/5 border border-[var(--primary-base)]/10 mb-6">
+                          <img 
+                            src={policy.image.src} 
+                            alt={policy.image.alt} 
+                            className="w-full h-auto object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-500"
+                          />
+                        </div>
+                        <a 
+                          href={policy.image.src} 
+                          download={policy.image.fileName}
+                          className="group flex items-center gap-3 bg-[var(--accent)] text-[var(--text-light)] px-6 md:px-8 py-3 md:py-4 rounded-sm cursor-pointer outline-none hover:bg-orange-600 transition-colors duration-300 shadow-[0_4px_14px_rgba(232,93,4,0.3)]"
+                        >
+                          <span className="font-sans font-bold text-[10px] md:text-xs uppercase tracking-[0.15em]">
+                            Download Document
+                          </span>
+                          <svg 
+                            className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                          </svg>
+                        </a>
+                      </div>
+                    )}
+
+                    <ul className="flex flex-col gap-8 md:gap-10">
+                      {policy.items.map((item, idx) => (
+                        <li key={`item-${idx}`} className="flex items-start gap-4 md:gap-6">
+                          {/* Custom minimal bullet point */}
+                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] mt-2.5 shrink-0 opacity-60"></div>
+                          <p className="text-lg md:text-xl lg:text-2xl font-light text-[var(--text-main)]/80 leading-[1.6] md:leading-[1.7]">
+                            {item}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
 
               </div>

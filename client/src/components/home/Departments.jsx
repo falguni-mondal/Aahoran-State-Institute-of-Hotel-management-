@@ -50,11 +50,9 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
   const contentRef = useRef(null);
   const tl = useRef(null);
 
-  // ScrollTrigger for Mobile (Stacks vertically)
   useGSAP(() => {
     let mm = gsap.matchMedia();
-    
-    // On mobile, trigger the active state when the card scrolls into the center
+
     mm.add("(max-width: 1023px)", () => {
       ScrollTrigger.create({
         trigger: cardRef.current,
@@ -68,17 +66,14 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
     return () => mm.revert();
   }, { scope: cardRef });
 
-  // GSAP Curtain Reveal Timeline
   useGSAP(() => {
     tl.current = gsap.timeline({ paused: true });
-    
-    // Stagger the words up.
+
     tl.current.to(
       cardRef.current.querySelectorAll('.curtain-word'), 
       { y: "0%", duration: 0.5, stagger: 0.015, ease: "power3.out" }
     );
-    
-    // Fade in button
+
     tl.current.fromTo(
       cardRef.current.querySelector('.dept-btn'),
       { opacity: 0, y: 10 },
@@ -87,7 +82,6 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
     );
   }, { scope: cardRef });
 
-  // Play/Reverse animation based on isActive state
   useEffect(() => {
     if (isActive) {
       tl.current?.play();
@@ -104,36 +98,48 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
         ${isActive ? 'lg:flex-[2.8] xl:flex-[3]' : 'lg:flex-1'}
       `}
     >
-      {/* Background Image Canvas */}
-      <div className="absolute inset-0 z-0 bg-[var(--background)] overflow-hidden">
+      {/* 
+          =========================================
+          THE LAYERED BACKGROUND CANVAS
+          Stacked perfectly to provide the image, the old white overlay, 
+          and the new orange vignette on top.
+          =========================================
+      */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-[var(--background)]">
+        
+        {/* Layer 1: Base Image Canvas */}
         <img
           src={dept.img}
           alt={dept.title}
           className={`w-full h-full object-cover transition-all duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)] transform-gpu origin-center
             ${isActive 
-              ? 'grayscale-0 opacity-100 scale-100 mix-blend-normal' 
-              : 'grayscale opacity-30 scale-110 mix-blend-multiply'
+              ? 'grayscale-0 opacity-100 scale-100' 
+              : 'grayscale opacity-70 scale-110'
             }
           `}
         />
-        {/* Gradient Overlay */}
-        <div className={`absolute inset-0 transition-opacity duration-700
-          ${isActive 
-            ? 'bg-gradient-to-t from-[var(--background)] via-[var(--background)]/80 to-transparent opacity-100' 
-            : 'bg-gradient-to-t from-[var(--background)] to-transparent opacity-90'
-          }
+        
+        {/* Layer 2: The OLD Effect (White/Light low opacity overlay) */}
+        <div className={`absolute inset-0 bg-[var(--background)] transition-opacity duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+          ${isActive ? 'opacity-0' : 'opacity-60'}
         `}></div>
+
+        {/* Layer 3: The Active State Text Protector (Only shows when hovered) */}
+        <div className={`absolute inset-0 bg-gradient-to-t from-[var(--background)] via-[var(--background)]/80 to-transparent transition-opacity duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+          ${isActive ? 'opacity-100' : 'opacity-0'}
+        `}></div>
+
+        {/* Layer 4: The NEW Orange Vignette (Absolute positioned on top, fades out on hover) */}
+        <div className={`absolute inset-0 bg-gradient-to-t from-[#ff6200] via-[#ff6200]/20 to-transparent transition-opacity duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none mix-blend-multiply
+          ${isActive ? 'opacity-0' : 'opacity-80'}
+        `}></div>
+
       </div>
 
       {/* Content Container */}
       <div className="relative z-10 p-6 md:p-8 lg:p-10 xl:p-12 2xl:p-16 w-full flex flex-col justify-end h-full overflow-hidden">
-        
-        {/* 
-            HEADER BLOCK (Always Visible) 
-            The index remains a fixed size.
-            The container width transitions so the text wraps when inactive, 
-            but holds a firm width when active to match the paragraph below.
-        */}
+
+        {/* HEADER BLOCK */}
         <div 
           className={`flex flex-col gap-1 md:gap-2 mb-2 lg:mb-4 transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
             ${isActive 
@@ -142,17 +148,17 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
             }
           `}
         >
-          {/* Index - Fixed Size */}
-          <span className="font-sans font-semibold text-[10px] md:text-[11px] xl:text-[12px] 2xl:text-[13px] tracking-widest text-[var(--accent)]/60">
+          {/* Index */}
+          <span className={`font-sans font-semibold text-[10px] md:text-[11px] xl:text-[12px] 2xl:text-[13px] tracking-widest transition-colors duration-[900ms] ${isActive ? 'text-[var(--accent)]' : 'text-white/70'}`}>
             {dept.id}
           </span>
-          
-          {/* Heading - Fluid Typography Scale & Wrapping */}
+
+          {/* Heading */}
           <h3 
-            className={`head-txt tracking-tight ${isActive ? "text-[#000000]/85" : "text-(--accent)"} transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+            className={`head-txt tracking-tight transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
               ${isActive 
-                ? 'text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[5.5rem] leading-[1.05]' 
-                : 'text-2xl md:text-3xl lg:text-[1.75rem] xl:text-3xl 2xl:text-4xl leading-[1.1] whitespace-normal break-words'
+                ? 'text-[var(--text-main)] text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-[5.5rem] leading-[1.05]' 
+                : 'text-white text-2xl md:text-3xl lg:text-[1.75rem] xl:text-3xl 2xl:text-4xl leading-[1.1] whitespace-normal break-words'
               }
             `}
           >
@@ -160,10 +166,7 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
           </h3>
         </div>
 
-        {/* 
-            HIDDEN / EXPANDABLE CONTENT 
-            Retains fixed width so the paragraph text does not awkwardly reflow during the slide animation.
-        */}
+        {/* HIDDEN / EXPANDABLE CONTENT */}
         <div 
           ref={contentRef} 
           className={`grid transition-all duration-[800ms] ease-[cubic-bezier(0.22,1,0.36,1)] shrink-0
@@ -173,12 +176,11 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
         >
           <div className="overflow-hidden">
             <div className="flex flex-col items-start pb-2">
-              
-              <span className="font-sans font-bold text-[9px] md:text-[10px] xl:text-[11px] 2xl:text-xs uppercase tracking-[0.2em] text-[var(--text-main)] mb-3 2xl:mb-4 block">
+
+              <span className="font-sans font-bold text-[9px] md:text-[10px] xl:text-[11px] 2xl:text-xs uppercase tracking-[0.2em] text-[var(--accent)] mb-3 2xl:mb-4 block">
                 {dept.kicker}
               </span>
-              
-              {/* Word-by-word stagger wrapper */}
+
               <div className="mb-8 2xl:mb-10">
                 {dept.desc.split(" ").map((word, wIdx) => (
                   <span key={wIdx} className="inline-flex overflow-hidden mr-[0.25em] align-top py-0.5">
@@ -189,8 +191,8 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
                 ))}
               </div>
 
-              {/* Ghost Button */}
-              <Link to={dept.link} className="dept-btn relative overflow-hidden flex items-center gap-3 border bg-(--background) border-[var(--text-main)]/20 hover:border-[var(--accent)] px-6 py-2.5 2xl:px-8 2xl:py-3.5 rounded-sm cursor-pointer outline-none group/btn transition-colors duration-500">
+              {/* Action Button (Fixed the background class typo here) */}
+              <Link to={dept.link} className="dept-btn relative overflow-hidden flex items-center gap-3 border bg-[var(--background)] border-[var(--text-main)]/20 hover:border-[var(--accent)] px-6 py-2.5 2xl:px-8 2xl:py-3.5 rounded-sm cursor-pointer outline-none group/btn transition-colors duration-500">
                 <div className="absolute inset-0 w-full h-full bg-[var(--accent)] translate-y-[101%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
                 <span className="relative z-10 text-[var(--accent)] group-hover/btn:text-white transition-colors duration-500 font-sans text-[10px] xl:text-[11px] 2xl:text-xs font-bold uppercase tracking-[0.15em]">
                   View Course
@@ -216,27 +218,27 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
 /* =========================================
    MAIN SECTION COMPONENT
 ========================================= */
-export default function Academics() {
+export default function Departments() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="w-full bg-[var(--background)] relative z-10 py-24 md:py-32 xl:py-40 2xl:py-48">
-      
+    <section className="w-full bg-[var(--background)] relative z-10 py-24 md:py-32 xl:py-40 2xl:py-48 border-t border-[var(--text-main)]/10">
+
       {/* Section Header */}
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mb-16 lg:mb-20 2xl:mb-24">
         <div className="flex flex-col items-start">
-          <span className="font-sans font-bold text-xs xl:text-sm 2xl:text-base uppercase tracking-[0.2em] text-[var(--text-main)]/60 mb-4 2xl:mb-6 block">
+          <span className="font-sans font-bold text-xs xl:text-sm 2xl:text-base uppercase tracking-[0.2em] text-[var(--accent)] mb-4 2xl:mb-6 block">
             Academic Verticals
           </span>
           <h2 className="head-txt text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem] text-[var(--text-main)] leading-none tracking-tight">
-            Our <span className="italic font-light text-(--accent)">Departments</span>
+            Our <span className="italic font-light text-[var(--accent)]">Departments</span>
           </h2>
         </div>
       </div>
 
       {/* The Monolith Grid Container */}
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
-        <div className="flex flex-col lg:flex-row w-full border-t border-l lg:border-r-0 border-r border-[var(--text-main)]/15">
+        <div className="flex flex-col lg:flex-row w-full border-t border-l lg:border-r-0 border-r border-[var(--text-main)]/15 shadow-2xl">
           {academicsData.map((dept, idx) => (
             <DepartmentCard
               key={dept.id}
@@ -248,7 +250,7 @@ export default function Academics() {
           ))}
         </div>
       </div>
-      
+
     </section>
   );
 }

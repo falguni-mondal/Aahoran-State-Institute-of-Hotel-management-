@@ -165,8 +165,8 @@ export default function Navbar() {
                     <>
                       <span className={`font-sans text-[9px] lg:text-[10px] xl:text-[11px] 2xl:text-[12px] uppercase tracking-[0.1em] font-semibold transition-colors duration-300 ${
                         useDarkText 
-                          ? 'text-[var(--primary-base)]/80 group-hover:text-[var(--primary-base)]' 
-                          : 'text-[var(--text-light)]/80 group-hover:text-[var(--text-light)]'
+                          ? 'text-[var(--primary-base)]/80 group-hover:text-[var(--accent)]' 
+                          : 'text-[var(--text-light)]/80 group-hover:text-[var(--accent)]'
                       }`}>
                         {link.name}
                       </span>
@@ -175,8 +175,8 @@ export default function Navbar() {
                         <svg 
                           className={`w-2.5 h-2.5 xl:w-3 xl:h-3 ml-1.5 transition-all duration-300 group-hover:rotate-180 ${
                             useDarkText
-                              ? 'text-[var(--primary-base)]/50 group-hover:text-[var(--primary-base)]/90'
-                              : 'text-[var(--text-light)]/50 group-hover:text-[var(--text-light)]/90'
+                              ? 'text-[var(--primary-base)]/50 group-hover:text-[var(--accent)]/90'
+                              : 'text-[var(--text-light)]/50 group-hover:text-[var(--accent)]/90'
                           }`} 
                           fill="none" 
                           stroke="currentColor" 
@@ -193,7 +193,7 @@ export default function Navbar() {
                       )}
 
                       <span className={`absolute -bottom-0 left-0 w-0 h-[1px] transition-all duration-300 group-hover:w-full ${
-                        useDarkText ? 'bg-[var(--primary-base)]' : 'bg-[var(--text-light)]'
+                        useDarkText ? 'bg-[var(--accent)]' : 'bg-[var(--accent)]'
                       }`}></span>
                     </>
                   );
@@ -301,22 +301,22 @@ export default function Navbar() {
           <button className={`nav-link-item group relative overflow-hidden flex items-center gap-2 border px-5 xl:px-6 py-2 xl:py-2.5 cursor-pointer outline-none transition-colors duration-500 ${
             useDarkText 
               ? 'border-[var(--text-main)]/40 hover:border-[var(--text-light)]' 
-              : 'border-[var(--text-light)]/40 hover:border-[var(--text-light)]'
+              : 'border-[var(--text-light)]/40 hover:border-[var(--text-light)]/40'
           }`}>
             <div className={`absolute inset-0 w-full h-full translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              useDarkText ? 'bg-[var(--accent)]' : 'bg-[var(--text-light)]'
+              useDarkText ? 'bg-[var(--accent)]' : 'bg-[var(--accent)]'
             }`}></div>
             <span className={`relative z-10 font-sans text-[9px] xl:text-[10px] 2xl:text-[11px] font-bold uppercase tracking-[0.15em] transition-colors duration-500 ${
               useDarkText 
                 ? 'text-[var(--text-main)] group-hover:text-[var(--text-light)]' 
-                : 'text-[var(--text-light)] group-hover:text-[var(--text-main)]'
+                : 'text-[var(--text-light)] group-hover:text-[var(--text-light)]'
             }`}>
               Pay Fee
             </span>
             <svg className={`relative z-10 w-3 h-3 xl:w-3.5 xl:h-3.5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 ${
                 useDarkText 
-                  ? 'text-[var(--primary-base)] group-hover:text-[var(--background)]' 
-                  : 'text-[var(--text-light)] group-hover:text-[var(--primary-base)]'
+                  ? 'text-[var(--primary-base)] group-hover:text-[var(--background)]'
+                  : 'text-[var(--text-light)] group-hover:text-[var(--background)]'
               }`} 
               fill="none" stroke="currentColor" viewBox="0 0 24 24"
             >
