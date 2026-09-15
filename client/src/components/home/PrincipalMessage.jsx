@@ -190,7 +190,7 @@ export default function PrincipalMessage() {
             {/* Added a subtle border so it doesn't bleed into the light background */}
             <div className="absolute bottom-6 -right-2 md:bottom-10 md:-right-8 lg:-right-10 z-20 bg-[var(--background)] border border-[var(--primary-base)]/10 px-6 py-4 md:px-8 md:py-6 shadow-xl">
               <h4 className="head-txt text-xl md:text-2xl lg:text-3xl text-[var(--primary-base)] mb-1">
-                Name of Principal
+                Dr. Santanu Dasgupta
               </h4>
               <p className="font-sans font-semibold text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]">
                 Principal, SIHM Durgapur

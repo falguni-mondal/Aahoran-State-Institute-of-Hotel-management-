@@ -242,17 +242,17 @@ export default function About() {
         {/* Right Column: The Scrolling Narrative */}
         <div className="col-span-1 lg:col-span-7 flex flex-col items-start min-w-0 px-5 md:pr-12 lg:pr-16 xl:pr-24 2xl:pr-32">
           
-          <ScrubText 
+          {/* <ScrubText 
             text="The State Institute of Hotel Management (SIHM), Durgapur is an initiation of the State of West Bengal to attract young, enthusiastic boys and girls to acquire soft, hard and managerial skills to become competent in the Hospitality industry of the country."
             className="font-sans text-base md:text-lg xl:text-xl 2xl:text-2xl leading-relaxed text-[var(--text-main)] mb-8 xl:mb-12"
-          />
+          /> */}
 
           <blockquote 
             ref={blockquoteRef}
             className="border-l-2 border-[var(--accent)] pl-6 md:pl-8 py-2 my-10 xl:my-16 2xl:my-20"
           >
             <p className="head-txt text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] 2xl:text-5xl leading-snug italic text-[var(--text-main)]">
-              "It is the first institute that has been gifted the name AAHORAN by our Hon'ble Chief Minister of West Bengal which means Collection."
+              "The State Institute of Hotel Management (SIHM), Durgapur is an initiation of the department of tourism, government of West Bengal to attract young, enthusiastic boys and girls to acquire soft, hard and managerial skills to become competent in the Hospitality industry of the country."
             </p>
           </blockquote>
 

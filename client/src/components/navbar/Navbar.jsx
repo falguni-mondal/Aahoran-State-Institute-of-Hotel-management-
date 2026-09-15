@@ -17,7 +17,6 @@ const navLinks = [
     subLinks: [
       { name: 'About Us', path: '/about' },
       { name: 'Rules & Regulations', path: '/about/rules' },
-      { name: 'Computer Lab', path: '/about/computer-lab' },
       { name: 'NCHMCT', path: 'https://nchm.gov.in/', isExternal: true },
       { name: 'JNU', path: 'https://www.jnu.ac.in/', isExternal: true },
     ]
@@ -26,10 +25,11 @@ const navLinks = [
     name: 'Department', 
     hasDropdown: true,
     subLinks: [
-      { name: 'Food and Beverage', path: '/food-and-beverage' },
       { name: 'Food Production', path: '/food-production' },
+      { name: 'Food and Beverage', path: '/food-and-beverage' },
       { name: 'Front Office', path: '/front-office' },
       { name: 'House Keeping', path: '/house-keeping' },
+      { name: 'Computer Lab', path: '/about/computer-lab' },
     ]
   },
   { 

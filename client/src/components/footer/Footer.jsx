@@ -16,7 +16,7 @@ const footerNav = [
       { name: "Full Term Courses", url: "#", isNew: false },
       { name: "Short Term Courses", url: "#", isNew: false },
       { name: "Hunar Se Rozgar Tak", url: "#", isNew: false },
-      { name: "Our Faculties", url: "#", isNew: false },
+      { name: "Our Mentors", url: "#", isNew: false },
     ],
   },
   {
@@ -198,7 +198,7 @@ export default function Footer() {
 
             {/* Contact Details */}
             <div className="flex flex-col gap-3 w-full">
-              <a href="mailto:contact@sihmdurgapur.org" className="gsap-hover-link group flex items-center gap-3 w-fit footer-reveal-item">
+              <a href="mailto:sihmdurgapur@gmail.com" className="gsap-hover-link group flex items-center gap-3 w-fit footer-reveal-item">
                 {/* THEME: Border and text colors updated */}
                 <div className="w-8 h-8 rounded-full border border-[var(--primary-base)]/20 flex items-center justify-center group-hover:bg-[var(--accent)] group-hover:border-[var(--accent)] transition-colors duration-300">
                   <svg className="w-3.5 h-3.5 text-[var(--text-main)]/70 group-hover:text-[var(--background)] transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -207,15 +207,36 @@ export default function Footer() {
                 </div>
                 <div className="relative overflow-hidden flex flex-col h-[1.3em]">
                   <span className="hover-text-top text-[var(--text-main)]/80 text-sm tracking-wide h-full flex items-center">
-                    contact@sihmdurgapur.org
+                    sihmdurgapur@gmail.com
                   </span>
                   <span className="hover-text-bottom text-[var(--accent)] text-sm tracking-wide h-full flex items-center">
-                    contact@sihmdurgapur.org
+                    sihmdurgapur@gmail.com
                   </span>
                 </div>
               </a>
               
-              <a href="tel:+911234567890" className="gsap-hover-link group flex items-center gap-3 w-fit mt-1 footer-reveal-item">
+              {/* UPDATED: Changed href to WhatsApp API Link */}
+              <a href="https://wa.me/918927596669" target="_blank" rel="noopener noreferrer" className="gsap-hover-link group flex items-center gap-3 w-fit mt-1 footer-reveal-item">
+                {/* THEME: Border and text colors updated */}
+                <div className="w-8 h-8 rounded-full border border-[var(--primary-base)]/20 flex items-center justify-center group-hover:bg-[var(--accent)] group-hover:border-[var(--accent)] transition-colors duration-300">
+                  <svg className="w-3.5 h-3.5 text-[var(--text-main)]/70 group-hover:text-[var(--background)] transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="relative overflow-hidden flex flex-col h-[1.3em]">
+                  <span className="hover-text-top text-[var(--text-main)]/80 text-sm tracking-wide h-full flex items-center">
+                    +91 892 759 6669
+                  </span>
+                  <span className="hover-text-bottom text-[var(--accent)] text-sm tracking-wide h-full flex items-center">
+                    +91 892 759 6669
+                  </span>
+                </div>
+                <span className="text-sm">(Mon - Fri: 9AM - 5PM) except Public Holidays</span>
+                </div>
+              </a>
+
+              <a href="tel:0343-2500775" className="gsap-hover-link group flex items-center gap-3 w-fit mt-1 footer-reveal-item">
                 {/* THEME: Border and text colors updated */}
                 <div className="w-8 h-8 rounded-full border border-[var(--primary-base)]/20 flex items-center justify-center group-hover:bg-[var(--accent)] group-hover:border-[var(--accent)] transition-colors duration-300">
                   <svg className="w-3.5 h-3.5 text-[var(--text-main)]/70 group-hover:text-[var(--background)] transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -224,10 +245,10 @@ export default function Footer() {
                 </div>
                 <div className="relative overflow-hidden flex flex-col h-[1.3em]">
                   <span className="hover-text-top text-[var(--text-main)]/80 text-sm tracking-wide h-full flex items-center">
-                    +91 (0) 1234 567 890
+                    0343-2500775
                   </span>
                   <span className="hover-text-bottom text-[var(--accent)] text-sm tracking-wide h-full flex items-center">
-                    +91 (0) 1234 567 890
+                    0343-2500775
                   </span>
                 </div>
               </a>

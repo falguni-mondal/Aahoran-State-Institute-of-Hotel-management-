@@ -143,14 +143,14 @@ export default function FPCurriculum() {
             
             <div className="text-reveal grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 relative">
               
-              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
-                Students who aspire to develop as Chefs are encouraged to display their skills in ice-carving, butter-sculpture, sugar craft, designer bread-making, etc. during the several Food Festivals and functions (theme lunch/dinner, etc.) held every year.
+              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
+                Students who aspire to develop as Chefs are encouraged to display their skills in ice-carving, butter-sculpture, sugar craft, designer bread-making, etc. during the several Chef Competitions, Food Festivals and functions (theme lunch/dinner, etc.) held every year.
               </p>
               
               <div className="hidden md:block absolute top-0 left-1/2 w-[1px] h-full bg-[var(--primary-base)]/10 -translate-x-1/2"></div>
               
-              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
-                The Institute has five large kitchens equipped with all that match the standards of the industry. One ultramodern bakery and one self-dependent Confectionary are open to the students to hone their skills in the science and art of patisserie.
+              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
+                The Institute has four large kitchens equipped with all that match the standards of the industry. One ultramodern bakery and one self-dependent Confectionary are open to the students to hone their skills in the science and art of patisserie.
               </p>
               
             </div>

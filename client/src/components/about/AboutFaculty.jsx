@@ -11,13 +11,14 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 ========================================= */
 const facultyData = [
   { name: "Dr. Santanu Dasgupta", role: "Principal", image: "/nchmct-bg.webp" },
-  { name: "Mr. Ananda Shankar Ojha", role: "Sr. Lecturer", image: "/nchmct-bg.webp" },
-  { name: "Ms. Banani Mondal", role: "Sr. Lecturer", image: "/nchmct-bg.webp" },
+  { name: "Mr. Ananda Shankar Ojha", role: "Senior Lecturer", image: "/nchmct-bg.webp" },
+  { name: "Ms. Banani Mondal", role: "Senior Lecturer", image: "/nchmct-bg.webp" },
   { name: "Mr. Somnath Bandyopadhyay", role: "Lecturer", image: "/nchmct-bg.webp" },
-  { name: "Dr. Aditi Sharma", role: "HOD, Food Production", image: "/nchmct-bg.webp" },
-  { name: "Mr. Rohan Chatterjee", role: "Lecturer, F&B Service", image: "/nchmct-bg.webp" },
-  { name: "Ms. Kavita Sen", role: "Instructor, Front Office", image: "/nchmct-bg.webp" },
-  { name: "Mr. Vikram Singh", role: "Instructor, Housekeeping", image: "/nchmct-bg.webp" },
+  { name: "Mr. Saptarshi Banerjee", role: "Lecturer", image: "/nchmct-bg.webp" },
+  { name: "Mr. Soumen Sarkar", role: "Lecturer", image: "/nchmct-bg.webp" },
+  { name: "Mr. Abhishek Bhattacharya", role: "Assistant Lecturer", image: "/nchmct-bg.webp" },
+  { name: "Mr. Shouribrata Chakraborty", role: "Assistant Lecturer", image: "/nchmct-bg.webp" },
+  { name: "Mr. Suman Ghosh", role: "Assistant Lecturer", image: "/nchmct-bg.webp" },
 ];
 
 export default function AboutFaculty() {
@@ -142,7 +143,7 @@ export default function AboutFaculty() {
           <div className="flex flex-col lg:max-w-2xl xl:max-w-3xl">
             <div className="faculty-header-item">
               <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.25em] text-[var(--accent)] mb-4 lg:mb-6 block">
-                Our Faculties
+                Our Mentors
               </span>
               <h2 className="head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tighter mb-8 lg:mb-10">
                 Academic <br className="hidden md:block"/> Leadership
@@ -151,10 +152,10 @@ export default function AboutFaculty() {
             
             <div className="flex flex-col gap-6">
               <p className="split-paragraph text-base md:text-lg lg:text-xl font-light text-[var(--text-main)]/80 leading-[1.7]">
-                The faculties are exposed in direct teaching skills, they are well versed to design the training program and will be able to transfer the knowledge to the students.
+                The mentors are exposed in direct teaching skills, they are well versed to design the training program and will be able to transfer the knowledge to the students.
               </p>
               <p className="split-paragraph text-base md:text-lg lg:text-xl font-light text-[var(--text-main)]/80 leading-[1.7]">
-                The faculties are also keeping updated information about the industry, its changes and modify the teaching accordingly. They are also involved in Research & Development producing journals and periodicals and be able to provide necessary guidance to the students.
+                The mentors are also keeping updated information about the industry, its changes and modify the teaching accordingly. They are also involved in Research & Development producing journals and periodicals and be able to provide necessary guidance to the students.
               </p>
             </div>
           </div>
@@ -177,7 +178,7 @@ export default function AboutFaculty() {
 
               {/* Text Content */}
               <div className="faculty-info flex flex-col will-change-transform">
-                <h3 className="font-semibold text-lg md:text-xl xl:text-2xl text-[var(--text-main)] mb-1 tracking-tight">
+                <h3 className="font-semibold text-lg md:text-xl xl:text-[1.4rem] text-[var(--text-main)] mb-1 tracking-tight">
                   {faculty.name}
                 </h3>
                 <div className="w-4 h-[1px] bg-[var(--primary-base)] mt-1 mb-2"></div>

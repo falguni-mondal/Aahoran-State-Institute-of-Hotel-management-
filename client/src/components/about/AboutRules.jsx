@@ -8,28 +8,25 @@ import SplitType from 'split-type';
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 // Extracted and adapted the GSAP CTA button for the light theme
-function RulesCTA({ text, href }) {
+// NEW: Added isExternal prop to handle external URLs vs internal routing
+function RulesCTA({ text, href, isExternal = false }) {
   const btnRef = useRef(null);
   const { contextSafe } = useGSAP({ scope: btnRef });
 
   const handleMouseEnter = contextSafe(() => {
-    gsap.to(".cta-text-main", { y: "-110%", duration: 0.6, ease: "expo.inOut" });
-    gsap.to(".cta-text-hover", { y: "0%", duration: 0.6, ease: "expo.inOut" });
+    gsap.to(btnRef.current.querySelector(".cta-text-main"), { y: "-110%", duration: 0.6, ease: "expo.inOut" });
+    gsap.to(btnRef.current.querySelector(".cta-text-hover"), { y: "0%", duration: 0.6, ease: "expo.inOut" });
   });
 
   const handleMouseLeave = contextSafe(() => {
-    gsap.to(".cta-text-main", { y: "0%", duration: 0.6, ease: "expo.inOut" });
-    gsap.to(".cta-text-hover", { y: "110%", duration: 0.6, ease: "expo.inOut" });
+    gsap.to(btnRef.current.querySelector(".cta-text-main"), { y: "0%", duration: 0.6, ease: "expo.inOut" });
+    gsap.to(btnRef.current.querySelector(".cta-text-hover"), { y: "110%", duration: 0.6, ease: "expo.inOut" });
   });
 
-  return (
-    <Link 
-      to={href}
-      ref={btnRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="bg-[var(--accent)] text-[var(--text-light)] font-semibold text-xs md:text-sm uppercase tracking-[0.15em] cursor-pointer flex items-stretch h-12 md:h-14 w-fit shadow-lg"
-    >
+  const className = "bg-[var(--accent)] text-[var(--text-light)] font-semibold text-xs md:text-sm uppercase tracking-[0.15em] cursor-pointer flex items-stretch h-12 md:h-14 w-fit shadow-lg";
+
+  const content = (
+    <>
       {/* Text Zone */}
       <div className="flex items-center justify-center px-8 md:px-10 relative overflow-hidden">
         <div className="relative overflow-hidden h-[1em] leading-none flex items-center justify-center">
@@ -41,9 +38,49 @@ function RulesCTA({ text, href }) {
       {/* Icon Zone - Completely static single SVG */}
       <div className="border-l border-[var(--text-light)]/20 px-4 md:px-5 flex items-center justify-center">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="block w-4 h-4 md:w-5 md:h-5">
-          <path d="M9 18l6-6-6-6" />
+          {isExternal ? (
+            // Outer link icon for external links
+            <>
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </>
+          ) : (
+            // Standard arrow for internal links
+            <path d="M9 18l6-6-6-6" />
+          )}
         </svg>
       </div>
+    </>
+  );
+
+  // If it's an external link, render a standard anchor tag
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        ref={btnRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className={className}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  // Otherwise, render the React Router Link
+  return (
+    <Link 
+      to={href}
+      ref={btnRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={className}
+    >
+      {content}
     </Link>
   );
 }
@@ -150,9 +187,14 @@ export default function AboutRules() {
               Discipline and professionalism are the cornerstones of the hospitality industry. Familiarize yourself with the core guidelines that shape the culture and standards at SIHM Durgapur.
             </p>
             
-            {/* Component-based GSAP CTA Button */}
-            <div className="rules-cta w-fit will-change-transform">
+            {/* Component-based GSAP CTA Buttons */}
+            <div className="rules-cta flex flex-wrap gap-4 md:gap-6 w-full will-change-transform">
               <RulesCTA text="Read Guidelines" href="/about/rules" />
+              <RulesCTA 
+                text="UGC Anti Ragging" 
+                href="https://www.ugc.gov.in/Bureaus/bureaus_details?EwV4Rtmy2xJ7nuhP3MYqbpwm5MTBRSa5u2ipRdltuUxMTUu1gSiipessUFP0rnrG" 
+                isExternal={true}
+              />
             </div>
           </div>
 

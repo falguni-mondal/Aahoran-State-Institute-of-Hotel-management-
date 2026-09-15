@@ -78,7 +78,7 @@ export default function FOCurriculum() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-32 lg:py-40 xl:py-48 overflow-hidden relative border-t border-[var(--primary-base)]/10">
+    <section ref={containerRef} className="w-full text-justify bg-[var(--background)] text-[var(--text-main)] py-20 md:py-32 lg:py-40 xl:py-48 overflow-hidden relative border-t border-[var(--primary-base)]/10">
       
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
@@ -114,8 +114,8 @@ export default function FOCurriculum() {
               About The <br/> Course
             </h2>
             
-            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
-              Students are given hands-on training on all aspects of Accommodation management. IDS/OPERA, the latest Property Management System that is followed almost all over the world has been installed to enable the students to keep pace with the changing patterns of property management. Spacious lecture halls with facilities for simulation have been created to ensure effective training.
+            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
+              Students receive hands-on training in all aspects of Accommodation Management, supported by a state-of-the-art <span className='font-bold'>Property Management System (PMS)</span> aligned with global hotel industry practices. Spacious, simulation-enabled lecture halls provide an immersive environment for effective, industry-oriented learning.
             </p>
           </div>
         </div>

@@ -97,8 +97,8 @@ export default function AboutHero() {
             </h1>
           </div>
           <div className="overflow-hidden w-full flex justify-end">
-            <h1 className="hero-title-word head-txt text-[18vw] md:text-[14vw] lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem] tracking-tighter leading-[0.85] text-[var(--accent)] italic pr-4 md:pr-12 lg:pr-24">
-              AAHORAN"
+            <h1 className="hero-title-word head-txt text-[18vw] md:text-[14vw] lg:text-[12rem] xl:text-[11rem] 2xl:text-[16rem] tracking-tighter leading-[0.85] text-[var(--accent)] italic pr-4 md:pr-12 lg:pr-24">
+              SIHM, DURGAPUR"
             </h1>
           </div>
         </div>

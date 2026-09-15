@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ARHero from '../components/anti-ragging/ARHero';
 import ARPromise from '../components/anti-ragging/ARPromise';
+import ARUgcBanner from '../components/anti-ragging/ARUgcBanner';
 import ARContent from '../components/anti-ragging/ARContent';
 import ARGallery from '../components/anti-ragging/ARGallery';
 
@@ -14,6 +15,8 @@ export default function AntiRagging() {
 
       {/* The Guarantee to Parents and Students */}
       <ARPromise />
+
+      <ARUgcBanner/>
 
       {/* The Sticky Editorial Brief (Laws & Penalties) */}
       <ARContent />

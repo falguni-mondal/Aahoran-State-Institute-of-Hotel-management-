@@ -9,19 +9,19 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 const academicsData = [
   {
     id: "01",
-    title: "Food & Beverage",
-    kicker: "Service & Management",
-    desc: "Master the art of fine dining, restaurant management, and mixology. Learn to anticipate guest needs and deliver flawless service in high-end hospitality environments.",
-    img: "/fnb-bg.webp",
-    link: "/food-and-beverage",
-  },
-  {
-    id: "02",
     title: "Food Production",
     kicker: "Culinary Arts & Kitchen Operations",
     desc: "An intensive immersion into global culinary arts. From fundamental knife skills to advanced gastronomy, train to lead in the world's most demanding kitchens.",
     img: "/fp-bg.webp",
     link: "/food-production",
+  },
+  {
+    id: "02",
+    title: "Food & Beverage",
+    kicker: "Service & Management",
+    desc: "Master the art of fine dining, restaurant management, and mixology. Learn to anticipate guest needs and deliver flawless service in high-end hospitality environments.",
+    img: "/fnb-bg.webp",
+    link: "/food-and-beverage",
   },
   {
     id: "03",

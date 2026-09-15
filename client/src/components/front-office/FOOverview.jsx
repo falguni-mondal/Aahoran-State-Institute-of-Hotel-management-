@@ -28,7 +28,7 @@ export default function FOOverview() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-28 lg:py-36 xl:py-48 2xl:py-56 overflow-hidden">
+    <section ref={containerRef} className="w-full text-justify bg-[var(--background)] text-[var(--text-main)] py-20 md:py-28 lg:py-36 xl:py-48 2xl:py-56 overflow-hidden">
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
         <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-20 xl:gap-32">

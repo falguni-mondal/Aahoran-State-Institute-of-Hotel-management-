@@ -44,7 +44,7 @@ export default function About() {
       <AboutFaculty />
       <AboutRecognition />
       <AboutCampusLife />
-      <AboutTechTeaser />
+      {/* <AboutTechTeaser /> */}
       <AboutRules />
     </main>
   );
