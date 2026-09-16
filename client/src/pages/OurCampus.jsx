@@ -29,7 +29,7 @@ export default function OurCampus() {
       */}
       <GalleryHero 
         subtitle="Institution Infrastructure"
-        title="Our Campus."
+        title="Our Campus"
         bgImage="/campus_hero.webp" 
       />
 

@@ -86,7 +86,7 @@ export default function NBHero() {
         
         <h1 className="hero-title head-txt text-5xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] tracking-tighter leading-none text-[var(--text-light)] uppercase">
           Notice <br className="md:hidden" />
-          <span className="italic font-light">Board.</span>
+          <span className="italic font-light">Board</span>
         </h1>
       </div>
 

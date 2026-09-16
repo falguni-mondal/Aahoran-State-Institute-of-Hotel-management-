@@ -9,7 +9,7 @@ export default function ProgrammeEvents() {
       
       <GalleryHero 
         subtitle="Campus Life & Culture"
-        title="Programme and Events."
+        title="Programme and Events"
         bgImage="/programme-and-events.webp" 
       />
 

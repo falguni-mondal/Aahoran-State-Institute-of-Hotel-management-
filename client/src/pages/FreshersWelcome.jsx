@@ -29,7 +29,7 @@ export default function FreshersWelcome() {
       */}
       <GalleryHero 
         subtitle="Welcoming the Future"
-        title="Freshers Welcome."
+        title="Freshers Welcome"
         bgImage="/freshers_hero.webp" 
       />
 

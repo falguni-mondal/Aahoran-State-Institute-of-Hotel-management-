@@ -29,7 +29,7 @@ export default function InauguralProgramme() {
       */}
       <GalleryHero 
         subtitle="A New Beginning"
-        title="Inaugural Programme."
+        title="Inaugural Programme"
         bgImage="/inaugural_hero.webp" 
       />
 

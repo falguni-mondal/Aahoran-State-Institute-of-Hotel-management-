@@ -86,7 +86,7 @@ export default function ResultsHero() {
         
         <h1 className="head-txt text-5xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] tracking-tighter leading-[0.9] text-[var(--text-light)] uppercase flex flex-col items-center">
           <span className="hero-title-line block">Academic</span>
-          <span className="hero-title-line block italic font-light text-[var(--accent)] mt-2 md:mt-4">Results.</span>
+          <span className="hero-title-line block italic font-light text-[var(--accent)] mt-2 md:mt-4">Results</span>
         </h1>
       </div>
 

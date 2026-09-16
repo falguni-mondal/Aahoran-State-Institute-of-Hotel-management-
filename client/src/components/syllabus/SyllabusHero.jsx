@@ -97,7 +97,7 @@ export default function SyllabusHero() {
           </div>
           <div className="overflow-hidden w-full flex justify-center md:justify-end mt-2 md:mt-0">
             <h1 className="hero-title-word head-txt text-[16vw] md:text-[16vw] lg:text-[14vw] xl:text-[12rem] 2xl:text-[14rem] tracking-tighter leading-[0.85] text-[var(--accent)] italic pr-0 md:pr-12 lg:pr-24 text-center md:text-right">
-              SYLLABUS.
+              SYLLABUS
             </h1>
           </div>
           

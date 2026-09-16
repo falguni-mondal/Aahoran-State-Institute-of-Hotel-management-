@@ -69,7 +69,7 @@ export default function LabHero() {
           Digital Infrastructure
         </span>
         <h1 className="lab-heading head-txt text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] leading-[0.85] tracking-tighter text-[var(--text-light)] uppercase">
-          The Digital <br /> Lab.
+          The Digital <br /> Lab
         </h1>
       </div>
 
