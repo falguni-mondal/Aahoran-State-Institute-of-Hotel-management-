@@ -216,7 +216,7 @@ export default function Footer() {
               </a>
               
               {/* UPDATED: Changed href to WhatsApp API Link */}
-              <a href="https://wa.me/918927596669" target="_blank" rel="noopener noreferrer" className="gsap-hover-link group flex items-center gap-3 w-fit mt-1 footer-reveal-item">
+              <a href="https://wa.me/918927596669" target="_blank" rel="noopener noreferrer" className="gsap-hover-link group flex items-start gap-3 w-fit mt-1 footer-reveal-item">
                 {/* THEME: Border and text colors updated */}
                 <div className="w-8 h-8 rounded-full border border-[var(--primary-base)]/20 flex items-center justify-center group-hover:bg-[var(--accent)] group-hover:border-[var(--accent)] transition-colors duration-300">
                   <svg className="w-3.5 h-3.5 text-[var(--text-main)]/70 group-hover:text-[var(--background)] transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -232,7 +232,7 @@ export default function Footer() {
                     +91 892 759 6669
                   </span>
                 </div>
-                <span className="text-sm">(Mon - Fri: 9AM - 5PM) except Public Holidays</span>
+                <span className="text-sm">(Mon - Fri: 9AM - 5PM)<br/>except Public Holidays</span>
                 </div>
               </a>
 

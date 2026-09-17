@@ -17,7 +17,7 @@ const pillarsData = [
   },
   {
     id: "02",
-    title: "Our Faculty",
+    title: "Our Mentors",
     kicker: "Industry-Trained Experts",
     desc: "SIHM Durgapur houses a well-groomed, highly educated team of faculties dedicated to the profession, bringing years of direct exposure and experience from 5-star luxury hotels.",
     img: "/faculty-bg.webp",
@@ -27,7 +27,7 @@ const pillarsData = [
     id: "03",
     title: "Our Alumni",
     kicker: "A Global Professional Network",
-    desc: "We expect to find SIHM’s Alumni Association a valuable resource and support tool throughout our professional life and beyond, enjoying the benefits of a global community.",
+    desc: "We create hospitality leaders who are ruling the industry globally. Our alumni are working in top hotels, cruise lines, airlines, and other service sectors worldwide, and keeping the head high of India.",
     img: "/alumni-bg.webp",
     link: "/placement#alumni",
   },
