@@ -56,7 +56,7 @@ export default function AboutFacilities() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--text-main)] pt-20 pb-32 md:pt-28 md:pb-40 lg:pt-32 lg:pb-48 border-t border-[var(--primary-base)]/10">
+    <section ref={sectionRef} className="relative w-full bg-[var(--background)] text-[var(--text-main)] pt-20 pb-32 md:pt-28 md:pb-40 lg:pt-32 lg:pb-48 border-t border-[var(--primary-base)]/10 text-justify">
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
         
         <div className="flex flex-col lg:flex-row gap-12 md:gap-16 lg:gap-24 2xl:gap-32 relative">

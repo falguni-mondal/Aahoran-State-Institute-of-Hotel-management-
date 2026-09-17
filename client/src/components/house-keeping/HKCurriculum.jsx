@@ -114,7 +114,7 @@ export default function HKCurriculum() {
               About The <br/> Course
             </h2>
             
-            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
+            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
               The students are given hands-on training in cleaning different areas with a vast range of surfaces on floors, walls and furniture and fixtures. The complex management of guest’s laundry, uniform of all members of staff and the multitude of linen and guest-room supplies are integral part of the syllabus. The students are trained in the science and aesthetics of horticultural development and flower arrangements to create a scenically attractive environment all around. Interior Decoration, with both ancient and modern concepts, is another area where student’s skills are developed by classroom training and a series of field visits.
             </p>
           </div>
@@ -144,7 +144,7 @@ export default function HKCurriculum() {
             <div className="text-reveal grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 relative">
               
               <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
-                The Institute boasts of an intricately decorated Master Suite, one spacious Twin Room, one luxurious Single Room and an ultramodern Conference Room.
+                The Institute boasts of an intricately decorated Master Suite, one luxurious Twin Room, and an state of the art Conference Room.
               </p>
               
               <div className="hidden md:block absolute top-0 left-1/2 w-[1px] h-full bg-[var(--primary-base)]/10 -translate-x-1/2"></div>

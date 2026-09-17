@@ -142,7 +142,7 @@ export default function FOCurriculum() {
             </h2>
             
             <div className="text-reveal relative">
-              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left max-w-2xl">
+              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify max-w-2xl">
                 The department is proud of its massive computer lab with individual work stations which facilitates individual attention while the students acquire the mastery in operating the PMS.
               </p>
             </div>

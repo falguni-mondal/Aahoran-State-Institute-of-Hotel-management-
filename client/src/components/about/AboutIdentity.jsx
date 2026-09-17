@@ -125,7 +125,7 @@ export default function AboutIdentity() {
       ref={sectionRef}
       // DISTINCTION: border-y added to frame the section.
       // THEME: bg-[var(--background)] replaces bg-[var(--primary-base)]
-      className="identity-section relative w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-20 md:py-28 lg:py-32 mt-12 md:mt-20 mx-auto max-w-[1800px] border-y border-[var(--primary-base)]/15 bg-[var(--background)]"
+      className="identity-section relative w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-20 md:py-28 lg:py-32 mt-12 md:mt-20 mx-auto max-w-[1800px] border-y border-[var(--primary-base)]/15 bg-[var(--background)] text-justify"
     >
       {/* Layout remains completely untouched */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 xl:gap-24 2xl:gap-32 items-center">
@@ -143,7 +143,7 @@ export default function AboutIdentity() {
 
           <div className="flex flex-col gap-6 lg:gap-8">
             {/* THEME: text-light changed to primary-base */}
-            <p className="split-paragraph text-base md:text-lg lg:text-xl 2xl:text-2xl font-light text-[var(--text-main)]/75 leading-[1.7]">
+            <p className="split-paragraph text-base md:text-lg lg:text-xl 2xl:text-2xl font-light text-[var(--text-main)]/75 leading-[1.7] text-justify">
               SIHM Durgapur is one of the new endeavours established in the
               state of West Bengal as a Hotel Management Institute, which
               operates under the affiliation of the{" "}
@@ -164,7 +164,7 @@ export default function AboutIdentity() {
               highest echelons of the Hospitality Industry.
             </p> */}
 
-            <blockquote className="split-paragraph border-l-2 border-[var(--accent)] pl-6 md:pl-8 py-2 my-5 2xl:my-8 text-lg md:text-xl lg:text-2xl 2xl:text-3xl text-[var(--text-main)] leading-[1.7] italic head-txt">
+            <blockquote className="split-paragraph border-l-2 border-[var(--accent)] pl-6 md:pl-8 py-2 my-5 2xl:my-8 text-lg md:text-xl lg:text-2xl 2xl:text-3xl text-[var(--text-main)] leading-[1.7] italic head-txt text-justify">
               <span className="text-[var(--accent)] font-medium">
                 "AAHORAN"
               </span>{" "}
@@ -174,7 +174,7 @@ export default function AboutIdentity() {
               highest echelons of the Hospitality Industry.
             </blockquote>
 
-            <p className="split-paragraph text-base md:text-lg lg:text-xl 2xl:text-2xl font-light text-[var(--text-main)]/75 leading-[1.7]">
+            <p className="split-paragraph text-base md:text-lg lg:text-xl 2xl:text-2xl font-light text-[var(--text-main)]/75 leading-[1.7] text-justify">
               With the advent of urbanization and industrialization, catering
               establishments are increasing in large numbers. The development of
               adequate services for feeding the large and increasing number of

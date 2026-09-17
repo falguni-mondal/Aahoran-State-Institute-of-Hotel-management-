@@ -117,7 +117,7 @@ export default function FBCurriculum() {
               About The <br/> Course
             </h2>
             
-            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
+            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
               The Food & Beverage Service department trains the students in the technique and art of serving and selling food and beverage. Waiting skills, Supervisory skills and Managerial skills are taught in 1st, 2nd and 3rd year respectively. Menu and the maxims of menu-planning, matching different foods with the right wines, usage of various tools and equipment’s, layout of the restaurant, on-table arrangements for foods from various cuisines, buffets and banquet service – students acquire mastery in these skills with the inputs in both theory and practical classes.
             </p>
           </div>

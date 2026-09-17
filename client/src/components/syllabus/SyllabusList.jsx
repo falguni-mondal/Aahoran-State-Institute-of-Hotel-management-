@@ -23,7 +23,6 @@ const syllabusData = [
     items: [
       { id: 7, title: "Syllabus for Diploma in Food Production", link: "#" },
       { id: 8, title: "Syllabus for Diploma in Food & Beverage Service", link: "#" },
-      { id: 9, title: "Syllabus for Diploma in House Keeping", link: "#" },
     ]
   }
 ];

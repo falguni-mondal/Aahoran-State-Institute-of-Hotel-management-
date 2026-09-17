@@ -144,7 +144,7 @@ export default function AboutRecognition() {
                   </span>
                   
                   {/* Title */}
-                  <h3 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light tracking-tight transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] text-[var(--text-main)]/50 group-[.is-active]:!text-[var(--accent)] group-[.is-active]:translate-x-2 md:group-[.is-active]:translate-x-3">
+                  <h3 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light tracking-tight transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] text-[var(--text-main)]/50 group-[.is-active]:!text-[var(--accent)] group-[.is-active]:translate-x-2 md:group-[.is-active]:translate-x-3 text-left">
                     {item.title}
                   </h3>
 

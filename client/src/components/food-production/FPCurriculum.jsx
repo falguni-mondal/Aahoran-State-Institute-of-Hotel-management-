@@ -114,7 +114,7 @@ export default function FPCurriculum() {
               About The <br/> Course
             </h2>
             
-            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
+            <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
               Each student is given ample opportunity to apply the knowledge and transfer it to multi-dimensional skill in preparing and presenting a large cross-section of Indian and internal cuisines in the practical sessions. Layout of kitchens and the allied sections, the vast range of tools and equipment, costing and budgeting of the food and overheads, etc. are also taught in details with the students handling real-life case studies. Creativity takes a front seat in the working of this department.
             </p>
           </div>
@@ -150,7 +150,7 @@ export default function FPCurriculum() {
               <div className="hidden md:block absolute top-0 left-1/2 w-[1px] h-full bg-[var(--primary-base)]/10 -translate-x-1/2"></div>
               
               <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
-                The Institute has four large kitchens equipped with all that match the standards of the industry. One ultramodern bakery and one self-dependent Confectionary are open to the students to hone their skills in the science and art of patisserie.
+                The Institute has four large kitchens equipped with all that match the standards of the industry. One state of the art Bakery and one self-dependent Confectionary are open to the students to hone their skills in the science and art of patisserie.
               </p>
               
             </div>

@@ -6,6 +6,16 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const coursesData = [
+    {
+    id: "food-production",
+    title: "Food Production",
+    image: "/st-food-production.webp",
+    description: [
+      "In every cities, townships and tourist destinations, there are plenty of restaurants, fast food outlets, canteens, QSR's serving millions of customer with their food specialities.To fulfill the demand of these outlets a good number of skilled manpower is required to support the food industry.",
+      "The Diploma in Food Production is an 18-month course attracting the 12th standard student who will actually learn the culinary art during their training in the institute.",
+      "There is an ample career growth for these skilled manpower, and they can earn a handful emoluments during their service and even they can be turned out as a successful entrepreneur."
+    ]
+  },
   {
     id: "fb-service",
     title: "Food & Beverage Service",
@@ -27,6 +37,14 @@ const coursesData = [
     ]
   },
   {
+    id: "front-office",
+    title: "Front Office",
+    image: "/st-front-office.webp",
+    description: [
+      "Front Office is the face of the Hospitality Industry which is having an ample job opportunity in the Hotel Industry, Airlines, Retails, Travel & Tour operators. The 12th standard students during their period of 18 months training will learn grooming, soft skills, handling software, able to become professional in their fields and therein competent for hospitality profession."
+    ]
+  },
+  {
     id: "house-keeping",
     title: "House Keeping",
     image: "/st-housekeeping.webp",
@@ -36,24 +54,6 @@ const coursesData = [
       "There is an ample career growth for these skilled manpower, and they can earn a handful emoluments during their service and even they can be turned out as a successful entrepreneur."
     ]
   },
-  {
-    id: "front-office",
-    title: "Front Office",
-    image: "/st-front-office.webp",
-    description: [
-      "Front Office is the face of the Hospitality Industry which is having an ample job opportunity in the Hotel Industry, Airlines, Retails, Travel & Tour operators. The 12th standard students during their period of 18 months training will learn grooming, soft skills, handling software, able to become professional in their fields and therein competent for hospitality profession."
-    ]
-  },
-  {
-    id: "food-production",
-    title: "Food Production",
-    image: "/st-food-production.webp",
-    description: [
-      "In every cities, townships and tourist destinations, there are plenty of restaurants, fast food outlets, canteens, QSR's serving millions of customer with their food specialities.To fulfill the demand of these outlets a good number of skilled manpower is required to support the food industry.",
-      "The Diploma in Food Production is an 18-month course attracting the 12th standard student who will actually learn the culinary art during their training in the institute.",
-      "There is an ample career growth for these skilled manpower, and they can earn a handful emoluments during their service and even they can be turned out as a successful entrepreneur."
-    ]
-  }
 ];
 
 export default function STCourseList() {
