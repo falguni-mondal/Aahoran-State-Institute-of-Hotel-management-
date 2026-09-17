@@ -138,7 +138,7 @@ export default function ARContent() {
               </h3>
               
               {/* Editorial Paragraph */}
-              <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-serif text-[var(--text-main)]/80 leading-[1.7] md:leading-[1.8] lg:leading-[1.9]">
+              <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl text-justify font-serif text-[var(--text-main)]/80 leading-[1.7] md:leading-[1.8] lg:leading-[1.9]">
                 {chapter.text}
               </p>
             </div>

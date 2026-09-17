@@ -58,12 +58,12 @@ export default function ARGallery() {
           of the screen to make it feel like a physical exhibition gallery.
           ========================================= 
       */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+      {/* <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
         <span className="text-[25vw] font-serif font-bold tracking-tighter text-[var(--primary-base)]/[0.03] select-none whitespace-nowrap">
           Archive.
         </span>
-      </div>
-      <div className="absolute top-1/2 left-0 w-full h-[1px] bg-[var(--primary-base)]/10 -translate-y-1/2 pointer-events-none z-0"></div>
+      </div> */}
+      {/* <div className="absolute top-1/2 left-0 w-full h-[1px] bg-[var(--primary-base)]/10 -translate-y-1/2 pointer-events-none z-0"></div> */}
 
       {/* 
         The flex container that holds all horizontal items.
@@ -85,7 +85,7 @@ export default function ARGallery() {
             Active <br/> Engagement.
           </h2>
           {/* THEME: text-light changed to primary-base */}
-          <p className="text-sm md:text-base lg:text-lg text-[var(--primary-base)]/60 font-light leading-relaxed max-w-sm">
+          <p className="text-sm md:text-base lg:text-lg text-[var(--primary-base)]/60 font-light leading-relaxed max-w-sm text-justify">
             We don't just put policies on paper. We conduct regular seminars, open forums, and committee meetings to ensure the dialogue around campus safety remains active, transparent, and strictly enforced.
           </p>
         </div>

@@ -87,8 +87,8 @@ export default function FTCourseList() {
             </h2>
           </div>
           <div className="w-full lg:w-6/12 intro-text lg:pt-12">
-            <p className="text-lg md:text-xl lg:text-2xl font-light leading-[1.7] text-[var(--text-main)]/80 text-justify md:text-left">
-              This three-year, six-semester degree is meticulously designed to transform students into capable leaders. Offered through the National Council for Hotel Management and Catering Technology (NCHMCT) and recognized by JNU, it equips graduates with the precise skills, deep knowledge, and professional attitude required to assume supervisory roles effortlessly.
+            <p className="text-lg md:text-xl lg:text-2xl font-light leading-[1.7] text-[var(--text-main)]/80 text-justify">
+              This three-year, six-semester degree is meticulously designed to transform students into capable leaders. Offered through the National Council for Hotel Management and Catering Technology (NCHMCT) and recognized by Jawharlal Nehru University, New Delhi, it equips graduates with the precise skills, deep knowledge, and professional attitude required to assume supervisory roles effortlessly.
             </p>
           </div>
         </div>

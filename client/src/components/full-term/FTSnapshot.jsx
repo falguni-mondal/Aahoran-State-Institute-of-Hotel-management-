@@ -75,7 +75,7 @@ export default function FTSnapshot() {
                 <img 
                   src="/nchmct.png" 
                   alt="NCHMCT Logo" 
-                  className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain shrink-0"
+                  className="w-10 h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 object-contain shrink-0"
                 />
                 <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-[var(--text-main)] leading-[1.3] tracking-tight">
                   National Council for Hotel Management and Catering Technology, Noida
