@@ -11,9 +11,8 @@ const coursesData = [
     title: "Food Production",
     image: "/st-food-production.webp",
     description: [
-      "In every cities, townships and tourist destinations, there are plenty of restaurants, fast food outlets, canteens, QSR's serving millions of customer with their food specialities.To fulfill the demand of these outlets a good number of skilled manpower is required to support the food industry.",
-      "The Diploma in Food Production is an 18-month course attracting the 12th standard student who will actually learn the culinary art during their training in the institute.",
-      "There is an ample career growth for these skilled manpower, and they can earn a handful emoluments during their service and even they can be turned out as a successful entrepreneur."
+      "The Diploma in Food Production is a career-focused programme that equips students with practical skills and professional knowledge in culinary arts, kitchen operations, food safety and menu planning. Through hands-on training, students develop the competencies required to work effectively in professional kitchens.",
+      "Graduates can pursue opportunities as Commis Chef, Demi Chef de Partie, Kitchen Assistant, Bakery & Confectionery Professional, Food Production Supervisor and other culinary roles in hotels, restaurants, resorts, catering companies, cruise lines and institutional kitchens. The programme also provides a foundation for entrepreneurship and further studies in hospitality and culinary arts.",
     ]
   },
   {
@@ -21,9 +20,8 @@ const coursesData = [
     title: "Food & Beverage Service",
     image: "/st-fb-service.webp",
     description: [
-      "It has been observed, from the study of manpower requirement in the hospitality industry that there is a substantial demand for skilled manpower in the Food Service industry which may be provided by the hotel management institutes.",
-      "The diploma in Food and Beverage Service is an 18-month course attracting the 12th standard student who are going to be exposed in hands-on training and will acquire skill therein to become confident and professional to serve the hospitality industry.",
-      "There is an ample career growth for these skilled manpower, and they can earn a handful emoluments during their service and even they can be turned out as a successful entrepreneur."
+      "The Diploma in Food & Beverage Service is a career-focused programme designed to develop skilled professionals in restaurant operations, guest service, beverage service and hospitality etiquette. Through practical training and industry-oriented learning, students develop the skills required to deliver efficient and professional dining experiences.",
+      "Graduates can pursue opportunities as Food & Beverage Associate, Steward, Captain, Bartender, Restaurant Supervisor and other service roles in hotels, restaurants, resorts, clubs, catering establishments, cruise lines and institutional food service operations. The programme also provides a foundation for entrepreneurship and further studies in hospitality and food & beverage management.",
     ]
   },
   {
@@ -31,9 +29,8 @@ const coursesData = [
     title: "Bakery & Confectionery",
     image: "/st-bakery.webp",
     description: [
-      "In every cities, townships and tourist destinations, there are plenty of bakery and confectionery outlets serving the millions of customer. To fulfill the demand of these outlets a good number of skilled manpower is required to support the bakery and confectionery industry.",
-      "The Diploma in Bakery and Confectionary is an 18-month course attracting the 12th standard student who will actually learn the art of baking and cake making during their training in the institute.",
-      "There is an ample career growth for these skilled manpower, and they can earn a handful emoluments during their service and even they can be turned out as a successful entrepreneur."
+      "The Diploma in Bakery & Confectionery is a career-focused programme designed to develop professional skills in bread making, cakes, pastries, confectionery, desserts and bakery production. Through hands-on training and industry-oriented learning, students gain expertise in production techniques, food safety, presentation and bakery operations.",
+      "Graduates can pursue careers as Commis Baker, Bakery Assistant, Pastry Chef, Confectioner, Cake Artist, Bakery Supervisor and other roles in hotels, bakeries, patisseries, restaurants, resorts and catering establishments. The programme also provides opportunities for entrepreneurship, specialised culinary careers and further studies in bakery and hospitality."
     ]
   },
   {
@@ -41,7 +38,8 @@ const coursesData = [
     title: "Front Office",
     image: "/st-front-office.webp",
     description: [
-      "Front Office is the face of the Hospitality Industry which is having an ample job opportunity in the Hotel Industry, Airlines, Retails, Travel & Tour operators. The 12th standard students during their period of 18 months training will learn grooming, soft skills, handling software, able to become professional in their fields and therein competent for hospitality profession."
+      "The Diploma in Front Office is a career-focused programme designed to develop professional skills in guest relations, reservations, reception operations, check-in/check-out procedures and hotel communication. Through practical and industry-oriented training, students gain the knowledge and confidence required to deliver efficient and courteous guest services.",
+      "Graduates can pursue opportunities as Front Office Associate, Receptionist, Guest Relations Executive, Reservation Associate, Front Desk Supervisor and other roles in hotels, resorts, serviced apartments, clubs, travel and hospitality establishments. The programme also provides a foundation for career advancement and further studies in hospitality management."
     ]
   },
   {
@@ -49,9 +47,8 @@ const coursesData = [
     title: "House Keeping",
     image: "/st-housekeeping.webp",
     description: [
-      "It has been observed, from the study of manpower requirement in the hospitality industry that there is a substantial demand for skilled manpower in the Food Service industry which may be provided by the hotel management institutes.",
-      "The diploma in Housekeeping is an 18-month course attracting the 12th standard student who are going to be exposed to hands-on training and will acquire skill therein to become confident and professional to cater the hospitality industry.",
-      "There is an ample career growth for these skilled manpower, and they can earn a handful emoluments during their service and even they can be turned out as a successful entrepreneur."
+      "The Diploma in Housekeeping is a career-focused programme designed to develop professional skills in guestroom operations, cleaning and maintenance, hygiene, laundry and linen management, and housekeeping supervision. Through practical and industry-oriented training, students gain the skills required to maintain high standards of cleanliness, comfort and guest satisfaction.",
+      "Graduates can pursue opportunities as Housekeeping Associate, Room Attendant, Public Area Attendant, Laundry Associate, Housekeeping Supervisor and other roles in hotels, resorts, hospitals, serviced apartments, cruise lines and other hospitality establishments. The programme also provides a foundation for career advancement and further studies in hospitality management.",
     ]
   },
 ];
