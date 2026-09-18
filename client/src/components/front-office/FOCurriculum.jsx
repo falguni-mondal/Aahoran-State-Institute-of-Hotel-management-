@@ -1,61 +1,38 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
+import { useLenis } from 'lenis/react'; // <-- Imported useLenis
 import LabHorizontalScroll from '../computer-lab/LabHorizontalScroll';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-/* =========================================
-   KITCHEN FACILITIES DATA (Tabs)
-========================================= */
-const kitchenFacilities = [
-  {
-    id: "btk",
-    label: "BTK",
-    title: "Basic Training Kitchen",
-    desc: "The Basic Training Kitchen is where first-year students are introduced to the fundamental principles of cooking. Here, they learn essential knife skills, basic cuts of vegetables and meats, classical foundation sauces, and elementary cooking methods. The focus is strictly on mastering the basics before advancing to complex culinary techniques."
-  },
-  {
-    id: "qtk",
-    label: "QTK",
-    title: "Quantity Training Kitchen",
-    desc: "Designed to simulate large-scale catering operations, the Quantity Training Kitchen trains students in bulk food production. Students learn to handle heavy-duty equipment, manage large-scale ingredient procurement, and prepare meals for hundreds of covers simultaneously, perfectly preparing them for banquet and institutional catering."
-  },
-  {
-    id: "atk",
-    label: "ATK",
-    title: "Advance Training Kitchen",
-    desc: "In the Advance Training Kitchen, senior students delve into international cuisines and high-end gastronomy. This lab mimics a five-star hotel's specialty restaurant kitchen. Students master complex plating techniques, molecular gastronomy basics, and the preparation of intricate multi-course menus under strict time constraints."
-  },
-  {
-    id: "cfpk",
-    label: "CFPK",
-    title: "Craft Kitchen",
-    desc: "The Craft Kitchen is a specialized space dedicated to intensive, skill-specific training. This lab focuses on regional Indian cuisines, allowing students to explore the diverse culinary heritage of India in depth, mastering traditional cooking methods, spice blends, and authentic regional delicacies."
-  },
-  {
-    id: "bakery",
-    label: "Bakery",
-    title: "Bakery",
-    desc: "Equipped with state-of-the-art deck ovens, dough sheeters, and planetary mixers, the Bakery lab trains students in the precise science of bread making. From classical French baguettes and laminated doughs (croissants) to enriched doughs and artisanal sourdoughs, students master the complete baking spectrum."
-  },
-  {
-    id: "confectionary",
-    label: "Confectionary",
-    title: "Confectionary",
-    desc: "The Confectionary is where culinary art meets precision. Here, students learn the delicate techniques of chocolate tempering, sugar pulling, creating exquisite entremets, classical French pastries, and intricate dessert plating, transforming them into skilled pastry chefs."
-  }
-];
-
-export default function FPCurriculum() {
+export default function FOCurriculum() {
   const containerRef = useRef(null);
-  const tabContentRef = useRef(null);
-  const [activeTabIndex, setActiveTabIndex] = useState(0);
-  const activeTab = kitchenFacilities[activeTabIndex];
+  const location = useLocation(); // <-- Added useLocation
+  const lenis = useLenis();       // <-- Added useLenis
 
-  const { contextSafe } = useGSAP({ scope: containerRef });
+  // ==========================================
+  // CROSS-PAGE HASH ROUTING FIX (For Computer Lab)
+  // ==========================================
+  useEffect(() => {
+    // If the URL has a hash (like #computer-lab) AND lenis is ready
+    if (location.hash && lenis) {
+      // Small delay ensures the DOM is fully painted before calculating scroll position
+      const timeoutId = setTimeout(() => {
+        lenis.scrollTo(location.hash, {
+          offset: -80, // Adjust this offset if your navbar covers the heading
+          duration: 1.5,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+        });
+      }, 100); 
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [location.hash, lenis]);
+  // ==========================================
 
   useGSAP(() => {
     let mm = gsap.matchMedia();
@@ -125,35 +102,13 @@ export default function FPCurriculum() {
     return () => mm.revert();
   }, { scope: containerRef });
 
-  // Tab Switching Animation
-  const handleTabChange = contextSafe((index) => {
-    if (index === activeTabIndex) return;
-    
-    // Animate out current content
-    gsap.to(tabContentRef.current, {
-      opacity: 0,
-      y: -10,
-      duration: 0.3,
-      ease: "power2.in",
-      onComplete: () => {
-        setActiveTabIndex(index);
-        
-        // Animate in new content
-        gsap.fromTo(tabContentRef.current,
-          { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
-        );
-      }
-    });
-  });
-
   return (
     <div ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] overflow-hidden">
       
       {/* =======================================
           TOP VERTICAL SCROLLING CONTENT
       ======================================= */}
-      <section className="w-full pt-20 md:pt-32 lg:pt-40 xl:pt-48 pb-16 md:pb-16 lg:pb-24 relative border-t border-[var(--primary-base)]/10">
+      <section className="w-full text-justify pt-20 md:pt-32 lg:pt-40 xl:pt-48 pb-24 md:pb-32 lg:pb-40 relative border-t border-[var(--primary-base)]/10">
         <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
           
           {/* =======================================
@@ -165,8 +120,8 @@ export default function FPCurriculum() {
             <div className="w-full lg:w-6/12 relative">
               <div className="w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden bg-[var(--primary-base)]/5">
                 <img 
-                  src="/fp-preparation.webp" 
-                  alt="Chef Preparation" 
+                  src="/fo-management.webp" 
+                  alt="Property Management Training" 
                   className="img-parallax w-full h-[120%] object-cover -translate-y-[10%] will-change-transform"
                 />
               </div>
@@ -188,17 +143,17 @@ export default function FPCurriculum() {
               </h2>
               
               <p className="text-reveal text-base md:text-lg lg:text-xl font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
-                Each student is given ample opportunity to apply the knowledge and transfer it to multi-dimensional skill in preparing and presenting a large cross-section of Indian and internal cuisines in the practical sessions. Layout of kitchens and the allied sections, the vast range of tools and equipment, costing and budgeting of the food and overheads, etc. are also taught in details with the students handling real-life case studies. Creativity takes a front seat in the working of this department.
+                Students receive hands-on training in all aspects of Accommodation Management, supported by a state-of-the-art <span className='font-bold'>Property Management System (PMS)</span> aligned with global hotel industry practices. Spacious, simulation-enabled lecture halls provide an immersive environment for effective, industry-oriented learning.
               </p>
             </div>
           </div>
 
           {/* =======================================
-              SECTION 2: COURSE ATTRACTION (TABS)
+              SECTION 2: FACILITIES
           ======================================= */}
           <div className="flex flex-col-reverse lg:flex-row items-start justify-between gap-12 lg:gap-20 xl:gap-24">
             
-            {/* Left: Tab Layout Area */}
+            {/* Left: 2-Column Text Layout */}
             <div className="w-full lg:w-7/12 flex flex-col pt-8 lg:pt-0 relative z-10">
               
               <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--text-main)]/5 select-none pointer-events-none tracking-tighter -z-10">
@@ -206,61 +161,38 @@ export default function FPCurriculum() {
               </span>
               
               <span className="text-reveal text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)] mb-4 md:mb-6 block">
-                Specialization
+                Infrastructure
               </span>
               
               <h2 className="split-heading head-txt text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-tighter mb-12 md:mb-16">
-                Course Attraction
+                Facilities
               </h2>
               
-              <div className="text-reveal flex flex-col relative">
+              <div className="text-reveal grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 relative">
                 
-                {/* Intro Paragraph */}
-                <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify mb-10">
-                  The Institute has four large kitchens equipped with all that match the standards of the industry. One state of the art Bakery and one self-dependent Confectionary are open to the students to hone their skills in the science and art of patisserie.
-                </p>
-                
-                {/* INTERACTIVE TAB NAV */}
-                <div className="tabs-container flex flex-col gap-3 mb-8 border-b border-[var(--primary-base)]/10 pb-6">
-                  <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-main)]/40">
-                    Explore Facilities
-                  </span>
-                  
-                  <div className="flex flex-wrap items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar pb-2">
-                    {kitchenFacilities.map((tab, idx) => {
-                      const isActive = activeTabIndex === idx;
-                      return (
-                        <button
-                          key={tab.id}
-                          onClick={() => handleTabChange(idx)}
-                          className="group relative outline-none flex items-center py-2 cursor-pointer shrink-0"
-                        >
-                          <span className={`text-lg md:text-xl lg:text-2xl font-light tracking-tight transition-colors duration-500 ${
-                            isActive ? 'text-[var(--text-main)]' : 'text-[var(--text-main)]/40 hover:text-[var(--text-main)]/70'
-                          }`}>
-                            [ {tab.label} ]
-                          </span>
-                          
-                          {/* Animated Orange Underline */}
-                          {isActive && (
-                            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--accent)]"></span>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* TAB CONTENT PANEL */}
-                <div ref={tabContentRef} className="flex flex-col min-h-[150px]">
-                  <h3 className="font-sans text-xl md:text-2xl font-semibold text-[var(--text-main)] mb-3">
-                    {activeTab.title}
+                {/* Column 1: Lobby/Reception */}
+                <div className="flex flex-col">
+                  <h3 className="font-sans text-xl md:text-2xl font-semibold text-[var(--text-main)] mb-4">
+                    Lobby/Reception
                   </h3>
                   <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
-                    {activeTab.desc}
+                    A fully functional front desk simulation allows students to master the art of guest relations, check-in/check-out procedures, and handling diverse guest scenarios in a realistic hotel lobby environment.
                   </p>
                 </div>
                 
+                {/* Vertical Divider (Hidden on Mobile) */}
+                <div className="hidden md:block absolute top-0 left-1/2 w-[1px] h-full bg-[var(--primary-base)]/10 -translate-x-1/2"></div>
+                
+                {/* Column 2: PMS Lab */}
+                <div className="flex flex-col">
+                  <h3 className="font-sans text-xl md:text-2xl font-semibold text-[var(--text-main)] mb-4">
+                    PMS (Property Management System) Lab
+                  </h3>
+                  <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
+                    The department is proud of its massive computer lab with individual work stations which facilitates individual attention while the students acquire the mastery in operating the PMS.
+                  </p>
+                </div>
+
               </div>
             </div>
 
@@ -268,8 +200,8 @@ export default function FPCurriculum() {
             <div className="w-full lg:w-4/12 relative mt-10 lg:mt-32">
               <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[var(--primary-base)]/5">
                 <img 
-                  src="/fp-patisserie.webp" 
-                  alt="Patisserie and Sugar Craft" 
+                  src="/fo-lab.webp" 
+                  alt="Front Office Computer Lab" 
                   className="img-parallax w-full h-[120%] object-cover -translate-y-[10%] will-change-transform"
                 />
               </div>
@@ -283,7 +215,11 @@ export default function FPCurriculum() {
       {/* =======================================
           SECTION 3: COMPUTER LAB (HORIZONTAL SCROLL)
       ======================================= */}
-      <div className="relative w-full">
+      {/* 
+          IMPORTANT: The ID here matches the hash we added to the 
+          FacilityCard link in Facilities.jsx 
+      */}
+      <div id="computer-lab" className="relative w-full">
         {/* Massive Editorial Heading anchored over the horizontal section */}
         <div className="absolute top-16 md:top-24 lg:top-32 left-0 w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[1800px] mx-auto z-20 pointer-events-none">
           <span className="text-reveal text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)] mb-4 block">
