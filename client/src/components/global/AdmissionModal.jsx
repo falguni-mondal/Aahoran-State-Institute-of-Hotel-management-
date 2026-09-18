@@ -51,7 +51,8 @@ const CustomSelect = ({ options, placeholder, id }) => {
       {isOpen && (
         <div 
           className="absolute left-0 top-full mt-1 w-full bg-[#f8f9fa] border border-[var(--text-muted)]/10 shadow-2xl z-50 max-h-52 overflow-y-auto rounded-sm custom-scrollbar"
-          onWheel={(e) => e.stopPropagation()} // Prevents scrolling the modal when scrolling the dropdown
+          // FIX: Tell Lenis to ignore wheel events here so native scroll works
+          data-lenis-prevent="true"
         >
           {options.map((option, index) => (
             <div 
@@ -129,11 +130,9 @@ export default function AdmissionModal({ isOpen, onClose }) {
         {/* 
             =========================================
             Left Side - Brand/Visual 
-            UPDATED: Orange / Light Orange Gradient
             ========================================= 
         */}
         <div className="hidden md:flex md:w-1/3 bg-[var(--accent)] p-8 flex-col justify-between relative overflow-hidden">
-          {/* Replaced var(--primary-light) with a light orange hex (#FF9E5E) for the glow */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_#FF9E5E,_transparent_80%)] opacity-70 mix-blend-screen"></div>
           
           <div className="relative z-10">
@@ -143,16 +142,18 @@ export default function AdmissionModal({ isOpen, onClose }) {
             </p>
           </div>
           <div className="relative z-10 flex items-center space-x-2">
-             {/* Switched the dot from accent (orange) to text-light (white) for contrast */}
              <span className="w-2 h-2 rounded-full bg-[var(--text-light)] shadow-[0_0_10px_rgba(255,255,255,0.5)]"></span>
              <span className="font-sans font-semibold text-[10px] uppercase tracking-widest text-[var(--text-light)]">SIHM Durgapur</span>
           </div>
         </div>
 
         {/* Right Side - Form */}
-        <div className="w-full md:w-2/3 px-8 p-12 relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+        <div 
+          className="w-full md:w-2/3 px-8 p-12 relative max-h-[90vh] overflow-y-auto custom-scrollbar"
+          // FIX: Tell Lenis to ignore wheel events here so the main form scroll works if it gets tall
+          data-lenis-prevent="true"
+        >
           
-          {/* UPDATED: Added cursor-pointer to the button */}
           <button
             onClick={onClose}
             className="absolute top-6 right-6 text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors cursor-pointer outline-none"
