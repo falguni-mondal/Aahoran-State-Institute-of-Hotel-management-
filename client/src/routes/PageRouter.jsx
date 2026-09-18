@@ -33,7 +33,7 @@ const PageRouter = () => {
       <Route path="/about">
         <Route index element={<About />} />
         <Route path="rules" element={<Rules />} />
-        <Route path="computer-lab" element={<ComputerLab />} />
+        {/* <Route path="computer-lab" element={<ComputerLab />} /> */}
       </Route>
 
 

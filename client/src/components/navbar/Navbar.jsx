@@ -29,7 +29,7 @@ const navLinks = [
       { name: 'Food and Beverage', path: '/food-and-beverage' },
       { name: 'Front Office', path: '/front-office' },
       { name: 'House Keeping', path: '/house-keeping' },
-      { name: 'Computer Lab', path: '/about/computer-lab' },
+      // { name: 'Computer Lab', path: '/about/computer-lab' },
     ]
   },
   { 
