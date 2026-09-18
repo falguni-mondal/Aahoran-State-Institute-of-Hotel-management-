@@ -1,9 +1,105 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+/* =========================================
+   NEW SUB-COMPONENT: UniformCard
+   A highly premium, editorial mask-reveal 
+   with parallax depth for the image transition.
+========================================= */
+const UniformCard = ({ frontSrc, alt }) => {
+  const [isActive, setIsActive] = useState(false);
+  
+  const containerRef = useRef(null);
+  const frontMaskRef = useRef(null);
+  const frontImgRef = useRef(null);
+  const backImgRef = useRef(null);
+
+  const backSrc = frontSrc.replace('-front', '-back');
+  const { contextSafe } = useGSAP({ scope: containerRef });
+
+  // Set initial state for the back image so it's ready to scale down
+  useGSAP(() => {
+    gsap.set(backImgRef.current, { scale: 1.15, yPercent: -5 });
+  }, { scope: containerRef });
+
+  // The sleek Parallax Reveal Animation
+  const toggleReveal = contextSafe((showBack) => {
+    if (showBack) {
+      // Reveal Back Image
+      gsap.to(frontMaskRef.current, { clipPath: "inset(0% 0% 100% 0%)", duration: 1, ease: "expo.inOut" });
+      gsap.to(frontImgRef.current, { scale: 1.1, yPercent: 5, duration: 1, ease: "expo.inOut" });
+      gsap.to(backImgRef.current, { scale: 1, yPercent: 0, duration: 1, ease: "expo.inOut" });
+    } else {
+      // Restore Front Image
+      gsap.to(frontMaskRef.current, { clipPath: "inset(0% 0% 0% 0%)", duration: 1, ease: "expo.inOut" });
+      gsap.to(frontImgRef.current, { scale: 1, yPercent: 0, duration: 1, ease: "expo.inOut" });
+      gsap.to(backImgRef.current, { scale: 1.15, yPercent: -5, duration: 1, ease: "expo.inOut" });
+    }
+  });
+
+  // Desktop Hover Handlers
+  const handleMouseEnter = () => {
+    if (window.innerWidth >= 1024) toggleReveal(true);
+  };
+  const handleMouseLeave = () => {
+    if (window.innerWidth >= 1024) toggleReveal(false);
+  };
+
+  // Mobile/Tablet Click Handler
+  const handleMobileClick = () => {
+    if (window.innerWidth < 1024) {
+      const nextState = !isActive;
+      setIsActive(nextState);
+      toggleReveal(nextState);
+    }
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      className="w-full aspect-[3/4] md:aspect-[4/5] mb-8 relative overflow-hidden rounded-sm cursor-pointer lg:cursor-default group"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleMobileClick}
+    >
+      {/* BACK IMAGE LAYER (Always visible, sits at the bottom) */}
+      <div className="absolute inset-0 w-full h-full bg-[#e8e8e8]">
+        <img
+          ref={backImgRef}
+          src={backSrc}
+          alt={`${alt} Back View`}
+          className="w-full h-full object-cover object-center grayscale-[20%]"
+        />
+      </div>
+
+      {/* FRONT IMAGE LAYER (Uses a GSAP clip-path to wipe away) */}
+      <div
+        ref={frontMaskRef}
+        className="absolute inset-0 w-full h-full bg-[var(--background)] z-10"
+        style={{ clipPath: "inset(0% 0% 0% 0%)" }}
+      >
+        <img
+          ref={frontImgRef}
+          src={frontSrc}
+          alt={alt}
+          className="w-full h-full object-cover object-center grayscale-[20%]"
+        />
+      </div>
+
+      {/* Minimal UI Indicators */}
+      <div className="absolute top-4 right-4 z-20 pointer-events-none overflow-hidden">
+        <div className="bg-[var(--background)]/90 backdrop-blur-md border border-[var(--primary-base)]/10 text-[var(--text-main)] text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+          <span className="hidden lg:block">Hover to view back</span>
+          <span className="block lg:hidden">Tap to view back</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 /* =========================================
    POLICIES DATA
@@ -13,7 +109,6 @@ const policiesData = [
     id: "attendance",
     title: "Attendance Rules",
     items: [
-      // CONVERTED to a JSX fragment (<>...</>) to allow the <strong> tag to render correctly
       <>The student is expected to attend 100% classes. However, as per NCHMCT and JNU norms, to appear in the end semester examinations, <strong className="font-semibold text-[var(--text-main)]">a minimum of 75% attendance is mandatory</strong>.</>,
       "Attendance at lectures, practical and tutorials shall be counted from the date of commencement of teaching.",
       "A shortage of attendance up to maximum 10% of the total working days may be condoned by the Head of the Institution on grounds of bonafide illness supported from a registered medical practitioner or any other sufficient reason, subject to the candidate being otherwise eligible to appear for the examination.",
@@ -23,7 +118,6 @@ const policiesData = [
   {
     id: "uniform",
     title: "Uniform & Grooming",
-    // Custom render for the 50/50 symmetrical split
     isSplit: true,
     boys: [
       "College black Trousers & white full sleeve shirts, black belt.",
@@ -117,7 +211,7 @@ export default function RulesPolicies() {
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px] flex flex-col lg:flex-row gap-16 lg:gap-24 xl:gap-32">
         
         {/* =========================================
-           LEFT COLUMN: Sticky Navigation Index (Desktop Only)
+            LEFT COLUMN: Sticky Navigation Index
         ========================================= */}
         <div className="hidden lg:flex lg:w-3/12 xl:w-1/4 flex-col lg:sticky lg:top-40 lg:h-fit relative z-10">
           <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.25em] text-[var(--accent)] mb-10 block">
@@ -139,7 +233,7 @@ export default function RulesPolicies() {
         </div>
 
         {/* =========================================
-           RIGHT COLUMN: Content Sections
+            RIGHT COLUMN: Content Sections
         ========================================= */}
         <div className="w-full lg:w-9/12 xl:w-3/4 flex flex-col text-justify">
           
@@ -164,13 +258,10 @@ export default function RulesPolicies() {
                     
                     {/* Boys Column */}
                     <div className="flex flex-col">
-                      <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm mb-8 bg-[var(--primary-base)]/5 border border-[var(--primary-base)]/10">
-                         <img 
-                            src="/uniform-boy.webp" 
-                            alt="Proper Uniform for Boys" 
-                            className="w-full h-full object-cover object-center grayscale-[20%] hover:grayscale-0 transition-all duration-500"
-                         />
-                      </div>
+                      <UniformCard 
+                        frontSrc="/images/uniform/uniform-boy-front.webp" 
+                        alt="Proper Uniform for Boys"
+                      />
                       <span className="font-sans font-bold text-xs xl:text-sm uppercase tracking-[0.2em] text-[var(--text-main)]/50 mb-8 border-b border-[var(--primary-base)]/10 pb-4">
                         For Boys
                       </span>
@@ -186,13 +277,10 @@ export default function RulesPolicies() {
                     
                     {/* Girls Column */}
                     <div className="flex flex-col">
-                      <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm mb-8 bg-[var(--primary-base)]/5 border border-[var(--primary-base)]/10">
-                         <img 
-                            src="/uniform-girl.webp" 
-                            alt="Proper Uniform for Girls" 
-                            className="w-full h-full object-cover object-center grayscale-[20%] hover:grayscale-0 transition-all duration-500"
-                         />
-                      </div>
+                      <UniformCard 
+                        frontSrc="/images/uniform/uniform-girl-front.webp" 
+                        alt="Proper Uniform for Girls"
+                      />
                       <span className="font-sans font-bold text-xs xl:text-sm uppercase tracking-[0.2em] text-[var(--text-main)]/50 mb-8 border-b border-[var(--primary-base)]/10 pb-4">
                         For Girls
                       </span>
