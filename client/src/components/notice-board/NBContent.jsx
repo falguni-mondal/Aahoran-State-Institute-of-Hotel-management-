@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -9,7 +9,7 @@ import NBDownloadButton from './NBDownloadButton';
 gsap.registerPlugin(ScrollTrigger);
 
 /* =========================================
-   MOCK DATA 
+   MOCK DATA (Includes Recruitment)
 ========================================= */
 const categories = [
   { id: 'all', label: 'All Notices' },
@@ -18,6 +18,7 @@ const categories = [
   { id: 'office', label: 'Office Circulars' },
   { id: 'placement', label: 'Training & Placement' },
   { id: 'tender', label: 'Tender Notices' },
+  { id: 'recruitment', label: 'Recruitment' }, 
 ];
 
 const noticesData = [
@@ -29,16 +30,18 @@ const noticesData = [
   { id: 6, categoryId: 'office', date: '01/05/2026', title: 'Campus Facility Update: New Library Hours and Regulations', isNew: true },
   { id: 7, categoryId: 'placement', date: '12/04/2026', title: 'Pre-Placement Talk: Taj Group of Hotels Executive Training', isNew: false },
   { id: 8, categoryId: 'tender', date: '05/03/2026', title: 'Invitation of Quotation for Kitchen Equipment Procurement', isNew: false },
+  { id: 9, categoryId: 'recruitment', date: '18/09/2026', title: 'Walk-in Interview for the Post of Teaching Associate', isNew: true },
 ];
 
 export default function NBContent() {
   const listRef = useRef(null);
   const lenis = useLenis();
-  
+  const location = useLocation(); 
+
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get('category') || categories[0].id;
   const [hoveredNoticeId, setHoveredNoticeId] = useState(null);
-  
+
   const [displayNotices, setDisplayNotices] = useState(() => {
     return activeCategory === 'all' 
       ? noticesData 
@@ -52,18 +55,34 @@ export default function NBContent() {
     setDisplayNotices(newData);
   }, [activeCategory]);
 
+  // ==========================================
+  // CROSS-PAGE HASH ROUTING FIX
+  // ==========================================
+  useEffect(() => {
+    if (location.hash && lenis) {
+      const timeoutId = setTimeout(() => {
+        lenis.scrollTo(location.hash, {
+          offset: -100,
+          duration: 1.5,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+        });
+      }, 100); 
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [location.hash, lenis]);
+  // ==========================================
+
   const handleCategoryChange = (newCategoryId) => {
     if (newCategoryId === activeCategory) return;
 
     const currentItems = listRef.current.querySelectorAll('.nb-row');
 
-    // 1. HEIGHT LOCK
     if (listRef.current) {
       const currentHeight = listRef.current.offsetHeight;
       gsap.set(listRef.current, { minHeight: currentHeight });
     }
 
-    // 2. SMOOTH SCROLL TO ID
     if (lenis) {
       lenis.scrollTo('#notice-board-top', { 
         offset: -100, 
@@ -72,10 +91,9 @@ export default function NBContent() {
       });
     }
 
-    // 3. ANIMATE OUT & SET ROUTER STATE (The Fix applied here)
     if (currentItems.length > 0) {
       gsap.to(currentItems, {
-        y: 20,
+        y: -15,
         opacity: 0,
         stagger: 0.02,
         duration: 0.3,
@@ -99,7 +117,7 @@ export default function NBContent() {
     const newItems = listRef.current.querySelectorAll('.nb-row');
 
     if (newItems.length > 0) {
-      gsap.set(newItems, { y: -20, opacity: 0 });
+      gsap.set(newItems, { y: 20, opacity: 0 });
 
       gsap.to(newItems, {
         y: 0,
@@ -121,104 +139,124 @@ export default function NBContent() {
   }, { dependencies: [displayNotices], scope: listRef });
 
   return (
-    <section id="notice-board-top" className="w-full bg-[var(--background)] relative z-20">
-      <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 py-16 md:py-24 lg:py-32 flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
-        
-        {/* ==========================================
-            LEFT SIDE: STICKY TYPOGRAPHIC FILTERS
-        ========================================== */}
-        <div className="w-full lg:w-[30%] shrink-0 lg:sticky lg:top-32 flex flex-col gap-12">
-          
-          <span className="font-sans text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)] border-b border-[var(--primary-base)]/10 pb-4">
-            Filter by Category
-          </span>
+    <section id="notice-board-top" className="w-full bg-[var(--background)] relative z-20 pt-16 md:pt-24 lg:pt-32 pb-20 md:pb-28">
+      <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
 
-          <nav className="flex flex-col gap-4 md:gap-6 items-start">
-            {categories.map((cat) => {
-              const isActive = cat.id === activeCategory;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => handleCategoryChange(cat.id)}
-                  className="group relative text-left outline-none cursor-pointer"
-                >
-                  <h3 className={`text-3xl md:text-4xl lg:text-5xl font-light tracking-tight transition-colors duration-500 ${
-                    isActive 
-                      ? 'text-[var(--text-main)]' 
-                      : 'text-[var(--text-main)]/30 hover:text-[var(--text-main)]/60'
-                  }`}>
-                    {cat.label}
-                  </h3>
-                  
-                  <div className={`absolute -bottom-2 left-0 h-[1px] bg-[var(--accent)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                    isActive ? 'w-full' : 'w-0 group-hover:w-1/4'
-                  }`}></div>
-                </button>
-              );
-            })}
-          </nav>
+        {/* FULL-WIDTH TOP BORDER FOR GRID ALIGNMENT */}
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 xl:gap-20 items-start border-t border-[var(--primary-base)]/10 pt-10">
 
-        </div>
+          {/* ==========================================
+              LEFT SIDE: STICKY TYPOGRAPHIC FILTERS
+          ========================================== */}
+          <div className="w-full lg:w-3/12 xl:w-1/4 shrink-0 lg:sticky lg:top-32 flex flex-col mb-8 lg:mb-0">
 
-        {/* ==========================================
-            RIGHT SIDE: CINEMATIC NOTICE LIST
-        ========================================== */}
-        <div ref={listRef} className="w-full lg:w-[70%] flex flex-col border-t border-[var(--primary-base)]/15 relative">
-          {displayNotices.length > 0 ? (
-            displayNotices.map((notice, index) => {
-              
-              const serialNumber = String(index + 1).padStart(2, '0');
-              const isDimmed = hoveredNoticeId !== null && hoveredNoticeId !== notice.id;
+            <span className="font-sans text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-main)]/40 block mb-6">
+              Filter by Category
+            </span>
 
-              return (
-                <article
-                  key={notice.id}
-                  onMouseEnter={() => setHoveredNoticeId(notice.id)}
-                  onMouseLeave={() => setHoveredNoticeId(null)}
-                  className={`nb-row relative group flex flex-col md:flex-row md:items-center justify-between gap-8 md:gap-12 py-12 md:py-16 border-b border-[var(--primary-base)]/15 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                    isDimmed ? 'opacity-20 blur-[2px]' : 'opacity-100 blur-0'
-                  }`}
-                >
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 text-[8rem] md:text-[14rem] font-bold text-[var(--text-main)]/[0.03] select-none pointer-events-none group-hover:scale-110 group-hover:text-[var(--text-main)]/[0.05] transition-all duration-700 ease-out origin-left -z-10">
-                    {serialNumber}
-                  </div>
+            <nav className="flex flex-col gap-2 items-start w-full">
+              {categories.map((cat) => {
+                const isActive = cat.id === activeCategory;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => handleCategoryChange(cat.id)}
+                    className="group relative text-left outline-none w-full py-2.5 transition-all duration-300 flex items-center justify-between"
+                  >
+                    {/* Absolute Bleed Background for Sidebar Filters */}
+                    <div className={`absolute -inset-x-4 md:-inset-x-6 inset-y-0 rounded-md transition-opacity duration-300 -z-10 ${
+                      isActive ? 'bg-[var(--primary-base)]/5 opacity-100' : 'bg-[var(--primary-base)]/5 opacity-0 group-hover:opacity-100'
+                    }`}></div>
 
-                  <div className="relative z-10 flex flex-col md:flex-row md:items-start gap-4 md:gap-12 w-full pr-0 md:pr-8">
-                    
-                    <div className="shrink-0 md:w-32 flex flex-col gap-2 md:pt-2">
-                      <span className="font-mono text-xs md:text-sm tracking-wider text-[var(--primary-base)]/70">
-                        {notice.date}
-                      </span>
-                      {notice.isNew && (
-                        <span className="w-fit px-2 py-0.5 border border-[var(--accent)] text-[var(--accent)] text-[8px] font-bold uppercase tracking-[0.2em] rounded-full">
-                          New Update
-                        </span>
-                      )}
-                    </div>
+                    <h3 className={`text-base md:text-lg font-light tracking-tight transition-colors duration-300 ${
+                      isActive ? 'text-[var(--text-main)]' : 'text-[var(--text-main)]/50 group-hover:text-[var(--text-main)]/80'
+                    }`}>
+                      {cat.label}
+                    </h3>
 
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl leading-[1.2] tracking-tight font-light text-[var(--text-main)] group-hover:translate-x-2 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                      {notice.title}
-                    </h2>
+                    {/* Indicator Dot */}
+                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ml-4 transition-all duration-300 ${
+                      isActive ? 'bg-[var(--accent)] scale-100 opacity-100' : 'bg-transparent scale-50 opacity-0'
+                    }`}></span>
+                  </button>
+                );
+              })}
+            </nav>
 
-                  </div>
+          </div>
 
-                  <div className="relative z-10 shrink-0 md:pl-4 self-start md:self-auto">
-                    <NBDownloadButton />
-                  </div>
+          {/* ==========================================
+              RIGHT SIDE: CINEMATIC NOTICE LIST
+          ========================================== */}
+          <div className="w-full lg:w-9/12 xl:w-3/4 flex flex-col">
+            
+            <span className="font-sans text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-main)]/40 block mb-6">
+              Active Notices
+            </span>
 
-                </article>
-              );
-            })
-          ) : (
-            <div className="py-32 text-center flex flex-col items-center justify-center">
-              <span className="text-6xl md:text-8xl text-[var(--text-main)]/10 mb-6">∅</span>
-              <p className="font-sans text-xl md:text-2xl font-light tracking-tight text-[var(--text-main)]/40">
-                No active records in this category.
-              </p>
+            <div ref={listRef} className="flex flex-col relative min-h-[300px] border-t border-[var(--primary-base)]/10">
+              {displayNotices.length > 0 ? (
+                displayNotices.map((notice, index) => {
+
+                  const serialNumber = String(index + 1).padStart(2, '0');
+                  const isDimmed = hoveredNoticeId !== null && hoveredNoticeId !== notice.id;
+
+                  return (
+                    <article
+                      key={notice.id}
+                      onMouseEnter={() => setHoveredNoticeId(notice.id)}
+                      onMouseLeave={() => setHoveredNoticeId(null)}
+                      // Strict bottom border layout
+                      className={`nb-row relative group flex flex-col md:flex-row md:items-center justify-between gap-8 md:gap-12 py-8 md:py-10 lg:py-14 xl:py-18 2xl:py-24 border-b border-[var(--primary-base)]/10 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                        isDimmed ? 'opacity-30 blur-[1px]' : 'opacity-100 blur-0'
+                      }`}
+                    >
+                      {/* Absolute Bleed Background */}
+                      <div className="absolute -inset-x-4 md:-inset-x-6 inset-y-0 rounded-md transition-opacity duration-300 -z-10 bg-[var(--primary-base)]/5 opacity-0 group-hover:opacity-100 pointer-events-none"></div>
+
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 text-[7rem] md:text-[12rem] font-bold text-[var(--text-main)]/[0.03] select-none pointer-events-none group-hover:scale-110 group-hover:text-[var(--text-main)]/[0.05] transition-all duration-700 ease-out origin-left -z-10">
+                        {serialNumber}
+                      </div>
+
+                      <div className="relative z-10 flex flex-col md:flex-row md:items-start gap-4 md:gap-12 w-full pr-0 md:pr-8">
+
+                        <div className="shrink-0 md:w-32 flex flex-col gap-2 md:pt-2">
+                          <span className="font-mono text-xs md:text-sm tracking-wider text-[var(--primary-base)]/70">
+                            {notice.date}
+                          </span>
+                          {notice.isNew && (
+                            <span className="w-fit px-2 py-0.5 border border-[var(--accent)] text-[var(--accent)] text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em] rounded-full">
+                              New Update
+                            </span>
+                          )}
+                        </div>
+
+                        <h2 className="text-xl md:text-2xl lg:text-3xl leading-[1.2] tracking-tight font-light text-[var(--text-main)] group-hover:translate-x-2 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                          {notice.title}
+                        </h2>
+
+                      </div>
+
+                      <div className="relative z-10 shrink-0 md:pl-4 self-start md:self-auto">
+                        <NBDownloadButton />
+                      </div>
+
+                    </article>
+                  );
+                })
+              ) : (
+                <div className="py-16 md:py-24 text-center flex flex-col items-center justify-center border-b border-[var(--primary-base)]/10">
+                  <span className="text-6xl md:text-8xl text-[var(--text-main)]/10 mb-6">∅</span>
+                  <p className="font-sans text-lg md:text-xl font-light tracking-tight text-[var(--text-main)]/40">
+                    No active records in this category.
+                  </p>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+            
+          </div>
 
+        </div>
       </div>
     </section>
   );

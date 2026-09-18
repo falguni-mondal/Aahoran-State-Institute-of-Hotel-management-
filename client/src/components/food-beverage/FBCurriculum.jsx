@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -6,8 +6,31 @@ import SplitType from 'split-type';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
+/* =========================================
+   RESTAURANT FACILITIES DATA (Tabs)
+========================================= */
+const fbFacilities = [
+  {
+    id: "btr",
+    label: "BTR",
+    title: "Basic Training Restaurant",
+    desc: "The Basic Training Restaurant serves as the foundational ground where students learn the core principles of food and beverage service. Here, they master the art of table laying, napkin folding, carrying salvers, clearing techniques, and basic service sequences. This simulated environment builds confidence and instills the essential etiquette required for professional hospitality service."
+  },
+  {
+    id: "atr",
+    label: "ATR",
+    title: "Advance Training Restaurant",
+    desc: "The Advance Training Restaurant is a sophisticated space designed to simulate fine dining and specialty restaurant operations. Senior students practice complex service techniques such as gueridon (flambé) service, silver service, wine decanting, and elaborate banquet setups. This environment bridges the gap between foundational skills and high-end luxury hospitality demands."
+  }
+];
+
 export default function FBCurriculum() {
   const containerRef = useRef(null);
+  const tabContentRef = useRef(null);
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const activeTab = fbFacilities[activeTabIndex];
+
+  const { contextSafe } = useGSAP({ scope: containerRef });
 
   useGSAP(() => {
     let mm = gsap.matchMedia();
@@ -78,6 +101,28 @@ export default function FBCurriculum() {
     return () => mm.revert();
   }, { scope: containerRef });
 
+  // Tab Switching Animation
+  const handleTabChange = contextSafe((index) => {
+    if (index === activeTabIndex) return;
+    
+    // Animate out current content
+    gsap.to(tabContentRef.current, {
+      opacity: 0,
+      y: -10,
+      duration: 0.3,
+      ease: "power2.in",
+      onComplete: () => {
+        setActiveTabIndex(index);
+        
+        // Animate in new content
+        gsap.fromTo(tabContentRef.current,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+        );
+      }
+    });
+  });
+
   return (
     <section ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] py-20 md:py-32 lg:py-40 xl:py-48 overflow-hidden relative border-t border-[var(--primary-base)]/10">
       
@@ -97,14 +142,12 @@ export default function FBCurriculum() {
                 className="img-parallax w-full h-[120%] object-cover -translate-y-[10%] will-change-transform"
               />
             </div>
-            {/* Number 01 removed from here to prevent dark image overlap */}
           </div>
 
           {/* Right: Spacious Text Block */}
-          {/* Added relative and z-10 so the watermark sits perfectly behind this content */}
           <div className="w-full lg:w-5/12 flex flex-col pt-8 lg:pt-0 relative z-10">
             
-            {/* Fixed Position: Watermarked behind the text on the solid light background */}
+            {/* Fixed Position Watermark */}
             <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--text-main)]/5 select-none pointer-events-none tracking-tighter -z-10">
               01
             </span>
@@ -128,11 +171,10 @@ export default function FBCurriculum() {
         ======================================= */}
         <div className="flex flex-col-reverse lg:flex-row items-start justify-between gap-12 lg:gap-20 xl:gap-24">
           
-          {/* Left: Split Column Text Layout (Magazine Style) */}
-          {/* Added relative and z-10 so the watermark sits perfectly behind this content */}
+          {/* Left: Content Layout */}
           <div className="w-full lg:w-7/12 flex flex-col pt-8 lg:pt-0 relative z-10">
             
-            {/* Fixed Position: Watermarked behind the text on the solid light background */}
+            {/* Fixed Position Watermark */}
             <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--text-main)]/5 select-none pointer-events-none tracking-tighter -z-10">
               02
             </span>
@@ -145,17 +187,61 @@ export default function FBCurriculum() {
               Course Details
             </h2>
             
-            <div className="text-reveal grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 relative">
+            <div className="text-reveal flex flex-col relative">
               
-              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
-                Origin and manufacturing of various types of alcoholic beverage (beers, wines, spirits, liqueurs, cocktails, etc.) form a large part of the syllabus. The students are also imparted with the skills of serving the drinks and making the cocktails. This department also deals with the intricate techniques of Food & Beverage Control and Management so that the students develop the capacity to successfully operate and manage a food outlet and also earn a profit for the organization.
-              </p>
-              
-              <div className="hidden md:block absolute top-0 left-1/2 w-[1px] h-full bg-[var(--primary-base)]/10 -translate-x-1/2"></div>
-              
-              <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify md:text-left">
-                Cost control, budgetary implications, inventory management, purchase systems, etc. are integral components of the syllabi. The department manages a bar-cum-restaurant of more than 2000 sq. ft. which is well-equipped with a large inventory of various tools and equipment.
-              </p>
+              {/* 2-Column Text Layout */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 relative mb-12">
+                <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
+                  Origin and manufacturing of various types of alcoholic beverage (beers, wines, spirits, liqueurs, cocktails, etc.) form a large part of the syllabus. The students are also imparted with the skills of serving the drinks and making the cocktails. This department also deals with the intricate techniques of Food & Beverage Control and Management so that the students develop the capacity to successfully operate and manage a food outlet and also earn a profit for the organization.
+                </p>
+                
+                <div className="hidden md:block absolute top-0 left-1/2 w-[1px] h-full bg-[var(--primary-base)]/10 -translate-x-1/2"></div>
+                
+                <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
+                  Cost control, budgetary implications, inventory management, purchase systems, etc. are integral components of the syllabi. The department manages a bar-cum-restaurant of more than 2000 sq. ft. which is well-equipped with a large inventory of various tools and equipment.
+                </p>
+              </div>
+
+              {/* INTERACTIVE TAB NAV */}
+              <div className="tabs-container flex flex-col gap-3 mb-8 border-b border-[var(--primary-base)]/10 pb-6 mt-4">
+                <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-main)]/40">
+                  Explore Facilities
+                </span>
+                
+                <div className="flex flex-wrap items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar pb-2">
+                  {fbFacilities.map((tab, idx) => {
+                    const isActive = activeTabIndex === idx;
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => handleTabChange(idx)}
+                        className="group relative outline-none flex items-center py-2 cursor-pointer shrink-0"
+                      >
+                        <span className={`text-lg md:text-xl lg:text-2xl font-light tracking-tight transition-colors duration-500 ${
+                          isActive ? 'text-[var(--text-main)]' : 'text-[var(--text-main)]/40 hover:text-[var(--text-main)]/70'
+                        }`}>
+                          [ {tab.label} ]
+                        </span>
+                        
+                        {/* Animated Orange Underline */}
+                        {isActive && (
+                          <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--accent)]"></span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* TAB CONTENT PANEL */}
+              <div ref={tabContentRef} className="flex flex-col min-h-[150px]">
+                <h3 className="font-sans text-xl md:text-2xl font-semibold text-[var(--text-main)] mb-3">
+                  {activeTab.title}
+                </h3>
+                <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
+                  {activeTab.desc}
+                </p>
+              </div>
               
             </div>
           </div>
@@ -169,7 +255,6 @@ export default function FBCurriculum() {
                 className="img-parallax w-full h-[120%] object-cover -translate-y-[10%] will-change-transform"
               />
             </div>
-            {/* Number 02 removed from here to prevent dark image overlap */}
           </div>
 
         </div>
