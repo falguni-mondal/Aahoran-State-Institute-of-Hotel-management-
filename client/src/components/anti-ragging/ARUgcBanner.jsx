@@ -7,7 +7,6 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function ARUgcBanner() {
   const sectionRef = useRef(null);
-  const btnRef = useRef(null);
 
   // Elegant reveal: Borders expand, then text fades up
   useGSAP(
@@ -39,19 +38,32 @@ export default function ARUgcBanner() {
     { scope: sectionRef },
   );
 
-  // GSAP Hover Animation for the CTA Button (Strictly only the text slide)
-  const { contextSafe } = useGSAP({ scope: btnRef });
-  const handleMouseEnter = contextSafe(() => {
-    gsap.to(".cta-text-main", {
+  // GSAP Hover Animation dynamically scoped to the hovered button
+  const { contextSafe } = useGSAP({ scope: sectionRef });
+  
+  const handleMouseEnter = contextSafe((e) => {
+    // Find the text elements ONLY inside the button currently being hovered
+    const btn = e.currentTarget;
+    gsap.to(btn.querySelector(".cta-text-main"), {
       y: "-110%",
       duration: 0.6,
       ease: "expo.inOut",
     });
-    gsap.to(".cta-text-hover", { y: "0%", duration: 0.6, ease: "expo.inOut" });
+    gsap.to(btn.querySelector(".cta-text-hover"), { 
+      y: "0%", 
+      duration: 0.6, 
+      ease: "expo.inOut" 
+    });
   });
-  const handleMouseLeave = contextSafe(() => {
-    gsap.to(".cta-text-main", { y: "0%", duration: 0.6, ease: "expo.inOut" });
-    gsap.to(".cta-text-hover", {
+
+  const handleMouseLeave = contextSafe((e) => {
+    const btn = e.currentTarget;
+    gsap.to(btn.querySelector(".cta-text-main"), { 
+      y: "0%", 
+      duration: 0.6, 
+      ease: "expo.inOut" 
+    });
+    gsap.to(btn.querySelector(".cta-text-hover"), {
       y: "110%",
       duration: 0.6,
       ease: "expo.inOut",
@@ -86,14 +98,15 @@ export default function ARUgcBanner() {
             University Grants Commission (UGC) of India.
           </p>
 
-          {/* External Link Button - NO color transitions, ONLY text slide */}
-          <div className="flex gap-5">
+          {/* External Link Buttons */}
+          <div className="flex flex-wrap gap-5">
+            
+            {/* BUTTON 1: UGC Portal */}
             <div className="ugc-reveal w-fit">
               <a
                 href="https://www.ugc.gov.in/Bureaus/bureaus_details?EwV4Rtmy2xJ7nuhP3MYqbpwm5MTBRSa5u2ipRdltuUxMTUu1gSiipessUFP0rnrG"
                 target="_blank"
                 rel="noopener noreferrer"
-                ref={btnRef}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 className="bg-[var(--accent)] text-[var(--text-light)] font-semibold text-xs md:text-sm uppercase tracking-[0.15em] cursor-pointer flex items-stretch h-14 md:h-16 w-fit shadow-lg"
@@ -131,12 +144,12 @@ export default function ARUgcBanner() {
               </a>
             </div>
 
+            {/* BUTTON 2: Anti Ragging Portal */}
             <div className="ugc-reveal w-fit">
               <a
                 href="https://www.antiragging.in/"
                 target="_blank"
                 rel="noopener noreferrer"
-                ref={btnRef}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 className="bg-[var(--accent)] text-[var(--text-light)] font-semibold text-xs md:text-sm uppercase tracking-[0.15em] cursor-pointer flex items-stretch h-14 md:h-16 w-fit shadow-lg"
@@ -173,6 +186,7 @@ export default function ARUgcBanner() {
                 </div>
               </a>
             </div>
+
           </div>
         </div>
       </div>

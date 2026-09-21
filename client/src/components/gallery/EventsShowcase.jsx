@@ -2,34 +2,35 @@ import React, { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import GalleryLightbox from './GalleryLightbox'; // Reusing our bulletproof lightbox!
+import GalleryLightbox from './GalleryLightbox'; 
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /* =========================================
-   MOCK DATA: EVENT CATEGORIES & IMAGES
+   MOCK DATA: EVENT CATEGORIES (With Year & Month)
 ========================================= */
 const eventCategories = [
-  { id: 'culinary', label: 'Culinary Training Program For Army Mess Cooks' },
-  { id: 'sports', label: 'Sports Day' },
-  { id: 'quiz', label: 'All India School Level Quiz Competition' },
-  { id: 'award', label: 'Award and Recognition' },
-  { id: 'expert', label: 'Expert Session' },
-  { id: 'independence', label: 'Independence Day Celebrations 2018' },
-  { id: 'tourism', label: 'World Tourism Day' },
+  { id: 'culinary', title: 'Culinary Training Program For Army Mess Cooks', month: 'September', year: '2026' },
+  { id: 'award', title: 'Award and Recognition Ceremony', month: 'May', year: '2026' },
+  { id: 'expert', title: 'Expert Guest Session', month: 'November', year: '2025' },
+  { id: 'sports', title: 'Annual Sports Day', month: 'February', year: '2025' },
+  { id: 'quiz', title: 'All India School Level Quiz Competition', month: 'December', year: '2024' },
+  { id: 'tourism', title: 'World Tourism Day', month: 'September', year: '2023' },
+  { id: 'independence', title: 'Independence Day Celebrations', month: 'August', year: '2018' },
 ];
 
 const aspects = ['vertical', 'horizontal', 'square'];
 const getAspect = (index) => aspects[index % aspects.length];
 
+// Generating dummy image objects for each event
 const eventsData = {
   culinary: Array.from({ length: 5 }).map((_, i) => ({ id: `culinary-${i}`, url: `/events/culinary_${i + 1}.webp`, alt: 'Army Mess Cooks Training', aspect: getAspect(i) })),
-  sports: Array.from({ length: 4 }).map((_, i) => ({ id: `sports-${i}`, url: `/events/sports_${i + 1}.webp`, alt: 'Sports Day Event', aspect: getAspect(i + 1) })),
-  quiz: Array.from({ length: 5 }).map((_, i) => ({ id: `quiz-${i}`, url: `/events/quiz_${i + 1}.webp`, alt: 'All India Quiz Competition', aspect: getAspect(i + 2) })),
   award: Array.from({ length: 4 }).map((_, i) => ({ id: `award-${i}`, url: `/events/award_${i + 1}.webp`, alt: 'Award and Recognition Ceremony', aspect: getAspect(i) })),
   expert: Array.from({ length: 4 }).map((_, i) => ({ id: `expert-${i}`, url: `/events/expert_${i + 1}.webp`, alt: 'Expert Guest Session', aspect: getAspect(i + 1) })),
-  independence: Array.from({ length: 5 }).map((_, i) => ({ id: `ind-${i}`, url: `/events/independence_${i + 1}.webp`, alt: 'Independence Day 2018', aspect: getAspect(i + 2) })),
+  sports: Array.from({ length: 4 }).map((_, i) => ({ id: `sports-${i}`, url: `/events/sports_${i + 1}.webp`, alt: 'Sports Day Event', aspect: getAspect(i + 1) })),
+  quiz: Array.from({ length: 5 }).map((_, i) => ({ id: `quiz-${i}`, url: `/events/quiz_${i + 1}.webp`, alt: 'All India Quiz Competition', aspect: getAspect(i + 2) })),
   tourism: Array.from({ length: 4 }).map((_, i) => ({ id: `tourism-${i}`, url: `/events/tourism_${i + 1}.webp`, alt: 'World Tourism Day', aspect: getAspect(i) })),
+  independence: Array.from({ length: 5 }).map((_, i) => ({ id: `ind-${i}`, url: `/events/independence_${i + 1}.webp`, alt: 'Independence Day 2018', aspect: getAspect(i + 2) })),
 };
 
 export default function EventsShowcase() {
@@ -116,38 +117,37 @@ export default function EventsShowcase() {
       
       {/* 
           SINGLE GLOBAL CURSOR 
-          Because we aren't using transforms to shift massive wrappers anymore, 
-          this position: fixed element will remain perfectly stable.
       */}
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-[80px] h-[80px] bg-[var(--accent)] text-[var(--text-main)] rounded-full flex items-center justify-center font-sans text-[10px] font-bold tracking-[0.2em] pointer-events-none z-[100] scale-0 opacity-0 mix-blend-difference"
+        className="fixed top-0 left-0 w-[80px] h-[80px] bg-[var(--accent)] text-[var(--text-light)] rounded-full flex items-center justify-center font-sans text-[10px] font-bold tracking-[0.2em] pointer-events-none z-[100] scale-0 opacity-0"
         style={{ transformOrigin: 'center center' }}
       >
         VIEW
       </div>
 
-      <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
+      <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 pt-16">
         
         {eventCategories.map((category, index) => {
-          const serialNumber = String(index + 1).padStart(2, '0');
           const images = eventsData[category.id] || [];
 
           return (
             <div 
               key={category.id} 
-              className="flex flex-col lg:flex-row items-start gap-12 lg:gap-24 py-16 md:py-24 border-t border-[var(--primary-base)]/15 first:border-t-0"
+              className={`flex flex-col lg:flex-row items-start gap-12 lg:gap-24 py-16 md:py-24 ${index !== 0 ? 'border-t border-[var(--primary-base)]/15' : ''}`}
             >
               
               {/* ==========================================
                   LEFT: STICKY EVENT TYPOGRAPHY
               ========================================== */}
-              <div className="w-full lg:w-[35%] shrink-0 lg:sticky lg:top-32 flex flex-col gap-6">
+              <div className="w-full lg:w-[35%] shrink-0 lg:sticky lg:top-32 flex flex-col gap-6 pt-2">
+                {/* Replaced Exhibition Header with Date Header */}
                 <span className="font-sans text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)]">
-                  Exhibition No. {serialNumber}
+                  {category.month} {category.year}
                 </span>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight leading-[1.1] text-[var(--text-main)]">
-                  {category.label}
+                
+                <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light tracking-tight leading-[1.1] text-[var(--text-main)] pr-8">
+                  {category.title}
                 </h2>
               </div>
 
@@ -155,7 +155,7 @@ export default function EventsShowcase() {
                   RIGHT: MASONRY EVENT GALLERY
               ========================================== */}
               <div className="w-full lg:w-[65%]">
-                {/* We use standard CSS columns instead of Flex/Grid for true masonry without Javascript calculations */}
+                {/* True CSS masonry without Javascript calculations */}
                 <div className="columns-1 md:columns-2 gap-5 md:gap-8 w-full">
                   {images.map((img) => (
                     <div 

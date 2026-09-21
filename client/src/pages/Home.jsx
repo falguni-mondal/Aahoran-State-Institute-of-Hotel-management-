@@ -11,6 +11,7 @@ import Placements2 from "../components/home/Placements2";
 import Placements3 from "../components/home/Placements3";
 import Placements4 from "../components/home/Placements4";
 import Markers from "../components/home/Markers";
+import MapPointing from "../components/home/MapPointing";
 
 const Home = () => {
   return (
@@ -27,6 +28,7 @@ const Home = () => {
       <Placements3 /> */}
       {/* <Placements4 /> */}
       <Partners />
+      {/* <MapPointing /> */}
     </div>
   );
 };

@@ -77,7 +77,8 @@ const navLinks = [
     subLinks: [
       { name: 'Our Campus', path: '/our-campus' },
       { name: 'Inaugural Programme', path: '/inaugural-programme' },
-      { name: 'Freshers Welcome', path: '/freshers-welcome' },
+      { name: "Nabayon (Fresher's Welcome)", path: '/freshers-welcome' },
+      { name: "Anujñā (Farewell)", path: '/farewell' },
       { name: 'Programme and Events', path: '/programme-and-events' },
     ]
   },

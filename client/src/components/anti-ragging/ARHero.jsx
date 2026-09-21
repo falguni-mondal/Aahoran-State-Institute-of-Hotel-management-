@@ -78,12 +78,12 @@ export default function ARHero() {
         {/* Massive Manifesto Text */}
         <div className="flex flex-col items-center pb-2 md:pb-4">
           <div className="overflow-hidden w-full flex justify-center pb-2 md:pb-4">
-            <h1 className="hero-manifesto-text head-txt text-[18vw] md:text-[14vw] lg:text-[10rem] xl:text-[12rem] 2xl:text-[14rem] tracking-[0.05em] text-[var(--text-main)] uppercase leading-[0.85] w-full text-center">
+            <h1 className="hero-manifesto-text head-txt text-[14vw] md:text-[14vw] lg:text-[10rem] xl:text-[12rem] 2xl:text-[14rem] tracking-[0.05em] text-[var(--text-main)] uppercase leading-[0.85] w-full text-center">
               ZERO
             </h1>
           </div>
           <div className="overflow-hidden w-full flex justify-center pb-2 md:pb-4">
-            <h1 className="hero-manifesto-text head-txt text-[18vw] md:text-[14vw] lg:text-[10rem] xl:text-[12rem] 2xl:text-[14rem] tracking-[0.05em] text-[var(--text-main)] uppercase leading-[0.85] w-full text-center">
+            <h1 className="hero-manifesto-text head-txt text-[14vw] md:text-[14vw] lg:text-[10rem] xl:text-[12rem] 2xl:text-[14rem] tracking-[0.05em] text-[var(--text-main)] uppercase leading-[0.85] w-full text-center">
               TOLERANCE
             </h1>
           </div>

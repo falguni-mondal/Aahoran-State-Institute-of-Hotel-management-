@@ -4,6 +4,7 @@ import ARPromise from '../components/anti-ragging/ARPromise';
 import ARUgcBanner from '../components/anti-ragging/ARUgcBanner';
 import ARContent from '../components/anti-ragging/ARContent';
 import ARGallery from '../components/anti-ragging/ARGallery';
+import ARPostersGallery from '../components/anti-ragging/ARPostersGallery';
 
 export default function AntiRagging() {
 
@@ -22,7 +23,8 @@ export default function AntiRagging() {
       <ARContent />
 
       {/* The Horizontal Documentary Filmstrip Gallery */}
-      <ARGallery />
+      {/* <ARGallery /> */}
+      <ARPostersGallery />
       
     </main>
   );

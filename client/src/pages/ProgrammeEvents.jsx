@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import GalleryHero from '../components/gallery/GalleryHero';
 import EventsShowcase from '../components/gallery/EventsShowcase';
 
 export default function ProgrammeEvents() {
-
   return (
     <main className="w-full bg-[var(--background)] min-h-screen selection:bg-[var(--accent)] selection:text-[var(--primary-base)]">
       
@@ -13,7 +12,7 @@ export default function ProgrammeEvents() {
         bgImage="/programme-and-events.webp" 
       />
 
-      {/* The new Continuous Scroll Exhibition Engine */}
+      {/* The updated Continuous Scroll Event Engine */}
       <EventsShowcase />
       
     </main>

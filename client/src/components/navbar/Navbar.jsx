@@ -76,7 +76,8 @@ const navLinks = [
     subLinks: [
       { name: 'Our Campus', path: '/our-campus' },
       { name: 'Inaugural Programme', path: '/inaugural-programme' },
-      { name: 'Freshers Welcome', path: '/freshers-welcome' },
+      { name: "Nabayon (Fresher's Welcome)", path: '/freshers-welcome' },
+      { name: "Anujñā (Farewell)", path: '/farewell' },
       { name: 'Programme and Events', path: '/programme-and-events' },
     ]
   },
@@ -90,7 +91,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Dynamic Theme Logic
-  const lightHeroRoutes = ['/about/rules', '/short-term-courses', '/ug-program', '/hunar-se-rozgar', '/syllabus', '/study-material', '/anti-ragging', '/placement', '/contact']; 
+  const lightHeroRoutes = ['/about/rules', '/short-term-courses', '/ug-program', '/hunar-se-rozgar', '/syllabus', '/study-material', '/anti-ragging', '/placement', '/contact', '']; 
   const isLightHero = lightHeroRoutes.includes(location.pathname);
   
   // LOGIC FIX: Because the navbar background becomes white on scroll (or when the mobile menu is open), 

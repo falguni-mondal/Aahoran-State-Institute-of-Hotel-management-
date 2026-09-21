@@ -119,7 +119,7 @@ export default function GalleryGrid({ images }) {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative w-full bg-[var(--background)] z-20 py-16 md:py-24 lg:py-32 cursor-default">
+    <section ref={containerRef} className="relative w-full bg-[var(--background)] z-20 cursor-default">
       
       {/* 
           CUSTOM "VIEW" CURSOR 

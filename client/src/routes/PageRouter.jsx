@@ -23,6 +23,7 @@ import InauguralProgramme from "../pages/InauguralProgramme";
 import FreshersWelcome from "../pages/FreshersWelcome";
 import ProgrammeEvents from "../pages/ProgrammeEvents";
 import Contact from "../pages/Contact";
+import Farewell from "../pages/Farewell";
 
 const PageRouter = () => {
   return (
@@ -70,6 +71,7 @@ const PageRouter = () => {
       <Route path="/our-campus" element={<OurCampus />} />
       <Route path="/inaugural-programme" element={<InauguralProgramme />} />
       <Route path="/freshers-welcome" element={<FreshersWelcome />} />
+      <Route path="/farewell" element={<Farewell />} />
       <Route path="/programme-and-events" element={<ProgrammeEvents />} />
 
 
