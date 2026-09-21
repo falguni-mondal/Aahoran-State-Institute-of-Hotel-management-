@@ -24,6 +24,7 @@ import FreshersWelcome from "../pages/FreshersWelcome";
 import ProgrammeEvents from "../pages/ProgrammeEvents";
 import Contact from "../pages/Contact";
 import Farewell from "../pages/Farewell";
+import DepartmentOverview from "../pages/DepartmentOverview";
 
 const PageRouter = () => {
   return (
@@ -43,6 +44,7 @@ const PageRouter = () => {
       <Route path="/food-production" element={<FoodProduction />} />
       <Route path="/front-office" element={<FrontOffice />} />
       <Route path="/house-keeping" element={<HouseKeeping />} />
+      <Route path="/department-overview" element={<DepartmentOverview />} />
 
 
       {/* ACADEMIC ROUTES */}

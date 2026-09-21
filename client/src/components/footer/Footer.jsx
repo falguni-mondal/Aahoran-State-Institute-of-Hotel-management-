@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,40 +13,40 @@ const footerNav = [
   {
     title: "Academics & Departments",
     links: [
-      { name: "Departments Overview", url: "#", isNew: false },
-      { name: "Full Term Courses", url: "#", isNew: false },
-      { name: "Short Term Courses", url: "#", isNew: false },
-      { name: "Hunar Se Rozgar Tak", url: "#", isNew: false },
-      { name: "Our Mentors", url: "#", isNew: false },
+      { name: "Departments Overview", url: "/department-overview", isNew: false },
+      { name: "Full Term Courses", url: "/ug-program", isNew: false },
+      { name: "Short Term Courses", url: "/short-term-courses", isNew: false },
+      { name: "Hunar Se Rozgar Tak", url: "#", isNew: false }, // Placeholder retained
+      { name: "Our Mentors", url: "/about#faculty", isNew: false },
     ],
   },
   {
     title: "Campus & Outcomes",
     links: [
-      { name: "Placement", url: "#", isNew: false },
-      { name: "Campus Facilities", url: "#", isNew: false },
+      { name: "Placement", url: "/placement", isNew: false },
+      { name: "Campus Facilities", url: "/campus-facilities", isNew: false },
       { name: "Alumni Network", url: "#", isNew: false },
-      { name: "Gallery & Events", url: "#", isNew: false },
-      { name: "Scholarship", url: "#", isNew: false },
+      { name: "Gallery & Events", url: "/programme-and-events", isNew: false },
+      // { name: "Anti Ragging", url: "/anti-ragging", isNew: false },
     ],
   },
   {
     title: "Quick Links",
     links: [
-      { name: "Notice Board", url: "#", isNew: false },
-      { name: "Results", url: "#", isNew: true },
-      { name: "Syllabus", url: "#", isNew: true },
-      { name: "Study Material", url: "#", isNew: false },
-      { name: "Contact Us", url: "#", isNew: false },
+      { name: "Notice Board", url: "/notice-board", isNew: false },
+      { name: "Results", url: "/results", isNew: true },
+      { name: "Syllabus", url: "/syllabus", isNew: true },
+      { name: "Study Material", url: "/study-material", isNew: false },
+      { name: "Contact Us", url: "/contact", isNew: false },
     ],
   },
 ];
 
 const statutoryLinks = [
-  { name: "Rules & Regulations", url: "#" },
-  { name: "Anti Ragging Policy", url: "#" },
-  { name: "NCHMCT", url: "#" },
-  { name: "JNU", url: "#" },
+  { name: "Rules & Regulations", url: "/about/rules" },
+  { name: "Anti Ragging Policy", url: "/anti-ragging" },
+  { name: "NCHMCT", url: "https://nchm.gov.in/" },
+  { name: "JNU", url: "https://www.jnu.ac.in/" },
 ];
 
 export default function Footer() {
@@ -146,9 +147,7 @@ export default function Footer() {
       ref={footerRef}
       className="w-full bg-[#f2f2f4] text-[var(--text-main)] relative z-20 overflow-hidden border-t border-[var(--primary-base)]/15 pt-20 md:pt-28 pb-8"
     >
-      {/* 
-          The Animated SVG Watermark
-      */}
+      {/* The Animated SVG Watermark */}
       <div className="absolute top-10 right-5 md:top-16 md:right-16 opacity-5 pointer-events-none z-0">
         <svg 
           ref={svgRef} 
@@ -173,7 +172,6 @@ export default function Footer() {
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 mx-auto max-w-[1800px] relative z-10">
         
         {/* ================= MAIN GRID ================= */}
-        {/* Increased gap from lg:gap-8 to lg:gap-16 xl:gap-24 to force a large divider space */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 mb-20 lg:mb-28">
           
           {/* COLUMN 1: Brand & Contact */}
@@ -189,7 +187,6 @@ export default function Footer() {
               <img 
                 src="/logos/wb_tourism_logo.webp" 
                 alt="West Bengal Tourism Logo" 
-                // Scaled height down to h-10/h-12 and added a strict max-width so it never blows out the grid
                 className="w-auto h-8 md:h-12 max-w-[160px] object-contain shrink-0"
               />
             </div>
@@ -265,37 +262,47 @@ export default function Footer() {
                     {col.title}
                   </span>
                   <ul className="flex flex-col gap-4">
-                    {col.links.map((link, linkIdx) => (
-                      <li key={linkIdx} className="footer-reveal-item">
-                        <a href={link.url} className="gsap-hover-link flex items-center w-fit cursor-pointer">
-                          
-                          <div className="relative overflow-hidden flex flex-col h-[1.4em]">
-                            <span className="hover-text-top text-sm md:text-[15px] text-[var(--text-main)]/80 font-medium h-full flex items-center">
-                              {link.name}
-                            </span>
-                            <span className="hover-text-bottom text-sm md:text-[15px] text-[var(--accent)] font-medium h-full flex items-center">
-                              {link.name}
-                            </span>
-                          </div>
+                    {col.links.map((link, linkIdx) => {
+                      
+                      // Routing Logic
+                      const isExternal = link.url.startsWith('http') || link.url === '#';
+                      const LinkComponent = isExternal ? 'a' : Link;
+                      const linkProps = isExternal 
+                        ? { href: link.url, ...(link.url !== '#' && { target: "_blank", rel: "noopener noreferrer" }) } 
+                        : { to: link.url };
 
-                          {/* Dynamic NEW Badge */}
-                          {link.isNew && (
-                            <div className="ml-3 relative flex h-4 items-center justify-center">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-40"></span>
-                              <span className="relative inline-flex rounded-sm px-1.5 py-[2px] bg-[var(--accent)] text-[var(--background)] text-[8px] font-bold uppercase tracking-wider">
-                                New
+                      return (
+                        <li key={linkIdx} className="footer-reveal-item">
+                          <LinkComponent {...linkProps} className="gsap-hover-link flex items-center w-fit cursor-pointer">
+                            
+                            <div className="relative overflow-hidden flex flex-col h-[1.4em]">
+                              <span className="hover-text-top text-sm md:text-[15px] text-[var(--text-main)]/80 font-medium h-full flex items-center">
+                                {link.name}
+                              </span>
+                              <span className="hover-text-bottom text-sm md:text-[15px] text-[var(--accent)] font-medium h-full flex items-center">
+                                {link.name}
                               </span>
                             </div>
-                          )}
-                        </a>
-                      </li>
-                    ))}
+
+                            {/* Dynamic NEW Badge */}
+                            {link.isNew && (
+                              <div className="ml-3 relative flex h-4 items-center justify-center">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-40"></span>
+                                <span className="relative inline-flex rounded-sm px-1.5 py-[2px] bg-[var(--accent)] text-[var(--background)] text-[8px] font-bold uppercase tracking-wider">
+                                  New
+                                </span>
+                              </div>
+                            )}
+                          </LinkComponent>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               ))}
             </div>
 
-            {/* SOCIAL MEDIA ICONS (Anchored to bottom right of links grid) */}
+            {/* SOCIAL MEDIA ICONS */}
             <div className="flex items-center lg:justify-end gap-4 mt-16 lg:mt-auto footer-reveal-item">
               <a href="#" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-[var(--primary-base)]/20 flex items-center justify-center group hover:bg-[var(--accent)] hover:border-[var(--accent)] transition-all duration-300">
                 <svg className="w-4 h-4 text-[var(--text-main)]/70 group-hover:text-[var(--background)] transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -328,20 +335,30 @@ export default function Footer() {
           
           {/* Statutory Links */}
           <ul className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
-            {statutoryLinks.map((link, idx) => (
-              <li key={idx} className="flex items-center footer-bottom-item">
-                <a href={link.url} className="gsap-hover-link flex items-center w-fit cursor-pointer">
-                  <div className="relative overflow-hidden flex flex-col h-[1.2em]">
-                    <span className="hover-text-top font-medium text-[10px] xl:text-[11px] uppercase tracking-[0.1em] text-[var(--text-main)]/50 h-full flex items-center">
-                      {link.name}
-                    </span>
-                    <span className="hover-text-bottom font-medium text-[10px] xl:text-[11px] uppercase tracking-[0.1em] text-[var(--accent)] h-full flex items-center">
-                      {link.name}
-                    </span>
-                  </div>
-                </a>
-              </li>
-            ))}
+            {statutoryLinks.map((link, idx) => {
+              
+              // Routing Logic
+              const isExternal = link.url.startsWith('http') || link.url === '#';
+              const LinkComponent = isExternal ? 'a' : Link;
+              const linkProps = isExternal 
+                ? { href: link.url, ...(link.url !== '#' && { target: "_blank", rel: "noopener noreferrer" }) } 
+                : { to: link.url };
+
+              return (
+                <li key={idx} className="flex items-center footer-bottom-item">
+                  <LinkComponent {...linkProps} className="gsap-hover-link flex items-center w-fit cursor-pointer">
+                    <div className="relative overflow-hidden flex flex-col h-[1.2em]">
+                      <span className="hover-text-top font-medium text-[10px] xl:text-[11px] uppercase tracking-[0.1em] text-[var(--text-main)]/50 h-full flex items-center">
+                        {link.name}
+                      </span>
+                      <span className="hover-text-bottom font-medium text-[10px] xl:text-[11px] uppercase tracking-[0.1em] text-[var(--accent)] h-full flex items-center">
+                        {link.name}
+                      </span>
+                    </div>
+                  </LinkComponent>
+                </li>
+              );
+            })}
           </ul>
 
           {/* Copyright */}

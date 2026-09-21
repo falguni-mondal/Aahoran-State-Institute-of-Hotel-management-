@@ -1,14 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
+import { useLenis } from 'lenis/react';
 import FacultyModal from './FacultyModal';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /* =========================================
-   FACULTY DATA (Added placeholder achievements)
+   FACULTY DATA 
 ========================================= */
 const facultyData = [
   { name: "Dr. Santanu Dasgupta", role: "Principal", image: "/nchmct-bg.webp", achievements: ["Ph.D. in Hospitality Administration", "25+ Years of Academic Leadership", "Published 15+ Research Papers"] },
@@ -24,12 +26,33 @@ const facultyData = [
 
 export default function AboutFaculty() {
   const sectionRef = useRef(null);
+  const location = useLocation();
+  const lenis = useLenis();
   
   // States for the Continuous FLIP Modal
   const [selectedFaculty, setSelectedFaculty] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Grab the exact screen coordinates of the clicked image
+  // ==========================================
+  // CROSS-PAGE HASH ROUTING FIX 
+  // ==========================================
+  useEffect(() => {
+    // If the URL has #faculty and Lenis is initialized
+    if (location.hash === '#faculty' && lenis) {
+      // 500ms delay ensures GSAP has finished painting the DOM and calculating heights
+      const timer = setTimeout(() => {
+        lenis.scrollTo('#faculty', { 
+          offset: -80, // Adjust this offset if your navbar covers the heading
+          duration: 1.5, 
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
+        });
+      }, 500); 
+
+      return () => clearTimeout(timer);
+    }
+  }, [location.hash, lenis]);
+
+  // Grab the exact screen coordinates of the clicked image for the modal animation
   const handleCardClick = (e, faculty) => {
     const rect = e.currentTarget.querySelector('.faculty-img-mask').getBoundingClientRect();
     setSelectedFaculty({ ...faculty, originRect: rect });
@@ -84,7 +107,10 @@ export default function AboutFaculty() {
       );
     });
 
-    return () => { mm.revert(); splitInstances.forEach(instance => instance.revert()); };
+    return () => { 
+      mm.revert(); 
+      splitInstances.forEach(instance => instance.revert()); 
+    };
   }, { scope: sectionRef });
 
   return (
@@ -95,7 +121,7 @@ export default function AboutFaculty() {
         isOpen={isModalOpen} 
         faculty={selectedFaculty} 
         onClose={() => setIsModalOpen(false)} 
-        onExited={() => setSelectedFaculty(null)} // Wipes state only AFTER close animation finishes
+        onExited={() => setSelectedFaculty(null)} 
       />
 
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1800px]">
@@ -139,7 +165,6 @@ export default function AboutFaculty() {
                   <img 
                     src={faculty.image} 
                     alt={faculty.name} 
-                    // When the modal opens, this original image turns invisible so it looks like it "left" the card!
                     className={`faculty-img w-full h-full object-cover grayscale transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:grayscale-0 group-hover:scale-105 will-change-transform ${isCurrentlyOpen ? 'opacity-0' : 'opacity-90 group-hover:opacity-100'}`}
                   />
                   <div className="absolute inset-0 shadow-[inset_0_0_30px_rgba(0,0,0,0.05)] pointer-events-none transition-opacity duration-500 group-hover:opacity-0"></div>
