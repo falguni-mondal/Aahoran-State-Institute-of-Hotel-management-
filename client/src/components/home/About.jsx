@@ -8,70 +8,6 @@ import { Link } from "react-router-dom";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /* =========================================
-   CUSTOM COMPONENT: Diagonal Wave Scrub Text
-========================================= */
-const ScrubText = ({ text, className }) => {
-  const containerRef = useRef(null);
-
-  useGSAP(() => {
-    const chars = containerRef.current.querySelectorAll('.scrub-char');
-    if (!chars.length) return;
-
-    // Dynamically group characters into lines based on their vertical position
-    const lines = [];
-    let currentLine = [];
-    let lastTop = chars[0].offsetTop;
-
-    chars.forEach((char) => {
-      if (char.offsetTop !== lastTop) {
-        lines.push(currentLine);
-        currentLine = [];
-        lastTop = char.offsetTop;
-      }
-      currentLine.push(char);
-    });
-    lines.push(currentLine); 
-
-    // Create the scrub timeline
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 85%", 
-        end: "bottom 55%",
-        scrub: 1, 
-      }
-    });
-
-    // Animate each line with a stagger delay between lines for the diagonal wave
-    lines.forEach((lineChars, lineIndex) => {
-      tl.to(
-        lineChars,
-        {
-          opacity: 1,
-          stagger: 0.05, 
-          ease: "none",
-        },
-        lineIndex * 0.1 
-      );
-    });
-  }, { scope: containerRef });
-
-  return (
-    <div ref={containerRef} className={className}>
-      {text.split(" ").map((word, wIdx) => (
-        <span key={wIdx} className="inline-block mr-[0.25em] mb-1">
-          {word.split("").map((char, cIdx) => (
-            <span key={cIdx} className="scrub-char opacity-20 transition-none inline-block">
-              {char}
-            </span>
-          ))}
-        </span>
-      ))}
-    </div>
-  );
-};
-
-/* =========================================
    CUSTOM COMPONENT: About CTA Button
 ========================================= */
 function AboutCTA({ text }) {
@@ -122,7 +58,24 @@ export default function About() {
   useGSAP(() => {
     let mm = gsap.matchMedia();
 
-    // HORIZONTAL / DESKTOP
+    // 1. Text Paragraph Reveal 
+    // We animate the block as a whole unit to preserve native text-justify perfectly.
+    gsap.fromTo('.animated-paragraph',
+      { y: 40, opacity: 0 },
+      { 
+        y: 0, 
+        opacity: 1, 
+        duration: 1.2, 
+        ease: 'power3.out', 
+        scrollTrigger: { 
+          trigger: '.animated-paragraph', 
+          start: "top 85%", 
+          toggleActions: "play none none reverse" 
+        } 
+      }
+    );
+
+    // 2. Headings Animation
     mm.add("(orientation: landscape)", () => {
       gsap.fromTo(
         ".about-title-line",
@@ -142,7 +95,6 @@ export default function About() {
       );
     });
 
-    // VERTICAL / MOBILE
     mm.add("(orientation: portrait)", () => {
       gsap.fromTo(
         ".about-title-line",
@@ -162,7 +114,7 @@ export default function About() {
       );
     });
 
-    // UNIVERSAL ANIMATIONS
+    // 3. Blockquote Fade
     gsap.fromTo(
       blockquoteRef.current,
       { y: 40, opacity: 0 },
@@ -180,6 +132,7 @@ export default function About() {
       }
     );
 
+    // 4. Image Curtain Reveal
     gsap.fromTo(
       ".image-curtain",
       { scaleY: 1 },
@@ -194,7 +147,7 @@ export default function About() {
       }
     );
 
-    // Using yPercent instead of 'y' allows flawless parallax on auto-height responsive images
+    // 5. Image Parallax
     gsap.fromTo(
       ".parallax-image",
       { yPercent: -8 },
@@ -242,11 +195,6 @@ export default function About() {
         {/* Right Column: The Scrolling Narrative */}
         <div className="col-span-1 lg:col-span-7 flex flex-col items-start min-w-0 px-5 md:pr-12 lg:pr-16 xl:pr-24 2xl:pr-32">
           
-          {/* <ScrubText 
-            text="The State Institute of Hotel Management (SIHM), Durgapur is an initiation of the State of West Bengal to attract young, enthusiastic boys and girls to acquire soft, hard and managerial skills to become competent in the Hospitality industry of the country."
-            className="font-sans text-base md:text-lg xl:text-xl 2xl:text-2xl leading-relaxed text-[var(--text-main)] mb-8 xl:mb-12"
-          /> */}
-
           <blockquote 
             ref={blockquoteRef}
             className="border-l-2 border-[var(--accent)] pl-6 md:pl-8 py-2 my-10 xl:my-16 2xl:my-20"
@@ -256,10 +204,9 @@ export default function About() {
             </p>
           </blockquote>
 
-          <ScrubText 
-            text="SIHM Durgapur promises the best education with a modern and professional approach along with State of the Art facilities. With the advent of urbanization and industrialisation, the Hospitality Industry is rapidly growing to cater the mass involved in Accommodation, Food and Beverage, Retails, Cruise, Airline and other service sectors."
-            className="text-base md:text-lg xl:text-xl 2xl:text-2xl leading-relaxed text-[var(--text-main)] mb-12 xl:mb-16 text-justify"
-          />
+          <p className="animated-paragraph text-base md:text-lg xl:text-xl 2xl:text-2xl leading-[1.8] text-[var(--text-main)] mb-12 xl:mb-16 text-justify font-light">
+            SIHM Durgapur promises the best education with a modern and professional approach along with State of the Art facilities. With the advent of urbanization and industrialisation, the Hospitality Industry is rapidly growing to cater the mass involved in Accommodation, Food and Beverage, Retails, Cruise, Airline and other service sectors.
+          </p>
 
           {/* Cinematic Image Container - Full Width, Auto Height */}
           <div 
@@ -268,10 +215,6 @@ export default function About() {
           >
             <div className="image-curtain absolute inset-0 bg-[#F7F5F0] z-10 origin-bottom"></div>
             
-            {/* 
-              h-auto and w-full let the image define the container's height natively.
-              scale-[1.15] makes it slightly larger than the container so GSAP can move it.
-            */}
             <img 
               className="parallax-image w-full h-auto scale-[1.15] grayscale-[20%]"
               src="/graduationBW.webp" 

@@ -45,10 +45,10 @@ export default function HKOverview() {
 
           {/* Right: The Narrative */}
           <div className="w-full lg:w-7/12 flex flex-col justify-end lg:pt-16 xl:pt-24">
-            <h3 className="stat-text text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light tracking-tight mb-8 md:mb-12 leading-[1.2]">
+            <h3 className="stat-text text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light tracking-tight mb-8 md:mb-12 leading-[1.2] text-justify">
               Moving from one’s home, a traveller probably first looks for the peace and security which he is already used to while at home. Just getting a roof on his head may not suffice to give him that sense of tranquil rest.
             </h3>
-            <p className="stat-text text-base md:text-lg lg:text-xl xl:text-2xl font-light text-[var(--text-main)]/70 leading-[1.7] md:leading-[1.8] max-w-2xl">
+            <p className="stat-text text-base md:text-lg lg:text-xl xl:text-2xl font-light text-[var(--text-main)]/70 leading-[1.7] md:leading-[1.8] max-w-2xl text-justify">
               The Housekeeping department is considered as the nerve-centre of any hotel and, naturally, becomes the CNS at the Institute-level also. The cleanliness and maintenance of all public areas in both back and front of the house, the rooms and the cloak rooms, the health clubs and the cabanas - none of this looks appealing without the constant care and vigil of this department.
             </p>
           </div>

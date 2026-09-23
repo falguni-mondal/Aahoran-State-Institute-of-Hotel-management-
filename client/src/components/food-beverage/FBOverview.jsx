@@ -45,10 +45,10 @@ export default function FBOverview() {
 
           {/* Right: The Narrative */}
           <div className="w-full lg:w-7/12 flex flex-col justify-end lg:pt-16 xl:pt-24">
-            <h3 className="stat-text text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light tracking-tight mb-8 md:mb-12 leading-[1.2]">
+            <h3 className="stat-text text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light tracking-tight mb-8 md:mb-12 leading-[1.2] text-justify">
               In a recent survey, guests were asked if they prefer automatic peg-measures or the craft of a manual pour.
             </h3>
-            <p className="stat-text text-base md:text-lg lg:text-xl xl:text-2xl font-light text-[var(--text-main)]/70 leading-[1.7] md:leading-[1.8] max-w-2xl">
+            <p className="stat-text text-base md:text-lg lg:text-xl xl:text-2xl font-light text-[var(--text-main)]/70 leading-[1.7] md:leading-[1.8] max-w-2xl text-justify">
               An overwhelming 98% opted for the manual pour. This reveals a fundamental truth of our industry: guests are not just looking for the right quantity of food and drink—they are seeking the experience of being truly <span className="italic font-medium text-[var(--text-main)]">served</span>. That art of service is what we master here.
             </p>
           </div>

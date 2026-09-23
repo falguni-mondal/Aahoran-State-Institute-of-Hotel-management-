@@ -125,7 +125,7 @@ export default function HSRTRules() {
                 </div>
                 
                 {/* Rule Text */}
-                <p className="text-lg md:text-xl lg:text-2xl font-light leading-[1.6] text-[var(--text-main)]/90 tracking-tight">
+                <p className="text-lg md:text-xl lg:text-2xl font-light leading-[1.6] text-[var(--text-main)]/90 tracking-tight text-justify">
                   {rule}
                 </p>
 

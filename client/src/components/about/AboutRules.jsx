@@ -183,7 +183,7 @@ export default function AboutRules() {
 
           {/* Right Side: Description & CTA */}
           <div className="flex flex-col lg:w-5/12 xl:w-4/12 pb-2">
-            <p className="rules-desc text-base md:text-lg font-light text-[var(--text-main)]/80 leading-[1.7] mb-8 md:mb-10">
+            <p className="rules-desc text-base md:text-lg font-light text-[var(--text-main)]/80 leading-[1.7] mb-8 md:mb-10 text-justify">
               Discipline and professionalism are the cornerstones of the hospitality industry. Familiarize yourself with the core guidelines that shape the culture and standards at SIHM Durgapur.
             </p>
             

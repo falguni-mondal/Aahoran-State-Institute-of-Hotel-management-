@@ -17,18 +17,6 @@ export default function PrincipalMessage() {
   // In the future, this will be passed as a prop from your backend (e.g., ImageKit URL)
   const principalImageUrl = "/principal.webp";
 
-  // Helper function to create the word-by-word overflow mask for the curtain reveal
-  // Updated text colors for the light theme
-  const renderWords = (text, customClass = "") => {
-    return text.split(" ").map((word, wIdx) => (
-      <span key={wIdx} className="inline-flex overflow-hidden mr-[0.25em] align-top py-0.5">
-        <span className={`principal-word translate-y-[100%] block will-change-transform ${customClass}`}>
-          {word}
-        </span>
-      </span>
-    ));
-  };
-
   useGSAP(() => {
     let mm = gsap.matchMedia();
 
@@ -83,13 +71,15 @@ export default function PrincipalMessage() {
         }
       );
 
-      // Paragraph Curtain Reveal (Independent Trigger)
-      gsap.to(
-        paragraphsRef.current.querySelectorAll('.principal-word'),
+      // Unified Paragraph Block Fade-up (Independent Trigger)
+      gsap.fromTo(
+        paragraphsRef.current.children,
+        { y: 30, opacity: 0 },
         { 
-          y: "0%", 
-          duration: 0.6, 
-          stagger: 0.008, 
+          y: 0, 
+          opacity: 1,
+          duration: 1, 
+          stagger: 0.15, 
           ease: "power3.out",
           scrollTrigger: {
             trigger: paragraphsRef.current,
@@ -102,7 +92,7 @@ export default function PrincipalMessage() {
 
     // 3. MOBILE / TABLET ANIMATIONS
     mm.add("(max-width: 1023px)", () => {
-      // Top Text Block (Fires a bit later on mobile to ensure it's fully in view)
+      // Top Text Block
       gsap.fromTo(
         topContentRef.current.children,
         { y: 40, opacity: 0 },
@@ -120,13 +110,15 @@ export default function PrincipalMessage() {
         }
       );
 
-      // Paragraph Curtain Reveal (Tighter trigger for mobile stacking)
-      gsap.to(
-        paragraphsRef.current.querySelectorAll('.principal-word'),
+      // Unified Paragraph Block Fade-up
+      gsap.fromTo(
+        paragraphsRef.current.children,
+        { y: 30, opacity: 0 },
         { 
-          y: "0%", 
-          duration: 0.5, // Slightly faster on mobile
-          stagger: 0.01, 
+          y: 0, 
+          opacity: 1,
+          duration: 0.8, 
+          stagger: 0.1, 
           ease: "power3.out",
           scrollTrigger: {
             trigger: paragraphsRef.current,
@@ -146,16 +138,7 @@ export default function PrincipalMessage() {
       // DISTINGUISHING FACTOR: Added border-y to frame the section against pure background sections
       className="w-full relative z-10 bg-[var(--background)] py-24 md:py-32 xl:py-40 2xl:py-48 border-y border-[var(--primary-base)]/10"
     >
-      {/* 
-        =========================================
-        SAFE BACKGROUND DECORATION LAYER (Inverted for light theme)
-        ========================================= 
-      */}
-      {/* <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[var(--primary-base)]/[0.02] to-transparent"></div>
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-[var(--accent)]/10 rounded-full blur-3xl"></div>
-      </div> */}
-
+      
       {/* Grid Layout Container */}
       <div className="relative z-10 max-w-7xl xl:max-w-screen-xl 2xl:max-w-[100rem] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 xl:gap-28 2xl:gap-32 px-5 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
         
@@ -187,7 +170,6 @@ export default function PrincipalMessage() {
             </div>
 
             {/* Name Plate Overlay */}
-            {/* Added a subtle border so it doesn't bleed into the light background */}
             <div className="absolute bottom-6 -right-2 md:bottom-10 md:-right-8 lg:-right-10 z-20 bg-[var(--background)] border border-[var(--primary-base)]/10 px-6 py-4 md:px-8 md:py-6 shadow-xl">
               <h4 className="head-txt text-xl md:text-2xl lg:text-3xl text-[var(--primary-base)] mb-1">
                 Dr. Santanu Dasgupta
@@ -224,7 +206,7 @@ export default function PrincipalMessage() {
             </div>
 
             {/* 2. Hero Quote */}
-            <h3 className="head-txt text-3xl md:text-4xl lg:text-[2.75rem] xl:text-5xl leading-[1.2] text-[var(--primary-base)] mb-10">
+            <h3 className="head-txt text-3xl md:text-4xl lg:text-[2.75rem] xl:text-5xl leading-[1.2] text-[var(--primary-base)] mb-10 text-justify">
               Hospitality is not merely a profession — it is a way of life rooted in <span className="italic font-light text-[var(--accent)]">values, service, and human connection.</span>
             </h3>
 
@@ -243,19 +225,21 @@ export default function PrincipalMessage() {
 
           </div>
 
-          {/* BOTTOM TEXT BLOCK: Body Paragraphs with Curtain Reveal */}
+          {/* BOTTOM TEXT BLOCK: Justified Paragraphs */}
           <div ref={paragraphsRef} className="relative z-10 flex flex-col gap-6 font-sans text-sm md:text-base xl:text-lg text-[var(--primary-base)]/75 leading-relaxed max-w-2xl 2xl:max-w-3xl mt-4">
-            <p>
-              {renderWords("At")}
-              {renderWords("State Institute of Hotel Management, Durgapur,", "text-[var(--primary-base)] font-medium")}
-              {renderWords("we believe education must ignite inner potential, nurture character, and empower students to create impact. Our vision of Hotel Management education goes far beyond traditional roles.")}
+            
+            <p className="text-justify">
+              At <span className="text-[var(--primary-base)] font-medium">State Institute of Hotel Management, Durgapur,</span> we believe education must ignite inner potential, nurture character, and empower students to create impact. Our vision of Hotel Management education goes far beyond traditional roles.
             </p>
-            <p>
-              {renderWords("The future belongs to those who can innovate, lead with empathy, embrace technology, and build enterprises that generate employment and meaningful experiences. Whether your aspiration is to manage world-class hotels, launch your own food venture, become a hospitality technologist, or contribute to tourism and service innovation, SIHM Durgapur provides the right foundation.")}
+            
+            <p className="text-justify">
+              The future belongs to those who can innovate, lead with empathy, embrace technology, and build enterprises that generate employment and meaningful experiences. Whether your aspiration is to manage world-class hotels, launch your own food venture, become a hospitality technologist, or contribute to tourism and service innovation, SIHM Durgapur provides the right foundation.
             </p>
-            <p className="pt-4">
-              {renderWords("Your journey to serve the world with skill, dignity, and vision begins here. Welcome to a future full of possibilities.", "text-[var(--primary-base)]/90 font-medium")}
+            
+            <p className="text-justify pt-4 text-[var(--primary-base)]/90 font-medium">
+              Your journey to serve the world with skill, dignity, and vision begins here. Welcome to a future full of possibilities.
             </p>
+            
           </div>
 
         </div>

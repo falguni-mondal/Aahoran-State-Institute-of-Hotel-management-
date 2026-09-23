@@ -39,33 +39,17 @@ const pillarsData = [
 const PillarCard = ({ pillar, isLast }) => {
   const cardRef = useRef(null);
   const imageRef = useRef(null);
-  const textContainerRef = useRef(null);
+  const textRef = useRef(null);
   const btnRef = useRef(null);
   const hoverTl = useRef(null);
   const iconRef = useRef(null);
 
   useGSAP(() => {
     let mm = gsap.matchMedia();
-    const words = textContainerRef.current.querySelectorAll('.curtain-word');
     const image = imageRef.current;
     const btn = btnRef.current;
     const icon = iconRef.current;
-
-    let lines = [];
-    if (words.length) {
-      let currentLine = [];
-      let lastTop = words[0].offsetTop;
-
-      words.forEach((word) => {
-        if (word.offsetTop !== lastTop) {
-          lines.push(currentLine);
-          currentLine = [];
-          lastTop = word.offsetTop;
-        }
-        currentLine.push(word);
-      });
-      lines.push(currentLine);
-    }
+    const textBlock = textRef.current;
 
     mm.add("(min-width: 1024px)", () => {
       hoverTl.current = gsap.timeline({ paused: true });
@@ -73,13 +57,12 @@ const PillarCard = ({ pillar, isLast }) => {
       hoverTl.current.to(image, { opacity: 0.15, scale: 1, duration: 0.6, ease: "power3.out" }, 0);
       hoverTl.current.to(icon, { rotate: 90, color: "var(--accent)", duration: 0.4, ease: "expo.out" }, 0);
 
-      lines.forEach((lineChars, lineIndex) => {
-        hoverTl.current.to(
-          lineChars,
-          { y: "0%", duration: 0.7, ease: "expo.out" },
-          lineIndex * 0.08
-        );
-      });
+      // Replaced word-by-word animation with a smooth block-level fade-up
+      hoverTl.current.fromTo(textBlock,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+        0.1
+      );
 
       hoverTl.current.fromTo(
         btn, 
@@ -101,13 +84,12 @@ const PillarCard = ({ pillar, isLast }) => {
       scrollTl.to(image, { opacity: 0.1, scale: 1, duration: 0.4, ease: "power3.out" }, 0);
       scrollTl.to(icon, { rotate: 90, color: "var(--accent)", duration: 0.3, ease: "expo.out" }, 0);
       
-      lines.forEach((lineChars, lineIndex) => {
-        scrollTl.to(
-          lineChars,
-          { y: "0%", duration: 0.4, ease: "expo.out" },
-          lineIndex * 0.08
-        );
-      });
+      // Block-level fade-up for mobile scrolling
+      scrollTl.fromTo(textBlock,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+        0.1
+      );
 
       scrollTl.fromTo(
         btn, 
@@ -127,6 +109,13 @@ const PillarCard = ({ pillar, isLast }) => {
   const handleMouseLeave = () => {
     if (window.innerWidth >= 1024 && hoverTl.current) hoverTl.current.reverse();
   };
+
+  // Determine routing logic for internal vs external links
+  const isExternal = pillar.link.startsWith('http');
+  const LinkComponent = isExternal ? 'a' : Link;
+  const linkProps = isExternal 
+    ? { href: pillar.link, target: "_blank", rel: "noopener noreferrer" } 
+    : { to: pillar.link };
 
   return (
     <div 
@@ -149,7 +138,6 @@ const PillarCard = ({ pillar, isLast }) => {
           alt={pillar.title}
           className="w-full h-full object-cover opacity-0 scale-[1.05] mix-blend-multiply grayscale-[30%] will-change-transform"
         />
-        {/* Faint protective gradient to guarantee text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-[var(--background)]/30 to-transparent opacity-80"></div>
       </div>
 
@@ -183,20 +171,16 @@ const PillarCard = ({ pillar, isLast }) => {
             {pillar.title}
           </h3>
 
-          {/* Curtain Reveal Description */}
-          <div ref={textContainerRef} className="w-full mb-8">
-            {pillar.desc.split(" ").map((word, wIdx) => (
-              <span key={wIdx} className="inline-flex overflow-hidden mr-[0.25em] align-top py-0.5">
-                <span className="curtain-word translate-y-[100%] font-sans text-sm md:text-base xl:text-lg text-[var(--primary-base)]/70 leading-relaxed will-change-transform block">
-                  {word}
-                </span>
-              </span>
-            ))}
+          {/* Justified Paragraph Reveal */}
+          <div ref={textRef} className="w-full mb-8 opacity-0">
+            <p className="font-sans text-sm md:text-base xl:text-lg text-[var(--primary-base)]/70 leading-relaxed text-justify">
+              {pillar.desc}
+            </p>
           </div>
 
           {/* Button CTA */}
-          <Link
-            to={pillar.link} 
+          <LinkComponent
+            {...linkProps}
             ref={btnRef}
             className="opacity-0 group/btn relative overflow-hidden flex items-center gap-3 border border-[var(--text-main)]/20 hover:border-[var(--accent)] px-6 py-3 rounded-sm cursor-pointer outline-none transition-colors duration-500 bg-[var(--background)]"
           >
@@ -212,7 +196,7 @@ const PillarCard = ({ pillar, isLast }) => {
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </Link>
+          </LinkComponent>
           
         </div>
       </div>
@@ -248,14 +232,9 @@ export default function Pillars() {
   return (
     <section 
       ref={sectionRef} 
-      // 1. We added a subtle 3% tint of the primary color and thick top/bottom padding
       className="w-full bg-[var(--primary-base)]/[0.03] py-20 md:py-28 lg:py-32 border-y border-[var(--primary-base)]/10 relative z-10"
     >
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1920px]">
-        {/* 
-          2. We wrap the grid in a pure background container with a border and a subtle 
-          floating shadow, making it pop off the subtly tinted canvas.
-        */}
         <div className="w-full flex flex-col lg:flex-row min-h-[100vh] lg:min-h-[80vh] bg-[var(--background)] border border-[var(--primary-base)]/15 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.05)]">
           {pillarsData.map((pillar, index) => (
             <div key={pillar.id} className="pillar-card-wrapper flex-1 flex flex-col">

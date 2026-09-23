@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SplitType from 'split-type';
 import { useLenis } from 'lenis/react';
 import FacultyModal from './FacultyModal';
 
@@ -60,21 +59,6 @@ export default function AboutFaculty() {
   };
 
   useGSAP(() => {
-    const paragraphs = gsap.utils.toArray('.split-paragraph');
-    let splitInstances = [];
-
-    paragraphs.forEach((para) => {
-      const split = new SplitType(para, { types: 'lines', lineClass: 'split-line' });
-      splitInstances.push(split);
-      split.lines.forEach((line) => {
-        const wrapper = document.createElement('div');
-        wrapper.style.overflow = 'hidden';
-        wrapper.style.display = 'block'; 
-        line.parentNode.insertBefore(wrapper, line);
-        wrapper.appendChild(line);
-      });
-    });
-
     let mm = gsap.matchMedia();
     mm.add({ isDesktop: "(min-width: 1024px)", isMobile: "(max-width: 1023px)" }, (context) => {
       let { isDesktop } = context.conditions;
@@ -84,10 +68,12 @@ export default function AboutFaculty() {
         { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: '.faculty-header-item', start: isDesktop ? "top 80%" : "top 90%", toggleActions: "play none none reverse" } }
       );
 
-      splitInstances.forEach((split, index) => {
-        gsap.fromTo(split.lines,
-          { yPercent: 100 }, 
-          { yPercent: 0, duration: 1.2, stagger: 0.15, ease: 'expo.out', scrollTrigger: { trigger: paragraphs[index], start: isDesktop ? "top 85%" : "top 95%", toggleActions: "play none none reverse" } }
+      // Replaced SplitType with block-level fade-up to preserve text-justify
+      const paragraphs = gsap.utils.toArray('.animated-paragraph');
+      paragraphs.forEach((para) => {
+        gsap.fromTo(para,
+          { y: 30, opacity: 0 }, 
+          { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: para, start: isDesktop ? "top 85%" : "top 95%", toggleActions: "play none none reverse" } }
         );
       });
 
@@ -109,7 +95,6 @@ export default function AboutFaculty() {
 
     return () => { 
       mm.revert(); 
-      splitInstances.forEach(instance => instance.revert()); 
     };
   }, { scope: sectionRef });
 
@@ -138,10 +123,12 @@ export default function AboutFaculty() {
             </div>
             
             <div className="flex flex-col gap-6">
-              <p className="split-paragraph text-base md:text-lg lg:text-xl font-light text-[var(--text-main)]/80 leading-[1.7]">
+              {/* Applied animated-paragraph and text-justify */}
+              <p className="animated-paragraph text-base md:text-lg lg:text-xl font-light text-[var(--text-main)]/80 leading-[1.7] text-justify">
                 The mentors are exposed in direct teaching skills, they are well versed to design the training program and will be able to transfer the knowledge to the students.
               </p>
-              <p className="split-paragraph text-base md:text-lg lg:text-xl font-light text-[var(--text-main)]/80 leading-[1.7]">
+              {/* Applied animated-paragraph and text-justify */}
+              <p className="animated-paragraph text-base md:text-lg lg:text-xl font-light text-[var(--text-main)]/80 leading-[1.7] text-justify">
                 The mentors are also keeping updated information about the industry, its changes and modify the teaching accordingly. They are also involved in Research & Development producing journals and periodicals and be able to provide necessary guidance to the students.
               </p>
             </div>

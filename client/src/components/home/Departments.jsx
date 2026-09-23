@@ -48,6 +48,7 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
   const isActive = activeIndex === index;
   const cardRef = useRef(null);
   const contentRef = useRef(null);
+  const textRef = useRef(null); // Added ref for the block paragraph
   const tl = useRef(null);
 
   useGSAP(() => {
@@ -69,16 +70,18 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
   useGSAP(() => {
     tl.current = gsap.timeline({ paused: true });
 
-    tl.current.to(
-      cardRef.current.querySelectorAll('.curtain-word'), 
-      { y: "0%", duration: 0.5, stagger: 0.015, ease: "power3.out" }
+    // Replaced the curtain-word staggered reveal with a unified block fade-up
+    tl.current.fromTo(
+      textRef.current,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }
     );
 
     tl.current.fromTo(
       cardRef.current.querySelector('.dept-btn'),
       { opacity: 0, y: 10 },
       { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" },
-      "-=0.2"
+      "-=0.4"
     );
   }, { scope: cardRef });
 
@@ -181,17 +184,14 @@ const DepartmentCard = ({ dept, index, activeIndex, setActiveIndex }) => {
                 {dept.kicker}
               </span>
 
-              <div className="mb-8 2xl:mb-10">
-                {dept.desc.split(" ").map((word, wIdx) => (
-                  <span key={wIdx} className="inline-flex overflow-hidden mr-[0.25em] align-top py-0.5">
-                    <span className="curtain-word translate-y-[100%] font-sans text-sm md:text-base xl:text-lg 2xl:text-xl text-[var(--text-main)]/80 leading-relaxed will-change-transform block">
-                      {word}
-                    </span>
-                  </span>
-                ))}
+              {/* Justified Paragraph Reveal */}
+              <div ref={textRef} className="mb-8 2xl:mb-10 opacity-0">
+                <p className="font-sans text-sm md:text-base xl:text-lg 2xl:text-xl text-[var(--text-main)]/80 leading-relaxed text-justify">
+                  {dept.desc}
+                </p>
               </div>
 
-              {/* Action Button (Fixed the background class typo here) */}
+              {/* Action Button */}
               <Link to={dept.link} className="dept-btn relative overflow-hidden flex items-center gap-3 border bg-[var(--background)] border-[var(--text-main)]/20 hover:border-[var(--accent)] px-6 py-2.5 2xl:px-8 2xl:py-3.5 rounded-sm cursor-pointer outline-none group/btn transition-colors duration-500">
                 <div className="absolute inset-0 w-full h-full bg-[var(--accent)] translate-y-[101%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
                 <span className="relative z-10 text-[var(--accent)] group-hover/btn:text-white transition-colors duration-500 font-sans text-[10px] xl:text-[11px] 2xl:text-xs font-bold uppercase tracking-[0.15em]">
