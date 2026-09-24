@@ -85,7 +85,7 @@ export default function ARPostersGallery() {
             Awareness Campaign
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tighter leading-[1.1] mb-6">
-            Campus <br/> Directives.
+            Campus <br/> Directives
           </h2>
           <p className="text-sm md:text-base lg:text-lg xl:text-xl text-[var(--primary-base)]/60 font-light leading-relaxed max-w-sm text-justify">
             Visual mandates establishing our strict zero-tolerance policy. These directives are prominently displayed across the institution to reinforce student safety, encourage healthy interaction, and explicitly state the severe legal consequences of ragging.

@@ -199,12 +199,12 @@ export default function About() {
             ref={blockquoteRef}
             className="border-l-2 border-[var(--accent)] pl-6 md:pl-8 py-2 my-10 xl:my-16 2xl:my-20"
           >
-            <p className="head-txt text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] 2xl:text-5xl leading-snug italic text-[var(--text-main)] text-justify">
+            <p className="head-txt text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl leading-snug italic text-[var(--text-main)] text-justify">
               "The State Institute of Hotel Management (SIHM), Durgapur is an initiation of the department of tourism, government of West Bengal to attract young, enthusiastic boys and girls to acquire soft, hard and managerial skills to become competent in the Hospitality industry of the country."
             </p>
           </blockquote>
 
-          <p className="animated-paragraph text-base md:text-lg xl:text-xl 2xl:text-2xl leading-[1.8] text-[var(--text-main)] mb-12 xl:mb-16 text-justify font-light">
+          <p className="animated-paragraph text-base md:text-lg 2xl:text-2xl leading-[1.8] text-[var(--text-main)] mb-12 xl:mb-16 text-justify font-light">
             SIHM Durgapur promises the best education with a modern and professional approach along with State of the Art facilities. With the advent of urbanization and industrialisation, the Hospitality Industry is rapidly growing to cater the mass involved in Accommodation, Food and Beverage, Retails, Cruise, Airline and other service sectors.
           </p>
 

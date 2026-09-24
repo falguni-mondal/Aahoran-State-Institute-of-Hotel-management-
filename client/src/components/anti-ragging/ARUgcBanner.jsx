@@ -85,7 +85,7 @@ export default function ARUgcBanner() {
             National Mandate
           </span>
           <h3 className="ugc-reveal text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-[var(--text-main)] leading-[1.1]">
-            UGC Anti-Ragging Guidelines.
+            UGC Anti-Ragging Guidelines
           </h3>
         </div>
 

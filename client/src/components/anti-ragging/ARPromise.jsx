@@ -78,7 +78,7 @@ export default function ARPromise() {
           <span className="promise-word block">haven</span>
           <span className="promise-word block">for</span>
           <span className="promise-word block italic text-[var(--accent)]">your</span>
-          <span className="promise-word block">ambitions.</span>
+          <span className="promise-word block">ambitions</span>
         </h2>
 
         {/* Detailed Reassurance Paragraph */}
@@ -87,7 +87,7 @@ export default function ARPromise() {
         </p>
 
         {/* Animated Signature / Stamp of Authority */}
-        <div className="flex flex-col items-center">
+        {/* <div className="flex flex-col items-center">
           <svg 
             className="w-48 md:w-64 h-auto text-[var(--text-main)]/80 mb-4" 
             viewBox="0 0 400 100" 
@@ -110,10 +110,10 @@ export default function ARPromise() {
               strokeDasharray="4 4"
             />
           </svg>
-          <span className="signature-label text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]/50">
+          <span className="signature-label text-[9px] md:text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]/50 border-t-1">
             Office of the Principal, SIHM Durgapur
           </span>
-        </div>
+        </div> */}
 
       </div>
       

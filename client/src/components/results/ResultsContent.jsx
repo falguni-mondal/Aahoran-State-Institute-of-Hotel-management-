@@ -141,7 +141,7 @@ const ResultSection = ({ sectionId, title, data, hasSemesterFilter }) => {
           Results Archive
         </span>
         <h2 className="head-txt text-4xl md:text-5xl lg:text-7xl tracking-tighter text-[var(--text-main)] leading-none max-w-5xl">
-          {title}.
+          {title}
         </h2>
       </div>
 

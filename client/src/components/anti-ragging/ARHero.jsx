@@ -92,7 +92,7 @@ export default function ARHero() {
         {/* Subtitle (Removed solid background mask and reduced top margin) */}
         <div className="hero-fade-item mt-2 md:mt-4">
           <h2 className="text-xl md:text-3xl lg:text-4xl xl:text-5xl italic font-light tracking-tight text-[var(--text-main)]/70">
-            Towards Ragging.
+            Towards Ragging
           </h2>
         </div>
         

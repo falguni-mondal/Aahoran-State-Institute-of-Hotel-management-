@@ -20,7 +20,13 @@ const hkFacilities = [
     id: "hk-lab-2",
     label: "HK Lab 2",
     title: "House Keeping Lab 2",
-    desc: "Dedicated to the intricacies of linen management and aesthetics, HK Lab 2 functions as both a commercial laundry simulation and a design studio. Students receive hands-on training operating heavy-duty washing extractors, calendaring machines, and flatwork ironers. Additionally, the space is used for practicing advanced flower arrangement techniques and interior decoration mockups."
+    desc: "Dedicated to the intricacies of aesthetics, HK Lab 2 functions as a design studio. Students receive hands-on training on advanced flower arrangement techniques and interior decoration mockups."
+  },
+  {
+    id: "laundry",
+    label: "Laundry",
+    title: "Laundry",
+    desc: "The Laundry, provides students with practical exposure to professional laundry and linen operations. Equipped for washing, drying, ironing, pressing, folding, and basic stain treatment, the facility helps students understand proper handling and care of different types of fabrics and linen. Through hands-on training, students develop essential skills in laundry management, hygiene, quality control, and safe equipment handling, preparing them for professional roles in the hospitality industry."
   },
   {
     id: "model-guest-room",
