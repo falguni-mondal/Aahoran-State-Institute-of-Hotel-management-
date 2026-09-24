@@ -1,29 +1,52 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
-import { useLenis } from 'lenis/react'; // <-- Imported useLenis
+import { useLenis } from 'lenis/react'; 
 import LabHorizontalScroll from '../computer-lab/LabHorizontalScroll';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
+/* =========================================
+   FRONT OFFICE FACILITIES DATA (Tabs)
+========================================= */
+const foFacilities = [
+  {
+    id: "lobby",
+    label: "Lobby",
+    title: "Lobby/Reception",
+    desc: "A fully functional front desk simulation allows students to master the art of guest relations, check-in/check-out procedures, and handling diverse guest scenarios in a realistic hotel lobby environment."
+  },
+  {
+    id: "pms",
+    label: "PMS Lab",
+    title: "PMS (Property Management System) Lab",
+    desc: "The department is proud of its massive computer lab with individual work stations which facilitates individual attention while the students acquire the mastery in operating the PMS."
+  }
+];
+
 export default function FOCurriculum() {
   const containerRef = useRef(null);
-  const location = useLocation(); // <-- Added useLocation
-  const lenis = useLenis();       // <-- Added useLenis
+  const tabContentRef = useRef(null);
+  const location = useLocation(); 
+  const lenis = useLenis(); 
+  
+  // Tab State Management
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const activeTab = foFacilities[activeTabIndex];
+
+  const { contextSafe } = useGSAP({ scope: containerRef });
 
   // ==========================================
   // CROSS-PAGE HASH ROUTING FIX (For Computer Lab)
   // ==========================================
   useEffect(() => {
-    // If the URL has a hash (like #computer-lab) AND lenis is ready
     if (location.hash && lenis) {
-      // Small delay ensures the DOM is fully painted before calculating scroll position
       const timeoutId = setTimeout(() => {
         lenis.scrollTo(location.hash, {
-          offset: -80, // Adjust this offset if your navbar covers the heading
+          offset: -80, 
           duration: 1.5,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
         });
@@ -102,6 +125,30 @@ export default function FOCurriculum() {
     return () => mm.revert();
   }, { scope: containerRef });
 
+  // ==========================================
+  // TAB SWITCHING ANIMATION
+  // ==========================================
+  const handleTabChange = contextSafe((index) => {
+    if (index === activeTabIndex) return;
+    
+    // Animate out current content
+    gsap.to(tabContentRef.current, {
+      opacity: 0,
+      y: -10,
+      duration: 0.3,
+      ease: "power2.in",
+      onComplete: () => {
+        setActiveTabIndex(index);
+        
+        // Animate in new content
+        gsap.fromTo(tabContentRef.current,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+        );
+      }
+    });
+  });
+
   return (
     <div ref={containerRef} className="w-full bg-[var(--background)] text-[var(--text-main)] overflow-hidden">
       
@@ -153,7 +200,7 @@ export default function FOCurriculum() {
           ======================================= */}
           <div className="flex flex-col-reverse lg:flex-row items-start justify-between gap-12 lg:gap-20 xl:gap-24">
             
-            {/* Left: 2-Column Text Layout */}
+            {/* Left: Content Layout */}
             <div className="w-full lg:w-7/12 flex flex-col pt-8 lg:pt-0 relative z-10">
               
               <span className="absolute -top-10 md:-top-20 right-0 lg:-right-10 font-sans text-[120px] md:text-[180px] lg:text-[220px] font-bold leading-none text-[var(--text-main)]/5 select-none pointer-events-none tracking-tighter -z-10">
@@ -168,31 +215,54 @@ export default function FOCurriculum() {
                 Facilities
               </h2>
               
-              <div className="text-reveal grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 relative">
+              <div className="text-reveal flex flex-col relative">
                 
-                {/* Column 1: Lobby/Reception */}
-                <div className="flex flex-col">
-                  <h3 className="font-sans text-xl md:text-2xl font-semibold text-[var(--text-main)] mb-4">
-                    Lobby/Reception
-                  </h3>
-                  <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
-                    A fully functional front desk simulation allows students to master the art of guest relations, check-in/check-out procedures, and handling diverse guest scenarios in a realistic hotel lobby environment.
-                  </p>
-                </div>
+                {/* Main Introductory Paragraph */}
+                <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify mb-8 md:mb-12">
+                  The department is equipped with a front desk/reception counter, guest registration and check-in/check-out facilities, telephone and communication equipment, reservation systems, key and room-rack facilities, and guest service areas. These facilities enable students to gain hands-on experience in guest handling, reservation procedures, room assignment, billing, communication, and front office operations, preparing them for professional careers in the hospitality industry.
+                </p>
                 
-                {/* Vertical Divider (Hidden on Mobile) */}
-                <div className="hidden md:block absolute top-0 left-1/2 w-[1px] h-full bg-[var(--primary-base)]/10 -translate-x-1/2"></div>
-                
-                {/* Column 2: PMS Lab */}
-                <div className="flex flex-col">
-                  <h3 className="font-sans text-xl md:text-2xl font-semibold text-[var(--text-main)] mb-4">
-                    PMS (Property Management System) Lab
-                  </h3>
-                  <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
-                    The department is proud of its massive computer lab with individual work stations which facilitates individual attention while the students acquire the mastery in operating the PMS.
-                  </p>
+                {/* INTERACTIVE TAB NAV */}
+                <div className="tabs-container flex flex-col gap-3 mb-8 border-b border-[var(--primary-base)]/10 pb-6 mt-4">
+                  <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-main)]/40">
+                    Explore Facilities
+                  </span>
+                  
+                  <div className="flex flex-wrap items-center gap-4 md:gap-8 overflow-x-auto no-scrollbar pb-2">
+                    {foFacilities.map((tab, idx) => {
+                      const isActive = activeTabIndex === idx;
+                      return (
+                        <button
+                          key={tab.id}
+                          onClick={() => handleTabChange(idx)}
+                          className="group relative outline-none flex items-center py-2 cursor-pointer shrink-0"
+                        >
+                          <span className={`text-lg md:text-xl lg:text-2xl font-light tracking-tight transition-colors duration-500 ${
+                            isActive ? 'text-[var(--text-main)]' : 'text-[var(--text-main)]/40 hover:text-[var(--text-main)]/70'
+                          }`}>
+                            [ {tab.label} ]
+                          </span>
+                          
+                          {/* Animated Orange Underline */}
+                          {isActive && (
+                            <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[var(--accent)]"></span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
 
+                {/* TAB CONTENT PANEL */}
+                <div ref={tabContentRef} className="flex flex-col min-h-[150px]">
+                  <h3 className="font-sans text-xl md:text-2xl font-semibold text-[var(--text-main)] mb-3">
+                    {activeTab.title}
+                  </h3>
+                  <p className="text-base md:text-lg font-light leading-[1.8] md:leading-[1.9] text-[var(--text-main)]/80 text-justify">
+                    {activeTab.desc}
+                  </p>
+                </div>
+                
               </div>
             </div>
 
@@ -215,10 +285,6 @@ export default function FOCurriculum() {
       {/* =======================================
           SECTION 3: COMPUTER LAB (HORIZONTAL SCROLL)
       ======================================= */}
-      {/* 
-          IMPORTANT: The ID here matches the hash we added to the 
-          FacilityCard link in Facilities.jsx 
-      */}
       <div id="computer-lab" className="relative w-full">
         {/* Massive Editorial Heading anchored over the horizontal section */}
         <div className="absolute top-16 md:top-24 lg:top-32 left-0 w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 max-w-[1800px] mx-auto z-20 pointer-events-none">

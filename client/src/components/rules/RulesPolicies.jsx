@@ -137,11 +137,20 @@ const policiesData = [
   {
     id: "fees",
     title: "Fee Structure",
-    image: {
-      src: "/fee-structure.webp",
-      alt: "SIHM Durgapur Fee Structure",
-      fileName: "SIHM_Fee_Structure.webp"
-    },
+    images: [
+      {
+        title: "B.Sc. in Hospitality & Hotel Administration",
+        src: "/fee-structure.webp",
+        alt: "B.Sc. Fee Structure",
+        fileName: "BSc_Fee_Structure.webp"
+      },
+      {
+        title: "Diploma Courses",
+        src: "/fee-structure.webp",
+        alt: "Diploma Fee Structure",
+        fileName: "Diploma_Fee_Structure.webp"
+      }
+    ],
     items: [
       "Fees are payable in advance. All fees can be payable through online Banking facility, demand draft, RTGS & NEFT, and UPI/QR. Cash and Cheque are not not accepted."
     ]
@@ -289,32 +298,46 @@ export default function RulesPolicies() {
                   </div>
                 ) : (
                   <div className="flex flex-col">
-                    {policy.image && (
-                      <div className="mb-12 flex flex-col items-start">
-                        <div className="w-full max-w-4xl overflow-hidden rounded-sm bg-[var(--primary-base)]/5 border border-[var(--primary-base)]/10 mb-6">
-                          <img 
-                            src={policy.image.src} 
-                            alt={policy.image.alt} 
-                            className="w-full h-auto object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-500"
-                          />
-                        </div>
-                        <a 
-                          href={policy.image.src} 
-                          download={policy.image.fileName}
-                          className="group flex items-center gap-3 bg-[var(--accent)] text-[var(--text-light)] px-6 md:px-8 py-3 md:py-4 rounded-sm cursor-pointer outline-none hover:bg-orange-600 transition-colors duration-300 shadow-[0_4px_14px_rgba(232,93,4,0.3)]"
-                        >
-                          <span className="font-sans font-bold text-[10px] md:text-xs uppercase tracking-[0.15em]">
-                            Download Document
-                          </span>
-                          <svg 
-                            className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                          </svg>
-                        </a>
+                    {/* Iterating through multiple images if they exist */}
+                    {policy.images && policy.images.length > 0 && (
+                      <div className="flex flex-col gap-16 md:gap-20 mb-12">
+                        {policy.images.map((img, idx) => (
+                          <div key={idx} className="flex flex-col items-start w-full">
+                            
+                            {/* Added Title for each distinct fee structure */}
+                            {img.title && (
+                              <h4 className="font-sans text-xl md:text-2xl font-semibold text-[var(--text-main)]/90 mb-6">
+                                {img.title}
+                              </h4>
+                            )}
+                            
+                            <div className="w-full max-w-4xl overflow-hidden rounded-sm bg-[var(--primary-base)]/5 border border-[var(--primary-base)]/10 mb-6">
+                              <img 
+                                src={img.src} 
+                                alt={img.alt} 
+                                className="w-full h-auto object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-500"
+                              />
+                            </div>
+                            
+                            <a 
+                              href={img.src} 
+                              download={img.fileName}
+                              className="group flex items-center gap-3 bg-[var(--accent)] text-[var(--text-light)] px-6 md:px-8 py-3 md:py-4 rounded-sm cursor-pointer outline-none hover:bg-orange-600 transition-colors duration-300 shadow-[0_4px_14px_rgba(232,93,4,0.3)]"
+                            >
+                              <span className="font-sans font-bold text-[10px] md:text-xs uppercase tracking-[0.15em]">
+                                Download Document
+                              </span>
+                              <svg 
+                                className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                viewBox="0 0 24 24"
+                              >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                              </svg>
+                            </a>
+                          </div>
+                        ))}
                       </div>
                     )}
 

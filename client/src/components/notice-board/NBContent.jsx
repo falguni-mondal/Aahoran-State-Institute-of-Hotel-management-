@@ -168,8 +168,11 @@ export default function NBContent() {
                       isActive ? 'bg-[var(--primary-base)]/5 opacity-100' : 'bg-[var(--primary-base)]/5 opacity-0 group-hover:opacity-100'
                     }`}></div>
 
-                    <h3 className={`text-base md:text-lg font-light tracking-tight transition-colors duration-300 ${
-                      isActive ? 'text-[var(--text-main)]' : 'text-[var(--text-main)]/50 group-hover:text-[var(--text-main)]/80'
+                    {/* Adjusted text sizing and weight for active state */}
+                    <h3 className={`tracking-tight transition-all duration-300 ${
+                      isActive 
+                        ? 'text-lg md:text-xl font-medium text-[var(--text-main)]' 
+                        : 'text-base md:text-lg font-light text-[var(--text-main)]/50 group-hover:text-[var(--text-main)]/80'
                     }`}>
                       {cat.label}
                     </h3>

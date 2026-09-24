@@ -6,9 +6,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /* =========================================
-   MOCK DATA (Structured for Subject Filtering)
+   MOCK DATA FOR B.SC (Flat Structure)
 ========================================= */
-
 const bscData = [
   {
     semester: 'Semester I',
@@ -144,37 +143,88 @@ const bscData = [
   }
 ];
 
+/* =========================================
+   MOCK DATA FOR DIPLOMA (Nested/Dropdown Structure)
+   Add or remove items in the 'materials' arrays below.
+========================================= */
 const diplomaData = {
   subjects: [
     {
       id: 'dfp',
       title: 'Diploma in Food Production',
-      materials: [
-        { id: 1001, title: 'Basic Culinary Skills', isNew: false, link: '#' },
-        { id: 1002, title: 'Bakery Basics', isNew: true, link: '#' },
-        { id: 1003, title: 'Larder Preparation', isNew: false, link: '#' }
+      topics: [
+        { 
+          id: 1001, 
+          title: 'Basic Culinary Skills', 
+          isNew: false, 
+          materials: [
+            { id: 'm1', title: 'Module 1: Knife Skills & Cuts.pdf', link: '#' },
+            { id: 'm2', title: 'Module 2: Stocks, Soups & Sauces.pdf', link: '#' },
+            { id: 'm3', title: 'Module 3: Methods of Cooking.pdf', link: '#' },
+          ]
+        },
+        { 
+          id: 1002, 
+          title: 'Bakery Basics', 
+          isNew: true, 
+          materials: [
+            { id: 'm4', title: 'Yeast Dough Preparation.pdf', link: '#' },
+            { id: 'm5', title: 'Basic Sponges & Cakes.pdf', link: '#' },
+          ]
+        },
+        { 
+          id: 1003, 
+          title: 'Larder Preparation', 
+          isNew: false, 
+          materials: [
+            { id: 'm6', title: 'Introduction to Larder Work.pdf', link: '#' },
+          ]
+        }
       ]
     },
     {
       id: 'dfbs',
       title: 'Diploma in F&B Service',
-      materials: [
-        { id: 1004, title: 'Beverage Knowledge', isNew: false, link: '#' },
-        { id: 1005, title: 'Table Setup & Etiquette', isNew: false, link: '#' }
+      topics: [
+        { 
+          id: 1004, 
+          title: 'Beverage Knowledge', 
+          isNew: false, 
+          materials: [
+            { id: 'm7', title: 'Classification of Beverages.pdf', link: '#' },
+            { id: 'm8', title: 'Tea & Coffee Service Methods.pdf', link: '#' },
+          ]
+        },
+        { 
+          id: 1005, 
+          title: 'Table Setup & Etiquette', 
+          isNew: false, 
+          materials: [
+            { id: 'm9', title: 'Standard Cover Setup Guide.pdf', link: '#' },
+          ]
+        }
       ]
     },
     {
        id: 'dfo',
        title: 'Diploma in Front Office',
-       materials: [
-           { id: 1006, title: 'Reservation Systems', isNew: false, link: '#' }
+       topics: [
+           { 
+             id: 1006, 
+             title: 'Reservation Systems', 
+             isNew: false, 
+             materials: [
+               { id: 'm10', title: 'Modes of Reservation.pdf', link: '#' },
+               { id: 'm11', title: 'Handling Guest Inquiries.ppt', link: '#' },
+             ]
+           }
        ]
     }
   ]
 };
 
 /* =========================================
-   SUB-COMPONENT: DocumentList
+   SUB-COMPONENT: B.Sc Document List (Flat)
 ========================================= */
 const DocumentList = ({ materials, activeTrigger }) => {
   const listRef = useRef(null);
@@ -208,13 +258,10 @@ const DocumentList = ({ materials, activeTrigger }) => {
           href={item.link} 
           target="_blank" 
           rel="noopener noreferrer"
-          // Removed negative margins. The border strictly respects the column width.
           className="material-row group relative flex flex-col sm:flex-row justify-between items-start sm:items-center py-5 md:py-6 border-b border-[var(--primary-base)]/10 cursor-pointer outline-none"
         >
-          {/* Absolute Bleed Background (Hover state won't mess with borders) */}
           <div className="absolute -inset-x-4 md:-inset-x-6 inset-y-0 rounded-md transition-opacity duration-300 -z-10 bg-[var(--primary-base)]/5 opacity-0 group-hover:opacity-100"></div>
 
-          {/* Left Side: Title & Badge */}
           <div className="flex flex-wrap items-center gap-3 md:gap-4 mb-3 sm:mb-0 pr-6 w-full sm:w-auto relative z-10">
             <h3 className="text-base md:text-lg lg:text-xl font-light tracking-tight text-[var(--text-main)]/90 group-hover:text-[var(--text-main)] transition-colors duration-300">
               {item.title}
@@ -226,7 +273,6 @@ const DocumentList = ({ materials, activeTrigger }) => {
             )}
           </div>
           
-          {/* Right Side: Action Indicator */}
           <div className="flex items-center gap-3 md:gap-4 shrink-0 opacity-60 group-hover:opacity-100 transition-opacity duration-300 self-end sm:self-auto relative z-10">
             <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-main)]">
               Download
@@ -246,6 +292,117 @@ const DocumentList = ({ materials, activeTrigger }) => {
   );
 };
 
+/* =========================================
+   SUB-COMPONENTS: Diploma Dropdown Lists
+========================================= */
+
+// Individual Dropdown Accordion Item
+const DiplomaDropdownItem = ({ topic }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="material-row flex flex-col border-b border-[var(--primary-base)]/10">
+      
+      {/* Accordion Header */}
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="group relative flex justify-between items-center py-5 md:py-6 cursor-pointer outline-none w-full text-left"
+      >
+        <div className="flex flex-wrap items-center gap-3 md:gap-4 pr-6 w-full sm:w-auto relative z-10">
+          <h3 className={`text-base md:text-lg lg:text-xl font-light tracking-tight transition-colors duration-300 ${isOpen ? 'text-[var(--accent)]' : 'text-[var(--text-main)]/90 group-hover:text-[var(--text-main)]'}`}>
+            {topic.title}
+          </h3>
+          {topic.isNew && (
+            <span className="shrink-0 border border-[var(--accent)] text-[var(--accent)] text-[9px] md:text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full">
+              New
+            </span>
+          )}
+        </div>
+        
+        {/* Toggle Icon */}
+        <div className="shrink-0 flex items-center justify-center relative z-10">
+          <svg 
+            className={`w-4 h-4 md:w-5 md:h-5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? 'rotate-180 text-[var(--accent)]' : 'text-[var(--primary-base)]/40 group-hover:text-[var(--text-main)]'}`} 
+            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </button>
+
+      {/* Accordion Content (Smooth Grid Expansion) */}
+      <div 
+        className={`grid transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          isOpen ? 'grid-rows-[1fr] opacity-100 mb-6' : 'grid-rows-[0fr] opacity-0 mb-0'
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="flex flex-col gap-2 pl-4 md:pl-8 border-l border-[var(--primary-base)]/10 ml-2">
+            {topic.materials.map((material) => (
+              <a 
+                key={material.id}
+                href={material.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                download // Triggers browser download if the link is a valid file
+                className="group/link flex items-center justify-between py-3 px-4 rounded-md hover:bg-[var(--primary-base)]/5 transition-colors duration-300"
+              >
+                <div className="flex items-center gap-3">
+                  {/* Document Icon */}
+                  <svg className="w-4 h-4 text-[var(--primary-base)]/40 group-hover/link:text-[var(--accent)] transition-colors duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span className="font-sans text-sm md:text-base text-[var(--text-main)]/80 group-hover/link:text-[var(--text-main)] transition-colors duration-300">
+                    {material.title}
+                  </span>
+                </div>
+                
+                {/* Micro Download Icon */}
+                <svg className="w-4 h-4 text-[var(--primary-base)]/20 group-hover/link:text-[var(--accent)] transform group-hover/link:-translate-y-0.5 transition-all duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Container for Diploma Dropdowns
+const DiplomaDocumentList = ({ topics, activeTrigger }) => {
+  const listRef = useRef(null);
+
+  useGSAP(() => {
+    if (!listRef.current) return;
+    const rows = listRef.current.querySelectorAll('.material-row');
+    
+    gsap.fromTo(rows,
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.04, ease: "power2.out" }
+    );
+  }, { scope: listRef, dependencies: [activeTrigger] });
+
+  if (!topics || topics.length === 0) {
+    return (
+      <div className="py-16 flex flex-col items-center justify-center">
+         <span className="text-4xl text-[var(--text-main)]/10 mb-4">∅</span>
+         <p className="font-sans text-sm md:text-base font-light tracking-tight text-[var(--text-main)]/40">
+           No topics available for this selection.
+         </p>
+      </div>
+    )
+  }
+
+  return (
+    <div ref={listRef} className="flex flex-col">
+      {topics.map((topic) => (
+        <DiplomaDropdownItem key={topic.id} topic={topic} />
+      ))}
+    </div>
+  );
+};
 
 /* =========================================
    MAIN COMPONENT
@@ -273,9 +430,9 @@ export default function StudyMaterialList() {
   }, [activeBscSemesterData, activeBscSubjectId]);
 
   // Derived Data for Diploma
-  const activeDiplomaMaterials = useMemo(() => {
+  const activeDiplomaTopics = useMemo(() => {
      const subjectData = diplomaData.subjects.find(sub => sub.id === activeDiplomaSubjectId);
-     return subjectData ? subjectData.materials : [];
+     return subjectData ? subjectData.topics : []; // Returns the nested topics array
   }, [activeDiplomaSubjectId]);
 
   // Handlers
@@ -329,7 +486,7 @@ export default function StudyMaterialList() {
                 </h2>
             </div>
 
-            {/* Top Filter: Semesters (No bottom border here to prevent double lines) */}
+            {/* Top Filter: Semesters */}
             <div className="tabs-container flex flex-col gap-4 mb-8">
                 <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-main)]/40">
                     Filter by Semester
@@ -376,7 +533,6 @@ export default function StudyMaterialList() {
                                     onClick={() => setActiveBscSubjectId(subject.id)}
                                     className="group relative text-left outline-none w-full py-2.5 transition-all duration-300 flex items-center justify-between"
                                 >
-                                    {/* Absolute Bleed Background */}
                                     <div className={`absolute -inset-x-4 md:-inset-x-6 inset-y-0 rounded-md transition-opacity duration-300 -z-10 ${
                                       isActive ? 'bg-[var(--primary-base)]/5 opacity-100' : 'bg-[var(--primary-base)]/5 opacity-0 group-hover:opacity-100'
                                     }`}></div>
@@ -387,7 +543,6 @@ export default function StudyMaterialList() {
                                         {subject.title}
                                     </h3>
                                     
-                                    {/* Indicator Dot */}
                                     <span className={`w-1.5 h-1.5 rounded-full shrink-0 ml-4 transition-all duration-300 ${
                                       isActive ? 'bg-[var(--accent)] scale-100 opacity-100' : 'bg-transparent scale-50 opacity-0'
                                     }`}></span>
@@ -442,7 +597,6 @@ export default function StudyMaterialList() {
                                     onClick={() => setActiveDiplomaSubjectId(subject.id)}
                                     className="group relative text-left outline-none w-full py-2.5 transition-all duration-300 flex items-center justify-between"
                                 >
-                                    {/* Absolute Bleed Background */}
                                     <div className={`absolute -inset-x-4 md:-inset-x-6 inset-y-0 rounded-md transition-opacity duration-300 -z-10 ${
                                       isActive ? 'bg-[var(--primary-base)]/5 opacity-100' : 'bg-[var(--primary-base)]/5 opacity-0 group-hover:opacity-100'
                                     }`}></div>
@@ -453,7 +607,6 @@ export default function StudyMaterialList() {
                                         {subject.title}
                                     </h3>
                                     
-                                    {/* Indicator Dot */}
                                     <span className={`w-1.5 h-1.5 rounded-full shrink-0 ml-4 transition-all duration-300 ${
                                       isActive ? 'bg-[var(--accent)] scale-100 opacity-100' : 'bg-transparent scale-50 opacity-0'
                                     }`}></span>
@@ -463,13 +616,13 @@ export default function StudyMaterialList() {
                     </nav>
                 </div>
 
-                {/* Right Content: Materials List */}
+                {/* Right Content: Accordion Dropdown List */}
                 <div className="w-full lg:w-9/12 xl:w-3/4 flex flex-col">
                     <span className="font-sans text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--text-main)]/40 block mb-6">
-                        Available Materials
+                        Course Modules & Downloads
                     </span>
-                    <DocumentList 
-                        materials={activeDiplomaMaterials} 
+                    <DiplomaDocumentList 
+                        topics={activeDiplomaTopics} 
                         activeTrigger={`diploma-${activeDiplomaSubjectId}`} 
                     />
                 </div>

@@ -12,7 +12,7 @@ const academicsData = [
     title: "Food Production",
     kicker: "Culinary Arts & Kitchen Operations",
     desc: "An intensive immersion into global culinary arts. From fundamental knife skills to advanced gastronomy, train to lead in the world's most demanding kitchens.",
-    img: "/fp-bg.webp",
+    img: "/images/home/food-production.webp",
     link: "/food-production",
   },
   {
@@ -28,7 +28,7 @@ const academicsData = [
     title: "Front Office",
     kicker: "Guest Relations & Revenue",
     desc: "Become the face of luxury hospitality. Master guest experience management, reservation systems, and the critical operational flow of the hotel lobby.",
-    img: "/fo-bg.webp",
+    img: "/images/home/front-office.webp",
     link: "/front-office",
   },
   {
@@ -36,7 +36,7 @@ const academicsData = [
     title: "Housekeeping",
     kicker: "Accommodation Operations",
     desc: "The backbone of any 5-star property. Acquire the meticulous skills required for room detailing, inventory management, and maintaining immaculate physical environments.",
-    img: "/hk-bg.webp",
+    img: "/images/home/housekeeping.webp",
     link: "/house-keeping",
   },
 ];

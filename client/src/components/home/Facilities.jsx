@@ -38,7 +38,7 @@ const facilitiesData = [
   {
     id: "05",
     title: "Computer Lab",
-    img: "/computer-lab.webp",
+    img: "/images/home/computer-lab.webp",
     gridClass: "col-span-1 md:col-span-2 lg:col-span-4",
     // UPDATED: Now points to the Front Office page with the specific hash
     link: "/front-office#computer-lab" 
