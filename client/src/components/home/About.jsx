@@ -59,7 +59,6 @@ export default function About() {
     let mm = gsap.matchMedia();
 
     // 1. Text Paragraph Reveal 
-    // We animate the block as a whole unit to preserve native text-justify perfectly.
     gsap.fromTo('.animated-paragraph',
       { y: 40, opacity: 0 },
       { 
@@ -174,7 +173,8 @@ export default function About() {
       <div className="max-w-7xl xl:max-w-screen-xl 2xl:max-w-[100rem] mx-auto grid grid-cols-1 lg:grid-cols-12 lg:gap-24 xl:gap-32 2xl:gap-40 relative">
         
         {/* Left Column Wrapper */}
-        <div className="col-span-1 lg:col-span-5 relative min-w-0 px-5 md:pl-12 lg:pl-16 xl:pl-24 2xl:pl-32">
+        {/* Adjusted padding to stop overflow */}
+        <div className="col-span-1 lg:col-span-5 relative min-w-0 px-5 md:px-12 lg:px-0 lg:pl-16 xl:pl-24 2xl:pl-32">
           
           <div className="lg:sticky lg:top-[37vh] flex flex-col justify-center items-start w-full">
             <span className="font-semibold text-xs 2xl:text-sm uppercase tracking-[0.2em] text-[var(--text-muted)] mb-6 xl:mb-8 block opacity-80">
@@ -193,18 +193,19 @@ export default function About() {
         </div>
 
         {/* Right Column: The Scrolling Narrative */}
-        <div className="col-span-1 lg:col-span-7 flex flex-col items-start min-w-0 px-5 md:pr-12 lg:pr-16 xl:pr-24 2xl:pr-32">
+        {/* Replaced pr-xx with standard mobile px-5 and let grid handle desktop spacing */}
+        <div className="col-span-1 lg:col-span-7 flex flex-col items-start min-w-0 px-5 md:px-12 lg:px-0 lg:pr-16 xl:pr-24 2xl:pr-32">
           
           <blockquote 
             ref={blockquoteRef}
             className="border-l-2 border-[var(--accent)] pl-6 md:pl-8 py-2 my-10 xl:my-16 2xl:my-20"
           >
-            <p className="head-txt text-2xl md:text-3xl lg:text-4xl 2xl:text-5xl leading-snug italic text-[var(--text-main)] text-justify">
+            <p className="head-txt text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] 2xl:text-5xl leading-snug italic text-[var(--text-main)] text-justify">
               "The State Institute of Hotel Management (SIHM), Durgapur is an initiation of the department of tourism, government of West Bengal to attract young, enthusiastic boys and girls to acquire soft, hard and managerial skills to become competent in the Hospitality industry of the country."
             </p>
           </blockquote>
 
-          <p className="animated-paragraph text-base md:text-lg 2xl:text-2xl leading-[1.8] text-[var(--text-main)] mb-12 xl:mb-16 text-justify font-light">
+          <p className="animated-paragraph text-base md:text-lg xl:text-xl 2xl:text-2xl leading-[1.8] text-[var(--text-main)] mb-12 xl:mb-16 text-justify font-light">
             SIHM Durgapur promises the best education with a modern and professional approach along with State of the Art facilities. With the advent of urbanization and industrialisation, the Hospitality Industry is rapidly growing to cater the mass involved in Accommodation, Food and Beverage, Retails, Cruise, Airline and other service sectors.
           </p>
 
