@@ -12,7 +12,7 @@ const pillarsData = [
     title: "NCHMCT",
     kicker: "Ministry of Tourism, Govt. of India",
     desc: "National Council for Hotel Management & Catering Technology (NCHMCT) is an autonomous body centrally regulating academics for B.Sc. Hospitality & Hotel Administration.",
-    img: "/nchmct-bg.webp",
+    img: "/images/home/aahoran.webp",
     link: "https://nchm.gov.in/",
   },
   {

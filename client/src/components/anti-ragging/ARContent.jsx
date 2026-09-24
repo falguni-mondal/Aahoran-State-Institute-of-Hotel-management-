@@ -14,7 +14,7 @@ const chapters = [
   {
     id: "02",
     title: "The Law of India",
-    text: "Under the directives of the Honorable Supreme Court of India and the University Grants Commission (UGC), ragging is a strictly punishable criminal offense. The 'UGC Regulations on Curbing the Menace of Ragging in Higher Educational Institutions, 2009' mandates uncompromising compliance from all colleges. SIHM Durgapur operates strictly under these federal and state frameworks, ensuring total legal alignment and zero loopholes for offenders."
+    text: "Under the directives of the Honorable Supreme Court of India and the University Grants Commission (UGC), ragging is a strictly punishable criminal offense under Bharatiya Nyaya Sanhita 2023 u/s 115, 117, 126, 127, and 351. The 'UGC Regulations on Curbing the Menace of Ragging in Higher Educational Institutions, 2009' mandates uncompromising compliance from all colleges. SIHM Durgapur operates strictly under these federal and state frameworks, ensuring total legal alignment and zero loopholes for offenders."
   },
   {
     id: "03",

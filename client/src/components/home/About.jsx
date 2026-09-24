@@ -221,7 +221,7 @@ export default function About() {
               
               <img 
                 className="parallax-image w-full h-auto scale-[1.15] grayscale-[20%]"
-                src="/graduationBW.webp" 
+                src="/images/home/about_student_image.webp" 
                 alt="SIHM Graduation Ceremony" 
               />
             </div>
