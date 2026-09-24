@@ -30,7 +30,7 @@ function AboutCTA({ text }) {
       ref={btnRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="bg-[var(--accent)] text-[var(--text-light)] font-medium text-xs uppercase tracking-[0.15em] shadow-xl cursor-pointer flex items-stretch h-13 xl:h-14 mt-4 outline-none"
+      className="bg-[var(--accent)] text-[var(--text-light)] font-medium text-xs uppercase tracking-[0.15em] shadow-xl cursor-pointer flex items-stretch h-13 xl:h-14 mt-4 outline-none w-fit"
     >
       <div className="flex items-center justify-center px-10 xl:px-12 relative overflow-hidden">
         <div className="relative overflow-hidden h-[1em] leading-none flex items-center justify-center">
@@ -168,64 +168,69 @@ export default function About() {
   return (
     <section 
       ref={sectionRef} 
+      // REMOVED 'overflow-hidden' which was breaking the sticky behavior
       className="w-full bg-[#F7F5F0] text-[var(--text-main)] py-24 md:py-32 xl:py-40 2xl:py-48 relative z-10"
     >
-      <div className="max-w-7xl xl:max-w-screen-xl 2xl:max-w-[100rem] mx-auto grid grid-cols-1 lg:grid-cols-12 lg:gap-24 xl:gap-32 2xl:gap-40 relative">
+      <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto max-w-[1920px]">
         
-        {/* Left Column Wrapper */}
-        {/* Adjusted padding to stop overflow */}
-        <div className="col-span-1 lg:col-span-5 relative min-w-0 px-5 md:px-12 lg:px-0 lg:pl-16 xl:pl-24 2xl:pl-32">
+        {/* Grid Container */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24">
           
-          <div className="lg:sticky lg:top-[37vh] flex flex-col justify-center items-start w-full">
-            <span className="font-semibold text-xs 2xl:text-sm uppercase tracking-[0.2em] text-[var(--text-muted)] mb-6 xl:mb-8 block opacity-80">
-              Established in West Bengal
-            </span>
+          {/* Left Column Wrapper */}
+          <div className="col-span-1 lg:col-span-5 relative min-w-0">
             
-            <h2 className="head-txt text-5xl md:text-6xl lg:text-[5rem] xl:text-[5.5rem] 2xl:text-[6.5rem] leading-[1.05] tracking-tight mb-8">
-              <div className="overflow-hidden pb-2">
-                <span className="about-title-line block origin-bottom-left">A Legacy of</span>
-              </div>
-              <div className="overflow-hidden pb-4">
-                <span className="about-title-line block origin-bottom-left italic font-light text-[var(--accent)]">Hospitality</span>
-              </div>
-            </h2>
+            {/* The Sticky Title */}
+            <div className="lg:sticky lg:top-[37vh] flex flex-col justify-center items-start w-full">
+              <span className="font-semibold text-[10px] md:text-xs uppercase tracking-[0.2em] text-[var(--text-muted)] mb-6 xl:mb-8 block opacity-80">
+                Established in West Bengal
+              </span>
+              
+              <h2 className="head-txt text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5rem] 2xl:text-[6rem] leading-[1.05] tracking-tight mb-8">
+                <div className="overflow-hidden pb-2">
+                  <span className="about-title-line block origin-bottom-left">A Legacy of</span>
+                </div>
+                <div className="overflow-hidden pb-4">
+                  <span className="about-title-line block origin-bottom-left italic font-light text-[var(--accent)]">Hospitality</span>
+                </div>
+              </h2>
+            </div>
           </div>
-        </div>
 
-        {/* Right Column: The Scrolling Narrative */}
-        {/* Replaced pr-xx with standard mobile px-5 and let grid handle desktop spacing */}
-        <div className="col-span-1 lg:col-span-7 flex flex-col items-start min-w-0 px-5 md:px-12 lg:px-0 lg:pr-16 xl:pr-24 2xl:pr-32">
-          
-          <blockquote 
-            ref={blockquoteRef}
-            className="border-l-2 border-[var(--accent)] pl-6 md:pl-8 py-2 my-10 xl:my-16 2xl:my-20"
-          >
-            <p className="head-txt text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] 2xl:text-5xl leading-snug italic text-[var(--text-main)] text-justify">
-              "The State Institute of Hotel Management (SIHM), Durgapur is an initiation of the department of tourism, government of West Bengal to attract young, enthusiastic boys and girls to acquire soft, hard and managerial skills to become competent in the Hospitality industry of the country."
+          {/* Right Column: The Scrolling Narrative */}
+          <div className="col-span-1 lg:col-span-7 flex flex-col items-start min-w-0 mt-8 lg:mt-0">
+            
+            <blockquote 
+              ref={blockquoteRef}
+              className="border-l-2 border-[var(--accent)] pl-6 md:pl-8 py-2 mb-10 xl:mb-16 2xl:mb-20"
+            >
+              <p className="head-txt text-2xl md:text-3xl lg:text-3xl xl:text-4xl leading-snug italic text-[var(--text-main)] text-justify">
+                "The State Institute of Hotel Management (SIHM), Durgapur is an initiation of the department of tourism, government of West Bengal to attract young, enthusiastic boys and girls to acquire soft, hard and managerial skills to become competent in the Hospitality industry of the country."
+              </p>
+            </blockquote>
+
+            <p className="animated-paragraph text-sm md:text-base lg:text-lg xl:text-xl leading-[1.8] text-[var(--text-main)] mb-12 xl:mb-16 text-justify font-light">
+              SIHM Durgapur promises the best education with a modern and professional approach along with State of the Art facilities. With the advent of urbanization and industrialisation, the Hospitality Industry is rapidly growing to cater the mass involved in Accommodation, Food and Beverage, Retails, Cruise, Airline and other service sectors.
             </p>
-          </blockquote>
 
-          <p className="animated-paragraph text-base md:text-lg xl:text-xl 2xl:text-2xl leading-[1.8] text-[var(--text-main)] mb-12 xl:mb-16 text-justify font-light">
-            SIHM Durgapur promises the best education with a modern and professional approach along with State of the Art facilities. With the advent of urbanization and industrialisation, the Hospitality Industry is rapidly growing to cater the mass involved in Accommodation, Food and Beverage, Retails, Cruise, Airline and other service sectors.
-          </p>
+            {/* Cinematic Image Container */}
+            <div 
+              ref={imageWrapperRef}
+              className="w-full relative overflow-hidden rounded-sm mb-12 xl:mb-16"
+            >
+              <div className="image-curtain absolute inset-0 bg-[#F7F5F0] z-10 origin-bottom"></div>
+              
+              <img 
+                className="parallax-image w-full h-auto scale-[1.15] grayscale-[20%]"
+                src="/graduationBW.webp" 
+                alt="SIHM Graduation Ceremony" 
+              />
+            </div>
 
-          {/* Cinematic Image Container - Full Width, Auto Height */}
-          <div 
-            ref={imageWrapperRef}
-            className="w-full relative overflow-hidden rounded-sm mb-12 xl:mb-16"
-          >
-            <div className="image-curtain absolute inset-0 bg-[#F7F5F0] z-10 origin-bottom"></div>
-            
-            <img 
-              className="parallax-image w-full h-auto scale-[1.15] grayscale-[20%]"
-              src="/graduationBW.webp" 
-              alt="SIHM Graduation Ceremony" 
-            />
+            <AboutCTA text="KNOW MORE" />
+
           </div>
-
-          <AboutCTA text="KNOW MORE" />
-
         </div>
+
       </div>
     </section>
   );

@@ -6,37 +6,40 @@ import PageRouter from './routes/PageRouter';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import ScrollManager from './utils/ScrollManager';
+import { ScrollTrigger } from "gsap/ScrollTrigger"; // Ensure ScrollTrigger is imported
 
 import AdmissionModal from './components/global/AdmissionModal';
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate(); 
 
   // =========================================
+  // STATE TRACKERS (Refs used to prevent re-renders)
+  // =========================================
+  const isScrolledPast100vh = useRef(false);
+  const recruitmentHovered = useRef(false);
+  const admissionHovered = useRef(false);
+
+  // =========================================
   // AUTO-OPEN MODAL CONFIGURATION
-  // Easily change these dates (Format: YYYY-MM-DD)
   // =========================================
   const AUTO_OPEN_START_DATE = new Date('2026-09-18T00:00:00');
   const AUTO_OPEN_END_DATE = new Date('2027-06-30T23:59:59');
-  const AUTO_OPEN_DELAY_MS = 1500; // 1.5 seconds delay
+  const AUTO_OPEN_DELAY_MS = 1500; 
 
   useEffect(() => {
     const currentDate = new Date();
-    // Check if it has already been auto-opened in this session
     const hasAutoOpened = sessionStorage.getItem('hasAutoOpenedAdmissionModal');
 
-    // Only trigger if within the date window AND it hasn't opened yet this session
     if (!hasAutoOpened && currentDate >= AUTO_OPEN_START_DATE && currentDate <= AUTO_OPEN_END_DATE) {
       const timer = setTimeout(() => {
         setIsModalOpen(true);
-        // Record that it has opened so it doesn't pop up again on refresh/navigation
         sessionStorage.setItem('hasAutoOpenedAdmissionModal', 'true');
       }, AUTO_OPEN_DELAY_MS);
 
-      // Cleanup the timer if the component unmounts before it fires
       return () => clearTimeout(timer);
     }
   }, []);
@@ -45,43 +48,95 @@ export default function App() {
   const admissionBtnRef = useRef(null);
   const recruitmentBtnRef = useRef(null);
 
-  // Initial Entrance Animation for BOTH floating buttons
+  // =========================================
+  // GLOBAL ANIMATIONS (Entrance & Scroll)
+  // =========================================
   useGSAP(() => {
+    // 1. Initial Entrance Animation
     gsap.to([recruitmentBtnRef.current, admissionBtnRef.current], {
       x: 0,
       opacity: 1,
       duration: 1.2,
-      stagger: 0.15, // Stagger them in nicely
+      stagger: 0.15, 
       ease: "expo.out",
       delay: 0.8,
     });
+
+    // 2. Scroll 100vh trigger
+    ScrollTrigger.create({
+      start: () => window.innerHeight, // Triggers exactly at 100vh
+      onEnter: () => {
+        isScrolledPast100vh.current = true;
+        // Only shrink if the user isn't currently hovering over them
+        if (!recruitmentHovered.current) {
+          gsap.to(recruitmentBtnRef.current.querySelector(".text-wrapper"), { height: 0, marginTop: 0, opacity: 0, duration: 0.6, ease: "expo.inOut" });
+        }
+        if (!admissionHovered.current) {
+          gsap.to(admissionBtnRef.current.querySelector(".text-wrapper"), { height: 0, marginTop: 0, opacity: 0, duration: 0.6, ease: "expo.inOut" });
+        }
+      },
+      onLeaveBack: () => {
+        isScrolledPast100vh.current = false;
+        // Always expand them when scrolling back to the top
+        gsap.to([
+          recruitmentBtnRef.current.querySelector(".text-wrapper"),
+          admissionBtnRef.current.querySelector(".text-wrapper")
+        ], { height: "auto", marginTop: 12, opacity: 1, duration: 0.6, ease: "expo.inOut" });
+      }
+    });
   });
 
-  // Hover Handlers for Admission Button
-  const { contextSafe: contextSafeAdmission } = useGSAP({ scope: admissionBtnRef });
-  const handleAdmissionEnter = contextSafeAdmission(() => {
-    gsap.to(".admission-text-main", { x: "-110%", duration: 0.6, ease: "expo.inOut" });
-    gsap.to(".admission-text-hover", { x: "0%", duration: 0.6, ease: "expo.inOut" });
-  });
-  const handleAdmissionLeave = contextSafeAdmission(() => {
-    gsap.to(".admission-text-main", { x: "0%", duration: 0.6, ease: "expo.inOut" });
-    gsap.to(".admission-text-hover", { x: "110%", duration: 0.6, ease: "expo.inOut" });
-  });
-
-  // Hover Handlers for Recruitment Button
+  // =========================================
+  // HOVER HANDLERS: Recruitment Button
+  // =========================================
   const { contextSafe: contextSafeRecruitment } = useGSAP({ scope: recruitmentBtnRef });
+  
   const handleRecruitmentEnter = contextSafeRecruitment(() => {
-    gsap.to(".recruitment-text-main", { x: "-110%", duration: 0.6, ease: "expo.inOut" });
-    gsap.to(".recruitment-text-hover", { x: "0%", duration: 0.6, ease: "expo.inOut" });
-  });
-  const handleRecruitmentLeave = contextSafeRecruitment(() => {
-    gsap.to(".recruitment-text-main", { x: "0%", duration: 0.6, ease: "expo.inOut" });
-    gsap.to(".recruitment-text-hover", { x: "110%", duration: 0.6, ease: "expo.inOut" });
+    recruitmentHovered.current = true;
+    // Only expand height if we are past 100vh (because above 100vh, it's already open)
+    if (isScrolledPast100vh.current) {
+      gsap.to(".text-wrapper", { height: "auto", marginTop: 12, opacity: 1, duration: 0.6, ease: "expo.inOut" });
+    }
+    // Always do the text color slide
+    gsap.to(".text-main", { x: "-110%", duration: 0.6, ease: "expo.inOut" });
+    gsap.to(".text-hover", { x: "0%", duration: 0.6, ease: "expo.inOut" });
   });
 
-  // Routing Handler for Recruitment
+  const handleRecruitmentLeave = contextSafeRecruitment(() => {
+    recruitmentHovered.current = false;
+    // Only shrink height if we are past 100vh
+    if (isScrolledPast100vh.current) {
+      gsap.to(".text-wrapper", { height: 0, marginTop: 0, opacity: 0, duration: 0.6, ease: "expo.inOut" });
+    }
+    // Always slide text back
+    gsap.to(".text-main", { x: "0%", duration: 0.6, ease: "expo.inOut" });
+    gsap.to(".text-hover", { x: "110%", duration: 0.6, ease: "expo.inOut" });
+  });
+
+  // =========================================
+  // HOVER HANDLERS: Admission Button
+  // =========================================
+  const { contextSafe: contextSafeAdmission } = useGSAP({ scope: admissionBtnRef });
+  
+  const handleAdmissionEnter = contextSafeAdmission(() => {
+    admissionHovered.current = true;
+    if (isScrolledPast100vh.current) {
+      gsap.to(".text-wrapper", { height: "auto", marginTop: 12, opacity: 1, duration: 0.6, ease: "expo.inOut" });
+    }
+    gsap.to(".text-main", { x: "-110%", duration: 0.6, ease: "expo.inOut" });
+    gsap.to(".text-hover", { x: "0%", duration: 0.6, ease: "expo.inOut" });
+  });
+
+  const handleAdmissionLeave = contextSafeAdmission(() => {
+    admissionHovered.current = false;
+    if (isScrolledPast100vh.current) {
+      gsap.to(".text-wrapper", { height: 0, marginTop: 0, opacity: 0, duration: 0.6, ease: "expo.inOut" });
+    }
+    gsap.to(".text-main", { x: "0%", duration: 0.6, ease: "expo.inOut" });
+    gsap.to(".text-hover", { x: "110%", duration: 0.6, ease: "expo.inOut" });
+  });
+
   const handleRecruitmentClick = () => {
-    // Navigate to Notice Board with the exact category param AND the section hash
     navigate('/notice-board?category=recruitment#notice-board-top');
   };
 
@@ -93,7 +148,6 @@ export default function App() {
         <Navbar />
       </header>
 
-      {/* Main Routing Area */}
       <main className='w-full'>
         <PageRouter/>
       </main>
@@ -105,7 +159,7 @@ export default function App() {
       ========================================= */}
       <div className="fixed right-0 bottom-24 md:bottom-auto md:top-1/2 md:-translate-y-1/2 z-[60] flex flex-col gap-2">
         
-        {/* BUTTON 1: Recruitment (Routes to Notice Board) */}
+        {/* BUTTON 1: Recruitment */}
         <div
           ref={recruitmentBtnRef}
           style={{ transformOrigin: "right center" }}
@@ -115,9 +169,8 @@ export default function App() {
             onClick={handleRecruitmentClick}
             onMouseEnter={handleRecruitmentEnter}
             onMouseLeave={handleRecruitmentLeave}
-            className="group flex items-center gap-3 bg-[var(--background)] text-[var(--primary-base)] py-5 px-3 md:py-8 md:px-3 rounded-l-sm shadow-[0_10px_40px_rgba(0,0,0,0.15)] border border-r-0 border-[var(--primary-base)]/10 cursor-pointer outline-none"
+            className="group flex flex-col items-center justify-center bg-[var(--background)] text-[var(--primary-base)] p-3.5 md:p-4 rounded-l-sm shadow-[0_10px_40px_rgba(0,0,0,0.15)] border border-r-0 border-[var(--primary-base)]/10 cursor-pointer outline-none will-change-[padding]"
           >
-            {/* Briefcase Icon for Recruitment */}
             <div className="w-5 h-5 flex items-center justify-center shrink-0">
               <svg
                 className="w-5 h-5 block transition-colors duration-300 group-hover:text-[var(--accent)]"
@@ -130,18 +183,22 @@ export default function App() {
               </svg>
             </div>
 
-            <div className="hidden md:flex justify-center items-center relative overflow-hidden w-[1em]">
-              <span className="recruitment-text-main font-sans font-semibold text-[10px] uppercase tracking-widest [writing-mode:vertical-rl] rotate-180 block">
+            {/* Default state is now OPEN (height: 'auto') */}
+            <div 
+              className="text-wrapper hidden md:flex justify-center items-center relative overflow-hidden w-[1em] will-change-[height,margin,opacity]"
+              style={{ height: "auto", opacity: 1, marginTop: 12 }}
+            >
+              <span className="text-main whitespace-nowrap font-sans font-semibold text-[10px] uppercase tracking-widest [writing-mode:vertical-rl] rotate-180 block">
                 Recruitment
               </span>
-              <span className="recruitment-text-hover absolute text-[var(--accent)] font-sans font-semibold text-[10px] uppercase tracking-widest [writing-mode:vertical-rl] rotate-180 block translate-x-[110%]">
+              <span className="text-hover whitespace-nowrap absolute text-[var(--accent)] font-sans font-semibold text-[10px] uppercase tracking-widest [writing-mode:vertical-rl] rotate-180 block translate-x-[110%]">
                 Recruitment
               </span>
             </div>
           </button>
         </div>
 
-        {/* BUTTON 2: Admission Query (Opens Modal) */}
+        {/* BUTTON 2: Admission Query */}
         <div
           ref={admissionBtnRef}
           style={{ transformOrigin: "right center" }}
@@ -151,9 +208,8 @@ export default function App() {
             onClick={() => setIsModalOpen(true)}
             onMouseEnter={handleAdmissionEnter}
             onMouseLeave={handleAdmissionLeave}
-            className="group flex items-center gap-3 bg-[var(--background)] text-[var(--primary-base)] py-5 px-3 md:py-8 md:px-3 rounded-l-sm shadow-[0_10px_40px_rgba(0,0,0,0.15)] border border-r-0 border-[var(--primary-base)]/10 cursor-pointer outline-none"
+            className="group flex flex-col items-center justify-center bg-[var(--background)] text-[var(--primary-base)] p-3.5 md:p-4 rounded-l-sm shadow-[0_10px_40px_rgba(0,0,0,0.15)] border border-r-0 border-[var(--primary-base)]/10 cursor-pointer outline-none will-change-[padding]"
           >
-            {/* Pencil/Edit Icon for Admission */}
             <div className="w-5 h-5 flex items-center justify-center shrink-0">
               <svg
                 className="w-5 h-5 block transition-colors duration-300 group-hover:text-[var(--accent)]"
@@ -170,11 +226,15 @@ export default function App() {
               </svg>
             </div>
 
-            <div className="hidden md:flex justify-center items-center relative overflow-hidden w-[1em]">
-              <span className="admission-text-main font-sans font-semibold text-[10px] uppercase tracking-widest [writing-mode:vertical-rl] rotate-180 block">
+            {/* Default state is now OPEN (height: 'auto') */}
+            <div 
+              className="text-wrapper hidden md:flex justify-center items-center relative overflow-hidden w-[1em] will-change-[height,margin,opacity]"
+              style={{ height: "auto", opacity: 1, marginTop: 12 }}
+            >
+              <span className="text-main whitespace-nowrap font-sans font-semibold text-[10px] uppercase tracking-widest [writing-mode:vertical-rl] rotate-180 block">
                 Admission Query
               </span>
-              <span className="admission-text-hover absolute text-[var(--accent)] font-sans font-semibold text-[10px] uppercase tracking-widest [writing-mode:vertical-rl] rotate-180 block translate-x-[110%]">
+              <span className="text-hover whitespace-nowrap absolute text-[var(--accent)] font-sans font-semibold text-[10px] uppercase tracking-widest [writing-mode:vertical-rl] rotate-180 block translate-x-[110%]">
                 Admission Query
               </span>
             </div>
@@ -183,9 +243,6 @@ export default function App() {
 
       </div>
 
-      {/* =========================================
-          GLOBAL MODAL COMPONENT 
-      ========================================= */}
       <AdmissionModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
