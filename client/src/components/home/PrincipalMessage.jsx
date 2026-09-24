@@ -15,7 +15,7 @@ export default function PrincipalMessage() {
   const paragraphsRef = useRef(null);
 
   // In the future, this will be passed as a prop from your backend (e.g., ImageKit URL)
-  const principalImageUrl = "/principal.webp";
+  const principalImageUrl = "/images/home/sihm_principal.webp";
 
   useGSAP(() => {
     let mm = gsap.matchMedia();
@@ -83,7 +83,7 @@ export default function PrincipalMessage() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: paragraphsRef.current,
-            start: "top 85%", // Triggers precisely when the paragraph block enters
+            start: "top 85%", 
             toggleActions: "play none none reverse",
           }
         }
@@ -122,7 +122,7 @@ export default function PrincipalMessage() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: paragraphsRef.current,
-            start: "top 90%", // Triggers right as the paragraph enters the bottom of the screen
+            start: "top 90%", 
             toggleActions: "play none none reverse",
           }
         }
@@ -135,29 +135,27 @@ export default function PrincipalMessage() {
   return (
     <section 
       ref={sectionRef} 
-      // DISTINGUISHING FACTOR: Added border-y to frame the section against pure background sections
       className="w-full relative z-10 bg-[var(--background)] py-24 md:py-32 xl:py-40 2xl:py-48 border-y border-[var(--primary-base)]/10"
     >
-      
-      {/* Grid Layout Container */}
-      <div className="relative z-10 max-w-7xl xl:max-w-screen-xl 2xl:max-w-[100rem] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 xl:gap-28 2xl:gap-32 px-5 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+      <div className="relative z-10 w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-24 px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
         
         {/* 
           =========================================
           LEFT COLUMN: THE STICKY PORTRAIT
           ========================================= 
+          FIXED: Changed to col-span-4 to make the image smaller
         */}
-        <div className="col-span-1 lg:col-span-5 relative min-w-0">
+        <div className="col-span-1 lg:col-span-4 relative min-w-0">
           
           <div className="lg:sticky lg:top-[14vh] xl:top-[17vh] flex flex-col w-full h-fit">
             
-            {/* The Accent Frame */}
-            <div className="absolute top-5 left-5 md:top-8 md:left-8 w-full h-[55vh] lg:h-[65vh] xl:h-[75vh] border border-[var(--accent)]/30 z-0 hidden md:block"></div>
+            {/* The Accent Frame - FIXED: Enforced aspect-[3/4] */}
+            <div className="absolute top-5 left-5 md:top-8 md:left-8 w-full aspect-[3/4] border border-[var(--accent)]/30 z-0 hidden md:block"></div>
             
-            {/* The Image Mask Wrapper */}
+            {/* The Image Mask Wrapper - FIXED: Enforced aspect-[3/4] */}
             <div 
               ref={imageWrapperRef}
-              className="relative z-10 w-full h-[55vh] lg:h-[65vh] xl:h-[75vh] overflow-hidden bg-[var(--primary-base)]/5 shadow-2xl"
+              className="relative z-10 w-full aspect-[3/4] overflow-hidden bg-[var(--primary-base)]/5 shadow-2xl"
             >
               <img 
                 ref={imageRef}
@@ -186,15 +184,17 @@ export default function PrincipalMessage() {
           =========================================
           RIGHT COLUMN: THE SCROLLING MESSAGE
           ========================================= 
+          FIXED: Added col-start-6. 
+          Left col is 1-4. Col 5 is an empty gap. Right col is 6-12.
         */}
-        <div className="col-span-1 lg:col-span-7 flex flex-col items-start min-w-0 pt-8 md:pt-16 lg:pt-0 pb-12 lg:pb-32">
+        <div className="col-span-1 lg:col-span-7 lg:col-start-6 flex flex-col items-start min-w-0 pt-8 md:pt-16 lg:pt-0 pb-12 lg:pb-32">
           
-          {/* Giant Background Quote (Inverted color) */}
-          <div className="absolute -top-6 lg:-top-16 -left-2 lg:-left-8 text-[8rem] lg:text-[12rem] text-[var(--primary-base)] opacity-[0.03] font-serif leading-none select-none pointer-events-none">
+          {/* Giant Background Quote - FIXED: Set to left-0 to perfectly align with the text block */}
+          <div className="absolute -top-4 lg:-top-8 left-0 text-[8rem] lg:text-[12rem] text-[var(--primary-base)] opacity-[0.03] font-serif leading-none select-none pointer-events-none">
             "
           </div>
 
-          {/* TOP TEXT BLOCK: Kicker, Hero Quote, Swami Quote */}
+          {/* TOP TEXT BLOCK */}
           <div ref={topContentRef} className="relative z-10 flex flex-col items-start w-full">
             
             {/* 1. Kicker */}
@@ -206,13 +206,13 @@ export default function PrincipalMessage() {
             </div>
 
             {/* 2. Hero Quote */}
-            <h3 className="head-txt text-3xl md:text-4xl lg:text-[2.75rem] xl:text-5xl leading-[1.2] text-[var(--primary-base)] mb-10 text-justify">
+            <h3 className="w-full head-txt text-2xl md:text-3xl lg:text-4xl xl:text-[2.5rem] leading-[1.4] text-[var(--primary-base)] mb-10 text-justify">
               Hospitality is not merely a profession — it is a way of life rooted in <span className="italic font-light text-[var(--accent)]">values, service, and human connection.</span>
             </h3>
 
             {/* 3. Swami Vivekananda Quote */}
-            <div className="relative w-full py-10 my-6 border-y border-[var(--primary-base)]/10">
-              <h4 className="head-txt text-xl md:text-2xl lg:text-3xl text-[var(--accent)] leading-tight italic mb-6">
+            <div className="relative w-full py-8 md:py-10 my-6 border-y border-[var(--primary-base)]/10">
+              <h4 className="w-full head-txt text-lg md:text-xl lg:text-2xl text-[var(--accent)] leading-relaxed italic mb-6 text-justify">
                 "Education is the manifestation of the perfection already in man."
               </h4>
               <div className="flex items-center gap-4">
@@ -226,17 +226,17 @@ export default function PrincipalMessage() {
           </div>
 
           {/* BOTTOM TEXT BLOCK: Justified Paragraphs */}
-          <div ref={paragraphsRef} className="relative z-10 flex flex-col gap-6 font-sans text-sm md:text-base xl:text-lg text-[var(--primary-base)]/75 leading-relaxed max-w-2xl 2xl:max-w-3xl mt-4">
+          <div ref={paragraphsRef} className="relative z-10 flex flex-col gap-6 font-sans text-base lg:text-lg text-[var(--primary-base)]/80 leading-[1.8] w-full mt-4">
             
-            <p className="text-justify">
+            <p className="w-full text-justify">
               At <span className="text-[var(--primary-base)] font-medium">State Institute of Hotel Management, Durgapur,</span> we believe education must ignite inner potential, nurture character, and empower students to create impact. Our vision of Hotel Management education goes far beyond traditional roles.
             </p>
             
-            <p className="text-justify">
+            <p className="w-full text-justify">
               The future belongs to those who can innovate, lead with empathy, embrace technology, and build enterprises that generate employment and meaningful experiences. Whether your aspiration is to manage world-class hotels, launch your own food venture, become a hospitality technologist, or contribute to tourism and service innovation, SIHM Durgapur provides the right foundation.
             </p>
             
-            <p className="text-justify pt-4 text-[var(--primary-base)]/90 font-medium">
+            <p className="w-full text-justify pt-4 text-[var(--primary-base)]/90 font-medium">
               Your journey to serve the world with skill, dignity, and vision begins here. Welcome to a future full of possibilities.
             </p>
             
