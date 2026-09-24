@@ -167,7 +167,7 @@ const PillarCard = ({ pillar, isLast }) => {
             {pillar.kicker}
           </span>
           
-          <h3 className="head-txt text-5xl md:text-6xl lg:text-5xl xl:text-[4rem] 2xl:text-[5.5rem] leading-none tracking-tight mb-6 lg:mb-8 text-[var(--primary-base)] group-hover/card:translate-x-1 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
+          <h3 className="head-txt text-5xl lg:text-[2.7rem] xl:text-[4rem] 2xl:text-[5.5rem] leading-none tracking-tight mb-6 lg:mb-8 text-[var(--primary-base)] group-hover/card:translate-x-1 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
             {pillar.title}
           </h3>
 
