@@ -12,7 +12,7 @@ const pillarsData = [
     title: "NCHMCT",
     kicker: "Ministry of Tourism, Govt. of India",
     desc: "National Council for Hotel Management & Catering Technology (NCHMCT) is an autonomous body centrally regulating academics for B.Sc. Hospitality & Hotel Administration.",
-    img: "/images/home/aahoran.webp",
+    img: "/images/home/nchmct.webp",
     link: "https://nchm.gov.in/",
   },
   {
@@ -27,7 +27,7 @@ const pillarsData = [
     id: "03",
     title: "Our Alumni",
     kicker: "A Global Professional Network",
-    desc: "We create hospitality leaders who are ruling the industry globally. Our alumni are working in top hotels, cruise lines, airlines, and other service sectors worldwide, and keeping the head high of India.",
+    desc: "Our alumni carry the SIHM Durgapur legacy across leading hotels, cruise lines, airlines, and global service brands—representing the excellence of Indian hospitality worldwide.",
     img: "/alumni-bg.webp",
     link: "/placement#alumni",
   },
@@ -167,7 +167,7 @@ const PillarCard = ({ pillar, isLast }) => {
             {pillar.kicker}
           </span>
           
-          <h3 className="head-txt text-5xl md:text-6xl xl:text-7xl 2xl:text-[5.5rem] leading-none tracking-tight mb-6 lg:mb-8 text-[var(--primary-base)] group-hover/card:translate-x-1 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
+          <h3 className="head-txt text-5xl md:text-6xl lg:text-5xl xl:text-[4rem] 2xl:text-[5.5rem] leading-none tracking-tight mb-6 lg:mb-8 text-[var(--primary-base)] group-hover/card:translate-x-1 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
             {pillar.title}
           </h3>
 

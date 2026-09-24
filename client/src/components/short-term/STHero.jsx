@@ -94,7 +94,7 @@ export default function STHero() {
         {/* Massive Asymmetric Title */}
         <div className="flex flex-col w-full my-auto lg:mt-auto lg:mb-0 pb-12 lg:pb-0">
           <div className="overflow-hidden w-full flex justify-center md:justify-start">
-            <h1 className="hero-title-word head-txt text-[16vw] md:text-[16vw] lg:text-[14vw] xl:text-[12rem] 2xl:text-[14rem] tracking-tighter leading-[0.85] text-[var(--text-main)] text-center md:text-left">
+            <h1 className="hero-title-word head-txt text-[14vw] md:text-[14vw] lg:text-[12vw] xl:text-[10rem] 2xl:text-[12rem] tracking-tighter leading-[0.85] text-[var(--text-main)] text-center md:text-left">
               SHORT TERM
             </h1>
           </div>

@@ -10,7 +10,7 @@ const facilitiesData = [
   {
     id: "01",
     title: "Our Campus",
-    img: "/campus.webp",
+    img: "/images/home/campus_front.webp",
     gridClass: "col-span-1 md:col-span-2 lg:col-span-8", 
     link: "/our-campus",
   },

@@ -92,12 +92,12 @@ export default function AboutHero() {
 
         <div className="flex flex-col w-full my-auto lg:mt-auto lg:mb-0 pb-12 lg:pb-0">
           <div className="overflow-hidden w-full flex justify-start">
-            <h1 className="hero-title-word head-txt text-[18vw] md:text-[14vw] lg:text-[12rem] xl:text-[14rem] 2xl:text-[16rem] tracking-tighter leading-[0.85] text-[var(--text-light)]">
+            <h1 className="hero-title-word head-txt text-[16vw] md:text-[12vw] lg:text-[12vw] xl:text-[10rem] 2xl:text-[12rem] tracking-tighter leading-[0.85] text-[var(--text-light)]">
               "ABOUT
             </h1>
           </div>
           <div className="overflow-hidden w-full flex justify-end">
-            <h1 className="hero-title-word head-txt text-[18vw] md:text-[14vw] lg:text-[12rem] xl:text-[11rem] 2xl:text-[16rem] tracking-tighter leading-[0.85] text-[var(--accent)] italic pr-4 md:pr-12 lg:pr-24">
+            <h1 className="hero-title-word head-txt text-[18vw] md:text-[14vw] lg:text-[14vw] xl:text-[11rem] 2xl:text-[16rem] tracking-tighter leading-[0.85] text-[var(--accent)] italic pr-4 md:pr-12 lg:pr-24">
               SIHM, DURGAPUR"
             </h1>
           </div>
