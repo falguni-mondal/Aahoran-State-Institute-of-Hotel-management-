@@ -19,30 +19,17 @@ const globalPointers = [
   { name: "Bogotá", coordinates: [-74.07, 4.71] },
   { name: "Santa Cruz", coordinates: [-63.18, -17.78] },
   // Europe
-  { name: "Moscow", coordinates: [37.61, 55.75] },
   { name: "Munich", coordinates: [11.58, 48.13] },
   { name: "Warsaw", coordinates: [21.01, 52.22] },
   { name: "Madrid", coordinates: [-3.70, 40.41] },
   { name: "Kyiv", coordinates: [30.52, 50.45] },
-  { name: "Yekaterinburg", coordinates: [60.58, 56.83] },
-  // Africa
-  { name: "Johannesburg", coordinates: [28.04, -26.20] },
-  { name: "Addis Ababa", coordinates: [38.75, 9.02] },
-  { name: "Kano", coordinates: [8.59, 12.00] },
-  { name: "Kinshasa", coordinates: [15.29, -4.32] },
-  { name: "Khartoum", coordinates: [32.55, 15.50] },
-  { name: "Bamako", coordinates: [-8.00, 12.63] },
   // Asia & Oceania
   { name: "Riyadh", coordinates: [46.71, 24.71] },
   { name: "Tehran", coordinates: [51.38, 35.68] },
   { name: "Tashkent", coordinates: [69.24, 41.29] },
-  { name: "Novosibirsk", coordinates: [82.92, 55.00] },
-  { name: "Chengdu", coordinates: [104.06, 30.57] },
-  { name: "Ulaanbaatar", coordinates: [106.91, 47.91] },
-  { name: "Krasnoyarsk", coordinates: [92.85, 56.01] },
   { name: "Alice Springs", coordinates: [133.88, -23.69] },
   { name: "Kalgoorlie", coordinates: [121.46, -30.74] },
-  // Newly Added Asian / Southeast Asian / Island Pointers
+  // Asian / Southeast Asian / Island Pointers
   { name: "Japan (Nagano)", coordinates: [138.18, 36.65] },
   { name: "Indonesia (Bandung)", coordinates: [107.61, -6.91] },
   { name: "Singapore", coordinates: [103.81, 1.35] },

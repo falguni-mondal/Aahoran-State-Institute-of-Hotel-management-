@@ -28,36 +28,27 @@ const globalPointers = [
   { name: "Winnipeg", coordinates: [-97.13, 49.89] },
   { name: "Mexico City", coordinates: [-99.13, 19.43] },
   { name: "Phoenix", coordinates: [-112.07, 33.44] },
+  
   // South America
   { name: "Brasília", coordinates: [-47.88, -15.79] },
   { name: "Manaus", coordinates: [-60.02, -3.11] },
   { name: "Córdoba", coordinates: [-64.18, -31.42] },
   { name: "Bogotá", coordinates: [-74.07, 4.71] },
   { name: "Santa Cruz", coordinates: [-63.18, -17.78] },
+  
   // Europe
-  { name: "Moscow", coordinates: [37.61, 55.75] },
   { name: "Munich", coordinates: [11.58, 48.13] },
   { name: "Warsaw", coordinates: [21.01, 52.22] },
   { name: "Madrid", coordinates: [-3.7, 40.41] },
   { name: "Kyiv", coordinates: [30.52, 50.45] },
-  { name: "Yekaterinburg", coordinates: [60.58, 56.83] },
-  // Africa
-  { name: "Johannesburg", coordinates: [28.04, -26.2] },
-  { name: "Addis Ababa", coordinates: [38.75, 9.02] },
-  { name: "Kano", coordinates: [8.59, 12.0] },
-  { name: "Kinshasa", coordinates: [15.29, -4.32] },
-  { name: "Khartoum", coordinates: [32.55, 15.5] },
-  { name: "Bamako", coordinates: [-8.0, 12.63] },
-  // Asia & Oceania
+  
+  // Asia & Oceania (Removed China & Russia)
   { name: "Riyadh", coordinates: [46.71, 24.71] },
   { name: "Tehran", coordinates: [51.38, 35.68] },
   { name: "Tashkent", coordinates: [69.24, 41.29] },
-  { name: "Novosibirsk", coordinates: [82.92, 55.0] },
-  { name: "Chengdu", coordinates: [104.06, 30.57] },
-  { name: "Ulaanbaatar", coordinates: [106.91, 47.91] },
-  { name: "Krasnoyarsk", coordinates: [92.85, 56.01] },
   { name: "Alice Springs", coordinates: [133.88, -23.69] },
   { name: "Kalgoorlie", coordinates: [121.46, -30.74] },
+  
   // Asian / Southeast Asian / Island Pointers
   { name: "Japan", coordinates: [138.18, 36.65] },
   { name: "Indonesia", coordinates: [107.61, -6.91] },
@@ -68,9 +59,6 @@ const globalPointers = [
   { name: "Philippines", coordinates: [120.59, 16.4] },
   { name: "Sri Lanka", coordinates: [80.63, 7.29] },
   { name: "Maldives", coordinates: [73.5, 4.17] },
-  // India
-  { name: "Delhi", coordinates: [77.2, 28.61] },
-  { name: "Mumbai", coordinates: [72.87, 19.07] },
 ];
 
 /* =========================================
@@ -295,11 +283,8 @@ export default function Partners() {
             {/* Layer 3: Global Pins */}
             {globalPointers.map((pointer, index) => (
               <Marker key={index} coordinates={pointer.coordinates}>
-                {/* PERMANENT STATIC GLOW */}
                 <circle cx="0" cy="0" r="7" fill="var(--accent)" opacity="0.15" />
                 <circle cx="0" cy="0" r="4" fill="var(--accent)" opacity="0.3" />
-
-                {/* CUSTOM LOCATION PIN ICON */}
                 <g transform="scale(0.65)">
                   <path d="M 0 0 C -3.5 -5 -6 -8.5 -6 -12 A 6 6 0 1 1 6 -12 C 6 -8.5 3.5 -5 0 0 Z" fill="var(--accent)" />
                   <circle cx="0" cy="-12" r="2.5" fill="var(--background)" />
