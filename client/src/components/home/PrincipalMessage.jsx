@@ -15,7 +15,7 @@ export default function PrincipalMessage() {
   const paragraphsRef = useRef(null);
 
   // In the future, this will be passed as a prop from your backend (e.g., ImageKit URL)
-  const principalImageUrl = "/images/home/sihm_principal.webp";
+  const principalImageUrl = "/images/sihm_principal.webp";
 
   useGSAP(() => {
     let mm = gsap.matchMedia();
