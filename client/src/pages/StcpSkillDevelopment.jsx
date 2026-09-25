@@ -8,64 +8,53 @@ import GalleryGrid from '../components/gallery/GalleryGrid';
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /* =========================================
-   MOCK DATA: FAREWELL IMAGES (Grouped by Year)
-   (Continuous from 2026 down to 2022)
+   MOCK DATA: STCP & SKILL DEVELOPMENT
 ========================================= */
-const farewellDataByYear = [
+const stcpDataByYear = [
   {
     year: "2026",
-    date: "May 15, 2026", // Placeholder Date
-    title: "Batch of 2023-26",
-    description: "Celebrating the graduation of the 2023-26 batch. A bittersweet night of nostalgia, outstanding awards, and bidding adieu to our future hospitality leaders.",
+    date: "March 15, 2026",
+    title: "Advanced Culinary Workshop",
+    description: "A specialized Short Term Certification Program (STCP) focusing on advanced culinary techniques, modern plating, and international cuisines. Designed to upskill aspiring chefs and local youth for the global hospitality sector.",
     images: [
-      { id: '26-1', url: '/farewell_1.webp', alt: 'Graduating Batch Group Portrait', aspect: 'vertical' },
-      { id: '26-2', url: '/farewell_2.webp', alt: 'Award Ceremony and Felicitations', aspect: 'horizontal' },
+      { id: '26-stcp1', url: '/stcp_1.webp', alt: 'Chef Demonstrating Plating Techniques', aspect: 'vertical' },
+      { id: '26-stcp2', url: '/stcp_2.webp', alt: 'Students Practicing Culinary Skills', aspect: 'horizontal' },
     ]
   },
   {
     year: "2025",
-    date: "May 10, 2025", // Placeholder Date
-    title: "Batch of 2022-25",
-    description: "Honoring the perseverance and success of the 2022-25 class. An elegant banquet filled with touching speeches, cultural performances, and cherished memories.",
+    date: "July 22, 2025",
+    title: "Front Office & Communication Mastery",
+    description: "An intensive skill development drive aimed at polishing guest interaction, crisis management, and software proficiency using industry-standard Property Management Systems (PMS).",
     images: [
-      { id: '25-1', url: '/farewell_3.webp', alt: 'Passing the Torch to Juniors', aspect: 'vertical' },
-      { id: '25-2', url: '/farewell_4.webp', alt: 'Valedictorian Speech', aspect: 'horizontal' },
-      { id: '25-3', url: '/farewell_5.webp', alt: 'Candid Moments at the Farewell Banquet', aspect: 'square' },
+      { id: '25-stcp1', url: '/stcp_3.webp', alt: 'Roleplaying Guest Check-in', aspect: 'square' },
+      { id: '25-stcp2', url: '/stcp_4.webp', alt: 'Communication Skills Lecture', aspect: 'horizontal' },
+      { id: '25-stcp3', url: '/stcp_5.webp', alt: 'Computer Lab Training', aspect: 'vertical' },
     ]
   },
   {
     year: "2024",
-    date: "May 12, 2024", // Placeholder Date
-    title: "Batch of 2021-24",
-    description: "A grand farewell to the 2021-24 graduates. The ceremony highlighted outstanding academic achievements and concluded with a memorable feast.",
+    date: "November 10, 2024",
+    title: "Bakery & Patisserie Certification",
+    description: "A hands-on short course dedicated to the science of baking. Participants mastered artisanal bread making, classical French pastries, and intricate cake decoration techniques under expert guidance.",
     images: [
-      { id: '24-1', url: '/farewell_6.webp', alt: 'Farewell Cultural Performances', aspect: 'vertical' },
-      { id: '24-2', url: '/farewell_7.webp', alt: 'Final Address by the Principal', aspect: 'horizontal' },
+      { id: '24-stcp1', url: '/stcp_6.webp', alt: 'Artisanal Bread Baking', aspect: 'vertical' },
+      { id: '24-stcp2', url: '/stcp_7.webp', alt: 'Cake Decoration Masterclass', aspect: 'horizontal' },
     ]
   },
   {
     year: "2023",
-    date: "May 08, 2023", // Placeholder Date
-    title: "Batch of 2020-23",
-    description: "Bidding farewell to a resilient batch. The event was marked by emotional autograph signings, traditional attires, and the symbolic hat toss.",
+    date: "April 05, 2023",
+    title: "Accommodation Operations Drive",
+    description: "Empowering the workforce through rigorous training in modern housekeeping standards, sustainability practices, and floral arrangements for premium luxury resorts.",
     images: [
-      { id: '23-1', url: '/farewell_8.webp', alt: 'Students Signing Autograph Books', aspect: 'vertical' },
-      { id: '23-2', url: '/farewell_9.webp', alt: 'Tossing Hats in Celebration', aspect: 'square' },
-    ]
-  },
-  {
-    year: "2022",
-    date: "May 14, 2022", // Placeholder Date
-    title: "Batch of 2019-22",
-    description: "Celebrating the triumphant completion of their journey. A highly anticipated gathering where students shared their future aspirations and final goodbyes.",
-    images: [
-      { id: '22-1', url: '/farewell_10.webp', alt: 'Farewell Cake Cutting Ceremony', aspect: 'horizontal' },
-      { id: '22-2', url: '/farewell_11.webp', alt: 'Faculty Blessing the Graduates', aspect: 'vertical' },
+      { id: '23-stcp1', url: '/stcp_8.webp', alt: 'Bed Making Time Challenge', aspect: 'horizontal' },
+      { id: '23-stcp2', url: '/stcp_9.webp', alt: 'Towel Art and Floral Setup', aspect: 'square' },
     ]
   }
 ];
 
-export default function Farewell() {
+export default function StcpSkillDevelopment() {
   const containerRef = useRef(null);
 
   useGSAP(() => {
@@ -93,19 +82,18 @@ export default function Farewell() {
       
       {/* 
         Reusable Hero Component 
-        Passing specific Farewell details.
       */}
       <GalleryHero 
-        subtitle="The Farewell"
-        title="Anujñā"
-        bgImage="/images/farewell/farewell_hero.webp" 
+        subtitle="Empowering Futures"
+        title="STCP & Skill Development"
+        bgImage="/images/stcp/stcp-hero.webp" 
       />
 
       {/* ==========================================
           YEAR-BASED GALLERY SECTIONS
       ========================================== */}
       <div className="w-full flex flex-col">
-        {farewellDataByYear.map((section, index) => (
+        {stcpDataByYear.map((section, index) => (
           <section key={section.year} className={`w-full pt-20 md:pt-32 pb-24 ${index !== 0 ? 'border-t border-[var(--primary-base)]/10' : ''}`}>
             
             <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
@@ -119,10 +107,10 @@ export default function Farewell() {
                     {section.year}
                   </span>
                   
-                  {/* Added Date nicely integrated with the Tag */}
+                  {/* Date nicely integrated with the Tag */}
                   <div className="flex flex-wrap items-center gap-3 mb-4">
                     <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)]">
-                      Farewell Gallery
+                      Skill Development
                     </span>
                     <span className="w-1 h-1 rounded-full bg-[var(--text-main)]/30"></span>
                     <span className="text-[10px] md:text-xs tracking-widest text-[var(--text-main)] font-medium uppercase">
@@ -153,7 +141,6 @@ export default function Farewell() {
 
             {/* 
               Reusable Grid Component
-              Passing the specific image array for this year.
             */}
             <GalleryGrid images={section.images} />
 

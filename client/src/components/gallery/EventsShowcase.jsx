@@ -7,16 +7,16 @@ import GalleryLightbox from './GalleryLightbox';
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /* =========================================
-   MOCK DATA: EVENT CATEGORIES (With Year & Month)
+   MOCK DATA: EVENT CATEGORIES (With Full Dates)
 ========================================= */
 const eventCategories = [
-  { id: 'culinary', title: 'Culinary Training Program For Army Mess Cooks', month: 'September', year: '2026' },
-  { id: 'award', title: 'Award and Recognition Ceremony', month: 'May', year: '2026' },
-  { id: 'expert', title: 'Expert Guest Session', month: 'November', year: '2025' },
-  { id: 'sports', title: 'Annual Sports Day', month: 'February', year: '2025' },
-  { id: 'quiz', title: 'All India School Level Quiz Competition', month: 'December', year: '2024' },
-  { id: 'tourism', title: 'World Tourism Day', month: 'September', year: '2023' },
-  { id: 'independence', title: 'Independence Day Celebrations', month: 'August', year: '2018' },
+  { id: 'culinary', title: 'Culinary Training Program For Army Mess Cooks', date: 'September 15, 2026' },
+  { id: 'award', title: 'Award and Recognition Ceremony', date: 'May 22, 2026' },
+  { id: 'expert', title: 'Expert Guest Session', date: 'November 10, 2025' },
+  { id: 'sports', title: 'Annual Sports Day', date: 'February 18, 2025' },
+  { id: 'quiz', title: 'All India School Level Quiz Competition', date: 'December 05, 2024' },
+  { id: 'tourism', title: 'World Tourism Day', date: 'September 27, 2023' },
+  { id: 'independence', title: 'Independence Day Celebrations', date: 'August 15, 2018' },
 ];
 
 const aspects = ['vertical', 'horizontal', 'square'];
@@ -140,11 +140,18 @@ export default function EventsShowcase() {
               {/* ==========================================
                   LEFT: STICKY EVENT TYPOGRAPHY
               ========================================== */}
-              <div className="w-full lg:w-[35%] shrink-0 lg:sticky lg:top-32 flex flex-col gap-6 pt-2">
-                {/* Replaced Exhibition Header with Date Header */}
-                <span className="font-sans text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)]">
-                  {category.month} {category.year}
-                </span>
+              <div className="w-full lg:w-[35%] shrink-0 lg:sticky lg:top-32 flex flex-col gap-4 pt-2">
+                
+                {/* Refined Date Display Header matching other gallery pages */}
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)]">
+                    Event Gallery
+                  </span>
+                  <span className="w-1 h-1 rounded-full bg-[var(--text-main)]/30"></span>
+                  <span className="text-[10px] md:text-xs tracking-widest text-[var(--text-main)] font-medium uppercase">
+                    {category.date}
+                  </span>
+                </div>
                 
                 <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light tracking-tight leading-[1.1] text-[var(--text-main)] pr-8">
                   {category.title}

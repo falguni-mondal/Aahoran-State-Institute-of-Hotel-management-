@@ -73,9 +73,9 @@ export default function FTSnapshot() {
               {/* NCHMCT Accreditation */}
               <div className="flex flex-row items-center gap-4 md:gap-6">
                 <img 
-                  src="/nchmct.png" 
+                  src="/images/logos/nchmct.webp" 
                   alt="NCHMCT Logo" 
-                  className="w-10 h-10 md:w-14 md:h-14 lg:w-20 lg:h-20 object-contain shrink-0"
+                  className="w-20 h-20 md:w-14 md:h-14 lg:w-[5.5rem] lg:h-[5.5rem] object-contain shrink-0"
                 />
                 <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-[var(--text-main)] leading-[1.3] tracking-tight">
                   National Council for Hotel Management and Catering Technology, Noida
@@ -88,9 +88,9 @@ export default function FTSnapshot() {
               {/* JNU Accreditation */}
               <div className="flex flex-row items-center gap-4 md:gap-6">
                 <img 
-                  src="/jnu.svg" 
+                  src="/images/logos/jnu.webp" 
                   alt="JNU Logo" 
-                  className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 object-contain shrink-0"
+                  className="w-20 h-20 md:w-14 md:h-14 lg:w-[5.5rem] lg:h-[5.5rem] object-contain shrink-0"
                 />
                 <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-[var(--text-main)] leading-[1.3] tracking-tight">
                   Jawaharlal Nehru University, New Delhi

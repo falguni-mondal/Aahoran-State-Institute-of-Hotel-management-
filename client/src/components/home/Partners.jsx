@@ -20,7 +20,6 @@ const indiaGeoUrl =
   "https://raw.githubusercontent.com/datameet/maps/master/Country/india-composite.geojson";
 
 // Deep Inland Global Pointers (Avoiding coastlines)
-// These raw coordinates remain unchanged and unaffected by the projection change.
 const globalPointers = [
   // North America
   { name: "Denver", coordinates: [-104.99, 39.73] },
@@ -75,20 +74,32 @@ const globalPointers = [
 ];
 
 /* =========================================
-   PARTNERS DATA
+   REAL PARTNERS DATA
 ========================================= */
-const baseImages = [
-  "/campus-facility.webp",
-  "/events-facility.webp",
-  "/infrastructure-facility.webp",
-  "/sports-facility.webp",
-  "/seminar-facility.webp",
+const partnerFiles = [
+  "conrad_png.webp",
+  "holiday-inn_png.webp",
+  "hyatt_png.webp",
+  "jwm_png.webp",
+  "novotel_png.webp",
+  "hilton_png.webp",
+  "oberoi_png.webp",
+  "pride_png.webp",
+  "sheraton_png.webp",
+  "taj_png.webp",
+  "the-lalit_png.webp",
+  "peerless_png.webp",
+  "radisson_png.webp",
+  "ramada_png.webp",
+  "trident_png.webp",
+  "westin_png.webp",
+  "the-park_png.webp"
 ];
 
-// Generates 24 items to fit perfectly into 3 or 4 columns
-const partnersData = Array.from({ length: 24 }).map((_, i) => ({
+// Map the file array into the structure expected by the grid
+const partnersData = partnerFiles.map((fileName, i) => ({
   id: i + 1,
-  img: baseImages[i % baseImages.length],
+  img: `/images/partner-logos/${fileName}`,
 }));
 
 export default function Partners() {
@@ -182,7 +193,7 @@ export default function Partners() {
   return (
     <section
       ref={sectionRef}
-      className="w-full relative bg-[var(--background)] py-24 md:py-32 xl:py-40 overflow-hidden"
+      className="w-full relative bg-[var(--background)] py-24 md:pt-32 xl:pt-40 overflow-hidden"
     >
       {/* SECTION HEADER */}
       <div className="w-full flex flex-col items-center justify-center mb-16 md:mb-24 px-5">
@@ -219,6 +230,7 @@ export default function Partners() {
         ========================================== 
       */}
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-16 mx-auto max-w-[1800px] flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 lg:gap-8">
+        
         {/* ================= LEFT: THE MAP (60%) ================= */}
         <div className="w-full lg:w-[60%] flex flex-col items-center relative opacity-90 pt-8">
           <div className="w-full text-center lg:text-left mb-10 px-4 xl:px-0">
@@ -232,9 +244,7 @@ export default function Partners() {
           </div>
 
           <ComposableMap
-            // CHANGE 1: Switched to geoMercator for straight edges
             projection="geoMercator"
-            // CHANGE 2: Adjusted scale (from 155 to 115) to fit container with new projection
             projectionConfig={{ scale: 115 }}
             className="w-full h-auto pointer-events-none"
           >
@@ -242,8 +252,16 @@ export default function Partners() {
             <Geographies geography={worldGeoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => {
-                  if (geo.id === "356" || geo.properties.name === "India")
+                  // Filtering out India and Antarctica
+                  if (
+                    geo.id === "356" || 
+                    geo.properties.name === "India" ||
+                    geo.id === "010" || 
+                    geo.properties.name === "Antarctica"
+                  ) {
                     return null;
+                  }
+                  
                   return (
                     <Geography
                       key={geo.rsmKey}
@@ -278,27 +296,12 @@ export default function Partners() {
             {globalPointers.map((pointer, index) => (
               <Marker key={index} coordinates={pointer.coordinates}>
                 {/* PERMANENT STATIC GLOW */}
-                <circle
-                  cx="0"
-                  cy="0"
-                  r="7"
-                  fill="var(--accent)"
-                  opacity="0.15"
-                />
-                <circle
-                  cx="0"
-                  cy="0"
-                  r="4"
-                  fill="var(--accent)"
-                  opacity="0.3"
-                />
+                <circle cx="0" cy="0" r="7" fill="var(--accent)" opacity="0.15" />
+                <circle cx="0" cy="0" r="4" fill="var(--accent)" opacity="0.3" />
 
                 {/* CUSTOM LOCATION PIN ICON */}
                 <g transform="scale(0.65)">
-                  <path
-                    d="M 0 0 C -3.5 -5 -6 -8.5 -6 -12 A 6 6 0 1 1 6 -12 C 6 -8.5 3.5 -5 0 0 Z"
-                    fill="var(--accent)"
-                  />
+                  <path d="M 0 0 C -3.5 -5 -6 -8.5 -6 -12 A 6 6 0 1 1 6 -12 C 6 -8.5 3.5 -5 0 0 Z" fill="var(--accent)" />
                   <circle cx="0" cy="-12" r="2.5" fill="var(--background)" />
                 </g>
               </Marker>
@@ -307,18 +310,8 @@ export default function Partners() {
             {/* Layer 4: SIHM Durgapur */}
             <Marker coordinates={[87.33992374149645, 23.54757943246294]}>
               <circle r={3} fill="var(--accent)" />
-              <circle
-                r={8}
-                fill="none"
-                stroke="var(--accent)"
-                strokeWidth={1}
-                opacity={0.5}
-              />
-              <text
-                textAnchor="middle"
-                y={-12}
-                className="font-sans font-semibold tracking-widest text-[8px] uppercase fill-[var(--text-main)]"
-              >
+              <circle r={8} fill="none" stroke="var(--accent)" strokeWidth={1} opacity={0.5} />
+              <text textAnchor="middle" y={-12} className="font-sans font-semibold tracking-widest text-[8px] uppercase fill-[var(--text-main)]">
                 SIHM Durgapur
               </text>
             </Marker>

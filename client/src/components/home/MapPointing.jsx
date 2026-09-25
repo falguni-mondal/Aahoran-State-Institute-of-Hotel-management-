@@ -1,13 +1,9 @@
 import React from 'react';
 import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 
-// 1. Standard Global Map (for all countries EXCEPT India)
 const worldGeoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
-
-// 2. Official India Map (Fetched dynamically from a reliable open-source repo)
 const indiaGeoUrl = "https://raw.githubusercontent.com/datameet/maps/master/Country/india-composite.geojson";
 
-// 3. Deep Inland Global Pointers (Longitude, Latitude)
 const globalPointers = [
   // North America
   { name: "Denver", coordinates: [-104.99, 39.73] },
@@ -16,14 +12,12 @@ const globalPointers = [
   { name: "Winnipeg", coordinates: [-97.13, 49.89] },
   { name: "Mexico City", coordinates: [-99.13, 19.43] },
   { name: "Phoenix", coordinates: [-112.07, 33.44] },
-  
   // South America
   { name: "Brasília", coordinates: [-47.88, -15.79] },
   { name: "Manaus", coordinates: [-60.02, -3.11] },
   { name: "Córdoba", coordinates: [-64.18, -31.42] },
   { name: "Bogotá", coordinates: [-74.07, 4.71] },
   { name: "Santa Cruz", coordinates: [-63.18, -17.78] },
-  
   // Europe
   { name: "Moscow", coordinates: [37.61, 55.75] },
   { name: "Munich", coordinates: [11.58, 48.13] },
@@ -31,7 +25,6 @@ const globalPointers = [
   { name: "Madrid", coordinates: [-3.70, 40.41] },
   { name: "Kyiv", coordinates: [30.52, 50.45] },
   { name: "Yekaterinburg", coordinates: [60.58, 56.83] },
-  
   // Africa
   { name: "Johannesburg", coordinates: [28.04, -26.20] },
   { name: "Addis Ababa", coordinates: [38.75, 9.02] },
@@ -39,7 +32,6 @@ const globalPointers = [
   { name: "Kinshasa", coordinates: [15.29, -4.32] },
   { name: "Khartoum", coordinates: [32.55, 15.50] },
   { name: "Bamako", coordinates: [-8.00, 12.63] },
-  
   // Asia & Oceania
   { name: "Riyadh", coordinates: [46.71, 24.71] },
   { name: "Tehran", coordinates: [51.38, 35.68] },
@@ -50,7 +42,6 @@ const globalPointers = [
   { name: "Krasnoyarsk", coordinates: [92.85, 56.01] },
   { name: "Alice Springs", coordinates: [133.88, -23.69] },
   { name: "Kalgoorlie", coordinates: [121.46, -30.74] },
-
   // Newly Added Asian / Southeast Asian / Island Pointers
   { name: "Japan (Nagano)", coordinates: [138.18, 36.65] },
   { name: "Indonesia (Bandung)", coordinates: [107.61, -6.91] },
@@ -67,7 +58,6 @@ export default function MapPointing() {
   return (
     <section className="w-full py-24 bg-[var(--background)] flex flex-col items-center justify-center overflow-hidden border-t border-[var(--primary-base)]/10">
       
-      {/* CSS Animation for the pulsating rings */}
       <style>{`
         @keyframes pulse-ring {
           0% { transform: scale(0.5); opacity: 1; }
@@ -81,9 +71,7 @@ export default function MapPointing() {
 
       <div className="w-full max-w-[1400px] px-5 md:px-12 flex flex-col items-center">
         
-        {/* ==========================================
-            HEADER
-        ========================================== */}
+        {/* HEADER */}
         <div className="text-center mb-12 md:mb-16">
           <span className="font-sans text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)] mb-4 block">
             Global Reach
@@ -93,22 +81,26 @@ export default function MapPointing() {
           </h2>
         </div>
 
-        {/* 
-          ==========================================
-          REACT SIMPLE MAPS: CHARCOAL WORLD MAP
-          ========================================== 
-        */}
+        {/* REACT SIMPLE MAPS */}
         <div className="relative w-full max-w-5xl opacity-80">
           
           <ComposableMap 
             projectionConfig={{ scale: 155 }} 
             className="w-full h-auto pointer-events-none" 
           >
-            {/* LAYER 1: WORLD MAP (EXCLUDING INCORRECT INDIA) */}
+            {/* LAYER 1: WORLD MAP */}
             <Geographies geography={worldGeoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => {
-                  if (geo.id === "356" || geo.properties.name === "India") return null;
+                  // FILTER APPLIED HERE: Removing India (356) and Antarctica (010)
+                  if (
+                    geo.id === "356" || 
+                    geo.properties.name === "India" ||
+                    geo.id === "010" || 
+                    geo.properties.name === "Antarctica"
+                  ) {
+                    return null;
+                  }
 
                   return (
                     <Geography
@@ -128,7 +120,7 @@ export default function MapPointing() {
               }
             </Geographies>
 
-            {/* LAYER 2: OFFICIAL INDIA BOUNDARY (THE MASK) */}
+            {/* LAYER 2: OFFICIAL INDIA BOUNDARY */}
             <Geographies geography={indiaGeoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => (
@@ -151,54 +143,28 @@ export default function MapPointing() {
             {/* LAYER 3: ADDITIONAL GLOBAL POINTERS */}
             {globalPointers.map((pointer, index) => (
               <Marker key={index} coordinates={pointer.coordinates}>
-                
-                {/* NATIVE SVG ANIMATION */}
                 <circle cx="0" cy="0" r="1" fill="none" stroke="var(--accent)" strokeWidth="0.8">
-                  <animate 
-                    attributeName="r" 
-                    from="1" 
-                    to="12" 
-                    dur="2.5s" 
-                    begin={`${(index % 5) * 0.4}s`} 
-                    repeatCount="indefinite" 
-                  />
-                  <animate 
-                    attributeName="opacity" 
-                    from="0.8" 
-                    to="0" 
-                    dur="2.5s" 
-                    begin={`${(index % 5) * 0.4}s`} 
-                    repeatCount="indefinite" 
-                  />
+                  <animate attributeName="r" from="1" to="12" dur="2.5s" begin={`${(index % 5) * 0.4}s`} repeatCount="indefinite" />
+                  <animate attributeName="opacity" from="0.8" to="0" dur="2.5s" begin={`${(index % 5) * 0.4}s`} repeatCount="indefinite" />
                 </circle>
 
-                {/* CUSTOM LOCATION PIN ICON */}
                 <g transform="scale(0.65)">
-                  <path 
-                    d="M 0 0 C -3.5 -5 -6 -8.5 -6 -12 A 6 6 0 1 1 6 -12 C 6 -8.5 3.5 -5 0 0 Z" 
-                    fill="var(--accent)" 
-                  />
+                  <path d="M 0 0 C -3.5 -5 -6 -8.5 -6 -12 A 6 6 0 1 1 6 -12 C 6 -8.5 3.5 -5 0 0 Z" fill="var(--accent)" />
                   <circle cx="0" cy="-12" r="2.5" fill="var(--background)" />
                 </g>
-                
               </Marker>
             ))}
 
-            {/* LAYER 4: EXACT MARKER FOR SIHM DURGAPUR (Distinct & Labeled) */}
+            {/* LAYER 4: EXACT MARKER FOR SIHM DURGAPUR */}
             <Marker coordinates={[87.33992374149645, 23.54757943246294]}>
               <circle r={3} fill="var(--accent)" />
               <circle r={8} fill="none" stroke="var(--accent)" strokeWidth={1} opacity={0.5} />
-              <text
-                textAnchor="middle"
-                y={-12}
-                className="font-sans font-semibold tracking-widest text-[8px] uppercase fill-[var(--text-main)]"
-              >
+              <text textAnchor="middle" y={-12} className="font-sans font-semibold tracking-widest text-[8px] uppercase fill-[var(--text-main)]">
                 SIHM Durgapur
               </text>
             </Marker>
 
           </ComposableMap>
-
         </div>
 
       </div>

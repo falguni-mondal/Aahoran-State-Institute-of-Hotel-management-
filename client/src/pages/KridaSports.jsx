@@ -8,64 +8,54 @@ import GalleryGrid from '../components/gallery/GalleryGrid';
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /* =========================================
-   MOCK DATA: FAREWELL IMAGES (Grouped by Year)
-   (Continuous from 2026 down to 2022)
+   MOCK DATA: KRĪḌĀ SPORTS MEET (Grouped by Year)
 ========================================= */
-const farewellDataByYear = [
+const kridaDataByYear = [
   {
     year: "2026",
-    date: "May 15, 2026", // Placeholder Date
-    title: "Batch of 2023-26",
-    description: "Celebrating the graduation of the 2023-26 batch. A bittersweet night of nostalgia, outstanding awards, and bidding adieu to our future hospitality leaders.",
+    date: "January 20, 2026",
+    title: "Krida 2026",
+    description: "The ultimate display of athletic prowess and teamwork. From the thrilling 100m sprints to the highly anticipated inter-department cricket finals, Krīḍā 2026 brought out the fierce competitors within our future hospitality leaders.",
     images: [
-      { id: '26-1', url: '/farewell_1.webp', alt: 'Graduating Batch Group Portrait', aspect: 'vertical' },
-      { id: '26-2', url: '/farewell_2.webp', alt: 'Award Ceremony and Felicitations', aspect: 'horizontal' },
+      { id: '26-s1', url: '/sports_1.webp', alt: '100m Sprint Finish', aspect: 'horizontal' },
+      { id: '26-s2', url: '/sports_2.webp', alt: 'Cricket Finals', aspect: 'vertical' },
+      { id: '26-s3', url: '/sports_3.webp', alt: 'Medal Distribution Ceremony', aspect: 'square' },
     ]
   },
   {
     year: "2025",
-    date: "May 10, 2025", // Placeholder Date
-    title: "Batch of 2022-25",
-    description: "Honoring the perseverance and success of the 2022-25 class. An elegant banquet filled with touching speeches, cultural performances, and cherished memories.",
+    date: "January 18, 2025",
+    title: "Krida 2025",
+    description: "A celebration of sportsmanship and endurance. The 2025 meet featured a spectacular tug-of-war showdown, intense volleyball matches, and strategic indoor games like chess and carrom.",
     images: [
-      { id: '25-1', url: '/farewell_3.webp', alt: 'Passing the Torch to Juniors', aspect: 'vertical' },
-      { id: '25-2', url: '/farewell_4.webp', alt: 'Valedictorian Speech', aspect: 'horizontal' },
-      { id: '25-3', url: '/farewell_5.webp', alt: 'Candid Moments at the Farewell Banquet', aspect: 'square' },
+      { id: '25-s1', url: '/sports_4.webp', alt: 'Volleyball Match', aspect: 'vertical' },
+      { id: '25-s2', url: '/sports_5.webp', alt: 'Tug of War Showdown', aspect: 'horizontal' },
     ]
   },
   {
     year: "2024",
-    date: "May 12, 2024", // Placeholder Date
-    title: "Batch of 2021-24",
-    description: "A grand farewell to the 2021-24 graduates. The ceremony highlighted outstanding academic achievements and concluded with a memorable feast.",
+    date: "January 22, 2024",
+    title: "Krida 2024",
+    description: "The spirit of unity in action. Krīḍā 2024 saw students and faculty alike taking to the field. Highlights included the inter-batch football tournament and the fast-paced badminton rallies.",
     images: [
-      { id: '24-1', url: '/farewell_6.webp', alt: 'Farewell Cultural Performances', aspect: 'vertical' },
-      { id: '24-2', url: '/farewell_7.webp', alt: 'Final Address by the Principal', aspect: 'horizontal' },
+      { id: '24-s1', url: '/sports_6.webp', alt: 'Football Tournament', aspect: 'square' },
+      { id: '24-s2', url: '/sports_7.webp', alt: 'Badminton Rally', aspect: 'vertical' },
+      { id: '24-s3', url: '/sports_8.webp', alt: 'Champion Trophy Lift', aspect: 'horizontal' },
     ]
   },
   {
     year: "2023",
-    date: "May 08, 2023", // Placeholder Date
-    title: "Batch of 2020-23",
-    description: "Bidding farewell to a resilient batch. The event was marked by emotional autograph signings, traditional attires, and the symbolic hat toss.",
+    date: "January 15, 2023",
+    title: "Krida 2023",
+    description: "Marking a triumphant return to outdoor athletics. This year was defined by broken records in track and field, and an unforgettable closing ceremony honoring our student athletes.",
     images: [
-      { id: '23-1', url: '/farewell_8.webp', alt: 'Students Signing Autograph Books', aspect: 'vertical' },
-      { id: '23-2', url: '/farewell_9.webp', alt: 'Tossing Hats in Celebration', aspect: 'square' },
-    ]
-  },
-  {
-    year: "2022",
-    date: "May 14, 2022", // Placeholder Date
-    title: "Batch of 2019-22",
-    description: "Celebrating the triumphant completion of their journey. A highly anticipated gathering where students shared their future aspirations and final goodbyes.",
-    images: [
-      { id: '22-1', url: '/farewell_10.webp', alt: 'Farewell Cake Cutting Ceremony', aspect: 'horizontal' },
-      { id: '22-2', url: '/farewell_11.webp', alt: 'Faculty Blessing the Graduates', aspect: 'vertical' },
+      { id: '23-s1', url: '/sports_9.webp', alt: 'Relay Race Baton Exchange', aspect: 'horizontal' },
+      { id: '23-s2', url: '/sports_10.webp', alt: 'High Jump Competition', aspect: 'vertical' },
     ]
   }
 ];
 
-export default function Farewell() {
+export default function KridaSports() {
   const containerRef = useRef(null);
 
   useGSAP(() => {
@@ -93,19 +83,19 @@ export default function Farewell() {
       
       {/* 
         Reusable Hero Component 
-        Passing specific Farewell details.
+        Passing specific Sports Meet details.
       */}
       <GalleryHero 
-        subtitle="The Farewell"
-        title="Anujñā"
-        bgImage="/images/farewell/farewell_hero.webp" 
+        subtitle="Annual Sports Meet"
+        title="Krīḍā"
+        bgImage="/images/krida/krida-hero.webp" 
       />
 
       {/* ==========================================
           YEAR-BASED GALLERY SECTIONS
       ========================================== */}
       <div className="w-full flex flex-col">
-        {farewellDataByYear.map((section, index) => (
+        {kridaDataByYear.map((section, index) => (
           <section key={section.year} className={`w-full pt-20 md:pt-32 pb-24 ${index !== 0 ? 'border-t border-[var(--primary-base)]/10' : ''}`}>
             
             <div className="w-full max-w-[1800px] mx-auto px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24">
@@ -119,10 +109,10 @@ export default function Farewell() {
                     {section.year}
                   </span>
                   
-                  {/* Added Date nicely integrated with the Tag */}
+                  {/* Date nicely integrated with the Tag */}
                   <div className="flex flex-wrap items-center gap-3 mb-4">
                     <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)]">
-                      Farewell Gallery
+                      Sports Gallery
                     </span>
                     <span className="w-1 h-1 rounded-full bg-[var(--text-main)]/30"></span>
                     <span className="text-[10px] md:text-xs tracking-widest text-[var(--text-main)] font-medium uppercase">

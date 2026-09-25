@@ -5,7 +5,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-// Extracted data from your banners for a realistic structure
 const placementData = [
   {
     id: 1,
@@ -13,7 +12,7 @@ const placementData = [
     batch: 'B.Sc. HHA (2018-2021)',
     role: 'Restaurant Manager (M.T)',
     company: 'Pizza Hut',
-    image: '/student_nikhil.jpg' // You can map your actual images here
+    image: '/student_nikhil.jpg' 
   },
   {
     id: 2,
@@ -69,8 +68,11 @@ export default function PlacementRoster() {
   const containerRef = useRef(null);
   const cursorRef = useRef(null);
   
-  // State to track which student image to display inside the floating cursor
   const [activeImage, setActiveImage] = useState(placementData[0].image);
+
+  // Store the GSAP quickTo functions globally for this component so they can be accessed anywhere
+  const xToRef = useRef(null);
+  const yToRef = useRef(null);
 
   useGSAP(() => {
     let mm = gsap.matchMedia();
@@ -92,16 +94,17 @@ export default function PlacementRoster() {
       }
     );
 
-    // 2. Custom Mouse Follower Logic (Only runs on Desktop/Hover-capable devices)
+    // 2. Custom Mouse Follower Logic
     mm.add("(min-width: 1024px)", () => {
-      // gsap.quickTo is highly optimized for mouse movement tracking
-      const xTo = gsap.quickTo(cursorRef.current, "x", { duration: 0.4, ease: "power3" });
-      const yTo = gsap.quickTo(cursorRef.current, "y", { duration: 0.4, ease: "power3" });
+      // Initialize quickTo trackers
+      xToRef.current = gsap.quickTo(cursorRef.current, "x", { duration: 0.4, ease: "power3" });
+      yToRef.current = gsap.quickTo(cursorRef.current, "y", { duration: 0.4, ease: "power3" });
 
       const handleMouseMove = (e) => {
-        // Center the image container on the cursor
-        xTo(e.clientX - 150); 
-        yTo(e.clientY - 200);
+        if (xToRef.current && yToRef.current) {
+          xToRef.current(e.clientX - 150); // -150 to center horizontally (width is 300)
+          yToRef.current(e.clientY - 200); // -200 to center vertically (height is 400)
+        }
       };
 
       const section = containerRef.current;
@@ -115,9 +118,19 @@ export default function PlacementRoster() {
     return () => mm.revert();
   }, { scope: containerRef });
 
-  // Handlers to show/hide the floating image on hover
-  const handleMouseEnter = (image) => {
+  // Modified: Capture mouse event 'e' to set instant coordinates on hover start
+  const handleMouseEnter = (e, image) => {
     setActiveImage(image);
+    
+    // Instantly snap the cursor container to the EXACT mouse coordinates before fading in
+    if (window.innerWidth >= 1024) {
+      gsap.set(cursorRef.current, {
+        x: e.clientX - 150,
+        y: e.clientY - 200
+      });
+    }
+
+    // Now fade it in and scale it up from the correct location
     gsap.to(cursorRef.current, { scale: 1, opacity: 1, duration: 0.4, ease: "expo.out" });
   };
 
@@ -163,7 +176,8 @@ export default function PlacementRoster() {
           {placementData.map((student) => (
             <div 
               key={student.id}
-              onMouseEnter={() => handleMouseEnter(student.image)}
+              // Passed 'e' so we can extract clientX/clientY
+              onMouseEnter={(e) => handleMouseEnter(e, student.image)}
               onMouseLeave={handleMouseLeave}
               className="roster-row group flex flex-col lg:grid lg:grid-cols-12 gap-2 lg:gap-8 py-6 md:py-8 lg:py-10 border-b border-[var(--primary-base)]/10 hover:bg-[var(--primary-base)]/5 transition-colors duration-500 cursor-pointer -mx-5 md:-mx-8 lg:mx-0 px-5 md:px-8 lg:px-4"
             >

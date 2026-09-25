@@ -25,6 +25,8 @@ import ProgrammeEvents from "../pages/ProgrammeEvents";
 import Contact from "../pages/Contact";
 import Farewell from "../pages/Farewell";
 import DepartmentOverview from "../pages/DepartmentOverview";
+import KridaSports from "../pages/KridaSports";
+import StcpSkillDevelopment from "../pages/StcpSkillDevelopment";
 
 const PageRouter = () => {
   return (
@@ -74,6 +76,8 @@ const PageRouter = () => {
       <Route path="/inaugural-programme" element={<InauguralProgramme />} />
       <Route path="/freshers-welcome" element={<FreshersWelcome />} />
       <Route path="/farewell" element={<Farewell />} />
+      <Route path="/krida" element={<KridaSports />} />
+      <Route path="/stcp" element={<StcpSkillDevelopment />} />
       <Route path="/programme-and-events" element={<ProgrammeEvents />} />
 
 

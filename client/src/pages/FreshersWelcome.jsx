@@ -14,6 +14,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const freshersDataByYear = [
   {
     year: "2026",
+    date: "August 18, 2026", // Placeholder Date added
     title: "Batch of 2026-29",
     description: "Welcoming the newest members of the SIHM family. A day filled with vibrant cultural performances, inspiring addresses, and the beginning of lifelong friendships.",
     images: [
@@ -23,6 +24,7 @@ const freshersDataByYear = [
   },
   {
     year: "2025",
+    date: "August 22, 2025", // Placeholder Date added
     title: "Batch of 2025-28",
     description: "An incredible start to the academic journey. The orientation featured interactive sessions with industry experts and a grand welcome banquet.",
     images: [
@@ -33,6 +35,7 @@ const freshersDataByYear = [
   },
   {
     year: "2024",
+    date: "August 14, 2024", // Placeholder Date added
     title: "Batch of 2024-27",
     description: "An unforgettable evening where creativity took center stage. The class of 2024 set the bar high with their incredible culinary showcases and collaborative spirit.",
     images: [
@@ -42,6 +45,7 @@ const freshersDataByYear = [
   },
   {
     year: "2023",
+    date: "August 20, 2023", // Placeholder Date added
     title: "Batch of 2023-26",
     description: "Marking a year of immense talent and enthusiasm. The 2023 welcome event highlighted the diverse backgrounds of our incoming students.",
     images: [
@@ -51,6 +55,7 @@ const freshersDataByYear = [
   },
   {
     year: "2022",
+    date: "August 25, 2022", // Placeholder Date added
     title: "Batch of 2022-25",
     description: "Marking the return to full campus life. The 2022 orientation focused on building resilience, teamwork, and foundational hospitality skills.",
     images: [
@@ -114,9 +119,16 @@ export default function FreshersWelcome() {
                     {section.year}
                   </span>
                   
-                  <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)] mb-4 block">
-                    Orientation Gallery
-                  </span>
+                  {/* Added Date nicely integrated with the Tag */}
+                  <div className="flex flex-wrap items-center gap-3 mb-4">
+                    <span className="text-[10px] md:text-xs font-semibold uppercase tracking-[0.3em] text-[var(--accent)]">
+                      Orientation Gallery
+                    </span>
+                    <span className="w-1 h-1 rounded-full bg-[var(--text-main)]/30"></span>
+                    <span className="text-[10px] md:text-xs tracking-widest text-[var(--text-main)] font-medium uppercase">
+                      {section.date}
+                    </span>
+                  </div>
                   
                   <h2 className="head-txt text-4xl md:text-5xl lg:text-6xl tracking-tighter text-[var(--text-main)] mb-6">
                     {section.title}
