@@ -79,7 +79,7 @@ const navLinks = [
       { name: 'Inaugural Programme', path: '/inaugural-programme' },
       { name: "Nabayon (Fresher's Welcome)", path: '/freshers-welcome' },
       { name: "Anujñā (Farewell)", path: '/farewell' },
-      { name: "Krīḍā", path: '/krida' },
+      { name: "Krīḍā (Annual Sports)", path: '/krida' },
       { name: "STCP & Skill Development", path: '/stcp' },
       { name: 'Programme and Events', path: '/programme-and-events' },
     ]
@@ -305,11 +305,11 @@ export default function Navmenu({ isOpen, closeMenu }) {
             <span className="font-sans font-bold text-[10px] uppercase tracking-[0.2em] text-[var(--text-main)]/40 block">
               Contact Us
             </span>
-            <a href="mailto:contact@sihmdurgapur.org" className="font-sans text-sm text-[var(--text-main)]/80 hover:text-[var(--accent)] transition-colors w-fit">
-              contact@sihmdurgapur.org
+            <a href="mailto:sihmdurgapur@gmail.com" className="font-sans text-sm text-[var(--text-main)]/80 hover:text-[var(--accent)] transition-colors w-fit">
+              sihmdurgapur@gmail.com
             </a>
-            <a href="tel:+911234567890" className="font-sans text-sm text-[var(--text-main)]/80 hover:text-[var(--accent)] transition-colors w-fit">
-              +91 (0) 1234 567 890
+            <a href="https://wa.me/918927596669" className="font-sans text-sm text-[var(--text-main)]/80 hover:text-[var(--accent)] transition-colors w-fit">
+              +91 892 759 6669
             </a>
           </div>
         </div>

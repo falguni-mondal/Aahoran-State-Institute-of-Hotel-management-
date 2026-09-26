@@ -78,7 +78,7 @@ const navLinks = [
       { name: 'Inaugural Programme', path: '/inaugural-programme' },
       { name: "Nabayon (Fresher's Welcome)", path: '/freshers-welcome' },
       { name: "Anujñā (Farewell)", path: '/farewell' },
-      { name: "Krīḍā", path: '/krida' },
+      { name: "Krīḍā (Annual Sports)", path: '/krida' },
       { name: "STCP & Skill Development", path: '/stcp' },
       { name: 'Programme and Events', path: '/programme-and-events' },
     ]
