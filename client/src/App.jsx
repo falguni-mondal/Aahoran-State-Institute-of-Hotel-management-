@@ -6,7 +6,7 @@ import PageRouter from './routes/PageRouter';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import ScrollManager from './utils/ScrollManager';
-import { ScrollTrigger } from "gsap/ScrollTrigger"; // Ensure ScrollTrigger is imported
+import { ScrollTrigger } from "gsap/ScrollTrigger"; 
 
 import AdmissionModal from './components/global/AdmissionModal';
 
@@ -42,6 +42,19 @@ export default function App() {
 
       return () => clearTimeout(timer);
     }
+  }, []);
+
+  // =========================================
+  // GLOBAL CUSTOM EVENT LISTENER
+  // Listens for triggers from nested components
+  // =========================================
+  useEffect(() => {
+    const handleOpenModal = () => setIsModalOpen(true);
+    window.addEventListener('openAdmissionModal', handleOpenModal);
+    
+    return () => {
+      window.removeEventListener('openAdmissionModal', handleOpenModal);
+    };
   }, []);
 
   // Refs for the floating buttons

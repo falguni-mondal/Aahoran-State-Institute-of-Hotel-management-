@@ -17,7 +17,7 @@ const overviewData = [
     title: "Food Production",
     subtitle: "Culinary Excellence",
     narrative: "It is said that we eat with our eyes, ears, nose, mouth and skin. A chef must not only make the food edible, but take care of the eye-appeal and gastronomic values. This department deals with the preparation, production, and presentation of global cuisines.",
-    img: "/fp-hero.webp",
+    img: "images/home/food-production.webp",
     link: "/food-production"
   },
   {
@@ -26,7 +26,7 @@ const overviewData = [
     title: "Food & Beverage",
     subtitle: "Department of Excellence",
     narrative: "An overwhelming 98% opted for the manual pour over automatic peg-measures. Guests are seeking the experience of being truly served. We train students in the technique and art of serving, menu-planning, matching wines, and the intricate techniques of F&B Control.",
-    img: "/fb-hero.webp",
+    img: "/images/home/f&b.webp",
     link: "/food-and-beverage"
   },
   {
@@ -35,7 +35,7 @@ const overviewData = [
     title: "Front Office",
     subtitle: "The Face of Hospitality",
     narrative: "This is the face of a hotel. Prim and proper, and yet warm and friendly, the staff makes a guest feel at home immediately upon arrival. This department deals with reservations, advance bookings, and gives the organization its largest share of revenue.",
-    img: "/fo-hero.webp",
+    img: "/images/home/front-office.webp",
     link: "/front-office"
   },
   {
@@ -44,7 +44,7 @@ const overviewData = [
     title: "House Keeping",
     subtitle: "The Art of Perfection",
     narrative: "Moving from one’s home, a traveller first looks for peace and security. The Housekeeping department is the nerve-centre of any hotel. The cleanliness, aesthetics, and maintenance of all public areas and rooms rely entirely on the constant care and vigil of this department.",
-    img: "/hk-hero.webp",
+    img: "/images/home/housekeeping.webp",
     link: "/house-keeping"
   }
 ];
@@ -146,7 +146,7 @@ export default function DepartmentOverview() {
         
         <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
           <img 
-            src="/images/department-overview/department-hero.webp" 
+            src="/images/home/campus_front.webp" 
             alt="The Pillars of Hospitality" 
             className="overview-hero-bg absolute inset-0 w-full h-full object-cover will-change-transform"
           />

@@ -20,7 +20,7 @@ const academicsData = [
     title: "Food & Beverage",
     kicker: "Service & Management",
     desc: "Master the art of fine dining, restaurant management, and mixology. Learn to anticipate guest needs and deliver flawless service in high-end hospitality environments.",
-    img: "/fnb-bg.webp",
+    img: "/images/home/f&b.webp",
     link: "/food-and-beverage",
   },
   {

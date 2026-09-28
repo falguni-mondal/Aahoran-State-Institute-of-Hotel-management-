@@ -6,7 +6,7 @@ import NoticeCarousel from "../NoticeCarousel";
 gsap.registerPlugin(useGSAP);
 
 // Extracted the CTA button into its own GSAP component for scoped physics
-function HeroCTA({ text }) {
+function HeroCTA({ text, onClick }) {
   const btnRef = useRef(null);
   const { contextSafe } = useGSAP({ scope: btnRef });
 
@@ -25,6 +25,7 @@ function HeroCTA({ text }) {
   return (
     <button 
       ref={btnRef}
+      onClick={onClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="bg-[var(--background)] text-[var(--text-main)] font-semibold text-xs uppercase tracking-[0.15em] shadow-lg cursor-pointer flex items-stretch h-13"
@@ -54,6 +55,11 @@ export default function Hero() {
   const currentYear = new Date().getFullYear();
   const nextYearShort = (currentYear + 1).toString().slice(-2);
   const dynamicAdmissionText = `ADMISSIONS ${currentYear}-${nextYearShort}`;
+
+  // Broadcast event to App.jsx to open the modal
+  const handleAdmissionClick = () => {
+    window.dispatchEvent(new Event('openAdmissionModal'));
+  };
 
   useGSAP(
     () => {
@@ -135,7 +141,7 @@ export default function Hero() {
 
         {/* Action Buttons */}
         <div className="hero-fade-up flex flex-wrap items-center gap-4">
-          <HeroCTA text={dynamicAdmissionText} />
+          <HeroCTA text={dynamicAdmissionText} onClick={handleAdmissionClick} />
           <HeroCTA text="VIEW PROSPECTUS" />
         </div>
       </div>
