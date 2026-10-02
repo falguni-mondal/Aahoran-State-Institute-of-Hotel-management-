@@ -132,7 +132,7 @@ export default function Navbar() {
     <div className="w-full relative z-50 border-b border-[var(--text-main)]/10">
       <nav
         ref={navContainerRef}
-        className={`relative w-full px-5 md:px-8 lg:px-8 xl:px-10 2xl:px-16 flex items-center justify-between transition-all duration-500 ${
+        className={`relative w-full max-w-[1920px] mx-auto px-5 md:px-8 lg:px-8 xl:px-10 2xl:px-16 flex items-center justify-between transition-all duration-500 ${
           isScrolled || isMobileMenuOpen ? 'py-3' : 'py-4 md:py-5 lg:py-6 xl:py-8 2xl:py-10'
         }`}
       >

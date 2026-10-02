@@ -84,7 +84,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative w-full min-h-screen bg-[var(--background)] text-[var(--text-light)] flex flex-col justify-center"
+      className="relative w-full h-screen max-h-[1200px] bg-[var(--background)] text-[var(--text-light)] flex flex-col justify-center"
     >
       <video
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-100"
@@ -98,7 +98,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[#030812]/65 z-0"></div>
       {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--primary-light),_transparent_60%)] opacity-70 mix-blend-screen z-0"></div> */}
 
-      <div className="relative z-10 w-full mx-auto px-5 md:px-12 lg:px-12 flex flex-col items-start mt-12">
+      <div className="relative z-10 w-full mx-auto px-5 md:px-8 lg:px-8 xl:px-10 2xl:px-16 flex flex-col items-start mt-12">
         
         {/* Mobile Heading */}
         <h1 className="lg:hidden head-txt text-5xl md:text-7xl lg:text-8xl leading-[1.05] mb-6 uppercase tracking-tight w-full">
@@ -116,7 +116,7 @@ export default function Hero() {
         </h1>
 
         {/* Desktop Heading */}
-        <h1 className="hidden lg:block head-txt text-5xl md:text-7xl xl:text-8xl leading-[1.05] mb-6 uppercase tracking-tight">
+        <h1 className="hidden lg:block head-txt text-5xl md:text-7xl xl:text-8xl 2xl:text-9xl leading-[1.05] mb-6 uppercase tracking-tight">
           <div className="overflow-hidden pb-2 flex items-center gap-4 md:gap-6">
             <span className="hero-title-line block text-[var(--text-light)] origin-bottom-left">
               State Institute of
