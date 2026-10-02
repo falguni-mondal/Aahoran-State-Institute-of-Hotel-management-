@@ -29,7 +29,6 @@ const navLinks = [
       { name: 'Food and Beverage', path: '/food-and-beverage' },
       { name: 'Front Office', path: '/front-office' },
       { name: 'House Keeping', path: '/house-keeping' },
-      // { name: 'Computer Lab', path: '/about/computer-lab' },
     ]
   },
   { 
@@ -133,7 +132,7 @@ export default function Navbar() {
     <div className="w-full relative z-50 border-b border-[var(--text-main)]/10">
       <nav
         ref={navContainerRef}
-        className={`relative w-full px-5 md:px-8 lg:px-12 xl:px-16 2xl:px-24 flex items-center justify-between transition-all duration-500 ${
+        className={`relative w-full px-5 md:px-8 lg:px-8 xl:px-10 2xl:px-16 flex items-center justify-between transition-all duration-500 ${
           isScrolled || isMobileMenuOpen ? 'py-3' : 'py-4 md:py-5 lg:py-6 xl:py-8 2xl:py-10'
         }`}
       >
@@ -146,10 +145,10 @@ export default function Navbar() {
         ></div>
 
         {/* 1. Logo */}
-        <div className="nav-logo flex flex-col cursor-pointer group shrink-0 relative z-50">
+        <div className="nav-logo flex flex-col cursor-pointer group shrink-0 relative z-50 mr-4 lg:mr-6 xl:mr-8">
           <Link to="/">
             <img 
-              className="w-[90px] md:w-[100px] lg:w-[115px] xl:w-[130px] 2xl:w-[150px] transition-all duration-500" 
+              className="w-[90px] md:w-[100px] lg:w-[105px] xl:w-[115px] 2xl:w-[130px] transition-all duration-500" 
               src={useDarkText ? "/logo.svg" : "/logo_white.svg"}
               alt="SIHM Logo" 
             />
@@ -157,16 +156,16 @@ export default function Navbar() {
         </div>
 
         {/* 2. Desktop Navigation */}
-        <div className="hidden lg:flex items-center space-x-6 xl:space-x-8 2xl:space-x-10 h-full">
-          <ul className="flex items-center space-x-6 xl:space-x-8 2xl:space-x-10 h-full" id='main-nav'>
+        <div className="hidden lg:flex items-center h-full flex-grow justify-end space-x-4 lg:space-x-5 xl:space-x-6 2xl:space-x-8">
+          <ul className="flex items-center space-x-4 lg:space-x-5 xl:space-x-6 2xl:space-x-8 h-full shrink-0" id='main-nav'>
             {navLinks.map((link, index) => (
-              <li key={index} className="nav-link-item relative group cursor-pointer flex items-center h-full py-2">
+              <li key={index} className="nav-link-item relative group cursor-pointer flex items-center h-full py-2 shrink-0">
                 
                 {/* Main Link Trigger */}
                 {(() => {
                   const TriggerContent = (
                     <>
-                      <span className={`font-sans text-[9px] lg:text-[10px] xl:text-[11px] 2xl:text-[12px] uppercase tracking-[0.1em] font-semibold transition-colors duration-300 ${
+                      <span className={`whitespace-nowrap font-sans text-[9px] xl:text-[10px] 2xl:text-[11px] uppercase tracking-[0.1em] font-semibold transition-colors duration-300 ${
                         useDarkText 
                           ? 'text-[var(--primary-base)]/80 group-hover:text-[var(--accent)]' 
                           : 'text-[var(--text-light)]/80 group-hover:text-[var(--accent)]'
@@ -190,7 +189,7 @@ export default function Navbar() {
                       )}
 
                       {link.badge && (
-                        <span className="absolute -top-1.5 xl:-top-2 -right-5 xl:-right-6 bg-[var(--accent)] text-[var(--text-light)] text-[7px] xl:text-[8px] font-bold px-1 xl:px-1.5 py-0.5 rounded-sm">
+                        <span className="absolute -top-1.5 xl:-top-2 -right-4 xl:-right-5 bg-[var(--accent)] text-[var(--text-light)] text-[7px] xl:text-[8px] font-bold px-1 xl:px-1.5 py-0.5 rounded-sm">
                           {link.badge}
                         </span>
                       )}
@@ -297,11 +296,11 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div className={`nav-link-item w-[1px] h-4 xl:h-5 transition-colors duration-300 ${
+          <div className={`nav-link-item w-[1px] h-4 xl:h-5 shrink-0 transition-colors duration-300 ${
             useDarkText ? 'bg-[var(--primary-base)]/30' : 'bg-[var(--text-light)]/20'
           }`}></div>
 
-          <button className={`nav-link-item group relative overflow-hidden flex items-center gap-2 border px-5 xl:px-6 py-2 xl:py-2.5 cursor-pointer outline-none transition-colors duration-500 ${
+          <button className={`nav-link-item shrink-0 group relative overflow-hidden flex items-center gap-2 border px-4 xl:px-5 2xl:px-6 py-2 xl:py-2.5 cursor-pointer outline-none transition-colors duration-500 ${
             useDarkText 
               ? 'border-[var(--text-main)]/40 hover:border-[var(--text-light)]' 
               : 'border-[var(--text-light)]/40 hover:border-[var(--text-light)]/40'
@@ -309,7 +308,7 @@ export default function Navbar() {
             <div className={`absolute inset-0 w-full h-full translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               useDarkText ? 'bg-[var(--accent)]' : 'bg-[var(--accent)]'
             }`}></div>
-            <span className={`relative z-10 font-sans text-[9px] xl:text-[10px] 2xl:text-[11px] font-bold uppercase tracking-[0.15em] transition-colors duration-500 ${
+            <span className={`whitespace-nowrap relative z-10 font-sans text-[9px] xl:text-[10px] 2xl:text-[11px] font-bold uppercase tracking-[0.15em] transition-colors duration-500 ${
               useDarkText 
                 ? 'text-[var(--text-main)] group-hover:text-[var(--text-light)]' 
                 : 'text-[var(--text-light)] group-hover:text-[var(--text-light)]'

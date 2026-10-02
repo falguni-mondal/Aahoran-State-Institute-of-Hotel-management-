@@ -116,7 +116,7 @@ export default function Hero() {
         </h1>
 
         {/* Desktop Heading */}
-        <h1 className="hidden lg:block head-txt text-5xl md:text-7xl lg:text-8xl leading-[1.05] mb-6 uppercase tracking-tight">
+        <h1 className="hidden lg:block head-txt text-5xl md:text-7xl xl:text-8xl leading-[1.05] mb-6 uppercase tracking-tight">
           <div className="overflow-hidden pb-2 flex items-center gap-4 md:gap-6">
             <span className="hero-title-line block text-[var(--text-light)] origin-bottom-left">
               State Institute of
@@ -133,7 +133,7 @@ export default function Hero() {
         </h1>
 
         {/* Subtitle */}
-        <p className="hero-fade-up max-w-5xl text-lg md:text-xl text-[var(--text-light)]/80 font-sans font-light leading-relaxed mb-10">
+        <p className="hero-fade-up max-w-5xl text-lg md:text-xl texzt-[var(--text-light)]/80 font-sans font-light leading-relaxed mb-10">
           (A Society under Tourism Department, Government of West Bengal,
           Registration No. S/1L/60653 dated: 20-10-2011) Fuljhore,
           Durgapur-713206, District: Paschim Bardhaman
