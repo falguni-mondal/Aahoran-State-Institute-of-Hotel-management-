@@ -49,7 +49,7 @@ export default function FBHero() {
       
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         <img 
-          src="/fb-hero.webp" 
+          src="/images/food-beverage/fb-hero.webp" 
           alt="Sommelier pouring wine" 
           className="fb-hero-bg absolute inset-0 w-full h-full object-cover will-change-transform"
         />

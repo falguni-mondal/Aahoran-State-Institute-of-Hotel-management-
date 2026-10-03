@@ -160,7 +160,7 @@ export default function FPCurriculum() {
           <div className="w-full lg:w-6/12 relative">
             <div className="w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden bg-[var(--primary-base)]/5">
               <img 
-                src="/fp-preparation.webp" 
+                src="/images/food-production/fp-about.webp" 
                 alt="Chef Preparation" 
                 className="img-parallax w-full h-[120%] object-cover -translate-y-[10%] will-change-transform"
               />
@@ -273,7 +273,7 @@ export default function FPCurriculum() {
           <div className="w-full lg:w-4/12 relative mt-10 lg:mt-32">
             <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[var(--primary-base)]/5">
               <img 
-                src="/fp-patisserie.webp" 
+                src="/images/food-production/fp-course-attraction.webp" 
                 alt="Patisserie and Sugar Craft" 
                 className="img-parallax w-full h-[120%] object-cover -translate-y-[10%] will-change-transform"
               />

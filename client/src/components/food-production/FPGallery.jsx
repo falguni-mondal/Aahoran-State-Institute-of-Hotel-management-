@@ -47,20 +47,20 @@ export default function FPGallery() {
           {/* Column 1 */}
           <div className="col-1 flex flex-col gap-5 md:gap-8 lg:gap-12 md:-mt-12">
             <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[var(--primary-base)]/5">
-              <img src="/fp-culinary-art.webp" alt="Culinary Art" className="w-full h-full object-cover" />
+              <img src="/images/food-production/fp-gallery-1.webp" alt="Culinary Art" className="w-full h-full object-cover" />
             </div>
             <div className="w-full aspect-[4/3] overflow-hidden bg-[var(--primary-base)]/5">
-              <img src="/fp-kitchen-ambience.webp" alt="Kitchen Ambience" className="w-full h-full object-cover" />
+              <img src="/images/food-production/fp-gallery-2.webp" alt="Kitchen Ambience" className="w-full h-full object-cover" />
             </div>
           </div>
 
           {/* Column 2 */}
           <div className="col-2 flex flex-col gap-5 md:gap-8 lg:gap-12 md:pt-24">
             <div className="w-full aspect-[4/3] overflow-hidden bg-[var(--primary-base)]/5">
-              <img src="/fp-kitchen-ambience.webp" alt="Kitchen Ambience" className="w-full h-full object-cover" />
+              <img src="/images/food-production/fp-gallery-3.webp" alt="Kitchen Ambience" className="w-full h-full object-cover" />
             </div>
             <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[var(--primary-base)]/5">
-              <img src="/fp-culinary-art.webp" alt="Culinary Art" className="w-full h-full object-cover" />
+              <img src="/images/food-production/fp-gallery-4.webp" alt="Culinary Art" className="w-full h-full object-cover" />
             </div>
           </div>
 

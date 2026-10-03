@@ -130,6 +130,16 @@ export default function Navbar() {
 
   return (
     <div className="w-full relative z-50 border-b border-[var(--text-main)]/10">
+      
+      {/* =========================================
+          DARK VIGNETTE OVERLAY
+      ========================================= */}
+      <div 
+        className={`absolute top-0 left-0 w-full h-[250px] pointer-events-none -z-20 bg-gradient-to-b from-black/70 via-black/20 to-transparent transition-opacity duration-500 ${
+          useDarkText ? 'opacity-0' : 'opacity-100'
+        }`}
+      ></div>
+
       <nav
         ref={navContainerRef}
         className={`relative w-full max-w-[1920px] mx-auto px-5 md:px-8 lg:px-8 xl:px-10 2xl:px-16 flex items-center justify-between transition-all duration-500 ${

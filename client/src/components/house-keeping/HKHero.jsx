@@ -49,7 +49,7 @@ export default function HKHero() {
       
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         <img 
-          src="/hk-hero.webp" 
+          src="/images/house-keeping/hk-hero.webp" 
           alt="The Art of Housekeeping" 
           className="hk-hero-bg absolute inset-0 w-full h-full object-cover will-change-transform"
         />

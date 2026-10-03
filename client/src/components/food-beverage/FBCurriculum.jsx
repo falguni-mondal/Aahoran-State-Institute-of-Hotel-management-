@@ -250,7 +250,7 @@ export default function FBCurriculum() {
           <div className="w-full lg:w-4/12 relative mt-10 lg:mt-32">
             <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[var(--primary-base)]/5">
               <img 
-                src="/fb-mixology.webp" 
+                src="/images/food-beverage/fb-course-dets.webp" 
                 alt="Mixology and Bar Management" 
                 className="img-parallax w-full h-[120%] object-cover -translate-y-[10%] will-change-transform"
               />

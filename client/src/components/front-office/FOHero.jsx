@@ -49,7 +49,7 @@ export default function FOHero() {
       
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         <img 
-          src="/fo-hero.webp" 
+          src="/images/front-office/fo-hero.webp" 
           alt="Luxury Hotel Concierge" 
           className="fo-hero-bg absolute inset-0 w-full h-full object-cover will-change-transform"
         />

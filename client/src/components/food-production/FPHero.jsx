@@ -49,7 +49,7 @@ export default function FPHero() {
       
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
         <img 
-          src="/fp-hero.webp" 
+          src="/images/food-production/fp-hero.webp" 
           alt="Executive Chef Plating" 
           className="fp-hero-bg absolute inset-0 w-full h-full object-cover will-change-transform"
         />

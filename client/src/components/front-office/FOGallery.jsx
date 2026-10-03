@@ -47,21 +47,21 @@ export default function FOGallery() {
           {/* Column 1 */}
           <div className="col-1 flex flex-col gap-5 md:gap-8 lg:gap-12 md:-mt-12">
             <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[var(--primary-base)]/5">
-              <img src="/fo-lobby.webp" alt="Grand Lobby" className="w-full h-full object-cover" />
+              <img src="/images/front-office/fo-gallery-1.webp" alt="Grand Lobby" className="w-full h-full object-cover" />
             </div>
             <div className="w-full aspect-[4/3] overflow-hidden bg-[var(--primary-base)]/5">
-              <img src="/fo-service.webp" alt="Premium Service" className="w-full h-full object-cover" />
+              <img src="/images/front-office/fo-gallery-2.webp" alt="Premium Service" className="w-full h-full object-cover" />
             </div>
           </div>
 
           {/* Column 2 */}
           <div className="col-2 flex flex-col gap-5 md:gap-8 lg:gap-12 md:pt-24">
             <div className="w-full aspect-[4/3] overflow-hidden bg-[var(--primary-base)]/5">
-              <img src="/fo-service.webp" alt="Premium Service" className="w-full h-full object-cover" />
+              <img src="/images/front-office/fo-gallery-3.webp" alt="Premium Service" className="w-full h-full object-cover" />
             </div>
-            <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[var(--primary-base)]/5">
-              <img src="/fo-lobby.webp" alt="Grand Lobby" className="w-full h-full object-cover" />
-            </div>
+            {/* <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[var(--primary-base)]/5">
+              <img src="/images/front-office/fo-gallery-4.webp" alt="Grand Lobby" className="w-full h-full object-cover" />
+            </div> */}
           </div>
 
         </div>

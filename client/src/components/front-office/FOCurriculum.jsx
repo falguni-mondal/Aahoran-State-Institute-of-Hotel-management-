@@ -167,7 +167,7 @@ export default function FOCurriculum() {
             <div className="w-full lg:w-6/12 relative">
               <div className="w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden bg-[var(--primary-base)]/5">
                 <img 
-                  src="/fo-management.webp" 
+                  src="/images/front-office/fo-about.webp" 
                   alt="Property Management Training" 
                   className="img-parallax w-full h-[120%] object-cover -translate-y-[10%] will-change-transform"
                 />
@@ -270,7 +270,7 @@ export default function FOCurriculum() {
             <div className="w-full lg:w-4/12 relative mt-10 lg:mt-32">
               <div className="w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[var(--primary-base)]/5">
                 <img 
-                  src="/fo-lab.webp" 
+                  src="/images/front-office/fo-facilities.webp" 
                   alt="Front Office Computer Lab" 
                   className="img-parallax w-full h-[120%] object-cover -translate-y-[10%] will-change-transform"
                 />
