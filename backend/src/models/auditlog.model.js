@@ -33,6 +33,7 @@ const auditLogSchema = new mongoose.Schema(
         'SESSION_REVOKED',
         'PASSWORD_CHANGED',
         'ACCOUNT_LOCKED',
+        'ADMIN_PROVISIONED',
       ],
       index: true,
       immutable: true,
@@ -70,11 +71,10 @@ const auditLogSchema = new mongoose.Schema(
 // IMMUTABILITY ENFORCEMENT (Hooks)
 // =========================================
 
-// Promise-based error throwing instead of using 'next'
 const blockMutation = async function () {
   const err = new Error('Compliance Violation: Audit logs are strictly immutable and cannot be modified or deleted.');
   err.statusCode = 403;
-  throw err; // Mongoose automatically catches this and aborts the database operation
+  throw err;
 };
 
 auditLogSchema.pre('updateOne', blockMutation);

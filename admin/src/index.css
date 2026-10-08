@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:root {
+  --background: #F7F5F0;
+  --text-main: #303030;
+  --text-muted: #707884;
+  --text-light: #f8f9fa;
+  --accent: #E85D04;
+  --surface: #FFFFFF;
+  --surface-warm: #EFECE6;
+  --border-subtle: #E6E2D8;
+  --border-strong: #D5CEBF;
+}
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --color-sihm-bg: #F7F5F0;
+  --color-sihm-main: #303030;
+  --color-sihm-muted: #707884;
+  --color-sihm-light: #f8f9fa;
+  --color-sihm-accent: #E85D04;
+  --color-sihm-surface: #FFFFFF;
+  --color-sihm-warm: #EFECE6;
+  --color-sihm-border: #E6E2D8;
+  --color-sihm-border-strong: #D5CEBF;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Editorial typography helpers */
+.font-editorial {
+  font-family: var(--font-serif);
+}
+
+.font-editorial-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+/* Warm terracotta text selection */
+::selection {
+  background-color: #E85D04;
+  color: #FFFFFF;
+}

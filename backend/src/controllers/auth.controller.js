@@ -12,22 +12,27 @@ import {
   clearSessionCookie,
 } from '../utils/auth.util.js';
 
-
-
-// CREATE NEW ADMIN (SuperAdmin Only)
+// =========================================
+// 1. PROVISION ADMINISTRATOR (SuperAdmin Only)
+// =========================================
 export const createAdmin = catchAsync(async (req, res, next) => {
   const { email, password, role } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ message: 'Email and temporary password are required.' });
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Email and temporary password are required.',
+    });
   }
 
-  // Ensure standard admins cannot be elevated to SuperAdmin by mistake
   const assignedRole = role === 'SuperAdmin' ? 'SuperAdmin' : 'Admin';
 
   const existingAdmin = await Admin.findOne({ email });
   if (existingAdmin) {
-    return res.status(400).json({ message: 'An account with this email already exists.' });
+    return res.status(400).json({
+      status: 'fail',
+      message: 'An administrative account with this email already exists.',
+    });
   }
 
   const newAdmin = await Admin.create({
@@ -36,271 +41,394 @@ export const createAdmin = catchAsync(async (req, res, next) => {
     role: assignedRole,
   });
 
-  // Log the provisioning action for compliance
   await AuditLog.logEvent({
-    adminId: req.user._id, // The SuperAdmin who performed the action
+    adminId: req.user._id,
     action: 'ADMIN_PROVISIONED',
     status: 'SUCCESS',
     ipAddress: req.ip,
     userAgent: req.headers['user-agent'] || 'unknown',
-    details: { provisionedEmail: email, provisionedRole: assignedRole }
+    details: { provisionedEmail: email, provisionedRole: assignedRole },
   });
 
   res.status(201).json({
     status: 'success',
-    message: `${assignedRole} account created successfully. They must set up 2FA upon first login.`,
+    message: `${assignedRole} account provisioned. They must complete 2FA on initial login.`,
+    user: {
+      id: newAdmin._id,
+      email: newAdmin.email,
+      role: newAdmin.role,
+    },
     admin: {
       id: newAdmin._id,
       email: newAdmin.email,
       role: newAdmin.role,
-    }
+    },
   });
 });
 
-
-// 1. STEP ONE: VERIFY CREDENTIALS
+// =========================================
+// 2. PRIMARY CREDENTIALS VERIFICATION
+// =========================================
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ message: 'Please provide email and password' });
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Please provide both administrative identifier and passphrase.',
+    });
   }
 
-  // Find admin and force inclusion of hidden security fields
   const admin = await Admin.findOne({ email }).select('+password +twoFactorSecret');
 
   if (!admin) {
     await AuditLog.logEvent({
-      emailAttempted: email, action: 'LOGIN_FAILED', status: 'FAILURE',
-      ipAddress: req.ip, userAgent: req.headers['user-agent']
+      emailAttempted: email,
+      action: 'LOGIN_FAILED',
+      status: 'FAILURE',
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
     });
-    return res.status(401).json({ message: 'Invalid email or password' });
+    return res.status(401).json({
+      status: 'fail',
+      message: 'Invalid administrative credentials.',
+    });
   }
 
-  // Check if account is locked
   if (admin.isAccountLocked()) {
-    return res.status(403).json({ 
-      message: `Account locked due to multiple failed attempts. Try again later.` 
+    return res.status(403).json({
+      status: 'fail',
+      message: 'Account is temporarily locked due to repeated authentication failures.',
     });
   }
 
-  // Verify Password
   const isPasswordCorrect = await admin.comparePassword(password);
 
   if (!isPasswordCorrect) {
     admin.failedLoginAttempts += 1;
     let status = 'FAILURE';
 
-    // Lock account if >= 5 failed attempts
     if (admin.failedLoginAttempts >= 5) {
-      admin.lockUntil = Date.now() + 15 * 60 * 1000; // Lock for 15 minutes
+      admin.lockUntil = Date.now() + 15 * 60 * 1000;
       status = 'CRITICAL';
       await AuditLog.logEvent({
-        adminId: admin._id, emailAttempted: email, action: 'ACCOUNT_LOCKED', status,
-        ipAddress: req.ip, userAgent: req.headers['user-agent']
+        adminId: admin._id,
+        emailAttempted: email,
+        action: 'ACCOUNT_LOCKED',
+        status,
+        ipAddress: req.ip,
+        userAgent: req.headers['user-agent'],
       });
     }
 
     await admin.save({ validateBeforeSave: false });
-    
+
     await AuditLog.logEvent({
-      adminId: admin._id, emailAttempted: email, action: 'LOGIN_FAILED', status,
-      ipAddress: req.ip, userAgent: req.headers['user-agent']
+      adminId: admin._id,
+      emailAttempted: email,
+      action: 'LOGIN_FAILED',
+      status,
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
     });
-    
-    return res.status(401).json({ message: 'Invalid email or password' });
+
+    return res.status(401).json({
+      status: 'fail',
+      message: 'Invalid administrative credentials.',
+    });
   }
 
-  // Password is correct: Reset lockout trackers
   admin.failedLoginAttempts = 0;
   admin.lockUntil = undefined;
   await admin.save({ validateBeforeSave: false });
 
-  // Issue Pre-Auth Token (Valid for 5 mins) to proceed to 2FA phase
   const preAuthToken = generatePreAuthToken(admin._id);
 
   res.status(200).json({
     status: 'success',
-    message: 'Credentials verified. Proceed to 2FA.',
+    message: 'Primary credentials accepted. Proceed to multi-factor verification.',
     is2faEnabled: admin.is2faEnabled,
     preAuthToken,
   });
 });
 
-
-
-// 2. GENERATE 2FA QR CODE (First Time Setup)
+// =========================================
+// 3. GENERATE 2FA PROVISIONING PAYLOAD
+// =========================================
 export const setup2FA = catchAsync(async (req, res, next) => {
-  // The verifyAccessToken middleware ensures req.user is set
-  const admin = await Admin.findById(req.user._id).select('+twoFactorSecret');
+  const admin = await Admin.findById(req.user._id).select(
+    '+twoFactorSecret +tempTwoFactorSecret'
+  );
 
-  // Generate a new TOTP secret
-  const secret = speakeasy.generateSecret({ name: `SIHM Admin (${admin.email})` });
+  const secret = speakeasy.generateSecret({
+    length: 20,
+    name: `SIHM Portal (${admin.email})`,
+    issuer: 'SIHM Portal',
+  });
 
-  // Save the secret temporarily. Do NOT set is2faEnabled to true until they verify it.
-  admin.twoFactorSecret = secret.base32;
+  // CRITICAL FIX: Explicitly generate Base32 otpauth URL so Microsoft Authenticator
+  // and Speakeasy verify with the exact same Base32 encoding.
+  const otpauthUrl = speakeasy.otpauthURL({
+    secret: secret.base32,
+    label: `SIHM Portal (${admin.email})`,
+    issuer: 'SIHM Portal',
+    encoding: 'base32',
+  });
+
+  admin.tempTwoFactorSecret = secret.base32;
   await admin.save({ validateBeforeSave: false });
 
-  // Convert the authenticator URL to a Base64 QR Code image
-  const qrCodeDataUrl = await qrcode.toDataURL(secret.otpauth_url);
+  const qrCodeDataUrl = await qrcode.toDataURL(otpauthUrl);
 
   await AuditLog.logEvent({
-    adminId: admin._id, action: '2FA_SETUP_INITIATED', status: 'SUCCESS',
-    ipAddress: req.ip, userAgent: req.headers['user-agent']
+    adminId: admin._id,
+    action: '2FA_SETUP_INITIATED',
+    status: 'SUCCESS',
+    ipAddress: req.ip,
+    userAgent: req.headers['user-agent'],
   });
 
   res.status(200).json({
     status: 'success',
     qrCode: qrCodeDataUrl,
-    manualSecret: secret.base32, // Provided just in case their camera is broken
+    manualSecret: secret.base32,
   });
 });
 
-
-
-// 3. STEP TWO: VERIFY 2FA & CREATE SESSION
+// =========================================
+// 4. VERIFY 2FA PASSCODE & EMIT SESSION
+// =========================================
 export const verify2FA = catchAsync(async (req, res, next) => {
   const { totpCode } = req.body;
-  const admin = await Admin.findById(req.user._id).select('+twoFactorSecret');
+  const admin = await Admin.findById(req.user._id).select(
+    '+twoFactorSecret +tempTwoFactorSecret'
+  );
 
-  if (!admin.twoFactorSecret) {
-    return res.status(400).json({ message: '2FA setup has not been initiated.' });
+  const cleanCode = String(totpCode || '').trim();
+
+  if (!cleanCode || cleanCode.length !== 6) {
+    return res.status(400).json({
+      status: 'fail',
+      message: 'A complete 6-digit rolling passcode is required.',
+    });
   }
 
-  // Verify the 6-digit code against the server clock
-  const isVerified = speakeasy.totp.verify({
-    secret: admin.twoFactorSecret,
+  const activeSecret = admin.twoFactorSecret || admin.tempTwoFactorSecret;
+
+  if (!activeSecret) {
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Two-factor setup has not been initialized for this account.',
+    });
+  }
+
+  // --- DIAGNOSTIC TELEMETRY (Check terminal output) ---
+  const currentExpected = speakeasy.totp({
+    secret: activeSecret,
     encoding: 'base32',
-    token: totpCode,
-    window: 1, // 30-second grace period
+  });
+  console.log('====== [SIHM 2FA DIAGNOSTIC] ======');
+  console.log('Account Email     :', admin.email);
+  console.log('User Entered TOTP :', cleanCode);
+  console.log('Server Expected   :', currentExpected);
+  console.log('Server Time (UTC) :', new Date().toISOString());
+  console.log('Secret (Prefix)   :', activeSecret.substring(0, 6) + '...');
+
+  // Use verifyDelta with window: 4 (permits up to ±120s of clock difference)
+  const delta = speakeasy.totp.verifyDelta({
+    secret: activeSecret,
+    encoding: 'base32',
+    token: cleanCode,
+    window: 4,
   });
 
-  if (!isVerified) {
+  console.log('Validation Delta  :', delta ? delta.delta : 'FAILED (null)');
+  console.log('====================================');
+
+  if (!delta) {
     await AuditLog.logEvent({
-      adminId: admin._id, action: '2FA_FAILED', status: 'WARNING',
-      ipAddress: req.ip, userAgent: req.headers['user-agent']
+      adminId: admin._id,
+      action: '2FA_FAILED',
+      status: 'WARNING',
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
     });
-    return res.status(401).json({ message: 'Invalid or expired 2FA code.' });
+    return res.status(401).json({
+      status: 'fail',
+      message: 'Invalid or expired authentication code.',
+    });
   }
 
-  // If this was their first time setting it up, lock it in
+  // Promote temporary secret to permanent on successful verification
   if (!admin.is2faEnabled) {
+    admin.twoFactorSecret = admin.tempTwoFactorSecret || admin.twoFactorSecret;
+    admin.tempTwoFactorSecret = undefined;
     admin.is2faEnabled = true;
+
     await AuditLog.logEvent({
-      adminId: admin._id, action: '2FA_SETUP_COMPLETED', status: 'SUCCESS',
-      ipAddress: req.ip, userAgent: req.headers['user-agent']
+      adminId: admin._id,
+      action: '2FA_SETUP_COMPLETED',
+      status: 'SUCCESS',
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
     });
   }
 
   admin.lastLogin = Date.now();
   await admin.save({ validateBeforeSave: false });
 
-  // --- CREATE THE SESSION ---
   const plainRefreshToken = generateRefreshToken();
-  
+
   const newSession = await Session.create({
     adminId: admin._id,
-    refreshToken: plainRefreshToken, // Will be hashed automatically by the pre-save hook
+    refreshToken: plainRefreshToken,
     userAgent: req.headers['user-agent'] || 'unknown',
     ipAddress: req.ip,
-    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   });
 
-  // Set the HttpOnly Cookie and generate the short-lived JSON token
   setSessionCookie(res, newSession._id, plainRefreshToken);
-  const accessToken = generateAccessToken(admin._id);
+  const accessToken = generateAccessToken(admin._id, admin.role);
 
   await AuditLog.logEvent({
-    adminId: admin._id, action: 'LOGIN_SUCCESS', status: 'SUCCESS',
-    ipAddress: req.ip, userAgent: req.headers['user-agent']
+    adminId: admin._id,
+    action: 'LOGIN_SUCCESS',
+    status: 'SUCCESS',
+    ipAddress: req.ip,
+    userAgent: req.headers['user-agent'],
   });
 
   res.status(200).json({
     status: 'success',
     accessToken,
+    user: {
+      id: admin._id,
+      email: admin.email,
+      role: admin.role,
+    },
     admin: {
       id: admin._id,
       email: admin.email,
       role: admin.role,
-    }
+    },
   });
 });
 
+// =========================================
+// 5. RESET 2FA FOR RE-ENROLLMENT (One-Time Setup Tool)
+// =========================================
+export const resetMy2FA = catchAsync(async (req, res, next) => {
+  const admin = await Admin.findById(req.user._id);
+  admin.is2faEnabled = false;
+  admin.twoFactorSecret = undefined;
+  admin.tempTwoFactorSecret = undefined;
+  await admin.save({ validateBeforeSave: false });
 
+  res.status(200).json({
+    status: 'success',
+    message: '2FA reset successfully. You can now scan a clean QR code on next login.',
+  });
+});
 
-// 4. REFRESH TOKEN ROTATION (Self-Healing)
+// =========================================
+// 6. SILENT REFRESH TOKEN ROTATION
+// =========================================
 export const refreshToken = catchAsync(async (req, res, next) => {
   const cookieHeader = req.cookies.sihm_session;
 
   if (!cookieHeader || cookieHeader === 'logged_out') {
-    return res.status(401).json({ message: 'No valid session found.' });
+    return res.status(401).json({
+      status: 'fail',
+      message: 'No active session detected.',
+    });
   }
 
-  // Extract O(1) lookup ID and the plain token string
   const [sessionId, plainToken] = cookieHeader.split('|');
 
   if (!sessionId || !plainToken) {
-    return res.status(401).json({ message: 'Malformed session cookie.' });
+    return res.status(401).json({
+      status: 'fail',
+      message: 'Malformed session credentials.',
+    });
   }
 
   const session = await Session.findById(sessionId);
 
-  // THE TRIPWIRE: If the token is formatted correctly but the session is missing, 
-  // it means the session was already consumed or deleted. The token was stolen and reused!
   if (!session) {
-    // We cannot reliably know WHICH admin's token was stolen just from the string, 
-    // but in a more advanced setup, you could embed the adminId in the plainToken to execute a global wipe here.
-    return res.status(401).json({ message: 'Session expired or invalid.' });
+    return res.status(401).json({
+      status: 'fail',
+      message: 'Session expired or invalidated.',
+    });
   }
 
-  // Check if the session was manually revoked by a Super Admin
   if (!session.isValid) {
-    return res.status(403).json({ message: 'This session has been revoked by an administrator.' });
+    return res.status(403).json({
+      status: 'fail',
+      message: 'Session revoked by administrative directive.',
+    });
   }
 
-  // Verify the provided token matches the hashed token in the database
   const isTokenValid = await session.compareRefreshToken(plainToken);
 
   if (!isTokenValid) {
-    // STOLEN TOKEN DETECTED: An attacker submitted a valid Session ID but the wrong token.
-    // Instant global wipe for this admin to secure the account.
     await Session.deleteMany({ adminId: session.adminId });
-    
+
     await AuditLog.logEvent({
-      adminId: session.adminId, action: 'REFRESH_TOKEN_REUSE_DETECTED', status: 'CRITICAL',
-      ipAddress: req.ip, userAgent: req.headers['user-agent'],
-      details: { reason: 'Mismatched refresh token provided for valid session ID. All sessions wiped.' }
+      adminId: session.adminId,
+      action: 'REFRESH_TOKEN_REUSE_DETECTED',
+      status: 'CRITICAL',
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent'],
+      details: {
+        reason: 'Mismatched refresh token provided. All sessions revoked for admin.',
+      },
     });
 
     clearSessionCookie(res);
-    return res.status(403).json({ message: 'Security violation detected. All sessions revoked. Please log in again.' });
+    return res.status(403).json({
+      status: 'fail',
+      message: 'Security breach detected. All active sessions invalidated.',
+    });
   }
 
-  // --- TOKEN ROTATION ---
-  // The token is valid. Destroy the old session and issue a brand new one.
+  const admin = await Admin.findById(session.adminId);
+  if (!admin) {
+    await Session.deleteMany({ adminId: session.adminId });
+    clearSessionCookie(res);
+    return res.status(401).json({
+      status: 'fail',
+      message: 'Administrator account no longer exists.',
+    });
+  }
+
   await Session.findByIdAndDelete(sessionId);
 
   const newPlainToken = generateRefreshToken();
   const newSession = await Session.create({
-    adminId: session.adminId,
+    adminId: admin._id,
     refreshToken: newPlainToken,
     userAgent: req.headers['user-agent'] || 'unknown',
     ipAddress: req.ip,
-    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), 
+    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
   });
 
   setSessionCookie(res, newSession._id, newPlainToken);
-  const newAccessToken = generateAccessToken(session.adminId);
+  const newAccessToken = generateAccessToken(admin._id, admin.role);
 
   res.status(200).json({
     status: 'success',
     accessToken: newAccessToken,
+    user: {
+      id: admin._id,
+      email: admin.email,
+      role: admin.role,
+    },
   });
 });
 
-
-
-// 5. LOGOUT
+// =========================================
+// 7. TERMINATE SESSION
+// =========================================
 export const logout = catchAsync(async (req, res, next) => {
   const cookieHeader = req.cookies.sihm_session;
 
@@ -310,13 +438,19 @@ export const logout = catchAsync(async (req, res, next) => {
       const session = await Session.findByIdAndDelete(sessionId);
       if (session) {
         await AuditLog.logEvent({
-          adminId: session.adminId, action: 'LOGOUT', status: 'SUCCESS',
-          ipAddress: req.ip, userAgent: req.headers['user-agent']
+          adminId: session.adminId,
+          action: 'LOGOUT',
+          status: 'SUCCESS',
+          ipAddress: req.ip,
+          userAgent: req.headers['user-agent'],
         });
       }
     }
   }
 
   clearSessionCookie(res);
-  res.status(200).json({ status: 'success', message: 'Logged out successfully' });
+  res.status(200).json({
+    status: 'success',
+    message: 'Session cleanly terminated.',
+  });
 });

@@ -7,97 +7,124 @@ import mongoSanitize from 'express-mongo-sanitize';
 import hpp from 'hpp';
 import cookieParser from 'cookie-parser';
 
-
 import authRouter from './routes/auth.routes.js';
 
 const app = express();
 
 // =========================================
-// 1. GLOBAL MIDDLEWARE
+// 1. REVERSE PROXY & SECURITY HEADERS
 // =========================================
 
-// Set security HTTP headers
+// Enables Express to read X-Forwarded-For headers for accurate client IP resolution
+app.set('trust proxy', 1);
+
+// Set strict HTTP security headers
 app.use(helmet());
 
-// Development logging
+// Development request telemetry
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Enable Cross-Origin Resource Sharing
-app.use(cors({
-  origin: process.env.CLIENT_URL || '*', // Update this to your deployed frontend URL later
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  credentials: true
-}));
+// =========================================
+// 2. CORS (Cross-Origin Resource Sharing)
+// =========================================
 
-// Compress response bodies for better performance
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'http://localhost:5173',
+  'http://localhost:5174',
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl, or Postman)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Cross-Origin Request Blocked by Security Policy'));
+      }
+    },
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    credentials: true, // Required to accept HttpOnly sihm_session cookies
+  })
+);
+
+// =========================================
+// 3. BODY PARSING & OPTIMIZATION
+// =========================================
+
 app.use(compression());
 
-// Parse incoming JSON payloads (with size limit)
+// Parse JSON bodies with strict payload limit to prevent memory exhaustion
 app.use(express.json({ limit: '10kb' }));
 
-// Parse URL-encoded data
+// Parse URL-encoded form data
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 // Parse incoming cookies into req.cookies
 app.use(cookieParser());
 
 // =========================================
-// 2. SECURITY MIDDLEWARE
+// 4. INJECTION & ATTACK PREVENTION
 // =========================================
 
-// Data sanitization against NoSQL query injection
-app.use(mongoSanitize());
+// Express 5 Safe In-Place NoSQL Sanitization
+app.use((req, res, next) => {
+  if (req.body) mongoSanitize.sanitize(req.body);
+  if (req.params) mongoSanitize.sanitize(req.params);
+  if (req.query) mongoSanitize.sanitize(req.query);
+  next();
+});
 
 // Prevent HTTP Parameter Pollution
 app.use(hpp());
 
 // =========================================
-// 3. ROUTES
+// 5. APPLICATION ROUTES
 // =========================================
 
-// API Health Check Route
+// API Operational Health Check
 app.get('/api/v1/health', (req, res) => {
   res.status(200).json({
     status: 'success',
-    message: 'SIHM Backend API is running smoothly.',
-    timestamp: new Date().toISOString()
+    message: 'SIHM Backend Core API operational.',
+    timestamp: new Date().toISOString(),
   });
 });
 
-// ROUTUS -------------------------------------------
+// Authentication and Clearance Handshake Route
 app.use('/api/v1/auth', authRouter);
 
 // =========================================
-// 4. ERROR HANDLING
+// 6. ERROR HANDLING
 // =========================================
 
-// Handle unhandled routes (404)
-app.all('*', (req, res, next) => {
+// Unhandled Route Handler (404)
+app.use((req, res, next) => {
   res.status(404).json({
     status: 'fail',
-    message: `Can't find ${req.originalUrl} on this server!`
+    message: `Resource not located: ${req.originalUrl}`,
   });
 });
 
-// Global Error Handling Middleware
+// Central Global Error Boundary
 app.use((err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
-  err.status = err.status || 'error';
+  err.status = err.status || (String(err.statusCode).startsWith('4') ? 'fail' : 'error');
 
   if (process.env.NODE_ENV === 'development') {
     res.status(err.statusCode).json({
       status: err.status,
       error: err,
       message: err.message,
-      stack: err.stack
+      stack: err.stack,
     });
   } else {
-    // Production error response (hide detailed stack traces)
     res.status(err.statusCode).json({
       status: err.status,
-      message: err.message || 'Something went wrong!'
+      message: err.message || 'An internal administrative server error occurred.',
     });
   }
 });

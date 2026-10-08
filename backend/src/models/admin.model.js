@@ -33,6 +33,10 @@ const adminSchema = new mongoose.Schema(
       type: String,
       select: false,
     },
+    tempTwoFactorSecret: {
+      type: String,
+      select: false,
+    },
     backupCodes: {
       type: [String],
       select: false,
@@ -60,7 +64,6 @@ const adminSchema = new mongoose.Schema(
 // MONGOOSE MIDDLEWARE (Hooks)
 // =========================================
 
-// Promise-based hook: no 'next' parameter needed when using 'async'
 adminSchema.pre('save', async function () {
   if (!this.isModified('password')) return;
 
