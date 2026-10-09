@@ -6,13 +6,10 @@ import {
   resetMy2FA,
   refreshToken,
   logout,
-  createAdmin,
 } from '../controllers/auth.controller.js';
 import {
   loginLimiter,
   verifyPreAuthToken,
-  verifyAccessToken,
-  restrictTo,
 } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
@@ -24,7 +21,5 @@ router.post('/logout', logout);
 router.post('/verify-2fa', loginLimiter, verifyPreAuthToken, verify2FA);
 router.post('/setup-2fa', verifyPreAuthToken, setup2FA);
 router.post('/reset-2fa', verifyPreAuthToken, resetMy2FA);
-
-router.post('/create-admin', verifyAccessToken, restrictTo('SuperAdmin'), createAdmin);
 
 export default router;

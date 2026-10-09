@@ -13,61 +13,7 @@ import {
 } from '../utils/auth.util.js';
 
 // =========================================
-// 1. PROVISION ADMINISTRATOR (SuperAdmin Only)
-// =========================================
-export const createAdmin = catchAsync(async (req, res, next) => {
-  const { email, password, role } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({
-      status: 'fail',
-      message: 'Email and temporary password are required.',
-    });
-  }
-
-  const assignedRole = role === 'SuperAdmin' ? 'SuperAdmin' : 'Admin';
-
-  const existingAdmin = await Admin.findOne({ email });
-  if (existingAdmin) {
-    return res.status(400).json({
-      status: 'fail',
-      message: 'An administrative account with this email already exists.',
-    });
-  }
-
-  const newAdmin = await Admin.create({
-    email,
-    password,
-    role: assignedRole,
-  });
-
-  await AuditLog.logEvent({
-    adminId: req.user._id,
-    action: 'ADMIN_PROVISIONED',
-    status: 'SUCCESS',
-    ipAddress: req.ip,
-    userAgent: req.headers['user-agent'] || 'unknown',
-    details: { provisionedEmail: email, provisionedRole: assignedRole },
-  });
-
-  res.status(201).json({
-    status: 'success',
-    message: `${assignedRole} account provisioned. They must complete 2FA on initial login.`,
-    user: {
-      id: newAdmin._id,
-      email: newAdmin.email,
-      role: newAdmin.role,
-    },
-    admin: {
-      id: newAdmin._id,
-      email: newAdmin.email,
-      role: newAdmin.role,
-    },
-  });
-});
-
-// =========================================
-// 2. PRIMARY CREDENTIALS VERIFICATION
+// PRIMARY CREDENTIALS VERIFICATION
 // =========================================
 export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -87,7 +33,7 @@ export const login = catchAsync(async (req, res, next) => {
       action: 'LOGIN_FAILED',
       status: 'FAILURE',
       ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
+      userAgent: req.headers['user-agent'] || 'unknown',
     });
     return res.status(401).json({
       status: 'fail',
@@ -117,7 +63,7 @@ export const login = catchAsync(async (req, res, next) => {
         action: 'ACCOUNT_LOCKED',
         status,
         ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
+        userAgent: req.headers['user-agent'] || 'unknown',
       });
     }
 
@@ -129,7 +75,7 @@ export const login = catchAsync(async (req, res, next) => {
       action: 'LOGIN_FAILED',
       status,
       ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
+      userAgent: req.headers['user-agent'] || 'unknown',
     });
 
     return res.status(401).json({
@@ -153,7 +99,7 @@ export const login = catchAsync(async (req, res, next) => {
 });
 
 // =========================================
-// 3. GENERATE 2FA PROVISIONING PAYLOAD
+// GENERATE 2FA PROVISIONING PAYLOAD
 // =========================================
 export const setup2FA = catchAsync(async (req, res, next) => {
   const admin = await Admin.findById(req.user._id).select(
@@ -166,8 +112,6 @@ export const setup2FA = catchAsync(async (req, res, next) => {
     issuer: 'SIHM Portal',
   });
 
-  // CRITICAL FIX: Explicitly generate Base32 otpauth URL so Microsoft Authenticator
-  // and Speakeasy verify with the exact same Base32 encoding.
   const otpauthUrl = speakeasy.otpauthURL({
     secret: secret.base32,
     label: `SIHM Portal (${admin.email})`,
@@ -185,7 +129,7 @@ export const setup2FA = catchAsync(async (req, res, next) => {
     action: '2FA_SETUP_INITIATED',
     status: 'SUCCESS',
     ipAddress: req.ip,
-    userAgent: req.headers['user-agent'],
+    userAgent: req.headers['user-agent'] || 'unknown',
   });
 
   res.status(200).json({
@@ -196,7 +140,7 @@ export const setup2FA = catchAsync(async (req, res, next) => {
 });
 
 // =========================================
-// 4. VERIFY 2FA PASSCODE & EMIT SESSION
+// VERIFY 2FA PASSCODE & EMIT SESSION
 // =========================================
 export const verify2FA = catchAsync(async (req, res, next) => {
   const { totpCode } = req.body;
@@ -222,19 +166,6 @@ export const verify2FA = catchAsync(async (req, res, next) => {
     });
   }
 
-  // --- DIAGNOSTIC TELEMETRY (Check terminal output) ---
-  const currentExpected = speakeasy.totp({
-    secret: activeSecret,
-    encoding: 'base32',
-  });
-  console.log('====== [SIHM 2FA DIAGNOSTIC] ======');
-  console.log('Account Email     :', admin.email);
-  console.log('User Entered TOTP :', cleanCode);
-  console.log('Server Expected   :', currentExpected);
-  console.log('Server Time (UTC) :', new Date().toISOString());
-  console.log('Secret (Prefix)   :', activeSecret.substring(0, 6) + '...');
-
-  // Use verifyDelta with window: 4 (permits up to ±120s of clock difference)
   const delta = speakeasy.totp.verifyDelta({
     secret: activeSecret,
     encoding: 'base32',
@@ -242,16 +173,13 @@ export const verify2FA = catchAsync(async (req, res, next) => {
     window: 4,
   });
 
-  console.log('Validation Delta  :', delta ? delta.delta : 'FAILED (null)');
-  console.log('====================================');
-
   if (!delta) {
     await AuditLog.logEvent({
       adminId: admin._id,
       action: '2FA_FAILED',
       status: 'WARNING',
       ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
+      userAgent: req.headers['user-agent'] || 'unknown',
     });
     return res.status(401).json({
       status: 'fail',
@@ -259,7 +187,6 @@ export const verify2FA = catchAsync(async (req, res, next) => {
     });
   }
 
-  // Promote temporary secret to permanent on successful verification
   if (!admin.is2faEnabled) {
     admin.twoFactorSecret = admin.tempTwoFactorSecret || admin.twoFactorSecret;
     admin.tempTwoFactorSecret = undefined;
@@ -270,7 +197,7 @@ export const verify2FA = catchAsync(async (req, res, next) => {
       action: '2FA_SETUP_COMPLETED',
       status: 'SUCCESS',
       ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
+      userAgent: req.headers['user-agent'] || 'unknown',
     });
   }
 
@@ -295,7 +222,7 @@ export const verify2FA = catchAsync(async (req, res, next) => {
     action: 'LOGIN_SUCCESS',
     status: 'SUCCESS',
     ipAddress: req.ip,
-    userAgent: req.headers['user-agent'],
+    userAgent: req.headers['user-agent'] || 'unknown',
   });
 
   res.status(200).json({
@@ -315,7 +242,7 @@ export const verify2FA = catchAsync(async (req, res, next) => {
 });
 
 // =========================================
-// 5. RESET 2FA FOR RE-ENROLLMENT (One-Time Setup Tool)
+// RESET 2FA FOR RE-ENROLLMENT
 // =========================================
 export const resetMy2FA = catchAsync(async (req, res, next) => {
   const admin = await Admin.findById(req.user._id);
@@ -331,10 +258,10 @@ export const resetMy2FA = catchAsync(async (req, res, next) => {
 });
 
 // =========================================
-// 6. SILENT REFRESH TOKEN ROTATION
+// SILENT REFRESH TOKEN ROTATION
 // =========================================
 export const refreshToken = catchAsync(async (req, res, next) => {
-  const cookieHeader = req.cookies.sihm_session;
+  const cookieHeader = req.cookies?.sihm_session;
 
   if (!cookieHeader || cookieHeader === 'logged_out') {
     return res.status(401).json({
@@ -378,7 +305,7 @@ export const refreshToken = catchAsync(async (req, res, next) => {
       action: 'REFRESH_TOKEN_REUSE_DETECTED',
       status: 'CRITICAL',
       ipAddress: req.ip,
-      userAgent: req.headers['user-agent'],
+      userAgent: req.headers['user-agent'] || 'unknown',
       details: {
         reason: 'Mismatched refresh token provided. All sessions revoked for admin.',
       },
@@ -427,10 +354,10 @@ export const refreshToken = catchAsync(async (req, res, next) => {
 });
 
 // =========================================
-// 7. TERMINATE SESSION
+// TERMINATE SESSION
 // =========================================
 export const logout = catchAsync(async (req, res, next) => {
-  const cookieHeader = req.cookies.sihm_session;
+  const cookieHeader = req.cookies?.sihm_session;
 
   if (cookieHeader && cookieHeader !== 'logged_out') {
     const [sessionId] = cookieHeader.split('|');
@@ -442,7 +369,7 @@ export const logout = catchAsync(async (req, res, next) => {
           action: 'LOGOUT',
           status: 'SUCCESS',
           ipAddress: req.ip,
-          userAgent: req.headers['user-agent'],
+          userAgent: req.headers['user-agent'] || 'unknown',
         });
       }
     }

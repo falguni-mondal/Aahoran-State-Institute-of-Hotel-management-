@@ -7,6 +7,7 @@ import {
   selectCurrentRole,
   selectCurrentUser,
 } from '../store/features/authSlice.js';
+import AdminLayout from '../layouts/AdminLayout.jsx';
 
 // Lazy-loaded views for code splitting
 const Login = lazy(() => import('../pages/Login.jsx'));
@@ -153,7 +154,6 @@ export const ProtectedRoute = () => {
   }
 
   if (!isAuthenticated) {
-    // Attach 'from' state so the user returns to their requested page after login
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
@@ -171,7 +171,6 @@ export const RoleGuard = ({ allowedRoles = [] }) => {
     return <PageLoader />;
   }
 
-  // Inspect both state.auth.user.role and direct selector
   const activeRole = roleFromSelector || currentUser?.role || 'Admin';
 
   if (!allowedRoles.includes(activeRole)) {
@@ -195,15 +194,17 @@ const PageRouter = () => {
           <Route path="/verify-2fa" element={<Verify2FA />} />
         </Route>
 
-        {/* Protected Administrative Application Routes */}
+        {/* Protected Administrative Application Routes Mounted Inside AdminLayout */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/audit-logs" element={<AuditLogs />} />
+          <Route element={<AdminLayout />}>
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/audit-logs" element={<AuditLogs />} />
 
-          {/* SuperAdmin Level Restricted Routes */}
-          <Route element={<RoleGuard allowedRoles={['SuperAdmin']} />}>
-            <Route path="/admins" element={<ManageAdmins />} />
+            {/* SuperAdmin Level Restricted Routes */}
+            <Route element={<RoleGuard allowedRoles={['SuperAdmin']} />}>
+              <Route path="/admins" element={<ManageAdmins />} />
+            </Route>
           </Route>
         </Route>
 

@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { Users, Shield, Smartphone, Sparkles } from 'lucide-react';
 
-const AdminStatsGrid = forwardRef(({ admins = [] }, ref) => {
+const AdminStatsGrid = forwardRef(({ admins = [], isLoading = false }, ref) => {
   const totalCount = admins.length;
   const superAdminCount = admins.filter((a) => a.role === 'SuperAdmin').length;
   const mfaCompliancePercentage = totalCount
@@ -25,9 +25,13 @@ const AdminStatsGrid = forwardRef(({ admins = [] }, ref) => {
             <Users className="h-4 w-4 2xl:h-5 2xl:w-5" />
           </div>
         </div>
-        <div className="mt-4 font-serif text-3xl font-normal tracking-tight text-[#303030] sm:text-3xl md:text-4xl lg:text-4xl 2xl:text-5xl">
-          {totalCount}
-        </div>
+        {isLoading ? (
+          <div className="mt-4 h-9 w-16 animate-pulse rounded-md bg-[#E6E2D8]/70 sm:h-10 sm:w-20 2xl:h-12 2xl:w-24" />
+        ) : (
+          <div className="mt-4 font-serif text-3xl font-normal tracking-tight text-[#303030] sm:text-3xl md:text-4xl lg:text-4xl 2xl:text-5xl">
+            {totalCount}
+          </div>
+        )}
         <div className="mt-3 flex items-center justify-between border-t border-[#E6E2D8] pt-3 font-sans text-[11px] text-[#707884] 2xl:text-xs">
           <span>Authorized identity profiles</span>
           <span className="font-medium text-[#303030]">Roster</span>
@@ -44,9 +48,13 @@ const AdminStatsGrid = forwardRef(({ admins = [] }, ref) => {
             <Shield className="h-4 w-4 2xl:h-5 2xl:w-5" />
           </div>
         </div>
-        <div className="mt-4 font-serif text-3xl font-normal tracking-tight text-[#303030] sm:text-3xl md:text-4xl lg:text-4xl 2xl:text-5xl">
-          {superAdminCount}
-        </div>
+        {isLoading ? (
+          <div className="mt-4 h-9 w-16 animate-pulse rounded-md bg-[#E6E2D8]/70 sm:h-10 sm:w-20 2xl:h-12 2xl:w-24" />
+        ) : (
+          <div className="mt-4 font-serif text-3xl font-normal tracking-tight text-[#303030] sm:text-3xl md:text-4xl lg:text-4xl 2xl:text-5xl">
+            {superAdminCount}
+          </div>
+        )}
         <div className="mt-3 flex items-center justify-between border-t border-[#E6E2D8] pt-3 font-sans text-[11px] text-[#707884] 2xl:text-xs">
           <span>Full root authority held</span>
           <span className="font-medium text-[#E85D04]">Level 0</span>
@@ -63,9 +71,13 @@ const AdminStatsGrid = forwardRef(({ admins = [] }, ref) => {
             <Smartphone className="h-4 w-4 2xl:h-5 2xl:w-5" />
           </div>
         </div>
-        <div className="mt-4 font-serif text-3xl font-normal tracking-tight text-[#303030] sm:text-3xl md:text-4xl lg:text-4xl 2xl:text-5xl">
-          {mfaCompliancePercentage}%
-        </div>
+        {isLoading ? (
+          <div className="mt-4 h-9 w-16 animate-pulse rounded-md bg-[#E6E2D8]/70 sm:h-10 sm:w-20 2xl:h-12 2xl:w-24" />
+        ) : (
+          <div className="mt-4 font-serif text-3xl font-normal tracking-tight text-[#303030] sm:text-3xl md:text-4xl lg:text-4xl 2xl:text-5xl">
+            {mfaCompliancePercentage}%
+          </div>
+        )}
         <div className="mt-3 flex items-center justify-between border-t border-[#E6E2D8] pt-3 font-sans text-[11px] text-[#707884] 2xl:text-xs">
           <span>Mandatory TOTP enforcement</span>
           <span className="font-medium text-emerald-700">Protected</span>

@@ -82,8 +82,13 @@ apiClient.interceptors.response.use(
 
         const newAccessToken = data.accessToken;
 
-        // Update Redux state with the fresh access token
-        store.dispatch(setCredentials({ accessToken: newAccessToken }));
+        // Update Redux state with fresh access token and sync verified identity claims
+        store.dispatch(
+          setCredentials({
+            accessToken: newAccessToken,
+            ...(data.user ? { user: data.user } : {}),
+          })
+        );
 
         // Resolve all requests stalled in the queue
         processQueue(null, newAccessToken);

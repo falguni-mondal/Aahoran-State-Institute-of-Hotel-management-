@@ -8,6 +8,8 @@ import hpp from 'hpp';
 import cookieParser from 'cookie-parser';
 
 import authRouter from './routes/auth.routes.js';
+import adminRouter from './routes/admin.routes.js';
+import auditLogRouter from './routes/auditlog.routes.js';
 
 const app = express();
 
@@ -96,6 +98,8 @@ app.get('/api/v1/health', (req, res) => {
 
 // Authentication and Clearance Handshake Route
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/admins', adminRouter);
+app.use('/api/v1/audit-logs', auditLogRouter);
 
 // =========================================
 // 6. ERROR HANDLING

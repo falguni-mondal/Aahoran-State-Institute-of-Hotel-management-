@@ -1,201 +1,112 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { RefreshCw, Download } from 'lucide-react';
+import { RefreshCw, Download, ShieldAlert } from 'lucide-react';
 import apiClient from '../api/axios.js';
-import {
-  logOut,
-  selectCurrentUser,
-  selectCurrentRole,
-} from '../store/features/authSlice.js';
 import { useLenis } from '../providers/SmoothScrollProvider.jsx';
-
-// Shared Layout Components
-import Sidebar from '../components/layout/Sidebar.jsx';
-import Topbar from '../components/layout/Topbar.jsx';
 
 // Dedicated Audit Components
 import AuditFilterBar from '../components/audit/AuditFilterBar.jsx';
 import AuditLogTable from '../components/audit/AuditLogTable.jsx';
 import AuditDetailModal from '../components/audit/AuditDetailModal.jsx';
 
-const INITIAL_AUDIT_LOGS = [
-  {
-    id: 'AUD-994201',
-    timestamp: '2026-10-07T06:28:14.912Z',
-    action: 'SESSION_ROTATED',
-    actor: 'superadmin@sihm.gov.in',
-    target: '/api/v1/auth/refresh',
-    status: 'SUCCESS',
-    ipAddress: '192.168.1.104',
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-    hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-    metadata: {
-      sessionFamilyId: 'fam_88f9a2',
-      rotationCycle: 4,
-      issuedExpiry: '15m',
-    },
-  },
-  {
-    id: 'AUD-994200',
-    timestamp: '2026-10-07T06:14:02.108Z',
-    action: '2FA_VERIFIED',
-    actor: 'superadmin@sihm.gov.in',
-    target: '/api/v1/auth/verify-2fa',
-    status: 'SUCCESS',
-    ipAddress: '192.168.1.104',
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-    hash: 'a1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef0',
-    metadata: {
-      strategy: 'TOTP_RFC6238',
-      windowSkew: '0s',
-      elevationGranted: 'SuperAdmin',
-    },
-  },
-  {
-    id: 'AUD-994199',
-    timestamp: '2026-10-07T05:58:44.200Z',
-    action: 'ADMIN_PROVISIONED',
-    actor: 'superadmin@sihm.gov.in',
-    target: '/api/v1/auth/create-admin',
-    status: 'SUCCESS',
-    ipAddress: '10.0.4.12',
-    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
-    hash: '7d793037a0760186574b0282f2f435e70d63b558f786ee4b67d5e4cfbf6e65b4',
-    metadata: {
-      assignedRole: 'Admin',
-      newAdminIdentifier: 'finance_lead@sihm.gov.in',
-      mfaRequirementEnforced: true,
-    },
-  },
-  {
-    id: 'AUD-994198',
-    timestamp: '2026-10-07T04:45:10.820Z',
-    action: 'LOGIN_ATTEMPT',
-    actor: 'unknown_probe@sihm.gov.in',
-    target: '/api/v1/auth/login',
-    status: 'FLAGGED',
-    ipAddress: '185.220.101.5',
-    userAgent: 'Python-urllib/3.10',
-    hash: '4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945',
-    metadata: {
-      threatAssessment: 'SUSPICIOUS_UA_ANOMALY',
-      geoOrigin: 'Tor Exit Node Proxy',
-      blockedByRateLimiter: true,
-    },
-  },
-  {
-    id: 'AUD-994197',
-    timestamp: '2026-10-07T03:12:00.044Z',
-    action: 'CONFIG_MUTATED',
-    actor: 'superadmin@sihm.gov.in',
-    target: '/api/v1/system/security-headers',
-    status: 'SUCCESS',
-    ipAddress: '192.168.1.104',
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-    hash: '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
-    metadata: {
-      cspDirective: "default-src 'self'",
-      hstsMaxAge: '31536000',
-    },
-  },
-  {
-    id: 'AUD-994196',
-    timestamp: '2026-10-06T22:30:15.512Z',
-    action: 'SESSION_REVOKED',
-    actor: 'academic_head@sihm.gov.in',
-    target: '/api/v1/auth/logout',
-    status: 'SUCCESS',
-    ipAddress: '172.16.20.15',
-    userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
-    hash: '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',
-    metadata: {
-      reason: 'USER_INITIATED_LOGOUT',
-      sessionCookiePurged: true,
-    },
-  },
-  {
-    id: 'AUD-994195',
-    timestamp: '2026-10-06T18:05:40.320Z',
-    action: 'PASS_CHALLENGE_FAILED',
-    actor: 'external_probe@gov.in',
-    target: '/api/v1/auth/verify-2fa',
-    status: 'FAILURE',
-    ipAddress: '198.51.100.42',
-    userAgent: 'Go-http-client/1.1',
-    hash: 'ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d',
-    metadata: {
-      attemptCount: 3,
-      totpWindowDeviation: '+90s',
-      accountLocked: false,
-    },
-  },
+// Standard action directives registered in the audit schema
+const BASE_ACTIONS = [
+  'ALL',
+  'LOGIN_SUCCESS',
+  'LOGIN_FAILED',
+  'LOGOUT',
+  '2FA_SETUP_INITIATED',
+  '2FA_SETUP_COMPLETED',
+  '2FA_VERIFIED',
+  '2FA_FAILED',
+  'REFRESH_TOKEN_ROTATED',
+  'REFRESH_TOKEN_REUSE_DETECTED',
+  'SESSION_REVOKED',
+  'ADMIN_PROVISIONED',
+  'ACCOUNT_LOCKED',
 ];
 
 const AuditLogs = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const lenis = useLenis();
 
-  const currentUser = useSelector(selectCurrentUser);
-  const userRole = useSelector(selectCurrentRole) || 'Admin';
-  const isSuperAdmin = userRole === 'SuperAdmin';
-
-  const [logs, setLogs] = useState(INITIAL_AUDIT_LOGS);
+  const [logs, setLogs] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('ALL');
   const [selectedAction, setSelectedAction] = useState('ALL');
   const [selectedLog, setSelectedLog] = useState(null);
   const [copiedHash, setCopiedHash] = useState(null);
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   // Animation References
   const containerRef = useRef(null);
   const tableRowsRef = useRef([]);
   const modalRef = useRef(null);
 
-  // Fetch live logs from backend with state fallback
-  const fetchAuditLogs = async () => {
-    setIsRefreshing(true);
-    try {
-      const response = await apiClient.get('/audit-logs');
-      if (response.data && Array.isArray(response.data.logs)) {
-        setLogs(response.data.logs);
+  // Fetch verified ledger logs from MongoDB with server-side query filters
+  const fetchAuditLogs = useCallback(
+    async (manualSync = false) => {
+      if (manualSync) {
+        setIsRefreshing(true);
+      } else {
+        setIsLoading(true);
       }
-    } catch {
-      // Retain zero-trust fallback records
-    } finally {
-      setTimeout(() => setIsRefreshing(false), 500);
-    }
-  };
+      setErrorMessage(null);
 
+      try {
+        const params = {
+          limit: 100,
+          page: 1,
+        };
+
+        if (selectedStatus !== 'ALL') {
+          params.status = selectedStatus;
+        }
+
+        if (selectedAction !== 'ALL') {
+          params.action = selectedAction;
+        }
+
+        if (searchQuery.trim()) {
+          params.search = searchQuery.trim();
+        }
+
+        const response = await apiClient.get('/audit-logs', { params });
+
+        if (response.data && Array.isArray(response.data.logs)) {
+          setLogs(response.data.logs);
+          setTotalCount(response.data.total ?? response.data.logs.length);
+        }
+      } catch (err) {
+        setErrorMessage(
+          err.response?.data?.message ||
+            'Failed to synchronize cryptographic audit ledger from server.'
+        );
+      } finally {
+        setIsLoading(false);
+        setIsRefreshing(false);
+      }
+    },
+    [searchQuery, selectedStatus, selectedAction]
+  );
+
+  // Debounced search & filter synchronization (300ms throttle)
   useEffect(() => {
-    fetchAuditLogs();
-  }, []);
+    const debounceTimer = setTimeout(() => {
+      fetchAuditLogs(false);
+    }, 300);
 
-  // Filtered dataset memoization
-  const filteredLogs = useMemo(() => {
-    return logs.filter((log) => {
-      const matchesSearch =
-        log.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        log.actor.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        log.target.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        log.ipAddress.includes(searchQuery) ||
-        log.action.toLowerCase().includes(searchQuery.toLowerCase());
+    return () => clearTimeout(debounceTimer);
+  }, [fetchAuditLogs]);
 
-      const matchesStatus =
-        selectedStatus === 'ALL' || log.status === selectedStatus;
-
-      const matchesAction =
-        selectedAction === 'ALL' || log.action === selectedAction;
-
-      return matchesSearch && matchesStatus && matchesAction;
-    });
-  }, [logs, searchQuery, selectedStatus, selectedAction]);
+  // Aggregate unique action choices dynamically
+  const uniqueActions = useMemo(() => {
+    const liveActions = logs.map((item) => item.action);
+    return Array.from(new Set([...BASE_ACTIONS, ...liveActions]));
+  }, [logs]);
 
   // Staggered Table Rows Animation
   useGSAP(
@@ -205,17 +116,17 @@ const AuditLogs = () => {
 
       gsap.fromTo(
         rows,
-        { opacity: 0, y: 10 },
+        { opacity: 0, y: 12 },
         {
           opacity: 1,
           y: 0,
           duration: 0.35,
-          stagger: 0.04,
+          stagger: 0.03,
           ease: 'power2.out',
         }
       );
     },
-    { scope: containerRef, dependencies: [filteredLogs] }
+    { scope: containerRef, dependencies: [logs] }
   );
 
   // Lenis Scroll-Lock and Modal Transition
@@ -246,125 +157,96 @@ const AuditLogs = () => {
   };
 
   const handleExportJSON = () => {
+    if (logs.length === 0) return;
+
     const dataStr =
       'data:text/json;charset=utf-8,' +
-      encodeURIComponent(JSON.stringify(filteredLogs, null, 2));
+      encodeURIComponent(JSON.stringify(logs, null, 2));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute('href', dataStr);
     downloadAnchor.setAttribute(
       'download',
-      `SIHM_AUDIT_TRAIL_${new Date().toISOString().slice(0, 10)}.json`
+      `SIHM_AUDIT_LEDGER_${new Date().toISOString().slice(0, 10)}.json`
     );
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
   };
 
-  const handleLogout = async () => {
-    if (isLoggingOut) return;
-    setIsLoggingOut(true);
-
-    try {
-      await apiClient.post('/auth/logout');
-    } catch {
-      // Clear client state even if network fails
-    } finally {
-      dispatch(logOut());
-      navigate('/login', { replace: true });
-    }
-  };
-
-  const uniqueActions = ['ALL', ...new Set(logs.map((item) => item.action))];
-
   return (
-    <div
-      ref={containerRef}
-      className="relative flex min-h-screen w-full flex-col bg-[#F7F5F0] font-sans text-[#303030] lg:flex-row"
-    >
-      {/* Background Watermark Pattern */}
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(#E6E2D8_1px,transparent_1px)] [background-size:24px_24px] opacity-40" />
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top_right,rgba(232,93,4,0.03),transparent_50%)]" />
+    <div ref={containerRef} className="space-y-6 2xl:space-y-8">
+      {/* Action Strip: Header Sync & Export */}
+      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <div>
+          <h2 className="font-serif text-2xl font-normal tracking-tight text-[#303030] sm:text-2xl md:text-3xl 2xl:text-4xl">
+            Ledger <span className="italic text-[#E85D04]">Explorer</span>
+          </h2>
+          <p className="mt-1 font-sans text-xs text-[#707884] sm:text-xs md:text-sm 2xl:text-base">
+            Inspect tamper-evident records, forensic origins, and cryptographic payload digests
+            {totalCount > 0 && (
+              <span className="ml-1.5 font-medium text-[#303030]">
+                ({totalCount.toLocaleString()} total committed)
+              </span>
+            )}
+          </p>
+        </div>
 
-      {/* 1. Shared Navigation Sidebar */}
-      <Sidebar
-        isOpen={isMobileNavOpen}
-        onClose={() => setIsMobileNavOpen(false)}
-        currentUser={currentUser}
-        userRole={userRole}
-        isSuperAdmin={isSuperAdmin}
-        onLogout={handleLogout}
-        isLoggingOut={isLoggingOut}
+        <div className="flex w-full items-center justify-end gap-2.5 sm:w-auto sm:gap-3">
+          <button
+            onClick={() => fetchAuditLogs(true)}
+            disabled={isRefreshing || isLoading}
+            className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-[#E6E2D8] bg-[#FFFFFF] px-3.5 py-2 font-sans text-xs text-[#707884] transition-all hover:border-[#D5CEBF] hover:bg-[#F7F5F0] hover:text-[#303030] disabled:opacity-50 sm:flex-initial sm:text-xs md:text-sm 2xl:px-4 2xl:py-2.5 2xl:text-base"
+          >
+            <RefreshCw
+              className={`h-3.5 w-3.5 ${
+                isRefreshing ? 'animate-spin text-[#E85D04]' : ''
+              }`}
+            />
+            <span>{isRefreshing ? 'Syncing...' : 'Sync Stream'}</span>
+          </button>
+
+          <button
+            onClick={handleExportJSON}
+            disabled={logs.length === 0}
+            className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-[#303030] px-4 py-2 font-sans text-xs font-medium uppercase tracking-wider text-[#F7F5F0] transition-all hover:bg-[#E85D04] disabled:opacity-50 sm:flex-initial sm:text-xs md:text-sm 2xl:px-5 2xl:py-2.5 2xl:text-base"
+          >
+            <Download className="h-3.5 w-3.5" />
+            <span>Export JSON</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Network Error Banner */}
+      {errorMessage && (
+        <div className="flex items-center gap-2.5 rounded-xl border border-rose-200 bg-rose-50/80 p-3.5 text-xs text-rose-800 sm:text-sm">
+          <ShieldAlert className="h-4 w-4 shrink-0 text-rose-600" />
+          <span>{errorMessage}</span>
+        </div>
+      )}
+
+      {/* Filter Bar */}
+      <AuditFilterBar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        selectedStatus={selectedStatus}
+        setSelectedStatus={setSelectedStatus}
+        selectedAction={selectedAction}
+        setSelectedAction={setSelectedAction}
+        uniqueActions={uniqueActions}
       />
 
-      {/* 2. Main Workspace */}
-      <main className="relative z-10 flex min-h-screen flex-1 flex-col overflow-y-auto">
-        <Topbar
-          onOpenMobileNav={() => setIsMobileNavOpen(true)}
-          title="Security Audit Logs"
-          subtitle="CRYPTOGRAPHIC SYSTEM AUDIT / ZERO-TRUST LOG"
-        />
+      {/* Immutable Table */}
+      <AuditLogTable
+        logs={logs}
+        filteredLogs={logs}
+        isLoading={isLoading}
+        onSelectLog={setSelectedLog}
+        onCopyHash={handleCopyHash}
+        copiedHash={copiedHash}
+        tableRowsRef={tableRowsRef}
+      />
 
-        {/* Dynamic Content Canvas */}
-        <div className="flex-1 space-y-6 p-4 sm:p-6 md:p-8 lg:p-8 xl:p-10 2xl:space-y-8 2xl:p-14">
-          {/* Action Strip: Header Sync & Export */}
-          <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-            <div>
-              <h2 className="font-serif text-2xl font-normal tracking-tight text-[#303030] sm:text-2xl md:text-3xl 2xl:text-4xl">
-                Ledger <span className="italic text-[#E85D04]">Explorer</span>
-              </h2>
-              <p className="mt-1 font-sans text-xs text-[#707884] sm:text-xs md:text-sm 2xl:text-base">
-                Inspect tamper-evident records, forensic origins, and cryptographic payload digests.
-              </p>
-            </div>
-
-            <div className="flex items-center gap-2.5 sm:gap-3">
-              <button
-                onClick={fetchAuditLogs}
-                disabled={isRefreshing}
-                className="flex items-center gap-1.5 rounded-xl border border-[#E6E2D8] bg-[#FFFFFF] px-3.5 py-2 font-sans text-xs text-[#707884] transition-all hover:border-[#D5CEBF] hover:bg-[#F7F5F0] hover:text-[#303030] disabled:opacity-50 sm:text-xs md:text-sm 2xl:px-4 2xl:py-2.5 2xl:text-base"
-              >
-                <RefreshCw
-                  className={`h-3.5 w-3.5 ${
-                    isRefreshing ? 'animate-spin text-[#E85D04]' : ''
-                  }`}
-                />
-                <span>Sync Stream</span>
-              </button>
-
-              <button
-                onClick={handleExportJSON}
-                className="flex items-center gap-1.5 rounded-xl bg-[#303030] px-4 py-2 font-sans text-xs font-medium uppercase tracking-wider text-[#F7F5F0] transition-all hover:bg-[#E85D04] sm:text-xs md:text-sm 2xl:px-5 2xl:py-2.5 2xl:text-base"
-              >
-                <Download className="h-3.5 w-3.5" />
-                <span>Export JSON</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Filter Bar */}
-          <AuditFilterBar
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            selectedStatus={selectedStatus}
-            setSelectedStatus={setSelectedStatus}
-            selectedAction={selectedAction}
-            setSelectedAction={setSelectedAction}
-            uniqueActions={uniqueActions}
-          />
-
-          {/* Immutable Table */}
-          <AuditLogTable
-            logs={logs}
-            filteredLogs={filteredLogs}
-            onSelectLog={setSelectedLog}
-            onCopyHash={handleCopyHash}
-            copiedHash={copiedHash}
-            tableRowsRef={tableRowsRef}
-          />
-        </div>
-      </main>
-
-      {/* 3. Detail Inspector Modal */}
+      {/* Detail Inspector Modal */}
       <AuditDetailModal
         ref={modalRef}
         selectedLog={selectedLog}
