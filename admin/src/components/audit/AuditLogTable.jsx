@@ -37,7 +37,8 @@ const AuditLogTable = ({
 }) => {
   return (
     <div className="overflow-hidden rounded-2xl border border-[#E6E2D8] bg-[#FFFFFF] shadow-[0_10px_30px_rgba(48,48,48,0.03)]">
-      <div className="overflow-x-auto">
+      {/* Explicit overflow-y-hidden suppresses the temporary animation scrollbar */}
+      <div className="overflow-x-auto overflow-y-hidden">
         <table className="w-full min-w-[880px] text-left font-sans text-xs sm:text-xs md:text-sm 2xl:text-base">
           {/* Table Header */}
           <thead>

@@ -16,7 +16,8 @@ const AdminRosterTable = ({
 }) => {
   return (
     <div className="overflow-hidden rounded-2xl border border-[#E6E2D8] bg-[#FFFFFF] shadow-[0_10px_30px_rgba(48,48,48,0.03)]">
-      <div className="overflow-x-auto">
+      {/* Explicit overflow-y-hidden prevents transient vertical scrollbars */}
+      <div className="overflow-x-auto overflow-y-hidden">
         <table className="w-full min-w-[760px] text-left font-sans text-xs sm:text-xs md:text-sm 2xl:text-base">
           {/* Table Header */}
           <thead>
@@ -81,11 +82,23 @@ const AdminRosterTable = ({
               filteredAdmins.map((admin, index) => {
                 const targetId = admin._id || admin.id;
                 const isSuperAdmin = admin.role === 'SuperAdmin';
-                const isSelf = currentUserEmail && admin.email === currentUserEmail;
+                
+                // Case-insensitive check to prevent self-revocation regardless of email casing
+                const isSelf = Boolean(
+                  currentUserEmail &&
+                  admin.email &&
+                  admin.email.trim().toLowerCase() === currentUserEmail.trim().toLowerCase()
+                );
                 const isRevoking = revokingId === targetId;
 
                 const is2FAActive = admin.is2faEnabled;
                 const isActive = admin.status === 'ACTIVE';
+
+                const displayId =
+                  admin.id ||
+                  (admin._id
+                    ? `ADM-${admin._id.toString().slice(-4).toUpperCase()}`
+                    : `ADM-${String(index + 1).padStart(3, '0')}`);
 
                 return (
                   <tr
@@ -94,7 +107,7 @@ const AdminRosterTable = ({
                   >
                     {/* Personnel ID */}
                     <td className="py-4 pl-6 pr-4 font-mono font-medium text-[#707884] 2xl:text-sm">
-                      {admin.id || `ADM-${String(index + 1).padStart(3, '0')}`}
+                      {displayId}
                     </td>
 
                     {/* Email */}

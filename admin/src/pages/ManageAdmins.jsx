@@ -64,38 +64,47 @@ const ManageAdmins = () => {
 
   // Filtered Administrative Roster Memoization
   const filteredAdmins = useMemo(() => {
+    const query = searchQuery.toLowerCase().trim();
+
     return admins.filter((admin) => {
-      const query = searchQuery.toLowerCase().trim();
+      const email = admin.email?.toLowerCase() || '';
+      const id = admin.id?.toLowerCase() || '';
+      const rawId = admin._id?.toString().toLowerCase() || '';
+      const role = admin.role?.toLowerCase() || '';
+      const status = admin.status?.toLowerCase() || '';
+
       const matchesSearch =
         !query ||
-        admin.email.toLowerCase().includes(query) ||
-        admin.id?.toLowerCase().includes(query) ||
-        admin._id?.toLowerCase().includes(query);
+        email.includes(query) ||
+        id.includes(query) ||
+        rawId.includes(query) ||
+        role.includes(query) ||
+        status.includes(query) ||
+        (query === 'pending' && status.includes('pending')) ||
+        (query === '2fa' && (status.includes('2fa') || !admin.is2faEnabled));
 
       const matchesRole = roleFilter === 'ALL' || admin.role === roleFilter;
+
       return matchesSearch && matchesRole;
     });
   }, [admins, searchQuery, roleFilter]);
 
-  // Unified Page Entrance: Everything enters in ONE coordinated sequence on mount
+  // Unified Page Entrance Sequence
   useGSAP(
     () => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      // 1. Header action strip
       tl.fromTo(
         headerRef.current,
         { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: 0.38 }
       )
-        // 2. Stat cards cascade
         .fromTo(
           statsGridRef.current?.children || [],
           { opacity: 0, y: 16 },
           { opacity: 1, y: 0, duration: 0.38, stagger: 0.04 },
           '-=0.2'
         )
-        // 3. Filter Bar & Table enter together as a unified lower section
         .fromTo(
           tableSectionRef.current,
           { opacity: 0, y: 16 },

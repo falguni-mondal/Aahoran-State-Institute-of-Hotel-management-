@@ -27,6 +27,10 @@
   --color-sihm-border-strong: #D5CEBF;
 }
 
+/* html{
+  scrollbar-gutter: stable;
+} */
+
 body {
   background-color: var(--background);
   color: var(--text-main);

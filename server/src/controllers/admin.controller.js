@@ -12,7 +12,7 @@ export const getAllAdmins = catchAsync(async (req, res, next) => {
     .sort({ createdAt: -1 });
 
   // Map to the exact schema contract expected by AdminRosterTable.jsx
-  const formattedAdmins = admins.map((admin, index) => {
+  const formattedAdmins = admins.map((admin) => {
     let computedStatus = 'ACTIVE';
     if (admin.isAccountLocked()) {
       computedStatus = 'LOCKED';
@@ -22,7 +22,7 @@ export const getAllAdmins = catchAsync(async (req, res, next) => {
 
     return {
       _id: admin._id,
-      id: `ADM-${String(index + 1).padStart(3, '0')}`,
+      id: `ADM-${admin._id.toString().slice(-4).toUpperCase()}`,
       email: admin.email,
       role: admin.role,
       is2faEnabled: admin.is2faEnabled,
@@ -96,6 +96,7 @@ export const createAdmin = catchAsync(async (req, res, next) => {
     message: `${assignedRole} profile enrolled. Mandatory 2FA verification will be required on initial login.`,
     admin: {
       _id: newAdmin._id,
+      id: `ADM-${newAdmin._id.toString().slice(-4).toUpperCase()}`,
       email: newAdmin.email,
       role: newAdmin.role,
       is2faEnabled: false,

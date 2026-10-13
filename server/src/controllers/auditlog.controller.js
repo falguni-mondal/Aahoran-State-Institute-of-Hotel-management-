@@ -6,7 +6,7 @@ import catchAsync from '../utils/catchAsync.js';
 
 // Helper function to safely escape regex special characters
 const escapeRegex = (string) => {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return string.replace(/[.*+?^\${}()|[\]\\]/g, '\\$&');
 };
 
 // =========================================
@@ -26,13 +26,35 @@ export const getAuditLogs = catchAsync(async (req, res, next) => {
   }
 
   if (search && search.trim() !== '') {
-    const sanitizedSearch = escapeRegex(search.trim());
+    const rawSearch = search.trim();
+    const sanitizedSearch = escapeRegex(rawSearch);
     const searchRegex = new RegExp(sanitizedSearch, 'i');
-    query.$or = [
+
+    const orConditions = [
       { action: searchRegex },
       { ipAddress: searchRegex },
       { emailAttempted: searchRegex },
     ];
+
+    // 1. Resolve matching admin accounts so searching by actor email works
+    const matchingAdmins = await Admin.find({ email: searchRegex }).select('_id');
+    if (matchingAdmins.length > 0) {
+      orConditions.push({ adminId: { $in: matchingAdmins.map((a) => a._id) } });
+    }
+
+    // 2. Strip 'AUD-' prefix to enable searches by formatted Record ID or ObjectId substring
+    const cleanId = rawSearch.replace(/^AUD-/i, '').trim();
+    if (cleanId.length > 0) {
+      orConditions.push({
+        $expr: {$regexMatch: {
+            input: { $toString: '$_id' },
+            regex: new RegExp(escapeRegex(cleanId), 'i'),
+          },
+        },
+      });
+    }
+
+    query.$or = orConditions;
   }
 
   const pageNum = Math.max(1, parseInt(page, 10) || 1);
@@ -49,7 +71,7 @@ export const getAuditLogs = catchAsync(async (req, res, next) => {
     AuditLog.countDocuments(query),
   ]);
 
-  // Map each log into immutable ledger structure with deterministic SHA-256 hash
+  // Map each log into an immutable ledger structure with a deterministic SHA-256 hash
   const formattedLogs = logs.map((log) => {
     const actorEmail = log.adminId?.email || log.emailAttempted || 'System';
     const payloadForHashing = `${log._id}-${log.timestamp}-${log.action}-${actorEmail}-${log.ipAddress}`;

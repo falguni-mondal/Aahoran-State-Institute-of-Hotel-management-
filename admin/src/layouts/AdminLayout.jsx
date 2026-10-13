@@ -20,6 +20,10 @@ const ROUTE_HEADER_MAP = {
     title: 'Security Audit Logs',
     subtitle: 'CRYPTOGRAPHIC SYSTEM AUDIT / ZERO-TRUST LOG',
   },
+  '/mentors': {
+    title: 'Mentors Directory',
+    subtitle: 'ACADEMIC LEADERSHIP / PUBLIC REGISTRY',
+  },
   '/admins': {
     title: 'Clearance Staff & RBAC',
     subtitle: 'RESTRICTED PARTITION / SUPERADMIN LEVEL ACCESS ONLY',
@@ -38,7 +42,6 @@ const AdminLayout = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  // Derive dynamic header titles based on the active path
   const headerMeta = ROUTE_HEADER_MAP[location.pathname] || {
     title: 'SIHM Administration',
     subtitle: 'STATE INSTITUTE OF HOTEL MANAGEMENT',
@@ -59,12 +62,11 @@ const AdminLayout = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col bg-[#F7F5F0] font-sans text-[#303030] lg:flex-row">
+    <div className="relative flex h-screen w-full overflow-hidden bg-[#F7F5F0] font-sans text-[#303030]">
       {/* Background Architectural Watermarks */}
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(#E6E2D8_1px,transparent_1px)] [background-size:24px_24px] opacity-40" />
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top_right,rgba(232,93,4,0.03),transparent_50%)]" />
 
-      {/* 1. Persistent Shared Sidebar */}
       <Sidebar
         isOpen={isMobileNavOpen}
         onClose={() => setIsMobileNavOpen(false)}
@@ -75,16 +77,20 @@ const AdminLayout = () => {
         isLoggingOut={isLoggingOut}
       />
 
-      {/* 2. Main Workspace & Dynamic Content Outlet */}
-      <main className="relative z-10 flex min-h-screen flex-1 flex-col overflow-y-auto">
-        {/* Persistent Topbar */}
+      {/* 
+          1. data-lenis-prevent="true" bypasses the smooth scroll interception
+          2. overflow-x-hidden ensures no horizontal wobble
+      */}
+      <main
+        data-lenis-prevent="true"
+        className="relative z-10 flex h-full flex-1 flex-col overflow-y-auto overflow-x-hidden"
+      >
         <Topbar
           onOpenMobileNav={() => setIsMobileNavOpen(true)}
           title={headerMeta.title}
           subtitle={headerMeta.subtitle}
         />
 
-        {/* Dynamic Child Page Canvas */}
         <div className="flex-1 p-4 sm:p-6 md:p-8 lg:p-8 xl:p-10 2xl:p-14">
           <Outlet />
         </div>

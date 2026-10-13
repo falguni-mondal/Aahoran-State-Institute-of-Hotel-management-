@@ -7,7 +7,7 @@ const auditLogSchema = new mongoose.Schema(
       ref: 'Admin',
       default: null,
       index: true,
-      immutable: true, 
+      immutable: true,
     },
     emailAttempted: {
       type: String,
@@ -34,6 +34,9 @@ const auditLogSchema = new mongoose.Schema(
         'PASSWORD_CHANGED',
         'ACCOUNT_LOCKED',
         'ADMIN_PROVISIONED',
+        'MENTOR_CREATED',
+        'MENTOR_UPDATED',
+        'MENTOR_DELETED',
       ],
       index: true,
       immutable: true,
@@ -59,11 +62,11 @@ const auditLogSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.Mixed,
       default: {},
       immutable: true,
-    }
+    },
   },
   {
     timestamps: { createdAt: 'timestamp', updatedAt: false },
-    versionKey: false, 
+    versionKey: false,
   }
 );
 
@@ -72,7 +75,9 @@ const auditLogSchema = new mongoose.Schema(
 // =========================================
 
 const blockMutation = async function () {
-  const err = new Error('Compliance Violation: Audit logs are strictly immutable and cannot be modified or deleted.');
+  const err = new Error(
+    'Compliance Violation: Audit logs are strictly immutable and cannot be modified or deleted.'
+  );
   err.statusCode = 403;
   throw err;
 };

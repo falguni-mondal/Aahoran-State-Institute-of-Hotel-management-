@@ -20,11 +20,16 @@ const BASE_ACTIONS = [
   '2FA_SETUP_COMPLETED',
   '2FA_VERIFIED',
   '2FA_FAILED',
+  'BACKUP_CODE_USED',
   'REFRESH_TOKEN_ROTATED',
   'REFRESH_TOKEN_REUSE_DETECTED',
   'SESSION_REVOKED',
-  'ADMIN_PROVISIONED',
+  'PASSWORD_CHANGED',
   'ACCOUNT_LOCKED',
+  'ADMIN_PROVISIONED',
+  'MENTOR_CREATED',
+  'MENTOR_UPDATED',
+  'MENTOR_DELETED',
 ];
 
 const AuditLogs = () => {
@@ -185,7 +190,7 @@ const AuditLogs = () => {
             Inspect tamper-evident records, forensic origins, and cryptographic payload digests
             {totalCount > 0 && (
               <span className="ml-1.5 font-medium text-[#303030]">
-                ({totalCount.toLocaleString()} total committed)
+                ({totalCount.toLocaleString()} total)
               </span>
             )}
           </p>
@@ -237,7 +242,6 @@ const AuditLogs = () => {
 
       {/* Immutable Table */}
       <AuditLogTable
-        logs={logs}
         filteredLogs={logs}
         isLoading={isLoading}
         onSelectLog={setSelectedLog}

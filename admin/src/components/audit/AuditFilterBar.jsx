@@ -10,6 +10,8 @@ const AuditFilterBar = ({
   setSelectedAction,
   uniqueActions,
 }) => {
+  const statusOptions = ['ALL', 'SUCCESS', 'WARNING', 'CRITICAL', 'FAILURE'];
+
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-[#E6E2D8] bg-[#FFFFFF] p-4 shadow-[0_10px_30px_rgba(48,48,48,0.03)] sm:p-5 md:p-6 lg:flex-row lg:items-center lg:justify-between xl:p-6 2xl:p-7">
       {/* Search Input */}
@@ -27,20 +29,25 @@ const AuditFilterBar = ({
       {/* Filter Pills & Select */}
       <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
         {/* Status Filter Buttons */}
-        <div className="flex items-center gap-1 rounded-xl border border-[#E6E2D8] bg-[#F7F5F0] p-1 font-sans text-[11px] sm:text-xs 2xl:text-sm">
-          {['ALL', 'SUCCESS', 'FLAGGED', 'FAILURE'].map((status) => (
-            <button
-              key={status}
-              onClick={() => setSelectedStatus(status)}
-              className={`rounded-lg px-2.5 py-1 font-medium transition-all sm:px-3 sm:py-1 2xl:px-3.5 2xl:py-1.5 ${
-                selectedStatus === status
-                  ? 'border border-[#E6E2D8] bg-[#FFFFFF] text-[#E85D04] shadow-sm'
-                  : 'text-[#707884] hover:text-[#303030]'
-              }`}
-            >
-              {status}
-            </button>
-          ))}
+        <div className="flex flex-wrap items-center gap-1 rounded-xl border border-[#E6E2D8] bg-[#F7F5F0] p-1 font-sans text-[11px] sm:text-xs 2xl:text-sm">
+          {statusOptions.map((status) => {
+            const isSelected = selectedStatus === status;
+
+            return (
+              <button
+                key={status}
+                type="button"
+                onClick={() => setSelectedStatus(status)}
+                className={`rounded-lg px-2.5 py-1 font-medium transition-all sm:px-3 sm:py-1 2xl:px-3.5 2xl:py-1.5 ${
+                  isSelected
+                    ? 'border border-[#E6E2D8] bg-[#FFFFFF] text-[#E85D04] shadow-sm font-semibold'
+                    : 'text-[#707884] hover:text-[#303030]'
+                }`}
+              >
+                {status}
+              </button>
+            );
+          })}
         </div>
 
         {/* Action Directive Select Dropdown */}

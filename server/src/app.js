@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser';
 import authRouter from './routes/auth.routes.js';
 import adminRouter from './routes/admin.routes.js';
 import auditLogRouter from './routes/auditlog.routes.js';
+import mentorRouter from './routes/mentor.routes.js';
 
 const app = express();
 
@@ -100,6 +101,7 @@ app.get('/api/v1/health', (req, res) => {
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/admins', adminRouter);
 app.use('/api/v1/audit-logs', auditLogRouter);
+app.use('/api/v1/mentors', mentorRouter);
 
 // =========================================
 // 6. ERROR HANDLING
