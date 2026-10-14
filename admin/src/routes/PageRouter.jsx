@@ -17,6 +17,7 @@ const Dashboard = lazy(() => import('../pages/Dashboard.jsx'));
 const AuditLogs = lazy(() => import('../pages/AuditLogs.jsx'));
 const ManageAdmins = lazy(() => import('../pages/ManageAdmins.jsx'));
 const ManageMentors = lazy(() => import('../pages/ManageMentors.jsx'));
+const ManageNotices = lazy(() => import('../pages/ManageNotices.jsx'));
 
 // Warm institutional suspense preloader
 const PageLoader = () => (
@@ -202,6 +203,7 @@ const PageRouter = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/audit-logs" element={<AuditLogs />} />
             <Route path="/mentors" element={<ManageMentors />} />
+            <Route path="/notices" element={<ManageNotices />} />
 
             {/* SuperAdmin Level Restricted Routes */}
             <Route element={<RoleGuard allowedRoles={['SuperAdmin']} />}>

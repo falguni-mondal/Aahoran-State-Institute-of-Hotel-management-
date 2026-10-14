@@ -6,6 +6,7 @@ import {
   FileText,
   Users,
   GraduationCap,
+  Bell,
   LogOut,
   Building2,
 } from 'lucide-react';
@@ -35,6 +36,11 @@ export default function Sidebar() {
       label: 'Mentors Directory',
       path: '/mentors',
       icon: GraduationCap,
+    },
+    {
+      label: 'Notice Board',
+      path: '/notices',
+      icon: Bell,
     },
     ...(isSuperAdmin
       ? [

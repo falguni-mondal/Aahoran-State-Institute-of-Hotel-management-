@@ -24,6 +24,10 @@ const ROUTE_HEADER_MAP = {
     title: 'Mentors Directory',
     subtitle: 'ACADEMIC LEADERSHIP / PUBLIC REGISTRY',
   },
+  '/notices': {
+    title: 'Notice Board',
+    subtitle: 'OFFICIAL CIRCULARS / PUBLIC DOCUMENT DISPATCH',
+  },
   '/admins': {
     title: 'Clearance Staff & RBAC',
     subtitle: 'RESTRICTED PARTITION / SUPERADMIN LEVEL ACCESS ONLY',
