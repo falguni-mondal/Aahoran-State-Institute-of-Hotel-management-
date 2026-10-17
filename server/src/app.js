@@ -12,6 +12,9 @@ import adminRouter from './routes/admin.routes.js';
 import auditLogRouter from './routes/auditlog.routes.js';
 import mentorRouter from './routes/mentor.routes.js';
 import noticeRouter from './routes/notice.routes.js';
+import resultRoutes from './routes/result.routes.js';
+import studyMaterialRoutes from './routes/studyMaterial.routes.js';
+import syllabusRoutes from './routes/syllabus.routes.js';
 
 const app = express();
 
@@ -104,6 +107,9 @@ app.use('/api/v1/admins', adminRouter);
 app.use('/api/v1/audit-logs', auditLogRouter);
 app.use('/api/v1/mentors', mentorRouter);
 app.use('/api/v1/notices', noticeRouter);
+app.use('/api/v1/results', resultRoutes);
+app.use('/api/v1/study-materials', studyMaterialRoutes);
+app.use('/api/v1/syllabus', syllabusRoutes);
 
 // =========================================
 // 6. ERROR HANDLING

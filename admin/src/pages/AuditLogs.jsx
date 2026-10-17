@@ -1,35 +1,53 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { RefreshCw, Download, ShieldAlert } from 'lucide-react';
-import apiClient from '../api/axios.js';
-import { useLenis } from '../providers/SmoothScrollProvider.jsx';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { RefreshCw, Download, ShieldAlert } from "lucide-react";
+import apiClient from "../api/axios.js";
+import { useLenis } from "../providers/SmoothScrollProvider.jsx";
 
 // Dedicated Audit Components
-import AuditFilterBar from '../components/audit/AuditFilterBar.jsx';
-import AuditLogTable from '../components/audit/AuditLogTable.jsx';
-import AuditDetailModal from '../components/audit/AuditDetailModal.jsx';
+import AuditFilterBar from "../components/audit/AuditFilterBar.jsx";
+import AuditLogTable from "../components/audit/AuditLogTable.jsx";
+import AuditDetailModal from "../components/audit/AuditDetailModal.jsx";
 
 // Standard action directives registered in the audit schema
 const BASE_ACTIONS = [
-  'ALL',
-  'LOGIN_SUCCESS',
-  'LOGIN_FAILED',
-  'LOGOUT',
-  '2FA_SETUP_INITIATED',
-  '2FA_SETUP_COMPLETED',
-  '2FA_VERIFIED',
-  '2FA_FAILED',
-  'BACKUP_CODE_USED',
-  'REFRESH_TOKEN_ROTATED',
-  'REFRESH_TOKEN_REUSE_DETECTED',
-  'SESSION_REVOKED',
-  'PASSWORD_CHANGED',
-  'ACCOUNT_LOCKED',
-  'ADMIN_PROVISIONED',
-  'MENTOR_CREATED',
-  'MENTOR_UPDATED',
-  'MENTOR_DELETED',
+  "ALL",
+  "LOGIN_SUCCESS",
+  "LOGIN_FAILED",
+  "LOGOUT",
+  "2FA_SETUP_INITIATED",
+  "2FA_SETUP_COMPLETED",
+  "2FA_VERIFIED",
+  "2FA_FAILED",
+  "BACKUP_CODE_USED",
+  "REFRESH_TOKEN_ROTATED",
+  "REFRESH_TOKEN_REUSE_DETECTED",
+  "SESSION_REVOKED",
+  "PASSWORD_CHANGED",
+  "ACCOUNT_LOCKED",
+  "ADMIN_PROVISIONED",
+  "MENTOR_CREATED",
+  "MENTOR_UPDATED",
+  "MENTOR_DELETED",
+  "NOTICE_CREATED",
+  "NOTICE_UPDATED",
+  "NOTICE_DELETED",
+  "RESULT_CREATED",
+  "RESULT_UPDATED",
+  "RESULT_DELETED",
+  "MATERIAL_CREATED",
+  "MATERIAL_UPDATED",
+  "MATERIAL_DELETED",
+  "SYLLABUS_CREATED",
+  "SYLLABUS_UPDATED",
+  "SYLLABUS_DELETED",
 ];
 
 const AuditLogs = () => {
@@ -37,9 +55,9 @@ const AuditLogs = () => {
 
   const [logs, setLogs] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedStatus, setSelectedStatus] = useState('ALL');
-  const [selectedAction, setSelectedAction] = useState('ALL');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("ALL");
+  const [selectedAction, setSelectedAction] = useState("ALL");
   const [selectedLog, setSelectedLog] = useState(null);
   const [copiedHash, setCopiedHash] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -67,11 +85,11 @@ const AuditLogs = () => {
           page: 1,
         };
 
-        if (selectedStatus !== 'ALL') {
+        if (selectedStatus !== "ALL") {
           params.status = selectedStatus;
         }
 
-        if (selectedAction !== 'ALL') {
+        if (selectedAction !== "ALL") {
           params.action = selectedAction;
         }
 
@@ -79,7 +97,7 @@ const AuditLogs = () => {
           params.search = searchQuery.trim();
         }
 
-        const response = await apiClient.get('/audit-logs', { params });
+        const response = await apiClient.get("/audit-logs", { params });
 
         if (response.data && Array.isArray(response.data.logs)) {
           setLogs(response.data.logs);
@@ -88,14 +106,14 @@ const AuditLogs = () => {
       } catch (err) {
         setErrorMessage(
           err.response?.data?.message ||
-            'Failed to synchronize cryptographic audit ledger from server.'
+            "Failed to synchronize cryptographic audit ledger from server.",
         );
       } finally {
         setIsLoading(false);
         setIsRefreshing(false);
       }
     },
-    [searchQuery, selectedStatus, selectedAction]
+    [searchQuery, selectedStatus, selectedAction],
   );
 
   // Debounced search & filter synchronization (300ms throttle)
@@ -127,11 +145,11 @@ const AuditLogs = () => {
           y: 0,
           duration: 0.35,
           stagger: 0.03,
-          ease: 'power2.out',
-        }
+          ease: "power2.out",
+        },
       );
     },
-    { scope: containerRef, dependencies: [logs] }
+    { scope: containerRef, dependencies: [logs] },
   );
 
   // Lenis Scroll-Lock and Modal Transition
@@ -142,7 +160,7 @@ const AuditLogs = () => {
         gsap.fromTo(
           modalRef.current,
           { opacity: 0, scale: 0.96, y: 15 },
-          { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: 'power3.out' }
+          { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "power3.out" },
         );
       }
     } else {
@@ -165,13 +183,13 @@ const AuditLogs = () => {
     if (logs.length === 0) return;
 
     const dataStr =
-      'data:text/json;charset=utf-8,' +
+      "data:text/json;charset=utf-8," +
       encodeURIComponent(JSON.stringify(logs, null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute('href', dataStr);
+    const downloadAnchor = document.createElement("a");
+    downloadAnchor.setAttribute("href", dataStr);
     downloadAnchor.setAttribute(
-      'download',
-      `SIHM_AUDIT_LEDGER_${new Date().toISOString().slice(0, 10)}.json`
+      "download",
+      `SIHM_AUDIT_LEDGER_${new Date().toISOString().slice(0, 10)}.json`,
     );
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
@@ -187,7 +205,8 @@ const AuditLogs = () => {
             Ledger <span className="italic text-[#E85D04]">Explorer</span>
           </h2>
           <p className="mt-1 font-sans text-xs text-[#707884] sm:text-xs md:text-sm 2xl:text-base">
-            Inspect tamper-evident records, forensic origins, and cryptographic payload digests
+            Inspect tamper-evident records, forensic origins, and cryptographic
+            payload digests
             {totalCount > 0 && (
               <span className="ml-1.5 font-medium text-[#303030]">
                 ({totalCount.toLocaleString()} total)
@@ -204,10 +223,10 @@ const AuditLogs = () => {
           >
             <RefreshCw
               className={`h-3.5 w-3.5 ${
-                isRefreshing ? 'animate-spin text-[#E85D04]' : ''
+                isRefreshing ? "animate-spin text-[#E85D04]" : ""
               }`}
             />
-            <span>{isRefreshing ? 'Syncing...' : 'Sync Stream'}</span>
+            <span>{isRefreshing ? "Syncing..." : "Sync Stream"}</span>
           </button>
 
           <button

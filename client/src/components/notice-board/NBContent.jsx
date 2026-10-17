@@ -5,11 +5,12 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLenis } from 'lenis/react';
 import NBDownloadButton from './NBDownloadButton';
+import { getPublicNotices } from '../../api/noticeApi';
 
 gsap.registerPlugin(ScrollTrigger);
 
 /* =========================================
-   MOCK DATA (Includes Recruitment & Local File URLs)
+   CATEGORIES & FALLBACK MOCK DATA
 ========================================= */
 const categories = [
   { id: 'all', label: 'All Notices' },
@@ -21,9 +22,9 @@ const categories = [
   { id: 'recruitment', label: 'Recruitment' },
 ];
 
-const noticesData = [
+const fallbackNoticesData = [
   {
-    id: 2,
+    id: 'fallback-2',
     categoryId: 'tender',
     date: '06/10/2026',
     title: 'Notice Inviting Quotation for Supply and Delivery of Students’ Uniform',
@@ -31,7 +32,7 @@ const noticesData = [
     url: '/files/notices/tenders/notice_Inviting_Quotation_for_Supply_and_Delivery_of_Students_Uniform.pdf',
   },
   {
-    id: 1,
+    id: 'fallback-1',
     categoryId: 'tender',
     date: '05/10/2026',
     title: 'Cancellation of NIQ for making, supply and delivery of Students’ Uniform',
@@ -49,19 +50,44 @@ export default function NBContent() {
   const activeCategory = searchParams.get('category') || categories[0].id;
   const [hoveredNoticeId, setHoveredNoticeId] = useState(null);
 
-  const [displayNotices, setDisplayNotices] = useState(() => {
-    return activeCategory === 'all'
-      ? noticesData
-      : noticesData.filter((notice) => notice.categoryId === activeCategory);
-  });
+  const [allNotices, setAllNotices] = useState([]);
+  const [displayNotices, setDisplayNotices] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Fetch live notices from Backend API on mount
   useEffect(() => {
-    const newData =
+    let isMounted = true;
+
+    const loadNotices = async () => {
+      setIsLoading(true);
+      const liveNotices = await getPublicNotices('all');
+
+      if (!isMounted) return;
+
+      // If API call fails (null), fallback to local mock data; otherwise use live DB data
+      const resolvedNotices =
+        liveNotices !== null ? liveNotices : fallbackNoticesData;
+
+      setAllNotices(resolvedNotices);
+      setIsLoading(false);
+    };
+
+    loadNotices();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Re-compute displayed notices whenever activeCategory or allNotices changes
+  useEffect(() => {
+    const filtered =
       activeCategory === 'all'
-        ? noticesData
-        : noticesData.filter((notice) => notice.categoryId === activeCategory);
-    setDisplayNotices(newData);
-  }, [activeCategory]);
+        ? allNotices
+        : allNotices.filter((notice) => notice.categoryId === activeCategory);
+
+    setDisplayNotices(filtered);
+  }, [activeCategory, allNotices]);
 
   // ==========================================
   // CROSS-PAGE HASH ROUTING FIX
@@ -79,12 +105,13 @@ export default function NBContent() {
       return () => clearTimeout(timeoutId);
     }
   }, [location.hash, lenis]);
-  // ==========================================
 
   const handleCategoryChange = (newCategoryId) => {
     if (newCategoryId === activeCategory) return;
 
-    const currentItems = listRef.current.querySelectorAll('.nb-row');
+    const currentItems = listRef.current
+      ? listRef.current.querySelectorAll('.nb-row')
+      : [];
 
     if (listRef.current) {
       const currentHeight = listRef.current.offsetHeight;
@@ -123,6 +150,7 @@ export default function NBContent() {
 
   useGSAP(
     () => {
+      if (!listRef.current || isLoading) return;
       const newItems = listRef.current.querySelectorAll('.nb-row');
 
       if (newItems.length > 0) {
@@ -135,7 +163,9 @@ export default function NBContent() {
           duration: 0.8,
           ease: 'power3.out',
           onComplete: () => {
-            gsap.set(listRef.current, { clearProps: 'minHeight' });
+            if (listRef.current) {
+              gsap.set(listRef.current, { clearProps: 'minHeight' });
+            }
             if (lenis) lenis.resize();
             ScrollTrigger.refresh();
           },
@@ -146,7 +176,7 @@ export default function NBContent() {
         ScrollTrigger.refresh();
       }
     },
-    { dependencies: [displayNotices], scope: listRef }
+    { dependencies: [displayNotices, isLoading], scope: listRef }
   );
 
   return (
@@ -220,16 +250,30 @@ export default function NBContent() {
               ref={listRef}
               className="flex flex-col relative min-h-[300px] border-t border-[var(--primary-base)]/10"
             >
-              {displayNotices.length > 0 ? (
+              {isLoading ? (
+                Array.from({ length: 3 }).map((_, idx) => (
+                  <div
+                    key={`nb-skeleton-${idx}`}
+                    className="flex flex-col md:flex-row md:items-center justify-between gap-8 py-8 md:py-10 lg:py-14 border-b border-[var(--primary-base)]/10 animate-pulse"
+                  >
+                    <div className="flex flex-col md:flex-row gap-4 md:gap-12 w-full">
+                      <div className="w-24 h-5 bg-[var(--primary-base)]/10 rounded" />
+                      <div className="w-full max-w-xl h-8 bg-[var(--primary-base)]/10 rounded" />
+                    </div>
+                    <div className="w-32 h-11 bg-[var(--primary-base)]/10 rounded-full shrink-0" />
+                  </div>
+                ))
+              ) : displayNotices.length > 0 ? (
                 displayNotices.map((notice, index) => {
+                  const targetKey = notice._id || notice.id || index;
                   const serialNumber = String(index + 1).padStart(2, '0');
                   const isDimmed =
-                    hoveredNoticeId !== null && hoveredNoticeId !== notice.id;
+                    hoveredNoticeId !== null && hoveredNoticeId !== targetKey;
 
                   return (
                     <article
-                      key={notice.id}
-                      onMouseEnter={() => setHoveredNoticeId(notice.id)}
+                      key={targetKey}
+                      onMouseEnter={() => setHoveredNoticeId(targetKey)}
                       onMouseLeave={() => setHoveredNoticeId(null)}
                       className={`nb-row relative group flex flex-col md:flex-row md:items-center justify-between gap-8 md:gap-12 py-8 md:py-10 lg:py-14 xl:py-18 2xl:py-24 border-b border-[var(--primary-base)]/10 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                         isDimmed ? 'opacity-30 blur-[1px]' : 'opacity-100 blur-0'

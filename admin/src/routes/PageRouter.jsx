@@ -1,5 +1,12 @@
-import React, { lazy, Suspense } from 'react';
-import { Routes, Route, Navigate, Outlet, useLocation, Link } from 'react-router-dom';
+import React from 'react';
+import {
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+  useLocation,
+  Link,
+} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
   selectIsAuthenticated,
@@ -9,17 +16,20 @@ import {
 } from '../store/features/authSlice.js';
 import AdminLayout from '../layouts/AdminLayout.jsx';
 
-// Lazy-loaded views for code splitting
-const Login = lazy(() => import('../pages/Login.jsx'));
-const Setup2FA = lazy(() => import('../pages/Setup2FA.jsx'));
-const Verify2FA = lazy(() => import('../pages/Verify2FA.jsx'));
-const Dashboard = lazy(() => import('../pages/Dashboard.jsx'));
-const AuditLogs = lazy(() => import('../pages/AuditLogs.jsx'));
-const ManageAdmins = lazy(() => import('../pages/ManageAdmins.jsx'));
-const ManageMentors = lazy(() => import('../pages/ManageMentors.jsx'));
-const ManageNotices = lazy(() => import('../pages/ManageNotices.jsx'));
+// Eagerly imported views eliminate the second Suspense loading screen waterfall
+import Login from '../pages/Login.jsx';
+import Setup2FA from '../pages/Setup2FA.jsx';
+import Verify2FA from '../pages/Verify2FA.jsx';
+import Dashboard from '../pages/Dashboard.jsx';
+import AuditLogs from '../pages/AuditLogs.jsx';
+import ManageAdmins from '../pages/ManageAdmins.jsx';
+import ManageMentors from '../pages/ManageMentors.jsx';
+import ManageNotices from '../pages/ManageNotices.jsx';
+import ManageResults from '../pages/ManageResults.jsx';
+import ManageStudyMaterials from '../pages/ManageStudyMaterials.jsx';
+import ManageSyllabus from '../pages/ManageSyllabus.jsx';
 
-// Warm institutional suspense preloader
+// Single Unified Institutional Preloader
 const PageLoader = () => (
   <div className="flex min-h-screen w-full items-center justify-center bg-[#F7F5F0] px-4 py-8 text-[#303030]">
     <div className="flex flex-col items-center gap-4 text-center">
@@ -117,7 +127,6 @@ const NotFoundPage = () => (
 // ROUTE GUARDS (LOOP-SAFE & REHYDRATION-AWARE)
 // =========================================
 
-// Guards public routes: authenticated admins are automatically redirected to /dashboard
 export const PublicRoute = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const isInitializing = useSelector(selectIsInitializing);
@@ -127,7 +136,6 @@ export const PublicRoute = () => {
     return <PageLoader />;
   }
 
-  // Strip circular references to authentication challenge routes
   const rawFrom = location.state?.from?.pathname;
   const isAuthRoute =
     !rawFrom ||
@@ -145,7 +153,6 @@ export const PublicRoute = () => {
   return <Outlet />;
 };
 
-// Enforces full session clearance (must have valid access token and completed 2FA)
 export const ProtectedRoute = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const isInitializing = useSelector(selectIsInitializing);
@@ -162,7 +169,6 @@ export const ProtectedRoute = () => {
   return <Outlet />;
 };
 
-// Role-Based Access Control (RBAC) Guard for SuperAdmin exclusive screens
 export const RoleGuard = ({ allowedRoles = [] }) => {
   const isInitializing = useSelector(selectIsInitializing);
   const roleFromSelector = useSelector(selectCurrentRole);
@@ -187,36 +193,37 @@ export const RoleGuard = ({ allowedRoles = [] }) => {
 // =========================================
 const PageRouter = () => {
   return (
-    <Suspense fallback={<PageLoader />}>
-      <Routes>
-        {/* Public Authentication Stages */}
-        <Route element={<PublicRoute />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/setup-2fa" element={<Setup2FA />} />
-          <Route path="/verify-2fa" element={<Verify2FA />} />
-        </Route>
+    <Routes>
+      {/* Public Authentication Stages */}
+      <Route element={<PublicRoute />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/setup-2fa" element={<Setup2FA />} />
+        <Route path="/verify-2fa" element={<Verify2FA />} />
+      </Route>
 
-        {/* Protected Administrative Application Routes Mounted Inside AdminLayout */}
-        <Route element={<ProtectedRoute />}>
-          <Route element={<AdminLayout />}>
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/audit-logs" element={<AuditLogs />} />
-            <Route path="/mentors" element={<ManageMentors />} />
-            <Route path="/notices" element={<ManageNotices />} />
+      {/* Protected Administrative Application Routes Mounted Inside AdminLayout */}
+      <Route element={<ProtectedRoute />}>
+        <Route element={<AdminLayout />}>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/audit-logs" element={<AuditLogs />} />
+          <Route path="/mentors" element={<ManageMentors />} />
+          <Route path="/notices" element={<ManageNotices />} />
+          <Route path="/results" element={<ManageResults />} />
+          <Route path="/study-materials" element={<ManageStudyMaterials />} />
+          <Route path="/syllabus" element={<ManageSyllabus />} />
 
-            {/* SuperAdmin Level Restricted Routes */}
-            <Route element={<RoleGuard allowedRoles={['SuperAdmin']} />}>
-              <Route path="/admins" element={<ManageAdmins />} />
-            </Route>
+          {/* SuperAdmin Level Restricted Routes */}
+          <Route element={<RoleGuard allowedRoles={['SuperAdmin']} />}>
+            <Route path="/admins" element={<ManageAdmins />} />
           </Route>
         </Route>
+      </Route>
 
-        {/* Informational and Fallback Routes */}
-        <Route path="/unauthorized" element={<UnauthorizedPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Suspense>
+      {/* Informational and Fallback Routes */}
+      <Route path="/unauthorized" element={<UnauthorizedPage />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
 };
 
